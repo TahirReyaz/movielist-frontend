@@ -1,11 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import dotenv from "dotenv";
 
 import Layout from "./Layout/Layout";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-
-// dotenv.config();
+import Signup from "./pages/Signup";
 
 const App = () => {
   return (
@@ -16,6 +14,7 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="/search" element={<Home />} />
             <Route path="/user" element={<Profile />} />
+            <Route path="/signup" element={<Signup />} />
           </Route>
         </Routes>
       </BrowserRouter>

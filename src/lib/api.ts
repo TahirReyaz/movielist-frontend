@@ -16,3 +16,33 @@ export async function getBulkMedia(
     console.error(error);
   }
 }
+
+export async function signup(
+  email: string,
+  password: string,
+  username: string
+) {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/register`,
+      { email, password, username }
+    );
+    // toast.success(response.data.message, {
+    //   position: "top-right",
+    //   autoClose: 1000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    // });
+  } catch (error) {
+    console.error(error);
+    // const error_msg = error.response.data.message;
+    // toast.error(error_msg, {
+    //   position: toast.POSITION.TOP_RIGHT,
+    //   autoClose: 2000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    // });
+  }
+}

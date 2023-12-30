@@ -18,15 +18,15 @@ const route: routeItem[] = [
     text: "Search",
   },
   {
-    path: "social",
+    path: "/social",
     text: "Social",
   },
   {
-    path: "forum",
+    path: "/forum",
     text: "Forum",
   },
-  { path: "login", text: "Login" },
-  { path: "signup", text: "Sign Up" },
+  { path: "/login", text: "Login" },
+  { path: "/signup", text: "Sign Up" },
 ];
 
 export default route;
