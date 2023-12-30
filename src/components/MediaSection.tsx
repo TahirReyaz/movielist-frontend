@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { getUpcomingMovies } from "../lib/api";
+import { getBulkMedia } from "../lib/api";
 import MediaCard, { mediaItemType } from "./MediaCard";
 
+export type mediaTypeType = "movie" | "show";
+export type bulkMediaType =
+  | "upcoming"
+  | "trending"
+  | "popular"
+  | "now_playing"
+  | "top_rated";
 export interface mediaSectionItem {
-  type: "upcoming" | "trending" | "popular" | "nowPlaying" | "topRated";
-  media: "movie" | "show";
+  type: bulkMediaType;
+  mediaType: mediaTypeType;
   title: string;
 }
 
@@ -13,12 +20,12 @@ const MediaSection = (props: mediaSectionItem) => {
   useEffect(() => {
     let tempMedia = [];
     async function fetchMedia() {
-      tempMedia = await getUpcomingMovies();
+      tempMedia = await getBulkMedia(props.mediaType, props.type);
       setMedia(tempMedia);
     }
     fetchMedia();
   }, []);
-  console.log({ media });
+
   return (
     <section className="w-11/12 my-10">
       <h3 className="text-2xl mb-3">{props.title}</h3>
