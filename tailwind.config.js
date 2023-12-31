@@ -5,6 +5,7 @@ export default {
     colors: {
       bgSecondary: "#141E2E",
       bgPrimary: "#0a1724",
+      bgFooter: "#11161d",
       actionPrimary: "#3DB5F3",
       actionSecondary: "#59BEF4",
       red: "#ED294A",

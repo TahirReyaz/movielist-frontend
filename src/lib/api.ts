@@ -46,3 +46,30 @@ export async function signup(
     // });
   }
 }
+
+export async function login(email: string, password: string) {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/login`,
+      { email, password }
+    );
+    console.log("logged in");
+    // toast.success(response.data.message, {
+    //   position: "top-right",
+    //   autoClose: 1000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    // });
+  } catch (error) {
+    console.error(error);
+    // const error_msg = error.response.data.message;
+    // toast.error(error_msg, {
+    //   position: toast.POSITION.TOP_RIGHT,
+    //   autoClose: 2000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    // });
+  }
+}

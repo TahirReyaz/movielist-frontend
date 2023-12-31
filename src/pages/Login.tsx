@@ -1,21 +1,17 @@
 import React, { SyntheticEvent, useState } from "react";
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
-import { signup } from "../lib/api";
+import { login } from "../lib/api";
 
 type Values = {
-  username: string;
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
-const Signup = () => {
+const Login = () => {
   const [values, setValues] = useState<Values>({
-    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,33 +24,18 @@ const Signup = () => {
     return result;
   };
 
-  const passwordValidity = () => {
-    // regex for password validation (at least 1 uppercase, 1 lowercase, 1 number, 1 special character,  min 8 characters long)
-    const re =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const result = re.test(values.password);
-    return result;
-  };
-
-  const confirmPasswordValidity = () => {
-    const result = values.password === values.confirmPassword;
-    return result;
-  };
-
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const validE = emailValidity();
-    const validP = passwordValidity();
-    const validCP = confirmPasswordValidity();
 
-    if (validE && validP && validCP) {
-      await signup(values.email, values.password, values.username);
+    if (validE) {
+      await login(values.email, values.password);
     } else return;
   };
 
   return (
     <main className="w-5/12 bg-bgSecondary mt-16 m-auto rounded p-10">
-      <h1 className="text-4xl">Sign up to MovieList</h1>
+      <h1 className="text-4xl">Login</h1>
       <form
         className="flex flex-col align-center justify-center"
         onSubmit={handleSubmit}
@@ -70,15 +51,6 @@ const Signup = () => {
         />
         <TextInput
           {...{
-            label: "Username",
-            type: "text",
-            name: "username",
-            value: values.username,
-            onChange: handleChange,
-          }}
-        />
-        <TextInput
-          {...{
             label: "Password",
             type: "password",
             name: "password",
@@ -86,24 +58,17 @@ const Signup = () => {
             onChange: handleChange,
           }}
         />
-        <TextInput
-          {...{
-            label: "Confirm Password",
-            type: "password",
-            name: "confirmPassword",
-            value: values.confirmPassword,
-            onChange: handleChange,
-          }}
-        />
         <Button
           {...{
             type: "submit",
-            title: "Sign up",
+            title: "Login",
           }}
         />
       </form>
+      <p>Forgot password?</p>
+      <p>Not registered? Create an account</p>
     </main>
   );
 };
 
-export default Signup;
+export default Login;

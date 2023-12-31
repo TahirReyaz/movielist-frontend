@@ -4,7 +4,7 @@ import route, { routeItem } from "./routes";
 
 function Footer() {
   return (
-    <div className="flex md:flex-row flex-col w-full p-14 font-body">
+    <div className="flex md:flex-row flex-col w-full p-14 font-body bg-bgFooter">
       <div className="md:w-1/2">
         {/* <img src={} alt="" className="w-48" /> */}
       </div>
@@ -30,13 +30,7 @@ function Footer() {
           md:w-7 
           w-9 h-auto
           text-pink-600"
-          />
-          <AiFillLinkedin
-            className="md:w-7 
-            h-auto w-9
-            text-blue-400
-          "
-          /> */}
+          />*/}
         </div>
       </div>
     </div>
