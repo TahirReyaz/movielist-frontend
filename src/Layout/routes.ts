@@ -1,7 +1,8 @@
 export interface routeItem {
   path: string;
   text: string;
-  authReq?: boolean;
+  auth?: boolean;
+  noauth?: boolean;
 }
 const route: routeItem[] = [
   {
@@ -11,22 +12,45 @@ const route: routeItem[] = [
   {
     path: "/user",
     text: "Profile",
-    authReq: true,
+    auth: true,
+    noauth: false,
+  },
+  {
+    path: "/user",
+    text: "Movie List",
+    auth: true,
+    noauth: false,
+  },
+  {
+    path: "/user",
+    text: "Show List",
+    auth: true,
+    noauth: false,
   },
   {
     path: "/search",
-    text: "Search",
+    text: "Browse",
+    auth: false,
+    noauth: true,
   },
   {
     path: "/social",
     text: "Social",
+    auth: false,
+    noauth: true,
   },
   {
     path: "/forum",
     text: "Forum",
   },
-  { path: "/login", text: "Login" },
-  { path: "/signup", text: "Sign Up" },
+  { path: "/login", text: "Login", auth: false, noauth: true },
+  { path: "/signup", text: "Sign Up", auth: false, noauth: true },
+  {
+    path: "/logout",
+    text: "Logout",
+    auth: true,
+    noauth: false,
+  },
 ];
 
 export default route;
