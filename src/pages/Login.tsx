@@ -1,4 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { login } from "../lib/api";
@@ -29,7 +32,25 @@ const Login = () => {
     const validE = emailValidity();
 
     if (validE) {
-      await login(values.email, values.password);
+      const response = await login(values.email, values.password);
+      console.log({ response });
+      if (response.error) {
+        toast.error(response.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      } else {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
     } else return;
   };
 

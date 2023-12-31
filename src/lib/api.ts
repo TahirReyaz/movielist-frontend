@@ -53,23 +53,10 @@ export async function login(email: string, password: string) {
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/login`,
       { email, password }
     );
-    console.log("logged in");
-    // toast.success(response.data.message, {
-    //   position: "top-right",
-    //   autoClose: 1000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    // });
-  } catch (error) {
+    return { message: response.data.message, error: false };
+  } catch (error: any) {
     console.error(error);
-    // const error_msg = error.response.data.message;
-    // toast.error(error_msg, {
-    //   position: toast.POSITION.TOP_RIGHT,
-    //   autoClose: 2000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    // });
+    const error_msg = error?.response?.data?.message;
+    return { message: error_msg, error: true };
   }
 }
