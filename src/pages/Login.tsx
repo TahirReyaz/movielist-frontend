@@ -1,10 +1,12 @@
 import React, { SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
 
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { login } from "../lib/api";
+import { loginAction } from "../store/AuthSlice";
 
 type Values = {
   email: string;
@@ -16,6 +18,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -33,17 +38,21 @@ const Login = () => {
 
     if (validE) {
       const response = await login(values.email, values.password);
-      console.log({ response });
-      if (response.error) {
-        toast.error(response.message, {
+      if (!response.error) {
+        localStorage.setItem("token", response.token);
+        setTimeout(() => {
+          dispatch(loginAction());
+        }, 3000);
+        toast.success(response.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
         });
+        setTimeout(() => navigate("/"), 1000);
       } else {
-        toast.success(response.message, {
+        toast.error(response.message, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,

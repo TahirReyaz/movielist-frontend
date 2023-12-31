@@ -5,7 +5,6 @@ export async function getBulkMedia(
   mediaType: mediaTypeType,
   type: bulkMediaType
 ) {
-  console.log({ endpoint: import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT });
   try {
     const response: AxiosResponse = await axios.get(
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/${mediaType}/${type}`
@@ -27,23 +26,11 @@ export async function signup(
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/register`,
       { email, password, username }
     );
-    // toast.success(response.data.message, {
-    //   position: "top-right",
-    //   autoClose: 1000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    // });
-  } catch (error) {
+    return { message: response.data.message, error: false };
+  } catch (error: any) {
     console.error(error);
-    // const error_msg = error.response.data.message;
-    // toast.error(error_msg, {
-    //   position: toast.POSITION.TOP_RIGHT,
-    //   autoClose: 2000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    // });
+    const error_msg = error?.response?.data?.message;
+    return { message: error_msg, error: true };
   }
 }
 
@@ -53,7 +40,12 @@ export async function login(email: string, password: string) {
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/login`,
       { email, password }
     );
-    return { message: response.data.message, error: false };
+    console.log({ response });
+    return {
+      message: response.data.message,
+      error: false,
+      token: response.data.token,
+    };
   } catch (error: any) {
     console.error(error);
     const error_msg = error?.response?.data?.message;

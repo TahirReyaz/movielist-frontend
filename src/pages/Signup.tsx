@@ -1,4 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
+import { toast } from "react-toastify";
+
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { signup } from "../lib/api";
@@ -48,7 +50,28 @@ const Signup = () => {
     const validCP = confirmPasswordValidity();
 
     if (validE && validP && validCP) {
-      await signup(values.email, values.password, values.username);
+      const response = await signup(
+        values.email,
+        values.password,
+        values.username
+      );
+      if (response.error) {
+        toast.error(response.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      } else {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
     } else return;
   };
 
@@ -102,6 +125,7 @@ const Signup = () => {
           }}
         />
       </form>
+      <p>Login | Resend Verification Email</p>
     </main>
   );
 };

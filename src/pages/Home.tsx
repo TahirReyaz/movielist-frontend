@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="pt-4 px-28">
       {mediaSections.map((item) => (
-        <MediaSection {...item} />
+        <MediaSection {...{ ...item, key: item.title }} />
       ))}
     </div>
   );
