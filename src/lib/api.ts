@@ -2,17 +2,37 @@ import axios, { AxiosResponse } from "axios";
 import { bulkMediaType, mediaTypeType } from "../components/MediaSection";
 
 export async function getBulkMedia(
-  mediaType: mediaTypeType,
-  type: bulkMediaType
+  mediatype: mediaTypeType,
+  bulktype: bulkMediaType
 ) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/${mediaType}/${type}`
+      `${
+        import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT
+      }/${mediatype}/bulk/${bulktype}`
     );
-    const movies = response.data;
-    return movies;
+    const medias = response.data;
+    return medias;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function getMediaDetail(
+  mediatype: mediaTypeType,
+  mediaid: string | undefined
+) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${
+        import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT
+      }/${mediatype}/detail/${mediaid}`
+    );
+    const media = response.data;
+    return { ...media, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
   }
 }
 

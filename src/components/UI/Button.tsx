@@ -4,6 +4,7 @@ interface ButtonProps {
   type: "submit" | "reset" | "button" | undefined;
   title: string;
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 const Button = (props: ButtonProps) => {
@@ -12,6 +13,7 @@ const Button = (props: ButtonProps) => {
       className="bg-actionPrimary rounded p-2 text-white"
       type={props.type}
       disabled={props.disabled}
+      onClick={props.onClick}
     >
       {props.title}
     </button>
