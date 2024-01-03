@@ -40,8 +40,15 @@ const Login = () => {
       const response = await login(values.email, values.password);
       if (!response.error) {
         localStorage.setItem("token", response.token);
+        console.log({ response });
         setTimeout(() => {
-          dispatch(loginAction());
+          dispatch(
+            loginAction({
+              userid: response.profile._id,
+              usename: response.profile.username,
+              lists: response.profile.lists,
+            })
+          );
         }, 3000);
         toast.success(response.message, {
           position: "top-right",

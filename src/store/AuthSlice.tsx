@@ -1,11 +1,24 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-export type SliceStateType = { isLoggedIn: boolean };
-let initialState: SliceStateType = { isLoggedIn: false };
+export type SliceStateType = {
+  isLoggedIn: boolean;
+  userid: string;
+  username: string;
+  lists: [{ listtype: string; id: string }] | [];
+};
+let initialState: SliceStateType = {
+  isLoggedIn: false,
+  userid: "",
+  username: "",
+  lists: [],
+};
 
 if (localStorage.getItem("token")) {
   initialState = {
     isLoggedIn: true,
+    userid: "",
+    username: "",
+    lists: [],
   };
 }
 
@@ -13,11 +26,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state) => {
+    login: (state, action) => {
       state.isLoggedIn = true;
+      state.userid = action.payload.userid;
+      state.username = action.payload.username;
+      state.lists = action.payload.lists;
     },
     logout: (state) => {
-      state.isLoggedIn = false;
+      state = initialState;
       localStorage.removeItem("token");
     },
   },

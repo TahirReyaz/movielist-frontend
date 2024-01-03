@@ -65,6 +65,7 @@ export async function login(email: string, password: string) {
       message: response.data.message,
       error: false,
       token: response.data.token,
+      profile: response.data._doc,
     };
   } catch (error: any) {
     console.error(error);

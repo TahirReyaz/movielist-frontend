@@ -83,13 +83,19 @@ const MediaDetail = () => {
                         placement="bottom-end"
                         arrow={true}
                         trigger="click"
-                        content={<MediaActionMenu />}
+                        content={
+                          <MediaActionMenu
+                            {...{
+                              mediaid,
+                              mediatype: mediaDetails.first_air_date
+                                ? "show"
+                                : "movie",
+                            }}
+                          />
+                        }
                         className="py-2 bg-white"
                       >
-                        <div
-                          className="bg-actionSecondary p-2 h-full rounded-r-lg"
-                          onClick={() => console.log("click")}
-                        >
+                        <div className="bg-actionSecondary p-2 h-full rounded-r-lg">
                           <AiOutlineDown />
                         </div>
                       </Tippy>
