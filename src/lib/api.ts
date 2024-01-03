@@ -100,3 +100,16 @@ export async function addItemToList(
     return { message: error_msg, error: true };
   }
 }
+
+export async function getUserDetail(username: string | undefined) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/user/${username}`
+    );
+    const user = response.data;
+    return { ...user, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}

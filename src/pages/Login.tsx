@@ -39,14 +39,14 @@ const Login = () => {
     if (validE) {
       const response = await login(values.email, values.password);
       if (!response.error) {
-        localStorage.setItem("token", response.token);
         console.log({ response });
         setTimeout(() => {
           dispatch(
             loginAction({
               userid: response.profile._id,
-              usename: response.profile.username,
+              username: response.profile.username,
               lists: response.profile.lists,
+              token: response.token,
             })
           );
         }, 3000);

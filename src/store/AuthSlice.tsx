@@ -16,9 +16,9 @@ let initialState: SliceStateType = {
 if (localStorage.getItem("token")) {
   initialState = {
     isLoggedIn: true,
-    userid: "",
-    username: "",
-    lists: [],
+    userid: localStorage.getItem("userid") || "",
+    username: localStorage.getItem("username") || "",
+    lists: JSON.parse(localStorage.getItem("lists") || "[]"),
   };
 }
 
@@ -27,6 +27,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("username", action.payload.username);
+      localStorage.setItem("userid", action.payload.userid);
+      localStorage.setItem("lists", JSON.stringify(action.payload.lists));
+
       state.isLoggedIn = true;
       state.userid = action.payload.userid;
       state.username = action.payload.username;

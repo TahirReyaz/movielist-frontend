@@ -15,12 +15,12 @@ const route: routeItem[] = [
     auth: true,
     noauth: false,
   },
-  {
-    path: "/user",
-    text: "Movie List",
-    auth: true,
-    noauth: false,
-  },
+  // {
+  //   path: "/user/:username/movielist",
+  //   text: "Movie List",
+  //   auth: true,
+  //   noauth: false,
+  // },
   {
     path: "/user",
     text: "Show List",

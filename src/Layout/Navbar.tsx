@@ -5,7 +5,10 @@ import route, { routeItem } from "./routes";
 import { RootState } from "../store/AuthSlice";
 
 const Navbar = () => {
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const { isLoggedIn, username } = useSelector(
+    (state: RootState) => state.auth
+  );
+  console.log({ username });
   return (
     <nav className="bg-bgSecondary py-5 px-28 font-body flex">
       <div>Movie List</div>
@@ -28,6 +31,19 @@ const Navbar = () => {
                 <span>{item.text}</span>
               </NavLink>
             ))}
+        {isLoggedIn && username && (
+          <NavLink
+            to={`/user/${username}/movielist`}
+            className="self-center"
+            style={({ isActive }) => {
+              return {
+                fontWeight: isActive ? "normal" : "200",
+              };
+            }}
+          >
+            <span>Movie List</span>
+          </NavLink>
+        )}
         {!isLoggedIn &&
           route
             .filter((item: routeItem) => item.noauth)
