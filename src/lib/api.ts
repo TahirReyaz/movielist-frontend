@@ -58,7 +58,8 @@ export async function login(email: string, password: string) {
   try {
     const response: AxiosResponse = await axios.post(
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/login`,
-      { email, password }
+      { email, password },
+      { withCredentials: true }
     );
     console.log({ response });
     return {
@@ -67,6 +68,32 @@ export async function login(email: string, password: string) {
       token: response.data.token,
       profile: response.data._doc,
     };
+  } catch (error: any) {
+    console.error(error);
+    const error_msg = error?.response?.data?.message;
+    return { message: error_msg, error: true };
+  }
+}
+
+export async function addItemToList(
+  mediatype: mediaTypeType,
+  mediaid: string | undefined,
+  userid: string,
+  listtype: string
+) {
+  const body = {
+    mediatype,
+    mediaid,
+    userid,
+    listtype,
+  };
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/list/additem`,
+      body,
+      { withCredentials: true }
+    );
+    return { error: false, message: response.data.message };
   } catch (error: any) {
     console.error(error);
     const error_msg = error?.response?.data?.message;
