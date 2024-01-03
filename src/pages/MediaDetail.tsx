@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
+import Tippy from "@tippyjs/react";
+
+import "tippy.js/dist/tippy.css";
 
 import { getMediaDetail } from "../lib/api";
 import MediaDetailField from "../components/UI/MediaDetailField";
 import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
+import MediaActionMenu from "../components/UI/MediaActionMenu";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -68,7 +73,32 @@ const MediaDetail = () => {
                   src={`https://image.tmdb.org/t/p/original${mediaDetails.poster_path}`}
                   alt={mediaDetails.title}
                 />
-                <Button title="Add to List" type="button" />
+                <div className="flex w-full gap-2">
+                  <Button
+                    title="Add to List"
+                    type="button"
+                    endElement={
+                      <Tippy
+                        interactive={true}
+                        placement="bottom-end"
+                        arrow={true}
+                        trigger="click"
+                        content={<MediaActionMenu />}
+                        className="py-2 bg-white"
+                      >
+                        <div
+                          className="bg-actionSecondary p-2 h-full rounded-r-lg"
+                          onClick={() => console.log("click")}
+                        >
+                          <AiOutlineDown />
+                        </div>
+                      </Tippy>
+                    }
+                  />
+                  <div className="p-2 bg-red rounded">
+                    <AiFillHeart />
+                  </div>
+                </div>
               </div>
               {/* title and overview */}
               <div className="w-9/12 ms-4 p-4">
@@ -77,7 +107,7 @@ const MediaDetail = () => {
               </div>
             </div>
             {/* Links */}
-            <div></div>
+            <div>Links</div>
           </div>
           {/* Rest of the details */}
           <div className="flex px-28">

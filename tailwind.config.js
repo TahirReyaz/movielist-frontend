@@ -11,6 +11,7 @@ export default {
       red: "#ED294A",
       textSecondary: "#9fadbd",
       textPrimary: "#a0b1c5",
+      white: "#FFFFFF",
     },
     extend: {},
   },

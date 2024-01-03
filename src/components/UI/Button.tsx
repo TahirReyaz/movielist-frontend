@@ -5,18 +5,22 @@ interface ButtonProps {
   title: string;
   disabled?: boolean;
   onClick?: () => void;
+  endElement?: React.ReactNode;
 }
 
 const Button = (props: ButtonProps) => {
   return (
-    <button
-      className="bg-actionPrimary rounded p-2 text-white"
-      type={props.type}
-      disabled={props.disabled}
-      onClick={props.onClick}
-    >
-      {props.title}
-    </button>
+    <div className="bg-actionPrimary rounded text-white w-full flex">
+      <button
+        className={" p-2 " + props.endElement ? "w-9/12" : ""}
+        type={props.type}
+        disabled={props.disabled}
+        onClick={props.onClick}
+      >
+        {props.title}
+      </button>
+      {props.endElement && <div className="w-3/12">{props.endElement} </div>}
+    </div>
   );
 };
 

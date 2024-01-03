@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import route, { routeItem } from "./routes";
-// import { AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
+import { AiFillInstagram } from "react-icons/ai";
 
 function Footer() {
   return (
@@ -25,12 +25,12 @@ function Footer() {
       <div className="flex md:flex-col justify-center md:justify-start">
         <p className="hidden md:block">Follow Us On:</p>
         <div className="flex gap-4 md:gap-0 my-3 md:my-0">
-          {/* <AiFillInstagram
+          <AiFillInstagram
             className="
           md:w-7 
           w-9 h-auto
           text-pink-600"
-          />*/}
+          />
         </div>
       </div>
     </div>
