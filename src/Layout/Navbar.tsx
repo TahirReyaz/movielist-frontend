@@ -33,6 +33,19 @@ const Navbar = () => {
             ))}
         {isLoggedIn && username && (
           <NavLink
+            to={`/user/${username}`}
+            className="self-center"
+            style={({ isActive }) => {
+              return {
+                fontWeight: isActive ? "normal" : "200",
+              };
+            }}
+          >
+            <span>Profile</span>
+          </NavLink>
+        )}
+        {isLoggedIn && username && (
+          <NavLink
             to={`/user/${username}/movielist`}
             className="self-center"
             style={({ isActive }) => {

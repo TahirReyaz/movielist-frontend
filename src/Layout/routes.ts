@@ -9,12 +9,12 @@ const route: routeItem[] = [
     path: "/",
     text: "Home",
   },
-  {
-    path: "/user",
-    text: "Profile",
-    auth: true,
-    noauth: false,
-  },
+  // {
+  //   path: "/user",
+  //   text: "Profile",
+  //   auth: true,
+  //   noauth: false,
+  // },
   // {
   //   path: "/user/:username/movielist",
   //   text: "Movie List",

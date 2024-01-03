@@ -14,6 +14,8 @@ type profileType = {
 const Profile = () => {
   const { username } = useParams<ProfileParams>();
 
+  console.log({ usernameinprofile: username });
+
   const [profile, setProfile] = useState<profileType>();
 
   const navigate = useNavigate();
