@@ -5,13 +5,22 @@ import { Link } from "react-router-dom";
 import { getUserDetail } from "../../lib/api";
 import MovieList from "./MovieList";
 import Overview from "./Overview";
+import { listtypetype, mediaTypeType } from "../../constants/types";
 
 type ProfileParams = {
   username: string;
 };
 
-type profileType = {
+export type listItemType = {
+  listtype: listtypetype;
+  mediaType: mediaTypeType;
+  id: string;
+  _id: string;
+};
+
+export type profileType = {
   dp: string;
+  lists: listItemType[] | [];
 };
 
 const Profile = () => {
@@ -62,18 +71,16 @@ const Profile = () => {
               </div>
             </div>
             {/* Links */}
-            <div>
-              <ul className="flex justify-around">
-                <Link to={`/user/${username}`}>Overview</Link>
-                <Link to={`/user/${username}/movielist`}>Movie List</Link>
-                <li>Show List</li>
-                <li>Favourites</li>
-                <li>Stats</li>
-                <li>Social</li>
-                <li>Reviews</li>
-                <li>Submissions</li>
-              </ul>
-            </div>
+            <ul className="flex justify-around" id="pagenav">
+              <Link to={`/user/${username}`}>Overview</Link>
+              <Link to={`/user/${username}/movielist#pagenav`}>Movie List</Link>
+              <li>Show List</li>
+              <li>Favourites</li>
+              <li>Stats</li>
+              <li>Social</li>
+              <li>Reviews</li>
+              <li>Submissions</li>
+            </ul>
           </div>
           <Routes>
             <Route path="/" element={<Overview />} />

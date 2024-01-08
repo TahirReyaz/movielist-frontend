@@ -10,12 +10,13 @@ import MediaDetailField from "../components/UI/MediaDetailField";
 import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
+import LowerLayout from "../components/UI/LowerLayout";
 
 type MediaDetailParams = {
   mediaid: string;
 };
 
-type MediaDetailType = {
+export type MediaDetailType = {
   title: string;
   overview: string | undefined;
   poster_path: string;
@@ -116,106 +117,110 @@ const MediaDetail = () => {
             <div>Links</div>
           </div>
           {/* Rest of the details */}
-          <div className="flex px-28">
-            <div>
-              <MediaDetailCard>
-                <>#75 Highest Rated All Time</>
-              </MediaDetailCard>
-              <MediaDetailCard>
-                <>#5 Most Popular All Time</>
-              </MediaDetailCard>
-              <MediaDetailCard>
+          <LowerLayout
+            {...{
+              left: (
                 <>
-                  {mediaDetails.status && (
-                    <MediaDetailField
-                      fieldName="status"
-                      value={mediaDetails.status}
-                    />
-                  )}
+                  <MediaDetailCard>
+                    <>#75 Highest Rated All Time</>
+                  </MediaDetailCard>
+                  <MediaDetailCard>
+                    <>#5 Most Popular All Time</>
+                  </MediaDetailCard>
+                  <MediaDetailCard>
+                    <>
+                      {mediaDetails.status && (
+                        <MediaDetailField
+                          fieldName="status"
+                          value={mediaDetails.status}
+                        />
+                      )}
 
-                  {mediaDetails.number_of_episodes && (
-                    <MediaDetailField
-                      fieldName="number_of_episodes"
-                      value={mediaDetails.number_of_episodes}
-                    />
-                  )}
+                      {mediaDetails.number_of_episodes && (
+                        <MediaDetailField
+                          fieldName="number_of_episodes"
+                          value={mediaDetails.number_of_episodes}
+                        />
+                      )}
 
-                  {mediaDetails.first_air_date && (
-                    <MediaDetailField
-                      fieldName="first_air_date"
-                      value={mediaDetails.first_air_date}
-                    />
-                  )}
+                      {mediaDetails.first_air_date && (
+                        <MediaDetailField
+                          fieldName="first_air_date"
+                          value={mediaDetails.first_air_date}
+                        />
+                      )}
 
-                  {mediaDetails.release_date && (
-                    <MediaDetailField
-                      fieldName="release_date"
-                      value={mediaDetails.release_date}
-                    />
-                  )}
+                      {mediaDetails.release_date && (
+                        <MediaDetailField
+                          fieldName="release_date"
+                          value={mediaDetails.release_date}
+                        />
+                      )}
 
-                  {mediaDetails.runtime && (
-                    <MediaDetailField
-                      fieldName="runtime"
-                      value={mediaDetails.runtime}
-                    />
-                  )}
+                      {mediaDetails.runtime && (
+                        <MediaDetailField
+                          fieldName="runtime"
+                          value={mediaDetails.runtime}
+                        />
+                      )}
 
-                  {mediaDetails.vote_average && (
-                    <MediaDetailField
-                      fieldName="vote_average"
-                      value={mediaDetails.vote_average}
-                    />
-                  )}
+                      {mediaDetails.vote_average && (
+                        <MediaDetailField
+                          fieldName="vote_average"
+                          value={mediaDetails.vote_average}
+                        />
+                      )}
 
-                  {mediaDetails.vote_count && (
-                    <MediaDetailField
-                      fieldName="vote_count"
-                      value={mediaDetails.vote_count}
-                    />
-                  )}
+                      {mediaDetails.vote_count && (
+                        <MediaDetailField
+                          fieldName="vote_count"
+                          value={mediaDetails.vote_count}
+                        />
+                      )}
 
-                  {mediaDetails.popularity && (
-                    <MediaDetailField
-                      fieldName="popularity"
-                      value={mediaDetails.popularity}
-                    />
-                  )}
+                      {mediaDetails.popularity && (
+                        <MediaDetailField
+                          fieldName="popularity"
+                          value={mediaDetails.popularity}
+                        />
+                      )}
 
-                  {mediaDetails.production_companies && (
-                    <MediaDetailField
-                      fieldName="production_companies"
-                      values={mediaDetails.production_companies}
-                      valkey="name"
-                    />
-                  )}
+                      {mediaDetails.production_companies && (
+                        <MediaDetailField
+                          fieldName="production_companies"
+                          values={mediaDetails.production_companies}
+                          valkey="name"
+                        />
+                      )}
 
-                  {mediaDetails.genres && (
-                    <MediaDetailField
-                      fieldName="genres"
-                      values={mediaDetails.genres}
-                      valkey="name"
-                    />
-                  )}
+                      {mediaDetails.genres && (
+                        <MediaDetailField
+                          fieldName="genres"
+                          values={mediaDetails.genres}
+                          valkey="name"
+                        />
+                      )}
 
-                  {mediaDetails.original_name && (
-                    <MediaDetailField
-                      fieldName="original_name"
-                      value={mediaDetails.original_name}
-                    />
-                  )}
+                      {mediaDetails.original_name && (
+                        <MediaDetailField
+                          fieldName="original_name"
+                          value={mediaDetails.original_name}
+                        />
+                      )}
 
-                  {mediaDetails.original_title && (
-                    <MediaDetailField
-                      fieldName="original_title"
-                      value={mediaDetails.original_title}
-                    />
-                  )}
+                      {mediaDetails.original_title && (
+                        <MediaDetailField
+                          fieldName="original_title"
+                          value={mediaDetails.original_title}
+                        />
+                      )}
+                    </>
+                  </MediaDetailCard>
                 </>
-              </MediaDetailCard>
-            </div>
-            <div>Right</div>
-          </div>
+              ),
+              right: <div>Right</div>,
+            }}
+          />
         </>
       )}
     </main>

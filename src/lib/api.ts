@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { bulkMediaType, mediaTypeType } from "../components/MediaSection";
+import { bulkMediaType, listtypetype, mediaTypeType } from "../constants/types";
 
 export async function getBulkMedia(
   mediatype: mediaTypeType,
@@ -79,7 +79,7 @@ export async function addItemToList(
   mediatype: mediaTypeType,
   mediaid: string | undefined,
   userid: string,
-  listtype: string
+  listtype: listtypetype
 ) {
   const body = {
     mediatype,
@@ -108,6 +108,20 @@ export async function getUserDetail(username: string | undefined) {
     );
     const user = response.data;
     return { ...user, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}
+
+export async function getListDetail(id: string | undefined) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/list/${id}`
+    );
+    const list = response.data;
+    console.log({ list });
+    return { ...list, error: false };
   } catch (error) {
     console.error(error);
     return { error: true };

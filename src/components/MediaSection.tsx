@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 import { getBulkMedia } from "../lib/api";
 import MediaCard, { mediaItemType } from "./MediaCard";
+import { bulkMediaType, mediaTypeType } from "../constants/types";
 
-export type mediaTypeType = "movie" | "show";
-export type bulkMediaType =
-  | "upcoming"
-  | "trending"
-  | "popular"
-  | "now_playing"
-  | "top_rated";
 export interface mediaSectionItem {
   type: bulkMediaType;
   mediaType: mediaTypeType;
