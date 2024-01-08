@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { getUserDetail } from "../lib/api";
+import { getUserDetail } from "../../lib/api";
+import MovieList from "./MovieList";
+import Overview from "./Overview";
 
 type ProfileParams = {
   username: string;
@@ -59,9 +62,23 @@ const Profile = () => {
               </div>
             </div>
             {/* Links */}
-            <div>Links</div>
+            <div>
+              <ul className="flex justify-around">
+                <Link to={`/user/${username}`}>Overview</Link>
+                <Link to={`/user/${username}/movielist`}>Movie List</Link>
+                <li>Show List</li>
+                <li>Favourites</li>
+                <li>Stats</li>
+                <li>Social</li>
+                <li>Reviews</li>
+                <li>Submissions</li>
+              </ul>
+            </div>
           </div>
-          <div className="px-28 pt-4">Blah blah</div>
+          <Routes>
+            <Route path="/" element={<Overview />} />
+            <Route path="movielist" element={<MovieList />} />
+          </Routes>
         </>
       )}
     </main>
