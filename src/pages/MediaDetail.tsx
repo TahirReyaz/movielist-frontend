@@ -88,9 +88,7 @@ const MediaDetail = () => {
                           <MediaActionMenu
                             {...{
                               mediaid,
-                              mediatype: mediaDetails.first_air_date
-                                ? "show"
-                                : "movie",
+                              mediaDetails,
                             }}
                           />
                         }

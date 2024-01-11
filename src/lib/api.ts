@@ -1,6 +1,24 @@
 import axios, { AxiosResponse } from "axios";
 import { bulkMediaType, listtypetype, mediaTypeType } from "../constants/types";
 
+export type newEntryType = {
+  userid: string;
+  mediaid?: string;
+  status: listtypetype;
+  mediatype: mediaTypeType;
+  title: string;
+  poster: string;
+  backdrop: string;
+  listid?: string;
+  startDate?: string;
+  endDate?: string;
+  fav?: boolean;
+  progress?: number;
+  rewatches?: number;
+  score?: number;
+  notes?: string;
+};
+
 export async function getBulkMedia(
   mediatype: mediaTypeType,
   bulktype: bulkMediaType
@@ -75,31 +93,54 @@ export async function login(email: string, password: string) {
   }
 }
 
-export async function addItemToList(
-  mediatype: mediaTypeType,
-  mediaid: string | undefined,
-  userid: string,
-  listtype: listtypetype
-) {
-  const body = {
-    mediatype,
-    mediaid,
-    userid,
-    listtype,
-  };
+export const addEntry = async ({
+  mediaid,
+  userid,
+  listid,
+  mediatype,
+  status,
+  startDate,
+  endDate,
+  fav,
+  progress,
+  rewatches,
+  score,
+  notes,
+  title,
+  poster,
+  backdrop,
+}: newEntryType) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/list/additem`,
+    const body = {
+      mediaid,
+      userid,
+      listid,
+      mediatype,
+      status,
+      startDate,
+      endDate,
+      fav,
+      progress,
+      rewatches,
+      score,
+      notes,
+      title,
+      poster,
+      backdrop,
+    };
+    const response: AxiosResponse = await axios.post(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/entry`,
       body,
       { withCredentials: true }
     );
-    return { error: false, message: response.data.message };
+    console.log({ response });
+    return { data: response, error: false };
   } catch (error: any) {
     console.error(error);
     const error_msg = error?.response?.data?.message;
     return { message: error_msg, error: true };
   }
-}
+};
 
 export async function getUserDetail(username: string | undefined) {
   try {
@@ -127,6 +168,7 @@ export async function getListDetail(id: string | undefined) {
     return { error: true };
   }
 }
+
 export async function getEntryDetail(id: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(
@@ -137,5 +179,32 @@ export async function getEntryDetail(id: string | undefined) {
   } catch (error) {
     console.error(error);
     return { error: true };
+  }
+}
+
+///////////////////////////// Deprecated ////////////////////////////////
+export async function addItemToList(
+  mediatype: mediaTypeType,
+  mediaid: string | undefined,
+  userid: string,
+  listtype: listtypetype
+) {
+  const body = {
+    mediatype,
+    mediaid,
+    userid,
+    listtype,
+  };
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/list/additem`,
+      body,
+      { withCredentials: true }
+    );
+    return { error: false, message: response.data.message };
+  } catch (error: any) {
+    console.error(error);
+    const error_msg = error?.response?.data?.message;
+    return { message: error_msg, error: true };
   }
 }

@@ -1,14 +1,14 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import { RootState } from "../../store/AuthSlice";
-import { addItemToList } from "../../lib/api";
-import { mediaTypeType } from "../MediaSection";
+import { addEntry } from "../../lib/api";
+import { listtypetype } from "../../constants/types";
+import { MediaDetailType } from "../../pages/MediaDetail";
 
 type listItemType = {
   title: string;
-  listtype: string;
+  listtype: listtypetype;
 };
 const listItems: listItemType[] = [
   {
@@ -20,14 +20,22 @@ const listItems: listItemType[] = [
 
 interface MediaActionMenuProps {
   mediaid?: string;
-  mediatype: mediaTypeType;
+  mediaDetails: MediaDetailType;
 }
 
-const MediaActionMenu = ({ mediaid, mediatype }: MediaActionMenuProps) => {
+const MediaActionMenu = ({ mediaid, mediaDetails }: MediaActionMenuProps) => {
   const userid = useSelector((state: RootState) => state.auth.userid);
 
-  const listHandler = async (listtype: string) => {
-    const response = await addItemToList(mediatype, mediaid, userid, listtype);
+  const listHandler = async (listtype: listtypetype) => {
+    const response = await addEntry({
+      mediatype: mediaDetails.first_air_date ? "show" : "movie",
+      mediaid,
+      userid,
+      status: listtype,
+      title: mediaDetails.title,
+      poster: mediaDetails.poster_path,
+      backdrop: mediaDetails.backdrop_path,
+    });
     if (!response.error) {
       toast.success(response.message, {
         position: "top-right",
