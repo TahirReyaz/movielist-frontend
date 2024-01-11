@@ -64,6 +64,7 @@ const MediaDetail = () => {
               <img
                 src={`https://image.tmdb.org/t/p/original${mediaDetails.backdrop_path}`}
                 alt={mediaDetails.title}
+                className="object-top"
               />
             </div>
             {/* Poster and overview */}

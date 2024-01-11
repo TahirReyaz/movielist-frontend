@@ -49,8 +49,8 @@ const MediaListGroup = ({ listtype, id }: MediaListGroupParams) => {
               <div className="w-1/12">Progress</div>
             </div>
             {listDetails.items.length > 0 ? (
-              listDetails.items.map((id: string) => (
-                <MediaListItem {...{ id }} />
+              listDetails.items.map((entryId: string) => (
+                <MediaListItem {...{ entryId }} />
               ))
             ) : (
               <span>No items in list</span>

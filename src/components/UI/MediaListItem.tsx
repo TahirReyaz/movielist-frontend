@@ -4,7 +4,7 @@ import { listtypetype, mediaTypeType } from "../../constants/types";
 import { getEntryDetail } from "../../lib/api";
 
 interface MediaListItemProps {
-  id: string;
+  entryId: string;
 }
 
 export type EntryDetailType = {
@@ -26,30 +26,30 @@ export type EntryDetailType = {
   notes?: string;
 };
 
-const MediaListItem = ({ id }: MediaListItemProps) => {
+const MediaListItem = ({ entryId }: MediaListItemProps) => {
   const [entryDetails, setEntryDetails] = useState<EntryDetailType>();
-
-  console.log({ entryDetails });
 
   useEffect(() => {
     async function fetchMedia() {
-      const { data, error } = await getEntryDetail(id);
+      const { data, error } = await getEntryDetail(entryId);
       if (error) {
-        console.log("error while fetching media details");
+        console.log("error while fetching entry details");
       }
       setEntryDetails(data);
     }
     fetchMedia();
-  }, [id]);
+  }, [entryId]);
   return (
     <div className="w-full flex">
       {entryDetails ? (
         <>
           <div className="w-1/12">
             <img
-              src={`${import.meta.env.TMDB_IMG_ENDPOINT}${entryDetails.poster}`}
+              src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
+                entryDetails.poster
+              }`}
               alt={entryDetails.title}
-              className="rounded"
+              className="rounded aspect-square object-cover object-top"
             />
           </div>
           <div className="w-8/12">{entryDetails.title}</div>
