@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { getBulkMedia } from "../lib/api";
-import MediaCard, { mediaItemType } from "./MediaCard";
+import MediaCard from "./MediaCard";
 import { bulkMediaType, mediaTypeType } from "../constants/types";
+import { MediaDetailType } from "../pages/MediaDetail";
 
 export interface mediaSectionItem {
   type: bulkMediaType;
@@ -11,7 +12,7 @@ export interface mediaSectionItem {
 }
 
 const MediaSection = (props: mediaSectionItem) => {
-  const [media, setMedia] = useState<mediaItemType[]>([]);
+  const [media, setMedia] = useState<MediaDetailType[]>([]);
   useEffect(() => {
     let tempMedia = [];
     async function fetchMedia() {
@@ -26,8 +27,8 @@ const MediaSection = (props: mediaSectionItem) => {
       <h3 className="text-2xl mb-3">{props.title}</h3>
       {media && media.length > 0 && (
         <div className="w-full flex justify-between">
-          {media.slice(0, 5).map((mediaItem) => (
-            <MediaCard key={mediaItem.id} {...mediaItem} />
+          {media.slice(0, 5).map((mediaItem: MediaDetailType) => (
+            <MediaCard {...{ key: mediaItem.id, mediaDetails: mediaItem }} />
           ))}
         </div>
       )}

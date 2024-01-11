@@ -18,6 +18,7 @@ type MediaDetailParams = {
 };
 
 export type MediaDetailType = {
+  id: string;
   title: string;
   overview: string | undefined;
   poster_path: string;
