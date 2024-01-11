@@ -60,7 +60,7 @@ const MediaDetail = () => {
           {/* Image and overview */}
           <div className="bg-bgSecondary">
             {/* Backdrop image */}
-            <div>
+            <div className="h-[50vh] overflow-hidden">
               <img
                 src={`https://image.tmdb.org/t/p/original${mediaDetails.backdrop_path}`}
                 alt={mediaDetails.title}
