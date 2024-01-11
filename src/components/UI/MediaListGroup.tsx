@@ -39,7 +39,7 @@ const MediaListGroup = ({ listtype, id }: MediaListGroupParams) => {
         <h3>{listtype}</h3>
       </div>
       {listDetails && (
-        <MediaDetailCard>
+        <MediaDetailCard classes="p-0">
           <>
             <div className="w-full flex">
               <div className="w-1/12"></div>

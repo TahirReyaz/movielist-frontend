@@ -1,11 +1,10 @@
-import React from "react";
-
 type Props = {
   children: JSX.Element;
+  classes?: string;
 };
 
-const MediaDetailCard = ({ children }: Props) => (
-  <div className="p-2 mt-2 bg-bgSecondary rounded">{children}</div>
+const MediaDetailCard = ({ children, classes }: Props) => (
+  <div className={"p-2 mt-2 bg-bgSecondary rounded " + classes}>{children}</div>
 );
 
 export default MediaDetailCard;

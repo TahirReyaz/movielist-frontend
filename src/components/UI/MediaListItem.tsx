@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { listtypetype, mediaTypeType } from "../../constants/types";
 import { getEntryDetail } from "../../lib/api";
+import { Link } from "react-router-dom";
 
 interface MediaListItemProps {
   entryId: string;
@@ -12,7 +13,7 @@ export type EntryDetailType = {
   title: string;
   poster: string;
   backdrop: string;
-  mediatype: mediaTypeType;
+  mediaType: mediaTypeType;
   userid: string;
   listid: string;
   mediaid: string;
@@ -39,20 +40,30 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
     }
     fetchMedia();
   }, [entryId]);
+
   return (
-    <div className="w-full flex">
+    <div className="w-full p-2 flex hover:bg-bgHover">
       {entryDetails ? (
         <>
-          <div className="w-1/12">
-            <img
-              src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
-                entryDetails.poster
-              }`}
-              alt={entryDetails.title}
-              className="rounded aspect-square object-cover object-top"
-            />
+          <div className="w-1/12 flex">
+            <div className="w-3/12">.</div>
+            <div className="w-7/12">
+              <Link to={`/${entryDetails.mediaType}/${entryDetails.mediaid}`}>
+                <img
+                  src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
+                    entryDetails.poster
+                  }`}
+                  alt={entryDetails.title}
+                  className="rounded aspect-square object-cover object-top"
+                />
+              </Link>
+            </div>
           </div>
-          <div className="w-8/12">{entryDetails.title}</div>
+          <div className="w-8/12 flex items-center">
+            <Link to={`/${entryDetails.mediaType}/${entryDetails.mediaid}`}>
+              {entryDetails.title}
+            </Link>
+          </div>
           <div className="w-1/12">
             {entryDetails.rewatches ? `${entryDetails.rewatches}@` : ""}
           </div>

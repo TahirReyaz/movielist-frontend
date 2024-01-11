@@ -5,7 +5,7 @@ export type newEntryType = {
   userid: string;
   mediaid?: string;
   status: listtypetype;
-  mediatype: mediaTypeType;
+  mediaType: mediaTypeType;
   title: string;
   poster: string;
   backdrop: string;
@@ -97,7 +97,7 @@ export const addEntry = async ({
   mediaid,
   userid,
   listid,
-  mediatype,
+  mediaType,
   status,
   startDate,
   endDate,
@@ -115,7 +115,7 @@ export const addEntry = async ({
       mediaid,
       userid,
       listid,
-      mediatype,
+      mediaType,
       status,
       startDate,
       endDate,
@@ -128,6 +128,7 @@ export const addEntry = async ({
       poster,
       backdrop,
     };
+    console.log({ body });
     const response: AxiosResponse = await axios.post(
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/entry`,
       body,
