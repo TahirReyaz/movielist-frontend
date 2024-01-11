@@ -22,10 +22,14 @@ interface MediaCardButtonsProps {
 interface MenuButtonProps {
   setTo: string;
   Icon: IconType;
-  onClick: () => void;
+  status: listtypetype;
+  onClick: (
+    e: React.MouseEvent<HTMLDivElement>,
+    status: listtypetype
+  ) => Promise<void>;
 }
 
-const MenuButton = ({ setTo, Icon, onClick }: MenuButtonProps) => {
+const MenuButton = ({ setTo, Icon, onClick, status }: MenuButtonProps) => {
   return (
     <Tippy
       interactive={false}
@@ -35,7 +39,7 @@ const MenuButton = ({ setTo, Icon, onClick }: MenuButtonProps) => {
       content={`Set to ${setTo}`}
       className="bg-bgPrimary opacity-90"
     >
-      <div className={iconClass + " z-50 "} onClick={onClick}>
+      <div className={iconClass + " z-50 "} onClick={(e) => onClick(e, status)}>
         <Icon />
       </div>
     </Tippy>
@@ -47,9 +51,11 @@ const MediaCardButtons = ({
   userid,
   mediaid,
 }: MediaCardButtonsProps) => {
-  const clickHandler = async (status: listtypetype) => {
-    // e.stopPropagation();
-    console.log("in click handler");
+  const clickHandler = async (
+    e: React.MouseEvent<HTMLDivElement>,
+    status: listtypetype
+  ) => {
+    e.preventDefault();
     const response = await addEntry({
       mediaType: mediaDetails.first_air_date ? "show" : "movie",
       mediaid,
@@ -88,22 +94,25 @@ const MediaCardButtons = ({
           <MenuButton
             {...{
               setTo: "Watching",
+              status: "watching",
               Icon: IoPlay,
-              onClick: clickHandler.bind(this, "watching"),
+              onClick: clickHandler,
             }}
           />
           <MenuButton
             {...{
               setTo: "Completed",
+              status: "completed",
               Icon: FaCheck,
-              onClick: clickHandler.bind(this, "completed"),
+              onClick: clickHandler,
             }}
           />
           <MenuButton
             {...{
               setTo: "Planning",
+              status: "planning",
               Icon: FaCalendar,
-              onClick: clickHandler.bind(this, "planning"),
+              onClick: clickHandler,
             }}
           />
         </div>
