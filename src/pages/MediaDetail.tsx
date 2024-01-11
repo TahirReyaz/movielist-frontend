@@ -11,6 +11,7 @@ import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
 import LowerLayout from "../components/UI/LowerLayout";
+import { Link } from "react-router-dom";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -107,13 +108,22 @@ const MediaDetail = () => {
                 </div>
               </div>
               {/* title and overview */}
-              <div className="w-9/12 ms-4 p-4">
-                <div>{mediaDetails.title}</div>
-                {mediaDetails.overview && <div>{mediaDetails.overview}</div>}
+              <div className="w-9/12 ms-4 p-4 flex flex-col justify-between">
+                <div>
+                  <span>{mediaDetails.title}</span>
+                  {mediaDetails.overview && <div>{mediaDetails.overview}</div>}
+                </div>
+                {/* Links */}
+                <ul className="flex justify-around" id="pagenav">
+                  <Link to={`/user/${mediaid}`}>Overview</Link>
+                  <li>Watch</li>
+                  <li>Characters</li>
+                  <li>Staff</li>
+                  <li>Stats</li>
+                  <li>Social</li>
+                </ul>
               </div>
             </div>
-            {/* Links */}
-            <div>Links</div>
           </div>
           {/* Rest of the details */}
           <LowerLayout
