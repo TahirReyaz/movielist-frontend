@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import route, { routeItem } from "./routes";
 import { RootState } from "../store/AuthSlice";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { isLoggedIn, username } = useSelector(
@@ -11,7 +12,7 @@ const Navbar = () => {
   console.log({ username });
   return (
     <nav className="bg-bgSecondary py-5 px-28 font-body flex">
-      <div>Movie List</div>
+      <Link to="/">Movie List</Link>
 
       <div className="flex gap-4 ml-7">
         {isLoggedIn &&

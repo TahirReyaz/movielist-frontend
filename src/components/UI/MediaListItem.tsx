@@ -1,40 +1,72 @@
 import { useEffect, useState } from "react";
 
-import { MediaDetailType } from "../../pages/MediaDetail";
-import { mediaTypeType } from "../../constants/types";
-import { getMediaDetail } from "../../lib/api";
+import { listtypetype, mediaTypeType } from "../../constants/types";
+import { getEntryDetail } from "../../lib/api";
 
 interface MediaListItemProps {
   id: string;
-  mediaType: mediaTypeType;
 }
 
-const MediaListItem = ({ id, mediaType }: MediaListItemProps) => {
-  const [mediaDetails, setMediaDetails] = useState<MediaDetailType>();
+export type EntryDetailType = {
+  id: string;
+  title: string;
+  poster: string;
+  backdrop: string;
+  mediatype: mediaTypeType;
+  userid: string;
+  listid: string;
+  mediaid: string;
+  status: listtypetype;
+  startDate?: string;
+  endDate?: string;
+  fav?: boolean;
+  score?: number;
+  rewatches?: number;
+  progress?: number;
+  notes?: string;
+};
 
-  console.log({ mediaDetails });
+const MediaListItem = ({ id }: MediaListItemProps) => {
+  const [entryDetails, setEntryDetails] = useState<EntryDetailType>();
+
+  console.log({ entryDetails });
 
   useEffect(() => {
-    let tempMedia = [];
     async function fetchMedia() {
-      tempMedia = await getMediaDetail(mediaType, id);
-      if (tempMedia.error) {
+      const { data, error } = await getEntryDetail(id);
+      if (error) {
         console.log("error while fetching media details");
       }
-      setMediaDetails(tempMedia);
+      setEntryDetails(data);
     }
     fetchMedia();
   }, [id]);
-  return mediaDetails ? (
+  return (
     <div className="w-full flex">
-      <div className="w-1/12"></div>
-      <div className="w-8/12">{mediaDetails.title}</div>
-      <div className="w-1/12"></div>
-      <div className="w-1/12">Score</div>
-      <div className="w-1/12">Progress</div>
+      {entryDetails ? (
+        <>
+          <div className="w-1/12">
+            <img
+              src={`${import.meta.env.TMDB_IMG_ENDPOINT}${entryDetails.poster}`}
+              alt={entryDetails.title}
+              className="rounded"
+            />
+          </div>
+          <div className="w-8/12">{entryDetails.title}</div>
+          <div className="w-1/12">
+            {entryDetails.rewatches ? `${entryDetails.rewatches}@` : ""}
+          </div>
+          <div className="w-1/12">
+            {entryDetails.score ? entryDetails.score : ""}
+          </div>
+          <div className="w-1/12">
+            {entryDetails.progress ? entryDetails.progress : "0"}
+          </div>
+        </>
+      ) : (
+        <span>Loading...</span>
+      )}
     </div>
-  ) : (
-    <span>Loading...</span>
   );
 };
 

@@ -50,7 +50,7 @@ const MediaListGroup = ({ listtype, id }: MediaListGroupParams) => {
             </div>
             {listDetails.items.length > 0 ? (
               listDetails.items.map((id: string) => (
-                <MediaListItem {...{ id, mediaType: listDetails.mediatype }} />
+                <MediaListItem {...{ id }} />
               ))
             ) : (
               <span>No items in list</span>

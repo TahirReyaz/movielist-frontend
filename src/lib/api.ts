@@ -127,3 +127,15 @@ export async function getListDetail(id: string | undefined) {
     return { error: true };
   }
 }
+export async function getEntryDetail(id: string | undefined) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/entry/${id}`
+    );
+    const entry = response.data;
+    return { data: entry, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}
