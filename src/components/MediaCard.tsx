@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -13,15 +13,21 @@ export interface mediaItemType {
 
 const MediaCard = ({ id, title, poster_path }: mediaItemType) => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const [hover, setHover] = useState<boolean>(false);
+
   return (
     <Link to={`/movie/${id}`} className="w-2/12">
-      <div className="relative">
+      <div
+        className="relative"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
         <img
           src={`https://image.tmdb.org/t/p/original${poster_path}`}
           alt={title}
           className="rounded"
         />
-        {isLoggedIn && <MediaCardButtons />}
+        {isLoggedIn && hover && <MediaCardButtons />}
       </div>
       {title}
     </Link>
