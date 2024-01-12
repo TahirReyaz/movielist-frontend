@@ -183,6 +183,19 @@ export async function getEntryDetail(id: string | undefined) {
   }
 }
 
+export async function getSearchResults(query: string) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/search/${query}`
+    );
+    const results = response.data;
+    return { data: results, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}
+
 ///////////////////////////// Deprecated ////////////////////////////////
 export async function addItemToList(
   mediatype: mediaTypeType,

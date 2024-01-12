@@ -39,7 +39,7 @@ const MenuButton = ({ setTo, Icon, onClick, status }: MenuButtonProps) => {
       content={`Set to ${setTo}`}
       className="bg-bgPrimary opacity-90"
     >
-      <div className={iconClass + " z-50 "} onClick={(e) => onClick(e, status)}>
+      <div className={iconClass + " z-30 "} onClick={(e) => onClick(e, status)}>
         <Icon />
       </div>
     </Tippy>
