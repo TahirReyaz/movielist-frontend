@@ -3,7 +3,7 @@ type PageContainerProps = {
 };
 
 const PageContainer = ({ children }: PageContainerProps) => (
-  <div className="pt-4 px-28">{children}</div>
+  <div className="pt-4 px-40">{children}</div>
 );
 
 export default PageContainer;
