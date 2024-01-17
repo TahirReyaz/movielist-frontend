@@ -10,8 +10,15 @@ interface SearchModalParams {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
+export type multiSearchResults = { movies: any[]; shows: any[]; people: any[] };
+
 const SearchModal = ({ open, setOpen }: SearchModalParams) => {
   const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<multiSearchResults>({
+    movies: [],
+    shows: [],
+    people: [],
+  });
 
   console.log({ query });
 
@@ -20,6 +27,13 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
       try {
         const fetchResults = async () => {
           const response = await getSearchResults(query);
+          if (response.data) {
+            setResults({
+              movies: response.data.movies,
+              shows: response.data.shows,
+              people: response.data.people,
+            });
+          }
           console.log({ response });
         };
 
@@ -43,7 +57,7 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
               setQuery(event.target.value),
           }}
         />
-        <SearchResults />
+        <SearchResults {...{ results }} />
       </>
     </Modal>
   );

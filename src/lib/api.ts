@@ -188,8 +188,20 @@ export async function getSearchResults(query: string) {
     const response: AxiosResponse = await axios.get(
       `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/search/${query}`
     );
-    const results = response.data;
-    return { data: results, error: false };
+    const results = response.data.results;
+    const movies: any[] = [],
+      shows: any[] = [],
+      people: any[] = [];
+    results.forEach((res: any) => {
+      if (res.media_type == "movie") {
+        movies.push(res);
+      } else if (res.media_type == "tv") {
+        shows.push(res);
+      } else if (res.media_type == "person") {
+        people.push(res);
+      }
+    });
+    return { data: { results, movies, shows, people }, error: false };
   } catch (error) {
     console.error(error);
     return { error: true };
