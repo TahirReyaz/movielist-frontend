@@ -1,4 +1,4 @@
-export type mediaTypeType = "movie" | "show";
+export type mediaTypeType = "movie" | "show" | "person";
 export type bulkMediaType =
   | "upcoming"
   | "trending"
