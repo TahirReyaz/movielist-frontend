@@ -97,9 +97,7 @@ const Navbar = () => {
           <FaAngleDown />
         </div>
       </nav>
-      {/* {showModal && ( */}
-      <SearchModal {...{ closeModal: () => setShowModal(false), showModal }} />
-      {/* )} */}
+      <SearchModal {...{ open: showModal, setOpen: setShowModal }} />
     </>
   );
 };

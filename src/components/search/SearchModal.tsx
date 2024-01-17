@@ -1,40 +1,19 @@
-import React, { useEffect, useRef, useState, MouseEvent } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import TextInput from "../UI/TextInput";
 import { getSearchResults } from "../../lib/api";
 import SearchResults from "./SearchResults";
-
-const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
-  const r = element.getBoundingClientRect();
-
-  return (
-    e.clientX > r.left &&
-    e.clientX < r.right &&
-    e.clientY > r.top &&
-    e.clientY < r.bottom
-  );
-};
+import Modal from "../UI/Modal";
 
 interface SearchModalParams {
-  closeModal: () => void;
-  showModal: boolean;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const SearchModal = ({ closeModal, showModal }: SearchModalParams) => {
+const SearchModal = ({ open, setOpen }: SearchModalParams) => {
   const [query, setQuery] = useState<string>("");
-  const modalRef = useRef<HTMLDialogElement>(null);
 
   console.log({ query });
-
-  useEffect(() => {
-    if (showModal) {
-      modalRef.current?.showModal();
-      document.body.classList.add("modal-open"); // prevent bg scroll
-    } else {
-      modalRef.current?.close();
-      document.body.classList.remove("modal-open");
-    }
-  }, [showModal]);
 
   useEffect(() => {
     if (query.length > 0) {
@@ -52,20 +31,12 @@ const SearchModal = ({ closeModal, showModal }: SearchModalParams) => {
   }, [query]);
 
   return (
-    <div className="">
-      <dialog
-        ref={modalRef}
-        onCancel={closeModal}
-        onClick={(e) =>
-          modalRef.current &&
-          !isClickInsideRectangle(e, modalRef.current) &&
-          closeModal()
-        }
-      >
+    <Modal {...{ open, setOpen }}>
+      <>
         <TextInput
           {...{
             label: "Search MovieList",
-            type: "test",
+            type: "text",
             name: "search",
             value: query,
             onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -73,8 +44,8 @@ const SearchModal = ({ closeModal, showModal }: SearchModalParams) => {
           }}
         />
         <SearchResults />
-      </dialog>
-    </div>
+      </>
+    </Modal>
   );
 };
 
