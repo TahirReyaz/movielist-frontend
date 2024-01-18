@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 import Tippy from "@tippyjs/react";
+import { Link } from "react-router-dom";
 
 import "tippy.js/dist/tippy.css";
+import posterPlaceholder from "../assets/posterPlaceholder.jpg";
 
 import { getMediaDetail } from "../lib/api";
 import MediaDetailField from "../components/UI/MediaDetailField";
@@ -11,7 +13,6 @@ import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
 import LowerLayout from "../components/UI/LowerLayout";
-import { Link } from "react-router-dom";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -54,7 +55,6 @@ const MediaDetail = () => {
     fetchMedia();
   }, [mediaid]);
 
-  console.log({ mediaDetails });
   return (
     <main>
       {mediaDetails && (
@@ -70,14 +70,19 @@ const MediaDetail = () => {
               />
             </div>
             {/* Poster and overview */}
-            <div className="flex px-28">
+            <div className="flex px-40">
               {/* Poster and buttons */}
               <div className="w-2/12">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${mediaDetails.poster_path}`}
+                  src={
+                    mediaDetails.poster_path
+                      ? `https://image.tmdb.org/t/p/original${mediaDetails.poster_path}`
+                      : posterPlaceholder
+                  }
                   alt={mediaDetails.title}
+                  className="-mt-28 mb-4 rounded"
                 />
-                <div className="flex w-full gap-2">
+                <div className="flex w-full gap-2 mb-4">
                   <Button
                     title="Add to List"
                     type="button"
@@ -111,8 +116,12 @@ const MediaDetail = () => {
               {/* title and overview */}
               <div className="w-9/12 ms-4 p-4 flex flex-col justify-between">
                 <div>
-                  <span>{mediaDetails.title}</span>
-                  {mediaDetails.overview && <div>{mediaDetails.overview}</div>}
+                  <h1>{mediaDetails.title}</h1>
+                  {mediaDetails.overview && (
+                    <p className="text-textSecondary">
+                      {mediaDetails.overview}
+                    </p>
+                  )}
                 </div>
                 {/* Links */}
                 <ul className="flex justify-around" id="pagenav">
@@ -132,10 +141,10 @@ const MediaDetail = () => {
               left: (
                 <>
                   <MediaDetailCard>
-                    <>#75 Highest Rated All Time</>
+                    <span className="text-sm">#75 Highest Rated All Time</span>
                   </MediaDetailCard>
                   <MediaDetailCard>
-                    <>#5 Most Popular All Time</>
+                    <span className="text-sm">#5 Most Popular All Time</span>
                   </MediaDetailCard>
                   <MediaDetailCard>
                     <>

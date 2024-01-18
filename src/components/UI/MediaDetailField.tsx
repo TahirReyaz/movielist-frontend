@@ -15,8 +15,8 @@ const MediaDetailField = ({
 }: MediaDetailFieldProps) => {
   return (
     <div className="p-2">
-      <p>{fieldName}</p>
-      {value && <p>{value}</p>}
+      <div className="text-textPrimary">{fieldName}</div>
+      {value && <div className="text-textSecondary">{value}</div>}
       {values &&
         valkey &&
         values.map((item: any, index: number) => (

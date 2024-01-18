@@ -58,7 +58,7 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
             classes: "bg-bgSecondary text-textPrimary",
           }}
         />
-        <SearchResults {...{ results }} />
+        <SearchResults {...{ results, setOpen }} />
       </>
     </Modal>
   );

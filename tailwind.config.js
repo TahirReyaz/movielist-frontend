@@ -10,7 +10,7 @@ export default {
       actionPrimary: "#3DB5F3",
       actionSecondary: "#59BEF4",
       red: "#ED294A",
-      textSecondary: "#9fadbd",
+      textSecondary: "#728AA1",
       textPrimary: "#a0b1c5",
       white: "#FFFFFF",
     },

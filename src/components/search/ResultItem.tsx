@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { mediaTypeType } from "../../constants/types";
 import { Link } from "react-router-dom";
 
@@ -10,16 +10,28 @@ interface ResultItemProps {
   time?: string;
   poster?: string;
   url: string;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const ResultItem = ({ type, title, time, poster, url }: ResultItemProps) => {
+const ResultItem = ({
+  type,
+  title,
+  time,
+  poster,
+  url,
+  setOpen,
+}: ResultItemProps) => {
   let date = new Date();
   if (time) {
     date = new Date(time);
   }
   const year = date.getFullYear();
   return (
-    <Link to={url} className="flex py-3 px-4 hover:bg-actionPrimary">
+    <Link
+      to={url}
+      onClick={() => setOpen(false)}
+      className="flex py-3 px-4 hover:bg-actionPrimary"
+    >
       <img
         src={
           poster
