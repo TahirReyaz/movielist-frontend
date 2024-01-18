@@ -37,7 +37,7 @@ export async function getBulkMedia(
 }
 
 export async function getMediaDetail(
-  mediatype: mediaTypeType,
+  mediatype: string,
   mediaid: string | undefined
 ) {
   try {

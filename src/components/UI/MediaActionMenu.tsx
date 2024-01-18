@@ -28,7 +28,7 @@ const MediaActionMenu = ({ mediaid, mediaDetails }: MediaActionMenuProps) => {
 
   const listHandler = async (listtype: listtypetype) => {
     const response = await addEntry({
-      mediaType: mediaDetails.first_air_date ? "show" : "movie",
+      mediaType: mediaDetails.first_air_date ? "tv" : "movie",
       mediaid,
       userid,
       status: listtype,

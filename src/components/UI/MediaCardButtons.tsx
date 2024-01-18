@@ -57,7 +57,7 @@ const MediaCardButtons = ({
   ) => {
     e.preventDefault();
     const response = await addEntry({
-      mediaType: mediaDetails.first_air_date ? "show" : "movie",
+      mediaType: mediaDetails.first_air_date ? "tv" : "movie",
       mediaid,
       userid,
       status,

@@ -14,7 +14,7 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
   let titleField: string = "title",
     imgField: string = "poster_path",
     timeField = "realease_date";
-  if (type == "show") {
+  if (type == "tv") {
     titleField = "name";
     timeField = "first_air_date";
   } else if (type == "person") {

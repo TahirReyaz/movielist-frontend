@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 import Tippy from "@tippyjs/react";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
 import LowerLayout from "../components/UI/LowerLayout";
+import { mediaTypeType } from "../constants/types";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -40,20 +41,23 @@ export type MediaDetailType = {
 
 const MediaDetail = () => {
   const { mediaid } = useParams<MediaDetailParams>();
-  const navigate = useNavigate();
   const [mediaDetails, setMediaDetails] = useState<MediaDetailType>();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const mediaType = pathname.split("/")[1];
 
   useEffect(() => {
     let tempMedia = [];
     async function fetchMedia() {
-      tempMedia = await getMediaDetail("movie", mediaid);
+      tempMedia = await getMediaDetail(mediaType, mediaid);
       if (tempMedia.error) {
         navigate("/404");
       }
       setMediaDetails(tempMedia);
     }
     fetchMedia();
-  }, [mediaid]);
+  }, [mediaid, mediaType]);
 
   return (
     <main>
@@ -62,13 +66,15 @@ const MediaDetail = () => {
           {/* Image and overview */}
           <div className="bg-bgSecondary">
             {/* Backdrop image */}
-            <div className="h-[50vh] overflow-hidden">
-              <img
-                src={`https://image.tmdb.org/t/p/original${mediaDetails.backdrop_path}`}
-                alt={mediaDetails.title}
-                className="object-top"
-              />
-            </div>
+            {mediaDetails.backdrop_path && (
+              <div className="h-[50vh] overflow-hidden">
+                <img
+                  src={`https://image.tmdb.org/t/p/original${mediaDetails.backdrop_path}`}
+                  alt={mediaDetails.title}
+                  className="object-top"
+                />
+              </div>
+            )}
             {/* Poster and overview */}
             <div className="flex px-40">
               {/* Poster and buttons */}
@@ -80,7 +86,9 @@ const MediaDetail = () => {
                       : posterPlaceholder
                   }
                   alt={mediaDetails.title}
-                  className="-mt-28 mb-4 rounded"
+                  className={`${
+                    mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
+                  } mb-4 rounded`}
                 />
                 <div className="flex w-full gap-2 mb-4">
                   <Button
