@@ -6,6 +6,7 @@ import { IoPlay } from "react-icons/io5";
 import { IconType } from "react-icons";
 
 import "tippy.js/animations/shift-away.css";
+
 import { toast } from "react-toastify";
 import { addEntry } from "../../lib/api";
 import { listtypetype } from "../../constants/types";

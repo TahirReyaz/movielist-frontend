@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import route, { routeItem } from "./routes";
-import { RootState } from "../store/AuthSlice";
+import route, { routeItem } from "../routes";
+import { RootState } from "../../store/AuthSlice";
 import { Link } from "react-router-dom";
+import Tippy from "@tippyjs/react";
 
-import userAvatar from "../assets/userAvatar.png";
+import "tippy.js/animations/shift-away.css";
+
+import userAvatar from "../../assets/userAvatar.png";
+
 import { FaAngleDown, FaSearch } from "react-icons/fa";
-import SearchModal from "../components/search/SearchModal";
+import SearchModal from "../../components/search/SearchModal";
+import DropdownMenu from "./DropdownMenu";
 
 const Navbar = () => {
   const { isLoggedIn, username } = useSelector(
@@ -89,12 +93,22 @@ const Navbar = () => {
             onClick={() => setShowModal(true)}
             className="cursor-pointer"
           />
-          <img
-            src={userAvatar}
-            alt="Avatar"
-            className="size-10 ms-4 cursor-pointer"
-          />
-          <FaAngleDown />
+          <Tippy
+            interactive={true}
+            placement="bottom"
+            arrow={false}
+            animation="shift-away"
+            content={<DropdownMenu />}
+          >
+            <div className="flex items-center">
+              <img
+                src={userAvatar}
+                alt="Avatar"
+                className="size-10 ms-4 cursor-pointer"
+              />
+              <FaAngleDown />
+            </div>
+          </Tippy>
         </div>
       </nav>
       <SearchModal {...{ open: showModal, setOpen: setShowModal }} />
