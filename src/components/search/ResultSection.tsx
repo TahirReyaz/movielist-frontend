@@ -1,6 +1,7 @@
 import React from "react";
 import { mediaTypeType } from "../../constants/types";
 import ResultItem from "./ResultItem";
+import { time } from "console";
 
 interface ResultSectionProps {
   type: mediaTypeType;
@@ -10,9 +11,11 @@ interface ResultSectionProps {
 
 const ResultSection = ({ type, title, list }: ResultSectionProps) => {
   let titleField: string = "title",
-    imgField: string = "poster_path";
+    imgField: string = "poster_path",
+    timeField = "realease_date";
   if (type == "show") {
     titleField = "name";
+    timeField = "first_air_date";
   } else if (type == "person") {
     titleField = "name";
     imgField = "profile_path";
@@ -31,6 +34,7 @@ const ResultSection = ({ type, title, list }: ResultSectionProps) => {
                 poster: item[imgField],
                 key: item.id,
                 url: `/${type}/${item.id}`,
+                time: item[timeField],
               }}
             />
           ))}

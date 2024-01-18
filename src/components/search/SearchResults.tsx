@@ -12,17 +12,25 @@ const SearchResults = ({ results }: SearchResultsProps) => {
     <div className="flex flex-wrap w-full gap-2">
       {results.movies && results.movies.length > 0 && (
         <ResultSection
-          {...{ title: "Movie", type: "movie", list: results.movies }}
+          {...{
+            title: "Movie",
+            type: "movie",
+            list: results.movies.slice(0, 8),
+          }}
         />
       )}
       {results.shows && results.shows.length > 0 && (
         <ResultSection
-          {...{ title: "Show", type: "show", list: results.shows }}
+          {...{ title: "Show", type: "show", list: results.shows.slice(0, 8) }}
         />
       )}
       {results.people && results.people.length > 0 && (
         <ResultSection
-          {...{ title: "Person", type: "person", list: results.people }}
+          {...{
+            title: "Staff",
+            type: "person",
+            list: results.people.slice(0, 8),
+          }}
         />
       )}
     </div>

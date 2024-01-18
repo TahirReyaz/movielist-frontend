@@ -13,6 +13,11 @@ interface ResultItemProps {
 }
 
 const ResultItem = ({ type, title, time, poster, url }: ResultItemProps) => {
+  let date = new Date();
+  if (time) {
+    date = new Date(time);
+  }
+  const year = date.getFullYear();
   return (
     <Link to={url} className="flex py-3 px-4 hover:bg-actionPrimary">
       <img
@@ -26,7 +31,10 @@ const ResultItem = ({ type, title, time, poster, url }: ResultItemProps) => {
           type == "person" ? "object-center" : "object-top"
         } w-1/12`}
       />
-      <div className="ms-3 text-textPrimary">{title}</div>
+      <div className="ms-3 text-textPrimary flex flex-col">
+        {title}
+        {year && <span className="text-sm text-left">{year}</span>}
+      </div>
     </Link>
   );
 };
