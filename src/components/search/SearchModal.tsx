@@ -4,6 +4,7 @@ import TextInput from "../UI/TextInput";
 import { getSearchResults } from "../../lib/api";
 import SearchResults from "./SearchResults";
 import Modal from "../UI/Modal";
+import { useDebounce } from "../../hooks/useDebounce";
 
 interface SearchModalParams {
   open: boolean;
@@ -19,14 +20,13 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
     shows: [],
     people: [],
   });
-
-  console.log({ query });
+  const debouncedQuery = useDebounce(query);
 
   useEffect(() => {
     if (query.length > 0) {
       try {
         const fetchResults = async () => {
-          const response = await getSearchResults(query);
+          const response = await getSearchResults(debouncedQuery);
           if (response.data) {
             setResults({
               movies: response.data.movies,
@@ -42,7 +42,7 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
         console.error(error);
       }
     }
-  }, [query]);
+  }, [debouncedQuery]);
 
   return (
     <Modal {...{ open, setOpen }}>
