@@ -20,12 +20,15 @@ const Navbar = () => {
   );
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  console.log(route.filter((item: routeItem) => !item.noauth && !item.auth));
+
   return (
     <>
       <nav className="bg-bgSecondary py-4 px-40 font-body flex justify-between items-center">
         <Link to="/">Movie List</Link>
 
         <div className="flex gap-6 ml-7">
+          {/* Auth */}
           {isLoggedIn &&
             route
               .filter((item: routeItem) => item.auth)
@@ -43,6 +46,7 @@ const Navbar = () => {
                   <span>{item.text}</span>
                 </NavLink>
               ))}
+          {/* Hardcoded auth */}
           {isLoggedIn && username && (
             <NavLink
               to={`/user/${username}`}
@@ -69,6 +73,7 @@ const Navbar = () => {
               <span>Movie List</span>
             </NavLink>
           )}
+          {/* No auth */}
           {!isLoggedIn &&
             route
               .filter((item: routeItem) => item.noauth)
@@ -86,30 +91,50 @@ const Navbar = () => {
                   <span>{item.text}</span>
                 </NavLink>
               ))}
+          {/* Free for all */}
+          {route
+            .filter((item: routeItem) => !item.noauth && !item.auth)
+            .map((item: routeItem, index: number) => (
+              <NavLink
+                to={item.path}
+                className="self-center"
+                key={index}
+                style={({ isActive }) => {
+                  return {
+                    fontWeight: isActive ? "normal" : "200",
+                  };
+                }}
+              >
+                <span>{item.text}</span>
+              </NavLink>
+            ))}
         </div>
 
-        <div className="flex items-center">
-          <FaSearch
-            onClick={() => setShowModal(true)}
-            className="cursor-pointer"
-          />
-          <Tippy
-            interactive={true}
-            placement="bottom"
-            arrow={false}
-            animation="shift-away"
-            content={<DropdownMenu />}
-          >
-            <div className="flex items-center">
-              <img
-                src={userAvatar}
-                alt="Avatar"
-                className="size-10 ms-4 cursor-pointer"
-              />
-              <FaAngleDown />
-            </div>
-          </Tippy>
-        </div>
+        {/* Right portion */}
+        {isLoggedIn && (
+          <div className="flex items-center">
+            <FaSearch
+              onClick={() => setShowModal(true)}
+              className="cursor-pointer"
+            />
+            <Tippy
+              interactive={true}
+              placement="bottom"
+              arrow={false}
+              animation="shift-away"
+              content={<DropdownMenu />}
+            >
+              <div className="flex items-center">
+                <img
+                  src={userAvatar}
+                  alt="Avatar"
+                  className="size-10 ms-4 cursor-pointer"
+                />
+                <FaAngleDown />
+              </div>
+            </Tippy>
+          </div>
+        )}
       </nav>
       <SearchModal {...{ open: showModal, setOpen: setShowModal }} />
     </>

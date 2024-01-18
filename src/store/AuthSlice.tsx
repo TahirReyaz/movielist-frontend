@@ -50,7 +50,7 @@ const store = configureStore({
   },
 });
 
-export const { login: loginAction, logout: logoutActon } = authSlice.actions;
+export const { login: loginAction, logout: logoutAction } = authSlice.actions;
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

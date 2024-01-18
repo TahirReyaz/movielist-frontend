@@ -8,9 +8,14 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutAction } from "../../store/AuthSlice";
 
 const DropdownMenu = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const primaryLinks = [
     {
       title: "Profile",
@@ -40,8 +45,16 @@ const DropdownMenu = () => {
       icon: <FaAppStoreIos />,
     },
     { title: "Discord", action: () => {}, icon: <FaDiscord /> },
-    { title: "Logout", action: () => {}, icon: <FaSignOutAlt /> },
+    {
+      title: "Logout",
+      action: () => {
+        dispatch(logoutAction());
+        navigate("/");
+      },
+      icon: <FaSignOutAlt />,
+    },
   ];
+
   return (
     <div className="rounded text-textLight">
       <div className="bg-bgSecondary px-4 py-2">
@@ -61,6 +74,7 @@ const DropdownMenu = () => {
           <div
             key={link.title}
             className="w-5/12 hover:text-textBright flex items-center"
+            onClick={link.action}
           >
             {link.icon} <span className="ms-2 text-text-lg">{link.title}</span>
           </div>

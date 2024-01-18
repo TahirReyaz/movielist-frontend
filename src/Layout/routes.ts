@@ -45,12 +45,6 @@ const route: routeItem[] = [
   },
   { path: "/login", text: "Login", auth: false, noauth: true },
   { path: "/signup", text: "Sign Up", auth: false, noauth: true },
-  {
-    path: "/logout",
-    text: "Logout",
-    auth: true,
-    noauth: false,
-  },
 ];
 
 export default route;
