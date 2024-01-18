@@ -22,7 +22,9 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
         onMouseLeave={() => setHover(false)}
       >
         <img
-          src={`https://image.tmdb.org/t/p/original${mediaDetails.poster_path}`}
+          src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
+            mediaDetails.poster_path
+          }`}
           alt={mediaDetails.title}
           className="rounded"
         />

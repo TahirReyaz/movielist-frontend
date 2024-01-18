@@ -69,7 +69,9 @@ const MediaDetail = () => {
             {mediaDetails.backdrop_path && (
               <div className="h-[50vh] overflow-hidden">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${mediaDetails.backdrop_path}`}
+                  src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
+                    mediaDetails.backdrop_path
+                  }`}
                   alt={mediaDetails.title}
                   className="object-top"
                 />
@@ -82,7 +84,9 @@ const MediaDetail = () => {
                 <img
                   src={
                     mediaDetails.poster_path
-                      ? `https://image.tmdb.org/t/p/original${mediaDetails.poster_path}`
+                      ? `${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
+                          mediaDetails.poster_path
+                        }`
                       : posterPlaceholder
                   }
                   alt={mediaDetails.title}
@@ -126,7 +130,7 @@ const MediaDetail = () => {
                 <div>
                   <h1>{mediaDetails.title}</h1>
                   {mediaDetails.overview && (
-                    <p className="text-textSecondary">
+                    <p className="text-textLight">
                       {mediaDetails.overview}
                     </p>
                   )}

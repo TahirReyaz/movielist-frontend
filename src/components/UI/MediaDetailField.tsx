@@ -16,7 +16,7 @@ const MediaDetailField = ({
   return (
     <div className="p-2">
       <div className="text-textPrimary">{fieldName}</div>
-      {value && <div className="text-textSecondary">{value}</div>}
+      {value && <div className="text-textLight">{value}</div>}
       {values &&
         valkey &&
         values.map((item: any, index: number) => (

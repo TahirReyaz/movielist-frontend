@@ -7,6 +7,8 @@ import MovieList from "./MovieList";
 import Overview from "./Overview";
 import { listtypetype, mediaTypeType } from "../../constants/types";
 
+import userAvatar from "../../assets/userAvatar.png";
+
 type ProfileParams = {
   username: string;
 };
@@ -21,6 +23,7 @@ export type listItemType = {
 export type profileType = {
   dp: string;
   lists: listItemType[] | [];
+  backdrop: string;
 };
 
 const Profile = () => {
@@ -46,6 +49,22 @@ const Profile = () => {
 
   console.log({ profile });
 
+  const links = [
+    {
+      to: `/user/${username}`,
+      title: "Overview",
+    },
+    {
+      to: `/user/${username}/movielist#pagenav`,
+      title: "Movie List",
+    },
+    { to: "/", title: "Show List" },
+    { to: "/", title: "Favourite" },
+    { to: "/", title: "Stats" },
+    { to: "/", title: "Reviews" },
+    { to: "/", title: "Submissions" },
+  ];
+
   return (
     <main>
       {profile && (
@@ -53,33 +72,42 @@ const Profile = () => {
           {/* Image and overview */}
           <div className="bg-bgSecondary">
             {/* Backdrop image */}
-            <div>
-              <img src={``} alt={username} />
-            </div>
+            {profile.backdrop && (
+              <div>
+                <img src={``} alt={username} />
+              </div>
+            )}
             {/* Poster and overview */}
-            <div className="flex px-28">
+            <div className="flex px-40">
               {/* Poster and buttons */}
               <div className="w-2/12">
                 <img
-                  src={`https://image.tmdb.org/t/p/original${profile.dp}`}
+                  src={
+                    profile.dp
+                      ? `${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${profile.dp}`
+                      : userAvatar
+                  }
                   alt={username}
                 />
               </div>
               {/* title and overview */}
-              <div className="w-9/12 ms-4 p-4">
-                <div>{username}</div>
+              <div className="w-9/12 p-4 flex items-end">
+                <h1 className="text-3xl text-textBright font-extrabold">
+                  {username}
+                </h1>
               </div>
             </div>
             {/* Links */}
-            <ul className="flex justify-around" id="pagenav">
-              <Link to={`/user/${username}`}>Overview</Link>
-              <Link to={`/user/${username}/movielist#pagenav`}>Movie List</Link>
-              <li>Show List</li>
-              <li>Favourites</li>
-              <li>Stats</li>
-              <li>Social</li>
-              <li>Reviews</li>
-              <li>Submissions</li>
+            <ul className="flex justify-around px-48 items-center" id="pagenav">
+              {links.map((link) => (
+                <Link
+                  to={link.to}
+                  key={link.title}
+                  className="p-4 text-textLight text-base"
+                >
+                  {link.title}
+                </Link>
+              ))}
             </ul>
           </div>
           <Routes>
