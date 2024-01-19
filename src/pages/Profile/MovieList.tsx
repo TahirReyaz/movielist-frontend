@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { getUserDetail } from "../../lib/api";
-import { listItemType, profileType } from "./Profile";
+import { listItemType, profileType } from ".";
 import LowerLayout from "../../components/UI/LowerLayout";
 import MediaListGroup from "../../components/UI/MediaListGroup";
 
