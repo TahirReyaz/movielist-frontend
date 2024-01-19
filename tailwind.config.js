@@ -9,6 +9,7 @@ export default {
       bgHover: "#abbacd",
       actionPrimary: "#3DB5F3",
       actionSecondary: "#59BEF4",
+      actionNav: "#3577ff",
       red: "#ED294A",
       textLight: "#728AA1",
       textPrimary: "#a0b1c5",

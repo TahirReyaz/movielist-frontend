@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import route, { routeItem } from "./routes";
 import { AiFillInstagram } from "react-icons/ai";
 
 function Footer() {
@@ -10,7 +9,7 @@ function Footer() {
       </div>
       <div className="md:w-1/4">
         <ul className="flex flex-col text-center md:text-left my-3 md:my-0">
-          {route.map((item: routeItem, index: number) => (
+          {/* {route.map((item: routeItem, index: number) => (
             <li key={index}>
               <NavLink
                 to={item.path}
@@ -19,7 +18,7 @@ function Footer() {
                 {item.text}
               </NavLink>
             </li>
-          ))}
+          ))} */}
         </ul>
       </div>
       <div className="flex md:flex-col justify-center md:justify-start">

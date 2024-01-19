@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import route, { routeItem } from "../routes";
 import { RootState } from "../../store/AuthSlice";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react";
@@ -13,6 +12,12 @@ import userAvatar from "../../assets/userAvatar.png";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 import SearchModal from "../../components/search/SearchModal";
 import DropdownMenu from "./DropdownMenu";
+import Button from "../../components/UI/Button";
+
+type routeItem = {
+  path: string;
+  text: string;
+};
 
 const Navbar = () => {
   const { isLoggedIn, username } = useSelector(
@@ -20,7 +25,47 @@ const Navbar = () => {
   );
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  console.log(route.filter((item: routeItem) => !item.noauth && !item.auth));
+  const authRoutes: routeItem[] = [
+    {
+      path: "/",
+      text: "Home",
+    },
+    {
+      path: `/user/${username}`,
+      text: "Profile",
+    },
+    {
+      path: `/user/${username}/movielist`,
+      text: "Movie List",
+    },
+    {
+      path: `/user/${username}/showlist`,
+      text: "Show List",
+    },
+    {
+      path: "/search",
+      text: "Browse",
+    },
+    {
+      path: "/forum",
+      text: "Forum",
+    },
+  ];
+
+  const noAuthRoutes: routeItem[] = [
+    {
+      path: "/search",
+      text: "Browse",
+    },
+    {
+      path: "/social",
+      text: "Social",
+    },
+    {
+      path: "/forum",
+      text: "Forum",
+    },
+  ];
 
   return (
     <>
@@ -30,71 +75,24 @@ const Navbar = () => {
         <div className="flex gap-6 ml-7">
           {/* Auth */}
           {isLoggedIn &&
-            route
-              .filter((item: routeItem) => item.auth)
-              .map((item: routeItem, index: number) => (
-                <NavLink
-                  to={item.path}
-                  className="self-center"
-                  key={index}
-                  style={({ isActive }) => {
-                    return {
-                      fontWeight: isActive ? "normal" : "200",
-                    };
-                  }}
-                >
-                  <span>{item.text}</span>
-                </NavLink>
-              ))}
-          {/* Hardcoded auth */}
-          {isLoggedIn && username && (
-            <NavLink
-              to={`/user/${username}`}
-              className="self-center"
-              style={({ isActive }) => {
-                return {
-                  fontWeight: isActive ? "normal" : "200",
-                };
-              }}
-            >
-              <span>Profile</span>
-            </NavLink>
-          )}
-          {isLoggedIn && username && (
-            <NavLink
-              to={`/user/${username}/movielist`}
-              className="self-center"
-              style={({ isActive }) => {
-                return {
-                  fontWeight: isActive ? "normal" : "200",
-                };
-              }}
-            >
-              <span>Movie List</span>
-            </NavLink>
-          )}
+            username &&
+            authRoutes.map((item: routeItem, index: number) => (
+              <NavLink
+                to={item.path}
+                className="self-center"
+                key={index}
+                style={({ isActive }) => {
+                  return {
+                    fontWeight: isActive ? "normal" : "200",
+                  };
+                }}
+              >
+                <span>{item.text}</span>
+              </NavLink>
+            ))}
           {/* No auth */}
           {!isLoggedIn &&
-            route
-              .filter((item: routeItem) => item.noauth)
-              .map((item: routeItem, index: number) => (
-                <NavLink
-                  to={item.path}
-                  className="self-center"
-                  key={index}
-                  style={({ isActive }) => {
-                    return {
-                      fontWeight: isActive ? "normal" : "200",
-                    };
-                  }}
-                >
-                  <span>{item.text}</span>
-                </NavLink>
-              ))}
-          {/* Free for all */}
-          {route
-            .filter((item: routeItem) => !item.noauth && !item.auth)
-            .map((item: routeItem, index: number) => (
+            noAuthRoutes.map((item: routeItem, index: number) => (
               <NavLink
                 to={item.path}
                 className="self-center"
@@ -111,7 +109,7 @@ const Navbar = () => {
         </div>
 
         {/* Right portion */}
-        {isLoggedIn && (
+        {isLoggedIn && username && (
           <div className="flex items-center">
             <FaSearch
               onClick={() => setShowModal(true)}
@@ -133,6 +131,37 @@ const Navbar = () => {
                 <FaAngleDown />
               </div>
             </Tippy>
+          </div>
+        )}
+        {/* Routes for auth */}
+        {!isLoggedIn && (
+          <div className="flex gap-6">
+            <NavLink
+              to={"/login"}
+              className="self-center"
+              style={({ isActive }) => {
+                return {
+                  fontWeight: isActive ? "normal" : "200",
+                };
+              }}
+            >
+              <span>Login</span>
+            </NavLink>
+            <NavLink
+              to={"/signup"}
+              className="self-center"
+              style={({ isActive }) => {
+                return {
+                  fontWeight: isActive ? "normal" : "200",
+                };
+              }}
+            >
+              <Button
+                title="Sign Up"
+                classes="px-4 py-1"
+                divClasses="bg-actionNav"
+              />
+            </NavLink>
           </div>
         )}
       </nav>

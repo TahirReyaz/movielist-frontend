@@ -1,25 +1,41 @@
 import React from "react";
 
 interface ButtonProps {
-  type: "submit" | "reset" | "button" | undefined;
+  type?: "submit" | "reset" | "button";
   title: string;
   disabled?: boolean;
   onClick?: () => void;
   endElement?: React.ReactNode;
+  classes?: string;
+  divClasses?: string;
 }
 
-const Button = (props: ButtonProps) => {
+const Button = ({
+  title,
+  type = "button",
+  disabled,
+  onClick,
+  endElement,
+  classes,
+  divClasses,
+}: ButtonProps) => {
   return (
-    <div className="bg-actionPrimary rounded text-white w-full flex">
+    <div
+      className={`bg-actionPrimary rounded text-white w-full flex ${
+        divClasses && divClasses
+      }`}
+    >
       <button
-        className={" p-2 " + props.endElement ? "w-9/12" : ""}
-        type={props.type}
-        disabled={props.disabled}
-        onClick={props.onClick}
+        className={`p-2 ${endElement ? "w-9/12" : "w-full"} ${
+          classes && classes
+        }`}
+        type={type}
+        disabled={disabled}
+        onClick={onClick}
       >
-        {props.title}
+        {title}
       </button>
-      {props.endElement && <div className="w-3/12">{props.endElement} </div>}
+      {endElement && <div className="w-3/12">{endElement} </div>}
     </div>
   );
 };
