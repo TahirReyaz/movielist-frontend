@@ -38,8 +38,14 @@ const authSlice = createSlice({
       state.lists = action.payload.lists;
     },
     logout: (state) => {
-      state = initialState;
+      state.isLoggedIn = initialState.isLoggedIn;
+      state.userid = initialState.userid;
+      state.username = initialState.username;
+      state.lists = initialState.lists;
       localStorage.removeItem("token");
+      localStorage.removeItem("userid");
+      localStorage.removeItem("username");
+      localStorage.removeItem("lists");
     },
   },
 });
