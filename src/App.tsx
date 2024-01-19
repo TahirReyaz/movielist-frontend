@@ -14,7 +14,7 @@ import MovieList from "./pages/Profile/MovieList";
 
 const App = () => {
   return (
-    <div className="bg-bgPrimary text-textPrimary">
+    <div className="bg-bgTertiary text-textPrimary font-sans">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>

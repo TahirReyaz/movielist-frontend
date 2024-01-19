@@ -3,8 +3,9 @@ export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      bgSecondary: "#151f2e",
-      bgPrimary: "#0a1724",
+      bgSecondary: "#152232",
+      bgPrimary: "#0a1625",
+      bgTertiary: "#0b1622",
       bgFooter: "#11161d",
       bgHover: "#abbacd",
       actionPrimary: "#3DB5F3",
@@ -15,9 +16,26 @@ export default {
       textPrimary: "#a0b1c5",
       textBright: "#edf1f5",
       textWhite: "#d9e6ff",
+      textLightBlue: "#acd5f2",
       white: "#FFFFFF",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: [
+          "Overpass",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Oxygen",
+          "Ubuntu",
+          "Cantarell",
+          "Fira Sans",
+          "Droid Sans",
+          "Helvetica Neue",
+          "sans-serif",
+        ],
+      },
+    },
   },
   plugins: [],
 };

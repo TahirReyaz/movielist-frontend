@@ -12,13 +12,13 @@ const Landing = () => {
     {
       title: "Discover your obsessions",
       description:
-        "What are your highest rated genres or most watched voice actors? Follow your watching habits over time with in-depth statistics.",
+        "What are your highest rated genres or most watched actors? Follow your watching habits over time with in-depth statistics.",
       img: statsIcon,
     },
     {
-      title: "Bring AniList anywhere",
+      title: "Bring MovieList anywhere",
       description:
-        "Keep track of your progress on-the-go with one of many AniList apps across iOS, Android, macOS, and Windows.",
+        "Keep track of your progress on-the-go with one of many MovieList apps across iOS, Android, macOS, and Windows.",
       img: appIcon,
     },
     {
@@ -36,14 +36,26 @@ const Landing = () => {
   ];
 
   return (
-    <section>
-      <h1>The next-generation movie platform</h1>
-      <h2>
+    <section className="bg-bgPrimary px-40 pt-20">
+      <h1 className="text-textWhite text-5xl font-bold">
+        The next-generation movie platform
+      </h1>
+      <h2 className="text-textLightBlue text-4xl">
         Track, share, and discover your favorite movie and show with MovieList.
       </h2>
-      <div>
+      <div className="flex flex-wrap justify-between">
         {cards.map((item) => (
-          <div key={item.title}></div>
+          <div key={item.title} className="w-5/12 flex gap-2">
+            <img src={item.img} className="size-sm w-1/4" />
+            <div className="w-3/4">
+              <h3 className="text-textWhite font-semibold text-3xl">
+                {item.title}
+              </h3>
+              <div className="text-textLightBlue text-2xl">
+                {item.description}
+              </div>
+            </div>
+          </div>
         ))}
       </div>
       <Link to="/signup" className="">

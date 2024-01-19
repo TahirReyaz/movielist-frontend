@@ -1,3 +1,4 @@
+import React from "react";
 import MediaSection, { mediaSectionItem } from "../components/MediaSection";
 import Landing from "../components/home/Landing";
 
@@ -9,7 +10,7 @@ const Home = () => {
     { type: "top_rated", mediaType: "movie", title: "TOP RATED MOVIES" },
   ];
   return (
-    <div className="pt-4 px-28">
+    <div className="pt-4 px-40">
       <Landing />
       {mediaSections.map((item) => (
         <MediaSection {...{ ...item, key: item.title }} />
