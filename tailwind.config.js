@@ -14,6 +14,7 @@ export default {
       textLight: "#728AA1",
       textPrimary: "#a0b1c5",
       textBright: "#edf1f5",
+      textWhite: "#d9e6ff",
       white: "#FFFFFF",
     },
     extend: {},

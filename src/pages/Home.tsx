@@ -1,4 +1,5 @@
 import MediaSection, { mediaSectionItem } from "../components/MediaSection";
+import Landing from "../components/home/Landing";
 
 const Home = () => {
   const mediaSections: mediaSectionItem[] = [
@@ -9,6 +10,7 @@ const Home = () => {
   ];
   return (
     <div className="pt-4 px-28">
+      <Landing />
       {mediaSections.map((item) => (
         <MediaSection {...{ ...item, key: item.title }} />
       ))}
