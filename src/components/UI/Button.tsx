@@ -26,9 +26,9 @@ const Button = ({
       }`}
     >
       <button
-        className={`p-2 ${endElement ? "w-9/12" : "w-full"} ${
-          classes && classes
-        }`}
+        className={`p-2 text-2xl font-semibold ${
+          endElement ? "w-9/12" : "w-full"
+        } ${classes && classes}`}
         type={type}
         disabled={disabled}
         onClick={onClick}

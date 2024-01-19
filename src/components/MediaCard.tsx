@@ -34,7 +34,7 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
           />
         )}
       </div>
-      {mediaDetails.title}
+      <span className="text-[1.4rem]">{mediaDetails.title}</span>
     </Link>
   );
 };

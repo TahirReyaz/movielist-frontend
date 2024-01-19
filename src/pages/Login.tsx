@@ -72,7 +72,7 @@ const Login = () => {
 
   return (
     <main className="w-5/12 bg-bgSecondary mt-16 m-auto rounded p-10">
-      <h1 className="text-4xl">Login</h1>
+      <h1 className="text-4xl font-semibold text-center">Login</h1>
       <form
         className="flex flex-col align-center justify-center"
         onSubmit={handleSubmit}
@@ -102,8 +102,8 @@ const Login = () => {
           }}
         />
       </form>
-      <p>Forgot password?</p>
-      <p>Not registered? Create an account</p>
+      <p className="text-xl">Forgot password?</p>
+      <p className="text-xl">Not registered? Create an account</p>
     </main>
   );
 };

@@ -77,7 +77,9 @@ const Signup = () => {
 
   return (
     <main className="w-5/12 bg-bgSecondary mt-16 m-auto rounded p-10">
-      <h1 className="text-4xl">Sign up to MovieList</h1>
+      <h1 className="text-4xl font-semibold text-center">
+        Sign up to MovieList
+      </h1>
       <form
         className="flex flex-col align-center justify-center"
         onSubmit={handleSubmit}
@@ -125,7 +127,7 @@ const Signup = () => {
           }}
         />
       </form>
-      <p>Login | Resend Verification Email</p>
+      <p className="text-xl">Login | Resend Verification Email</p>
     </main>
   );
 };

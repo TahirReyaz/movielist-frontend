@@ -19,6 +19,22 @@ type routeItem = {
   text: string;
 };
 
+interface NavItemProps {
+  path: string;
+  text: string;
+}
+
+const NavItem = ({ path, text }: NavItemProps) => {
+  return (
+    <NavLink
+      to={path}
+      className="self-center text-2xl font-semibold hover:text-textBright"
+    >
+      <span>{text}</span>
+    </NavLink>
+  );
+};
+
 const Navbar = () => {
   const { isLoggedIn, username } = useSelector(
     (state: RootState) => state.auth
@@ -77,34 +93,12 @@ const Navbar = () => {
           {isLoggedIn &&
             username &&
             authRoutes.map((item: routeItem, index: number) => (
-              <NavLink
-                to={item.path}
-                className="self-center"
-                key={index}
-                style={({ isActive }) => {
-                  return {
-                    fontWeight: isActive ? "normal" : "200",
-                  };
-                }}
-              >
-                <span>{item.text}</span>
-              </NavLink>
+              <NavItem {...{ ...item, key: item.text }} />
             ))}
           {/* No auth */}
           {!isLoggedIn &&
             noAuthRoutes.map((item: routeItem, index: number) => (
-              <NavLink
-                to={item.path}
-                className="self-center"
-                key={index}
-                style={({ isActive }) => {
-                  return {
-                    fontWeight: isActive ? "normal" : "200",
-                  };
-                }}
-              >
-                <span>{item.text}</span>
-              </NavLink>
+              <NavItem {...{ ...item, key: item.text }} />
             ))}
         </div>
 
@@ -136,26 +130,8 @@ const Navbar = () => {
         {/* Routes for auth */}
         {!isLoggedIn && (
           <div className="flex gap-6">
-            <NavLink
-              to={"/login"}
-              className="self-center"
-              style={({ isActive }) => {
-                return {
-                  fontWeight: isActive ? "normal" : "200",
-                };
-              }}
-            >
-              <span>Login</span>
-            </NavLink>
-            <NavLink
-              to={"/signup"}
-              className="self-center"
-              style={({ isActive }) => {
-                return {
-                  fontWeight: isActive ? "normal" : "200",
-                };
-              }}
-            >
+            <NavItem {...{ path: "/login", text: "Login" }} />
+            <NavLink to={"/signup"} className="self-center">
               <Button
                 title="Sign Up"
                 classes="px-4 py-1"
