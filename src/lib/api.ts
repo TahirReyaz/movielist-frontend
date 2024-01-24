@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { bulkMediaType, listtypetype, mediaTypeType } from "../constants/types";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export type newEntryType = {
   userid: string;
   mediaid?: string;
@@ -25,9 +27,7 @@ export async function getBulkMedia(
 ) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${
-        import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT
-      }/${mediatype}/bulk/${bulktype}`
+      `${backendUrl}/${mediatype}/bulk/${bulktype}`
     );
     const medias = response.data;
     return medias;
@@ -42,9 +42,7 @@ export async function getMediaDetail(
 ) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${
-        import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT
-      }/${mediatype}/detail/${mediaid}`
+      `${backendUrl}/${mediatype}/detail/${mediaid}`
     );
     const media = response.data;
     return { ...media, error: false };
@@ -61,7 +59,7 @@ export async function signup(
 ) {
   try {
     const response: AxiosResponse = await axios.post(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/register`,
+      `${backendUrl}/auth/register`,
       { email, password, username }
     );
     return { message: response.data.message, error: false };
@@ -75,7 +73,7 @@ export async function signup(
 export async function login(email: string, password: string) {
   try {
     const response: AxiosResponse = await axios.post(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/auth/login`,
+      `${backendUrl}/auth/login`,
       { email, password },
       { withCredentials: true }
     );
@@ -130,7 +128,7 @@ export const addEntry = async ({
     };
     console.log({ body });
     const response: AxiosResponse = await axios.post(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/entry`,
+      `${backendUrl}/entry`,
       body,
       { withCredentials: true }
     );
@@ -146,7 +144,7 @@ export const addEntry = async ({
 export async function getUserDetail(username: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/user/${username}`
+      `${backendUrl}/user/${username}`
     );
     const user = response.data;
     return { ...user, error: false };
@@ -158,9 +156,7 @@ export async function getUserDetail(username: string | undefined) {
 
 export async function getListDetail(id: string | undefined) {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/list/${id}`
-    );
+    const response: AxiosResponse = await axios.get(`${backendUrl}/list/${id}`);
     const list = response.data;
     console.log({ list });
     return { ...list, error: false };
@@ -173,7 +169,7 @@ export async function getListDetail(id: string | undefined) {
 export async function getEntryDetail(id: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/entry/${id}`
+      `${backendUrl}/entry/${id}`
     );
     const entry = response.data;
     return { data: entry, error: false };
@@ -186,7 +182,7 @@ export async function getEntryDetail(id: string | undefined) {
 export async function getSearchResults(query: string) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/search/${query}`
+      `${backendUrl}/search/${query}`
     );
     const results = response.data.results;
     const movies: any[] = [],
@@ -223,7 +219,7 @@ export async function addItemToList(
   };
   try {
     const response: AxiosResponse = await axios.patch(
-      `${import.meta.env.VITE_LOCAL_BACKEND_ENDPOINT}/list/additem`,
+      `${backendUrl}/list/additem`,
       body,
       { withCredentials: true }
     );
