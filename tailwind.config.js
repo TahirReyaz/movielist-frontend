@@ -19,6 +19,8 @@ export default {
       textWhite: "#d9e6ff",
       textLightBlue: "#acd5f2",
       white: "#FFFFFF",
+      black: "#000000",
+      shadow: "#313644",
     },
     extend: {
       fontFamily: {

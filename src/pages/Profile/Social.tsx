@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
-import { RootState } from "../../store/AuthSlice";
-import { getBulkUsers } from "../../lib/api";
+import userAvatar from "../../assets/userAvatar.png";
+
+import { getBulkUsers, getUserDetail } from "../../lib/api";
 import LowerLayout from "../../components/UI/LowerLayout";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { profileType } from ".";
 
 type socialUser = {
@@ -23,10 +24,32 @@ type socialTypeItem = {
   type: socialFilterType;
 };
 
-const Social = () => {
-  const { following, followers } = useSelector(
-    (state: RootState) => state.auth
+const SocialUser = ({ img, username }: { img: string; username: string }) => {
+  const [hover, setHover] = useState<boolean>(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className="relative overflow-hidden rounded size-40"
+    >
+      <Link to={`/user/${username}`}>
+        <img src={img} />
+        {hover && (
+          <div className="bg-shadow/60 py-4 text-center flex items-end justify-center h-full w-full absolute top-0 left-0">
+            <h1 className="text-xl font-bold text-white">{username}</h1>
+          </div>
+        )}
+      </Link>
+    </div>
   );
+};
+
+const Social = () => {
+  const { username } = useParams();
+  const [profile, setProfile] = useState<profileType>();
+
+  const navigate = useNavigate();
 
   const [followingData, setFollowingData] = useState<socialUser[]>([]);
   const [followersData, setFollowersData] = useState<socialUser[]>([]);
@@ -43,30 +66,43 @@ const Social = () => {
     { title: "Forum Comments", type: "forumComments" },
   ];
 
-  console.log({ followingData });
-  console.log({ followersData });
+  useEffect(() => {
+    let tempuser = [];
+    async function fetchMedia() {
+      tempuser = await getUserDetail(username);
+      if (tempuser.error) {
+        navigate("/404");
+      }
+      setProfile(tempuser);
+    }
+    fetchMedia();
+  }, [username]);
 
   useEffect(() => {
     const fetchFollowers = async () => {
-      const tempData = await getBulkUsers(followers);
-      setFollowersData(tempData);
+      if (profile?.followers) {
+        const tempData = await getBulkUsers(profile.followers);
+        setFollowersData(tempData);
+      }
     };
 
-    if (followers && followers.length > 0) {
+    if (profile?.followers && profile.followers.length > 0) {
       fetchFollowers();
     }
-  }, [followers, setFollowersData]);
+  }, [profile, setFollowersData]);
 
   useEffect(() => {
     const fetchFollowing = async () => {
-      const tempData = await getBulkUsers(following);
-      setFollowingData(tempData);
+      if (profile?.following) {
+        const tempData = await getBulkUsers(profile.following);
+        setFollowingData(tempData);
+      }
     };
 
-    if (following && following.length > 0) {
+    if (profile?.following && profile.following.length > 0) {
       fetchFollowing();
     }
-  }, [following, setFollowingData]);
+  }, [profile, setFollowingData]);
 
   return (
     <LowerLayout
@@ -89,16 +125,28 @@ const Social = () => {
           </div>
         ),
         right: (
-          <div>
+          <div className="px-12">
             {followersData &&
               currentSocialType === "followers" &&
               followersData.map((user: socialUser) => (
-                <div>{user.username}</div>
+                <SocialUser
+                  {...{
+                    username: user.username,
+                    img: user.dp ? user.dp : userAvatar,
+                    key: user.username,
+                  }}
+                />
               ))}
             {followingData &&
-              currentSocialType === "followers" &&
+              currentSocialType === "following" &&
               followingData.map((user: socialUser) => (
-                <div>{user.username}</div>
+                <SocialUser
+                  {...{
+                    username: user.username,
+                    img: user.dp ? user.dp : userAvatar,
+                    key: user.username,
+                  }}
+                />
               ))}
           </div>
         ),

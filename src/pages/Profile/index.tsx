@@ -24,6 +24,8 @@ export type profileType = {
   lists: listItemType[] | [];
   backdrop: string;
   _id: string;
+  followers: string[] | [];
+  following: string[] | [];
 };
 
 const Profile = () => {

@@ -9,7 +9,6 @@ import MediaListGroup from "../../components/UI/MediaListGroup";
 const MovieList = () => {
   const { username } = useParams();
   const [profile, setProfile] = useState<profileType>();
-  console.log({ movieprofile: profile });
 
   const navigate = useNavigate();
 
