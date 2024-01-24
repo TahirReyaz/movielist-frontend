@@ -41,8 +41,11 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
     { to: "/", title: "Show List" },
     { to: "/", title: "Favourite" },
     { to: "/", title: "Stats" },
+    {
+      to: `/user/${username}/social#pagenav`,
+      title: "Social",
+    },
     { to: "/", title: "Reviews" },
-    { to: "/", title: "Submissions" },
   ];
 
   return (

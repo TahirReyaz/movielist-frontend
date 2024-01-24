@@ -11,6 +11,7 @@ import MediaDetail from "./pages/MediaDetail";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import MovieList from "./pages/Profile/MovieList";
+import Social from "./pages/Profile/Social";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/search" element={<Home />} />
             <Route path="/user/:username" element={<Profile />}>
               <Route path="movielist" element={<MovieList />} />
+              <Route path="social" element={<Social />} />
             </Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />

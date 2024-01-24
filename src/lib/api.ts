@@ -36,6 +36,18 @@ export async function getBulkMedia(
   }
 }
 
+export async function getBulkUsers(ids: string[]) {
+  const idsString = ids.join(",");
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/users/bulk?ids=${idsString}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function getMediaDetail(
   mediatype: string,
   mediaid: string | undefined

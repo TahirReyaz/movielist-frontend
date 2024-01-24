@@ -6,6 +6,7 @@ import MovieList from "./MovieList";
 import Overview from "./Overview";
 import { listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
+import Social from "./Social";
 
 type ProfileParams = {
   username: string;
@@ -57,6 +58,7 @@ const Profile = () => {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="movielist" element={<MovieList />} />
+            <Route path="social" element={<Social />} />
           </Routes>
         </>
       )}
