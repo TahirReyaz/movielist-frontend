@@ -47,6 +47,8 @@ const Login = () => {
               username: response.profile.username,
               lists: response.profile.lists,
               token: response.token,
+              following: response.profile.following,
+              followers: response.profile.followers,
             })
           );
         }, 3000);

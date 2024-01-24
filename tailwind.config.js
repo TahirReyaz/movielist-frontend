@@ -8,6 +8,7 @@ export default {
       bgTertiary: "#0b1622",
       bgFooter: "#11161d",
       bgHover: "#abbacd",
+      bgBanner: "#242538",
       actionPrimary: "#3DB5F3",
       actionSecondary: "#59BEF4",
       actionNav: "#3577ff",

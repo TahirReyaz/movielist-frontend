@@ -92,12 +92,12 @@ const Navbar = () => {
           {/* Auth */}
           {isLoggedIn &&
             username &&
-            authRoutes.map((item: routeItem, index: number) => (
+            authRoutes.map((item: routeItem) => (
               <NavItem {...{ ...item, key: item.text }} />
             ))}
           {/* No auth */}
           {!isLoggedIn &&
-            noAuthRoutes.map((item: routeItem, index: number) => (
+            noAuthRoutes.map((item: routeItem) => (
               <NavItem {...{ ...item, key: item.text }} />
             ))}
         </div>

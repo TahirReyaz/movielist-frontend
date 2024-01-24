@@ -204,6 +204,24 @@ export async function getSearchResults(query: string) {
   }
 }
 
+export async function followUser(userid: string, targetId: string) {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/user/follow/${targetId}`,
+      { userid },
+      { withCredentials: true }
+    );
+
+    console.log({ response });
+
+    return { ...response.data, error: false };
+  } catch (error: any) {
+    console.error(error);
+    const error_msg = error?.response?.data?.message;
+    return { message: error_msg, error: true };
+  }
+}
+
 ///////////////////////////// Deprecated ////////////////////////////////
 export async function addItemToList(
   mediatype: mediaTypeType,

@@ -13,7 +13,6 @@ import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
 import LowerLayout from "../components/UI/LowerLayout";
-import { mediaTypeType } from "../constants/types";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -130,9 +129,7 @@ const MediaDetail = () => {
                 <div>
                   <h1>{mediaDetails.title}</h1>
                   {mediaDetails.overview && (
-                    <p className="text-textLight">
-                      {mediaDetails.overview}
-                    </p>
+                    <p className="text-textLight">{mediaDetails.overview}</p>
                   )}
                 </div>
                 {/* Links */}
