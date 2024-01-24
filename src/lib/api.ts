@@ -40,7 +40,12 @@ export async function getBulkUsers(ids: string[]) {
   const idsString = ids.join(",");
   try {
     const response: AxiosResponse = await axios.get(
-      `${backendUrl}/users/bulk?ids=${idsString}`
+      `${backendUrl}/users/bulk`,
+      {
+        params: {
+          ids: idsString,
+        },
+      }
     );
     return response.data;
   } catch (error) {

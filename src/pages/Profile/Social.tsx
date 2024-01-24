@@ -43,13 +43,18 @@ const Social = () => {
     { title: "Forum Comments", type: "forumComments" },
   ];
 
+  console.log({ followingData });
+  console.log({ followersData });
+
   useEffect(() => {
     const fetchFollowers = async () => {
       const tempData = await getBulkUsers(followers);
       setFollowersData(tempData);
     };
 
-    fetchFollowers();
+    if (followers && followers.length > 0) {
+      fetchFollowers();
+    }
   }, [followers, setFollowersData]);
 
   useEffect(() => {
@@ -58,8 +63,10 @@ const Social = () => {
       setFollowingData(tempData);
     };
 
-    fetchFollowing();
-  }, [followers, setFollowersData]);
+    if (following && following.length > 0) {
+      fetchFollowing();
+    }
+  }, [following, setFollowingData]);
 
   return (
     <LowerLayout
@@ -86,6 +93,11 @@ const Social = () => {
             {followersData &&
               currentSocialType === "followers" &&
               followersData.map((user: socialUser) => (
+                <div>{user.username}</div>
+              ))}
+            {followingData &&
+              currentSocialType === "followers" &&
+              followingData.map((user: socialUser) => (
                 <div>{user.username}</div>
               ))}
           </div>
