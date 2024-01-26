@@ -16,9 +16,12 @@ interface TopSectionProps {
 }
 
 const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
-  const { userid, isLoggedIn, following } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const {
+    userid,
+    isLoggedIn,
+    following,
+    username: currentUsername,
+  } = useSelector((state: RootState) => state.auth);
 
   let followingThisUser: boolean = false;
   if (following && following.length > 0) {
@@ -76,7 +79,7 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
             {username}
           </h1>
           <div>
-            {isLoggedIn && (
+            {isLoggedIn && currentUsername !== username && (
               <Button
                 {...{
                   title: !followingThisUser ? "Follow" : "Following",
