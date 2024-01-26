@@ -76,7 +76,7 @@ const MediaDetail = () => {
               </div>
             )}
             {/* Poster and overview */}
-            <div className="flex px-40">
+            <div className="flex px-56">
               {/* Poster and buttons */}
               <div className="w-2/12">
                 <img
@@ -122,21 +122,53 @@ const MediaDetail = () => {
                 </div>
               </div>
               {/* title and overview */}
-              <div className="w-9/12 ms-4 p-4 flex flex-col justify-between">
+              <div className="w-9/12 ms-4 p-8 flex flex-col justify-between">
                 <div>
-                  <h1>{mediaDetails.title}</h1>
+                  <h1 className="text-3xl font-normal">{mediaDetails.title}</h1>
                   {mediaDetails.overview && (
-                    <p className="text-textLight">{mediaDetails.overview}</p>
+                    <p className="text-textLight text-[1.4rem] mt-6">
+                      {mediaDetails.overview}
+                    </p>
                   )}
                 </div>
                 {/* Links */}
-                <ul className="flex justify-around" id="pagenav">
-                  <Link to={`/user/${mediaid}`}>Overview</Link>
-                  <Link to={`/user/${mediaid}`}>Watch</Link>
-                  <Link to={`/user/${mediaid}`}>Character</Link>
-                  <Link to={`/user/${mediaid}`}>Staff</Link>
-                  <Link to={`/user/${mediaid}`}>Stats</Link>
-                  <Link to={`/user/${mediaid}`}>Social</Link>
+                <ul className="flex justify-around text-xl" id="pagenav">
+                  <Link
+                    className="hover:text-actionPrimary"
+                    to={`/${mediaType}/${mediaid}`}
+                  >
+                    Overview
+                  </Link>
+                  <Link
+                    className="hover:text-actionPrimary"
+                    to={`/${mediaType}/${mediaid}`}
+                  >
+                    Watch
+                  </Link>
+                  <Link
+                    className="hover:text-actionPrimary"
+                    to={`/${mediaType}/${mediaid}`}
+                  >
+                    Characters
+                  </Link>
+                  <Link
+                    className="hover:text-actionPrimary"
+                    to={`/${mediaType}/${mediaid}`}
+                  >
+                    Staff
+                  </Link>
+                  <Link
+                    className="hover:text-actionPrimary"
+                    to={`/${mediaType}/${mediaid}`}
+                  >
+                    Stats
+                  </Link>
+                  <Link
+                    className="hover:text-actionPrimary"
+                    to={`/${mediaType}/${mediaid}`}
+                  >
+                    Social
+                  </Link>
                 </ul>
               </div>
             </div>
