@@ -85,7 +85,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-bgSecondary py-4 px-40 font-body flex justify-between items-center">
+      <nav className="bg-bgSecondary py-4 px-56 font-body flex justify-between items-center">
         <Link to="/">Movie List</Link>
 
         <div className="flex gap-6 ml-7">

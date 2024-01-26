@@ -16,7 +16,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="pt-4 px-40">
+    <div className="pt-4 px-56">
       {!isLoggedIn && <Landing />}
       {mediaSections.map((item) => (
         <MediaSection {...{ ...item, key: item.title }} />

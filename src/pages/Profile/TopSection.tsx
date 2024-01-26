@@ -64,7 +64,7 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
         <div className="bg-bgBanner h-full w-full absolute z-10" />
       )}
       {/* Poster and overview */}
-      <div className="flex px-40 z-20 relative">
+      <div className="flex px-56 z-20 relative">
         {/* Poster and buttons */}
         <div className="w-2/12">
           <img

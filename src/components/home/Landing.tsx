@@ -36,7 +36,7 @@ const Landing = () => {
   ];
 
   return (
-    <section className="bg-bgPrimary px-40 pt-20">
+    <section className="bg-bgPrimary px-56 pt-20">
       <h1 className="text-textWhite text-5xl font-bold">
         The next-generation movie platform
       </h1>
