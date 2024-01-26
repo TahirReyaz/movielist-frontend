@@ -21,6 +21,7 @@ export default {
       white: "#FFFFFF",
       black: "#000000",
       shadow: "#313644",
+      backdrop: "#12161c",
     },
     extend: {
       fontFamily: {

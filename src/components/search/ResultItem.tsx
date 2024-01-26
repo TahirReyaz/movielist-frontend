@@ -3,6 +3,7 @@ import { mediaTypeType } from "../../constants/types";
 import { Link } from "react-router-dom";
 
 import posterPlaceholder from "../../assets/posterPlaceholder.jpg";
+import { tmdbImgEndPoint } from "../../constants/tmdb";
 
 interface ResultItemProps {
   type: mediaTypeType;
@@ -26,26 +27,23 @@ const ResultItem = ({
     date = new Date(time);
   }
   const year = date.getFullYear();
+
   return (
     <Link
       to={url}
       onClick={() => setOpen(false)}
-      className="flex py-3 px-4 hover:bg-actionPrimary"
+      className="flex py-6 px-8 hover:bg-actionPrimary"
     >
       <img
-        src={
-          poster
-            ? `${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${poster}`
-            : posterPlaceholder
-        }
+        src={poster ? `${tmdbImgEndPoint}${poster}` : posterPlaceholder}
         alt={title}
-        className={`rounded aspect-square object-cover ${
+        className={`rounded-md aspect-square object-cover ${
           type == "person" ? "object-center" : "object-top"
         } w-1/12`}
       />
-      <div className="ms-3 text-textPrimary flex flex-col">
+      <div className="ms-3 text-textPrimary text-2xl font-semibold flex flex-col">
         {title}
-        {year && <span className="text-sm text-left">{year}</span>}
+        {time && <span className="text-xl font-medium text-left">{year}</span>}
       </div>
     </Link>
   );

@@ -8,9 +8,8 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
-  console.log({ results });
   return (
-    <div className="flex flex-wrap w-full gap-2">
+    <div className="flex flex-wrap w-full justify-between">
       {results.movies && results.movies.length > 0 && (
         <ResultSection
           {...{ title: "Movie", type: "movie", list: results.movies, setOpen }}
@@ -18,7 +17,7 @@ const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
       )}
       {results.shows && results.shows.length > 0 && (
         <ResultSection
-          {...{ title: "Show", type: "tv", list: results.shows, setOpen }}
+          {...{ title: "Series", type: "tv", list: results.shows, setOpen }}
         />
       )}
       {results.people && results.people.length > 0 && (

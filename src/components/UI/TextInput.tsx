@@ -7,21 +7,30 @@ interface TextInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   classes?: string;
+  divClasses?: string;
 }
 
-const TextInput = (props: TextInputProps) => {
+const TextInput = ({
+  value,
+  onChange,
+  label,
+  type,
+  name,
+  classes,
+  divClasses,
+}: TextInputProps) => {
   return (
-    <div className="relative my-2 rounded-md">
+    <div className={`relative my-2 rounded-md ${divClasses && divClasses}`}>
       <input
-        value={props.value}
-        onChange={props.onChange}
-        type={props.type}
-        name={props.name}
-        id={props.name}
+        value={value}
+        onChange={onChange}
+        type={type}
+        name={name}
+        id={name}
         className={`block bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-2 pl-3 pr-20 text-gray-900 placeholder:text-gray-400 ${
-          props.classes && props.classes
+          classes && classes
         }`}
-        placeholder={props.label}
+        placeholder={label}
       />
     </div>
   );

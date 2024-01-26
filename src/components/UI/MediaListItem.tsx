@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { listtypetype, mediaTypeType } from "../../constants/types";
 import { getEntryDetail } from "../../lib/api";
 import { Link } from "react-router-dom";
+import { tmdbImgEndPoint } from "../../constants/tmdb";
 
 interface MediaListItemProps {
   entryId: string;
@@ -50,9 +51,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
             <div className="w-7/12">
               <Link to={`/${entryDetails.mediaType}/${entryDetails.mediaid}`}>
                 <img
-                  src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
-                    entryDetails.poster
-                  }`}
+                  src={`${tmdbImgEndPoint}${entryDetails.poster}`}
                   alt={entryDetails.title}
                   className="rounded aspect-square object-cover object-top"
                 />

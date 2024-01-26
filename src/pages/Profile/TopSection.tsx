@@ -7,6 +7,7 @@ import userAvatar from "../../assets/userAvatar.png";
 import Button from "../../components/UI/Button";
 import { RootState } from "../../store/AuthSlice";
 import { followUser } from "../../lib/api";
+import { tmdbImgEndPoint } from "../../constants/tmdb";
 
 interface TopSectionProps {
   username?: string;
@@ -67,9 +68,7 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
         {/* Poster and buttons */}
         <div className="w-2/12">
           <img
-            src={
-              dp ? `${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${dp}` : userAvatar
-            }
+            src={dp ? `${tmdbImgEndPoint}${dp}` : userAvatar}
             alt={username}
           />
         </div>

@@ -28,7 +28,7 @@ const Modal = ({ open, setOpen, children }: ModalProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-bgPrimary bg-opacity-90 transition-opacity" />
+          <div className="fixed inset-0 bg-backdrop bg-opacity-90 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -42,7 +42,7 @@ const Modal = ({ open, setOpen, children }: ModalProps) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-transparent transition-all w-4/5">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-transparent transition-all w-11/12">
                 {children}
               </Dialog.Panel>
             </Transition.Child>

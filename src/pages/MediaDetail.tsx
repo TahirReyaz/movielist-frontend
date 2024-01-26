@@ -13,6 +13,7 @@ import MediaDetailCard from "../components/UI/MediaDetailCard";
 import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
 import LowerLayout from "../components/UI/LowerLayout";
+import { tmdbImgEndPoint } from "../constants/tmdb";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -68,9 +69,7 @@ const MediaDetail = () => {
             {mediaDetails.backdrop_path && (
               <div className="h-[50vh] overflow-hidden">
                 <img
-                  src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
-                    mediaDetails.backdrop_path
-                  }`}
+                  src={`${tmdbImgEndPoint}${mediaDetails.backdrop_path}`}
                   alt={mediaDetails.title}
                   className="object-top"
                 />
@@ -83,9 +82,7 @@ const MediaDetail = () => {
                 <img
                   src={
                     mediaDetails.poster_path
-                      ? `${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
-                          mediaDetails.poster_path
-                        }`
+                      ? `${tmdbImgEndPoint}${mediaDetails.poster_path}`
                       : posterPlaceholder
                   }
                   alt={mediaDetails.title}

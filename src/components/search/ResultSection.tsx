@@ -21,9 +21,12 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
     titleField = "name";
     imgField = "profile_path";
   }
+
   return (
-    <div className="w-5/12">
-      <h3 className="text-white text-left">{title}</h3>
+    <div className="w-[48.5%]">
+      <h3 className="my-4 text-white text-left font-semibold text-[1.4rem]">
+        {title}
+      </h3>
       <div className="bg-bgSecondary rounded overflow-hidden">
         {list &&
           list.length > 0 &&
@@ -43,7 +46,7 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
         {list.length > 8 && (
           <Link
             to={"/"}
-            className="flex py-3 px-4 hover:bg-actionPrimary justify-center text-sm text-textPrimary"
+            className="flex py-3 px-4 hover:bg-actionPrimary justify-center text-xl text-textPrimary font-semibold"
           >
             {`View all ${title.toLowerCase()} results`}
           </Link>

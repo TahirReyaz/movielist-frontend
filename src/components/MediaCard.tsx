@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { RootState } from "../store/AuthSlice";
 import MediaCardButtons from "./UI/MediaCardButtons";
 import { MediaDetailType } from "../pages/MediaDetail";
+import { tmdbImgEndPoint } from "../constants/tmdb";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -22,9 +23,7 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
         onMouseLeave={() => setHover(false)}
       >
         <img
-          src={`${import.meta.env.VITE_TMDB_IMG_ENDPOINT}${
-            mediaDetails.poster_path
-          }`}
+          src={`${tmdbImgEndPoint}${mediaDetails.poster_path}`}
           alt={mediaDetails.title}
           className="rounded"
         />

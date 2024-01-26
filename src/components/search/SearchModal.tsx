@@ -55,7 +55,9 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
             value: query,
             onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
               setQuery(event.target.value),
-            classes: "bg-bgSecondary text-textPrimary",
+            classes: "bg-bgSecondary text-textPrimary font-semibold",
+            divClasses:
+              "mb-2 mt-32 w-1/2 mx-auto p-4 bg-bgSecondary rounded-lg",
           }}
         />
         <SearchResults {...{ results, setOpen }} />
