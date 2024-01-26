@@ -13,8 +13,27 @@ import Profile from "./pages/Profile";
 import MovieList from "./pages/Profile/MovieList";
 import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
+import { mediaTypeType } from "./constants/types";
 
 const App = () => {
+  const mediaSubRoutes = [
+    { path: "watch", element: <ComingSoon /> },
+    { path: "characters", element: <ComingSoon /> },
+    { path: "staff", element: <ComingSoon /> },
+    { path: "stats", element: <ComingSoon /> },
+    { path: "social", element: <ComingSoon /> },
+  ];
+
+  const profileSubRoutes = [
+    { path: "movielist", element: <MovieList /> },
+    { path: "serieslist", element: <ComingSoon /> },
+    { path: "favorites", element: <ComingSoon /> },
+    { path: "stats", element: <ComingSoon /> },
+    { path: "social", element: <Social /> },
+    { path: "reviews", element: <ComingSoon /> },
+    { path: "submissions", element: <ComingSoon /> },
+  ];
+
   return (
     <div className="bg-bgTertiary text-textPrimary font-sans">
       <BrowserRouter>
@@ -25,18 +44,22 @@ const App = () => {
             <Route path="/social" element={<ComingSoon />} />
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>
-              <Route path="movielist" element={<MovieList />} />
-              <Route path="serieslist" element={<ComingSoon />} />
-              <Route path="favorites" element={<ComingSoon />} />
-              <Route path="stats" element={<ComingSoon />} />
-              <Route path="social" element={<Social />} />
-              <Route path="reviews" element={<ComingSoon />} />
-              <Route path="submissions" element={<ComingSoon />} />
+              {profileSubRoutes.map((route) => (
+                <Route path={route.path} element={route.element} />
+              ))}
             </Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/movie/:mediaid" element={<MediaDetail />} />
-            <Route path="/tv/:mediaid" element={<MediaDetail />} />
+            <Route path={`/movie/:mediaid`} element={<MediaDetail />}>
+              {mediaSubRoutes.map((route) => (
+                <Route path={route.path} element={route.element} />
+              ))}
+            </Route>
+            <Route path={`/tv/:mediaid`} element={<MediaDetail />}>
+              {mediaSubRoutes.map((route) => (
+                <Route path={route.path} element={route.element} />
+              ))}
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 import Tippy from "@tippyjs/react";
 import { Link } from "react-router-dom";
@@ -14,6 +20,7 @@ import Button from "../components/UI/Button";
 import MediaActionMenu from "../components/UI/MediaActionMenu";
 import LowerLayout from "../components/UI/LowerLayout";
 import { tmdbImgEndPoint } from "../constants/tmdb";
+import ComingSoon from "./ComingSoon";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -46,6 +53,15 @@ const MediaDetail = () => {
   const { pathname } = useLocation();
 
   const mediaType = pathname.split("/")[1];
+
+  const routes = [
+    { path: "/", element: <ComingSoon />, title: "Overview" },
+    { path: "watch", element: <ComingSoon />, title: "Watch" },
+    { path: "characters", element: <ComingSoon />, title: "Character" },
+    { path: "staff", element: <ComingSoon />, title: "Staff" },
+    { path: "stats", element: <ComingSoon />, title: "Stats" },
+    { path: "social", element: <ComingSoon />, title: "Social" },
+  ];
 
   useEffect(() => {
     let tempMedia = [];
@@ -133,42 +149,17 @@ const MediaDetail = () => {
                 </div>
                 {/* Links */}
                 <ul className="flex justify-around text-xl" id="pagenav">
-                  <Link
-                    className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}`}
-                  >
-                    Overview
-                  </Link>
-                  <Link
-                    className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}`}
-                  >
-                    Watch
-                  </Link>
-                  <Link
-                    className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}`}
-                  >
-                    Characters
-                  </Link>
-                  <Link
-                    className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}`}
-                  >
-                    Staff
-                  </Link>
-                  <Link
-                    className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}`}
-                  >
-                    Stats
-                  </Link>
-                  <Link
-                    className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}`}
-                  >
-                    Social
-                  </Link>
+                  {routes.map((route) => (
+                    <Link
+                      className="hover:text-actionPrimary"
+                      to={`/${mediaType}/${mediaid}/${
+                        route.path === "/" ? "" : route.path
+                      }`}
+                      key={route.title}
+                    >
+                      {route.title}
+                    </Link>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -275,7 +266,17 @@ const MediaDetail = () => {
                   </MediaDetailCard>
                 </>
               ),
-              right: <div>Right</div>,
+              right: (
+                <Routes>
+                  {routes.map((route) => (
+                    <Route
+                      path={route.path}
+                      element={route.element}
+                      key={route.title}
+                    />
+                  ))}
+                </Routes>
+              ),
             }}
           />
         </>
