@@ -45,19 +45,31 @@ const App = () => {
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>
               {profileSubRoutes.map((route) => (
-                <Route path={route.path} element={route.element} />
+                <Route
+                  path={route.path}
+                  element={route.element}
+                  key={route.path}
+                />
               ))}
             </Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path={`/movie/:mediaid`} element={<MediaDetail />}>
               {mediaSubRoutes.map((route) => (
-                <Route path={route.path} element={route.element} />
+                <Route
+                  path={route.path}
+                  element={route.element}
+                  key={route.path}
+                />
               ))}
             </Route>
             <Route path={`/tv/:mediaid`} element={<MediaDetail />}>
               {mediaSubRoutes.map((route) => (
-                <Route path={route.path} element={route.element} />
+                <Route
+                  path={route.path}
+                  element={route.element}
+                  key={route.path}
+                />
               ))}
             </Route>
             <Route path="*" element={<NotFound />} />
