@@ -7,6 +7,7 @@ import Overview from "./Overview";
 import { listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Social from "./Social";
+import ComingSoon from "../ComingSoon";
 
 type ProfileParams = {
   username: string;
@@ -31,8 +32,6 @@ export type profileType = {
 const Profile = () => {
   const { username } = useParams<ProfileParams>();
 
-  console.log({ usernameinprofile: username });
-
   const [profile, setProfile] = useState<profileType>();
 
   const navigate = useNavigate();
@@ -49,8 +48,6 @@ const Profile = () => {
     fetchMedia();
   }, [username]);
 
-  console.log({ profile });
-
   return (
     <main>
       {profile && (
@@ -60,7 +57,12 @@ const Profile = () => {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="movielist" element={<MovieList />} />
+            <Route path="serieslist" element={<ComingSoon />} />
+            <Route path="favorites" element={<ComingSoon />} />
+            <Route path="stats" element={<ComingSoon />} />
             <Route path="social" element={<Social />} />
+            <Route path="reviews" element={<ComingSoon />} />
+            <Route path="submissions" element={<ComingSoon />} />
           </Routes>
         </>
       )}

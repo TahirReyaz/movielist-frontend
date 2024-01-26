@@ -38,14 +38,15 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
       to: `/user/${username}/movielist#pagenav`,
       title: "Movie List",
     },
-    { to: "/", title: "Show List" },
-    { to: "/", title: "Favourite" },
-    { to: "/", title: "Stats" },
+    { to: `/user/${username}/serieslist#pagenav`, title: "Series List" },
+    { to: `/user/${username}/favorites#pagenav`, title: "Favorites" },
+    { to: `/user/${username}/stats#pagenav`, title: "Stats" },
     {
       to: `/user/${username}/social#pagenav`,
       title: "Social",
     },
-    { to: "/", title: "Reviews" },
+    { to: `/user/${username}/reviews#pagenav`, title: "Reviews" },
+    { to: `/user/${username}/submissions#pagenav`, title: "Submissions" },
   ];
 
   return (

@@ -71,7 +71,7 @@ const Navbar = () => {
   const noAuthRoutes: routeItem[] = [
     {
       path: "/search",
-      text: "Browse",
+      text: "Search",
     },
     {
       path: "/social",

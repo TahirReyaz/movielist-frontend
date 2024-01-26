@@ -135,11 +135,11 @@ const MediaDetail = () => {
                 {/* Links */}
                 <ul className="flex justify-around" id="pagenav">
                   <Link to={`/user/${mediaid}`}>Overview</Link>
-                  <li>Watch</li>
-                  <li>Characters</li>
-                  <li>Staff</li>
-                  <li>Stats</li>
-                  <li>Social</li>
+                  <Link to={`/user/${mediaid}`}>Watch</Link>
+                  <Link to={`/user/${mediaid}`}>Character</Link>
+                  <Link to={`/user/${mediaid}`}>Staff</Link>
+                  <Link to={`/user/${mediaid}`}>Stats</Link>
+                  <Link to={`/user/${mediaid}`}>Social</Link>
                 </ul>
               </div>
             </div>

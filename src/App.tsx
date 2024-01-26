@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import MovieList from "./pages/Profile/MovieList";
 import Social from "./pages/Profile/Social";
+import ComingSoon from "./pages/ComingSoon";
 
 const App = () => {
   return (
@@ -20,10 +21,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/search" element={<Home />} />
+            <Route path="/search" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>
               <Route path="movielist" element={<MovieList />} />
+              <Route path="serieslist" element={<ComingSoon />} />
+              <Route path="favorites" element={<ComingSoon />} />
+              <Route path="stats" element={<ComingSoon />} />
               <Route path="social" element={<Social />} />
+              <Route path="reviews" element={<ComingSoon />} />
+              <Route path="submissions" element={<ComingSoon />} />
             </Route>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
