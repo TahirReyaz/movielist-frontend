@@ -10,7 +10,7 @@ import Login from "./pages/Login";
 import MediaDetail from "./pages/MediaDetail";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
-import MovieList from "./pages/Profile/MovieList";
+import MovieList from "./pages/Profile/MediaList";
 import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
 import { mediaTypeType } from "./constants/types";
@@ -26,7 +26,7 @@ const App = () => {
 
   const profileSubRoutes = [
     { path: "movielist", element: <MovieList /> },
-    { path: "tvlist", element: <ComingSoon /> },
+    { path: "tvlist", element: <MovieList /> },
     { path: "favorites", element: <ComingSoon /> },
     { path: "stats", element: <ComingSoon /> },
     { path: "social", element: <Social /> },

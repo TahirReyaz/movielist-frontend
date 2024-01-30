@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { getUserDetail } from "../../lib/api";
@@ -11,6 +11,9 @@ const MovieList = () => {
   const [profile, setProfile] = useState<profileType>();
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const mediaType = pathname.split("/")[3] === "movielist" ? "movie" : "tv";
 
   useEffect(() => {
     let tempuser = [];
@@ -42,9 +45,11 @@ const MovieList = () => {
             {profile && profile.lists.length > 0 ? (
               <>
                 <div className="self-end">Buttons</div>
-                {profile.lists.map((item: listItemType) => (
-                  <MediaListGroup {...{ ...item, key: item.listtype }} />
-                ))}
+                {profile.lists
+                  .filter((item: listItemType) => item.mediaType === mediaType)
+                  .map((item: listItemType) => (
+                    <MediaListGroup {...{ ...item, key: item.listtype }} />
+                  ))}
               </>
             ) : (
               <h3 className="text-2xl">No entries. Add some!!</h3>

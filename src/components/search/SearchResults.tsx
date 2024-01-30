@@ -17,7 +17,7 @@ const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
       )}
       {results.shows && results.shows.length > 0 && (
         <ResultSection
-          {...{ title: "Series", type: "tv", list: results.shows, setOpen }}
+          {...{ title: "TV", type: "tv", list: results.shows, setOpen }}
         />
       )}
       {results.people && results.people.length > 0 && (

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 
 import { getUserDetail } from "../../lib/api";
-import MovieList from "./MovieList";
+import MovieList from "./MediaList";
 import Overview from "./Overview";
 import { listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
@@ -57,7 +57,7 @@ const Profile = () => {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="movielist" element={<MovieList />} />
-            <Route path="tvlist" element={<ComingSoon />} />
+            <Route path="tvlist" element={<MovieList />} />
             <Route path="favorites" element={<ComingSoon />} />
             <Route path="stats" element={<ComingSoon />} />
             <Route path="social" element={<Social />} />

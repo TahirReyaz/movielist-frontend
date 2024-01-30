@@ -35,7 +35,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
     async function fetchMedia() {
       const { data, error } = await getEntryDetail(entryId);
       if (error) {
-        console.log("error while fetching entry details");
+        console.error("error while fetching entry details");
       }
       setEntryDetails(data);
     }

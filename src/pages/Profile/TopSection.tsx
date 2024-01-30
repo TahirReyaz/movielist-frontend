@@ -42,7 +42,7 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
       to: `/user/${username}/movielist#pagenav`,
       title: "Movie List",
     },
-    { to: `/user/${username}/tvlist#pagenav`, title: "Series List" },
+    { to: `/user/${username}/tvlist#pagenav`, title: "TV List" },
     { to: `/user/${username}/favorites#pagenav`, title: "Favorites" },
     { to: `/user/${username}/stats#pagenav`, title: "Stats" },
     {

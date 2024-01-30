@@ -143,7 +143,6 @@ export const addEntry = async ({
       poster,
       backdrop,
     };
-    console.log({ body });
     const response: AxiosResponse = await axios.post(
       `${backendUrl}/entry`,
       body,
@@ -175,7 +174,6 @@ export async function getListDetail(id: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(`${backendUrl}/list/${id}`);
     const list = response.data;
-    console.log({ list });
     return { ...list, error: false };
   } catch (error) {
     console.error(error);

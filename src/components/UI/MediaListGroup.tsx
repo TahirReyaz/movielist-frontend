@@ -19,14 +19,12 @@ type listDetailsType = {
 const MediaListGroup = ({ listtype, id }: MediaListGroupParams) => {
   const [listDetails, setListDetails] = useState<listDetailsType>();
 
-  console.log({ listDetails });
-
   useEffect(() => {
     let tempList = [];
     async function fetchMedia() {
       tempList = await getListDetail(id);
       if (tempList.error) {
-        console.log("Error in fetching list");
+        console.error("Error in fetching list");
       }
       setListDetails(tempList);
     }

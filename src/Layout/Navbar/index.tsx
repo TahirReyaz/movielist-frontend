@@ -55,7 +55,7 @@ const Navbar = () => {
       text: "Movie List",
     },
     {
-      path: `/user/${username}/showlist`,
+      path: `/user/${username}/tvlist`,
       text: "Show List",
     },
     {

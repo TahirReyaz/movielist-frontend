@@ -70,6 +70,9 @@ const MediaDetail = () => {
       if (tempMedia.error) {
         navigate("/404");
       }
+      if (mediaType == "tv") {
+        tempMedia.title = tempMedia.name;
+      }
       setMediaDetails(tempMedia);
     }
     fetchMedia();
