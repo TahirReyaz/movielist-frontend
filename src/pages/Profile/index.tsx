@@ -57,7 +57,7 @@ const Profile = () => {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="movielist" element={<MovieList />} />
-            <Route path="serieslist" element={<ComingSoon />} />
+            <Route path="tvlist" element={<ComingSoon />} />
             <Route path="favorites" element={<ComingSoon />} />
             <Route path="stats" element={<ComingSoon />} />
             <Route path="social" element={<Social />} />

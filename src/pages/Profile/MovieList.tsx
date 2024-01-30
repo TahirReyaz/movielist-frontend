@@ -39,13 +39,15 @@ const MovieList = () => {
         ),
         right: (
           <div className="flex flex-col">
-            {profile && (
+            {profile && profile.lists.length > 0 ? (
               <>
                 <div className="self-end">Buttons</div>
                 {profile.lists.map((item: listItemType) => (
                   <MediaListGroup {...{ ...item, key: item.listtype }} />
                 ))}
               </>
+            ) : (
+              <h3 className="text-2xl">No entries. Add some!!</h3>
             )}
           </div>
         ),

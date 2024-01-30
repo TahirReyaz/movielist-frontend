@@ -26,7 +26,7 @@ const App = () => {
 
   const profileSubRoutes = [
     { path: "movielist", element: <MovieList /> },
-    { path: "serieslist", element: <ComingSoon /> },
+    { path: "tvlist", element: <ComingSoon /> },
     { path: "favorites", element: <ComingSoon /> },
     { path: "stats", element: <ComingSoon /> },
     { path: "social", element: <Social /> },
