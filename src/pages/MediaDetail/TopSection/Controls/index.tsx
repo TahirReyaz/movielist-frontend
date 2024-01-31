@@ -1,31 +1,33 @@
 import React from "react";
 import Tippy from "@tippyjs/react";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
-import { useSelector } from "react-redux";
 
 import "tippy.js/dist/tippy.css";
 
 import { MediaDetailType } from "../..";
 import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
-import { RootState } from "../../../../store/AuthSlice";
+import { entryType } from "../../../../constants/types";
 
 interface ControlsProps {
   mediaid?: string;
   mediaDetails: MediaDetailType;
+  entries?: entryType[];
 }
 
-const Controls = ({ mediaid, mediaDetails }: ControlsProps) => {
-  // const { lists } = useSelector((state: RootState) => state.auth);
-  // let status = ""
-  // if(lists) {
-
-  // }
+const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
+  console.log({ entries });
+  const existingEntry = entries?.find((entry) => entry.mediaid === mediaid);
+  let title: string = "Add to List";
+  if (existingEntry) {
+    let status = existingEntry.status;
+    title = status.charAt(0).toUpperCase() + status.slice(1);
+  }
 
   return (
     <div className="flex w-full gap-2 mb-4">
       <Button
-        title="Add to List"
+        title={title}
         type="button"
         endElement={
           <Tippy
@@ -38,6 +40,7 @@ const Controls = ({ mediaid, mediaDetails }: ControlsProps) => {
                 {...{
                   mediaid,
                   mediaDetails,
+                  currentStatus: existingEntry?.status,
                 }}
               />
             }

@@ -18,4 +18,5 @@ export type entryType = {
   mediaType: mediaTypeType;
   status: listtypetype;
   userid: string;
+  mediaid: string;
 };
