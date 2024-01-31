@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import posterPlaceholder from "../../assets/posterPlaceholder.jpg";
+import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 
-import { MediaDetailType } from ".";
-import { tmdbImgEndPoint } from "../../constants/tmdb";
-import ComingSoon from "../ComingSoon";
+import { tmdbImgEndPoint } from "../../../constants/tmdb";
+import ComingSoon from "../../ComingSoon";
 import Controls from "./Controls";
+import { MediaDetailType } from "..";
 
 interface TopSectionProps {
   mediaDetails: MediaDetailType;

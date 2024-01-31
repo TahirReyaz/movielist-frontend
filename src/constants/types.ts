@@ -12,3 +12,10 @@ export type listtypetype =
   | "dropped"
   | "completed"
   | "paused";
+
+export type entryType = {
+  id: string;
+  mediaType: mediaTypeType;
+  status: listtypetype;
+  userid: string;
+};

@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 
 import "tippy.js/dist/tippy.css";
 
-import { MediaDetailType } from ".";
-import Button from "../../components/UI/Button";
-import MediaActionMenu from "../../components/UI/MediaActionMenu";
-import { RootState } from "../../store/AuthSlice";
+import { MediaDetailType } from "../..";
+import Button from "../../../../components/UI/Button";
+import MediaActionMenu from "./MediaActionMenu";
+import { RootState } from "../../../../store/AuthSlice";
 
 interface ControlsProps {
   mediaid?: string;
@@ -16,7 +16,11 @@ interface ControlsProps {
 }
 
 const Controls = ({ mediaid, mediaDetails }: ControlsProps) => {
-  const { lists } = useSelector((state: RootState) => state.auth);
+  // const { lists } = useSelector((state: RootState) => state.auth);
+  // let status = ""
+  // if(lists) {
+
+  // }
 
   return (
     <div className="flex w-full gap-2 mb-4">

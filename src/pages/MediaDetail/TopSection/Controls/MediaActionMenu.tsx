@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { RootState } from "../../store/AuthSlice";
-import { addEntry } from "../../lib/api";
-import { listtypetype } from "../../constants/types";
-import { MediaDetailType } from "../../pages/MediaDetail";
+import { RootState } from "../../../../store/AuthSlice";
+import { addEntry } from "../../../../lib/api";
+import { listtypetype } from "../../../../constants/types";
+import { MediaDetailType } from "../..";
 
 type listItemType = {
   title: string;

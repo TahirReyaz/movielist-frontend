@@ -1,61 +1,35 @@
-import { useEffect, useState } from "react";
-import { listtypetype, mediaTypeType } from "../../constants/types";
-import MediaDetailCard from "./MediaDetailCard";
-import { getListDetail } from "../../lib/api";
+import React from "react";
+import { entryType, listtypetype } from "../../constants/types";
+import MediaDetailCard from "../../pages/MediaDetail/MediaDetailCard";
 import MediaListItem from "./MediaListItem";
 
 interface MediaListGroupParams {
-  listtype: listtypetype;
-  id: string;
+  listType: string;
+  entries: entryType[];
 }
 
-type listDetailsType = {
-  items: string[] | [];
-  mediatype: mediaTypeType;
-  type: listtypetype;
-  userid: string;
-};
-
-const MediaListGroup = ({ listtype, id }: MediaListGroupParams) => {
-  const [listDetails, setListDetails] = useState<listDetailsType>();
-
-  useEffect(() => {
-    let tempList = [];
-    async function fetchMedia() {
-      tempList = await getListDetail(id);
-      if (tempList.error) {
-        console.error("Error in fetching list");
-      }
-      setListDetails(tempList);
-    }
-    fetchMedia();
-  }, [id]);
-
+const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {
   return (
     <div>
       <div className="p-4">
-        <h3>{listtype}</h3>
+        <h3>{listType}</h3>
       </div>
-      {listDetails && (
-        <MediaDetailCard classes="p-0">
-          <>
-            <div className="w-full flex">
-              <div className="w-1/12"></div>
-              <div className="w-8/12">Title</div>
-              <div className="w-1/12"></div>
-              <div className="w-1/12">Score</div>
-              <div className="w-1/12">Progress</div>
-            </div>
-            {listDetails.items.length > 0 ? (
-              listDetails.items.map((entryId: string) => (
-                <MediaListItem {...{ entryId }} />
-              ))
-            ) : (
-              <span>No items in list</span>
-            )}
-          </>
-        </MediaDetailCard>
-      )}
+      <MediaDetailCard classes="p-0">
+        <>
+          <div className="w-full flex">
+            <div className="w-1/12"></div>
+            <div className="w-8/12">Title</div>
+            <div className="w-1/12"></div>
+            <div className="w-1/12">Score</div>
+            <div className="w-1/12">Progress</div>
+          </div>
+          {entries.length > 0 ? (
+            entries.map((entry) => <MediaListItem {...{ entryId: entry.id }} />)
+          ) : (
+            <span>No items in list</span>
+          )}
+        </>
+      </MediaDetailCard>
     </div>
   );
 };

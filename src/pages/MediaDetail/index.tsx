@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Route,
   Routes,
@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 import { getMediaDetail } from "../../lib/api";
-import MediaDetailField from "../../components/UI/MediaDetailField";
-import MediaDetailCard from "../../components/UI/MediaDetailCard";
+import MediaDetailField from "./MediaDetailField";
+import MediaDetailCard from "./MediaDetailCard";
 import LowerLayout from "../../components/UI/LowerLayout";
 import ComingSoon from "../ComingSoon";
 import TopSection from "./TopSection";

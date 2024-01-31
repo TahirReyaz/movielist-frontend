@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { getUserDetail } from "../../lib/api";
 import MovieList from "./MediaList";
 import Overview from "./Overview";
-import { listtypetype, mediaTypeType } from "../../constants/types";
+import { entryType, listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Social from "./Social";
 import ComingSoon from "../ComingSoon";
@@ -22,7 +22,7 @@ export type listItemType = {
 
 export type profileType = {
   dp: string;
-  lists: listItemType[] | [];
+  entries: entryType[] | [];
   backdrop: string;
   _id: string;
   followers: string[] | [];
