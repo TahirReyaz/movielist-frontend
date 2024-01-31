@@ -16,7 +16,6 @@ interface ControlsProps {
 }
 
 const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
-  console.log({ entries });
   const existingEntry = entries?.find((entry) => entry.mediaid === mediaid);
   let title: string = "Add to List";
   if (existingEntry) {
