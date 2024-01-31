@@ -72,6 +72,8 @@ const App = () => {
                 />
               ))}
             </Route>
+            <Route path="/settings" element={<ComingSoon />} />
+            <Route path="/notifications" element={<ComingSoon />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

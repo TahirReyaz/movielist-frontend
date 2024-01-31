@@ -27,12 +27,12 @@ const DropdownMenu = () => {
     },
     {
       title: "Notifications",
-      url: "/",
+      url: "/notifications",
       icon: <FaMailBulk />,
     },
     {
       title: "Settings",
-      url: "/",
+      url: "/settings",
       icon: <FaGear />,
     },
   ];
