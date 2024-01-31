@@ -6,21 +6,13 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
-import Tippy from "@tippyjs/react";
-import { Link } from "react-router-dom";
 
-import "tippy.js/dist/tippy.css";
-import posterPlaceholder from "../assets/posterPlaceholder.jpg";
-
-import { getMediaDetail } from "../lib/api";
-import MediaDetailField from "../components/UI/MediaDetailField";
-import MediaDetailCard from "../components/UI/MediaDetailCard";
-import Button from "../components/UI/Button";
-import MediaActionMenu from "../components/UI/MediaActionMenu";
-import LowerLayout from "../components/UI/LowerLayout";
-import { tmdbImgEndPoint } from "../constants/tmdb";
-import ComingSoon from "./ComingSoon";
+import { getMediaDetail } from "../../lib/api";
+import MediaDetailField from "../../components/UI/MediaDetailField";
+import MediaDetailCard from "../../components/UI/MediaDetailCard";
+import LowerLayout from "../../components/UI/LowerLayout";
+import ComingSoon from "../ComingSoon";
+import TopSection from "./TopSection";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -49,6 +41,7 @@ export type MediaDetailType = {
 const MediaDetail = () => {
   const { mediaid } = useParams<MediaDetailParams>();
   const [mediaDetails, setMediaDetails] = useState<MediaDetailType>();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -83,90 +76,7 @@ const MediaDetail = () => {
       {mediaDetails && (
         <>
           {/* Image and overview */}
-          <div className="bg-bgSecondary">
-            {/* Backdrop image */}
-            {mediaDetails.backdrop_path && (
-              <div className="h-[50vh] overflow-hidden">
-                <img
-                  src={`${tmdbImgEndPoint}${mediaDetails.backdrop_path}`}
-                  alt={mediaDetails.title}
-                  className="object-top"
-                />
-              </div>
-            )}
-            {/* Poster and overview */}
-            <div className="flex px-56">
-              {/* Poster and buttons */}
-              <div className="w-2/12">
-                <img
-                  src={
-                    mediaDetails.poster_path
-                      ? `${tmdbImgEndPoint}${mediaDetails.poster_path}`
-                      : posterPlaceholder
-                  }
-                  alt={mediaDetails.title}
-                  className={`${
-                    mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
-                  } mb-4 rounded`}
-                />
-                <div className="flex w-full gap-2 mb-4">
-                  <Button
-                    title="Add to List"
-                    type="button"
-                    endElement={
-                      <Tippy
-                        interactive={true}
-                        placement="bottom-end"
-                        arrow={true}
-                        trigger="click"
-                        content={
-                          <MediaActionMenu
-                            {...{
-                              mediaid,
-                              mediaDetails,
-                            }}
-                          />
-                        }
-                        className="py-2 bg-white"
-                      >
-                        <div className="bg-actionSecondary p-2 h-full rounded-r-lg">
-                          <AiOutlineDown />
-                        </div>
-                      </Tippy>
-                    }
-                  />
-                  <div className="p-2 bg-red rounded">
-                    <AiFillHeart />
-                  </div>
-                </div>
-              </div>
-              {/* title and overview */}
-              <div className="w-9/12 ms-4 p-8 flex flex-col justify-between">
-                <div>
-                  <h1 className="text-3xl font-normal">{mediaDetails.title}</h1>
-                  {mediaDetails.overview && (
-                    <p className="text-textLight text-[1.4rem] mt-6">
-                      {mediaDetails.overview}
-                    </p>
-                  )}
-                </div>
-                {/* Links */}
-                <ul className="flex justify-around text-xl" id="pagenav">
-                  {routes.map((route) => (
-                    <Link
-                      className="hover:text-actionPrimary"
-                      to={`/${mediaType}/${mediaid}/${
-                        route.path === "/" ? "" : route.path
-                      }`}
-                      key={route.title}
-                    >
-                      {route.title}
-                    </Link>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+          <TopSection {...{ mediaid, mediaType, mediaDetails }} />
           {/* Rest of the details */}
           <LowerLayout
             {...{
