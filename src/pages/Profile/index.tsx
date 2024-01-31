@@ -9,7 +9,7 @@ import TopSection from "./TopSection";
 import Social from "./Social";
 import ComingSoon from "../ComingSoon";
 
-type ProfileParams = {
+export type ProfileParams = {
   username: string;
 };
 

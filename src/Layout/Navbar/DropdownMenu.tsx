@@ -8,18 +8,21 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutAction } from "../../store/AuthSlice";
+
+import { RootState, logoutAction } from "../../store/AuthSlice";
 
 const DropdownMenu = () => {
+  const { username } = useSelector((state: RootState) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const primaryLinks = [
     {
       title: "Profile",
-      url: "/",
+      url: `/user/${username}`,
       icon: <FaUser />,
     },
     {
