@@ -13,7 +13,6 @@ import Profile from "./pages/Profile";
 import MovieList from "./pages/Profile/MediaList";
 import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
-import { mediaTypeType } from "./constants/types";
 
 const App = () => {
   const mediaSubRoutes = [

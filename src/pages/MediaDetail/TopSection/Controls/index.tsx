@@ -50,6 +50,7 @@ const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
             </div>
           </Tippy>
         }
+        classes="text-[1.4rem] font-normal"
       />
       <div className="p-2 bg-red rounded">
         <AiFillHeart />

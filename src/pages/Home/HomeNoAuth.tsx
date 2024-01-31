@@ -1,11 +1,11 @@
 import React from "react";
-import MediaSection, { mediaSectionItem } from "../components/MediaSection";
+import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import { useSelector } from "react-redux";
 
-import Landing from "../components/home/Landing";
-import { RootState } from "../store/AuthSlice";
+import Landing from "../../components/home/Landing";
+import { RootState } from "../../store/AuthSlice";
 
-const Home = () => {
+const HomeNoAuth = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 
   const mediaSections: mediaSectionItem[] = [
@@ -25,4 +25,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeNoAuth;
