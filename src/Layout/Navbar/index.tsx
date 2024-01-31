@@ -8,6 +8,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/animations/shift-away.css";
 
 import userAvatar from "../../assets/userAvatar.png";
+import Logo from "../../assets/logo.png";
 
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 import SearchModal from "../../components/search/SearchModal";
@@ -86,7 +87,9 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-bgSecondary py-4 px-56 font-body flex justify-between items-center">
-        <Link to="/">Movie List</Link>
+        <Link to="/">
+          <img src={Logo} className="size-[50px]" />
+        </Link>
 
         <div className="flex gap-6 ml-7">
           {/* Auth */}
