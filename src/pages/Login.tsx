@@ -53,7 +53,7 @@ const Login = () => {
           );
         }, 3000);
         toast.success(response.message, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -62,7 +62,7 @@ const Login = () => {
         setTimeout(() => navigate("/"), 1000);
       } else {
         toast.error(response.message, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,

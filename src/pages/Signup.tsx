@@ -57,7 +57,7 @@ const Signup = () => {
       );
       if (response.error) {
         toast.error(response.message, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -65,7 +65,7 @@ const Signup = () => {
         });
       } else {
         toast.success(response.message, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,

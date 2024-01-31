@@ -38,7 +38,7 @@ const MediaActionMenu = ({ mediaid, mediaDetails }: MediaActionMenuProps) => {
     });
     if (!response.error) {
       toast.success(response.message, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -46,7 +46,7 @@ const MediaActionMenu = ({ mediaid, mediaDetails }: MediaActionMenuProps) => {
       });
     } else {
       toast.error(response.message, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,

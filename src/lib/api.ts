@@ -148,8 +148,7 @@ export const addEntry = async ({
       body,
       { withCredentials: true }
     );
-    console.log({ response });
-    return { data: response, error: false };
+    return { data: response, message: "Entry added", error: false };
   } catch (error: any) {
     console.error(error);
     const error_msg = error?.response?.data?.message;
