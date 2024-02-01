@@ -1,13 +1,20 @@
 import React from "react";
 
+import { attrsType } from "./BrowseDropdownMenu";
+
 interface DropdownMenuProps {
   mainContent: JSX.Element | JSX.Element[];
   footerContent: JSX.Element | JSX.Element[];
+  attrs: attrsType;
 }
 
-const DropdownMenu = ({ mainContent, footerContent }: DropdownMenuProps) => {
+const DropdownMenu = ({
+  mainContent,
+  footerContent,
+  attrs,
+}: DropdownMenuProps) => {
   return (
-    <div className="rounded text-textLight">
+    <div className="rounded text-textLight" {...attrs}>
       <div className="bg-bgSecondary px-4 py-2">{mainContent}</div>
       <div className="bg-bgPrimary flex flex-wrap justify-between px-4 py-2 gap-1 cursor-pointer">
         {footerContent}

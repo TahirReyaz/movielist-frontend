@@ -13,8 +13,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { RootState, logoutAction } from "../../store/AuthSlice";
 import DropdownMenu from "./DropdownMenu";
+import { attrsType } from "./BrowseDropdownMenu";
 
-const RightDropdownMenu = () => {
+const UserDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
   const { username } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch();
@@ -66,24 +67,25 @@ const RightDropdownMenu = () => {
           <Link
             key={link.title}
             to={link.url}
-            className="flex hover:text-textBright mb-2"
+            className="flex hover:text-textBright mb-2 text-2xl font-bold items-center"
           >
             {link.icon}
-            <div className="ms-2">{link.title}</div>
+            <div className="ms-2 font-bold">{link.title}</div>
           </Link>
         )),
         footerContent: footer.map((link) => (
           <div
             key={link.title}
-            className="w-5/12 hover:text-textBright flex items-center"
+            className="w-5/12 hover:text-textBright flex items-center text-lg"
             onClick={link.action}
           >
-            {link.icon} <span className="ms-2 text-text-lg">{link.title}</span>
+            {link.icon} <span className="ms-2 font-medium">{link.title}</span>
           </div>
         )),
+        attrs,
       }}
     />
   );
 };
 
-export default RightDropdownMenu;
+export default UserDropdownMenu;

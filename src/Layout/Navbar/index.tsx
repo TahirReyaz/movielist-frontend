@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/AuthSlice";
 import { Link } from "react-router-dom";
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
 
 import "tippy.js/animations/shift-away.css";
 
@@ -13,27 +13,13 @@ import Logo from "../../assets/logo.png";
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 import SearchModal from "../../components/search/SearchModal";
 import Button from "../../components/UI/Button";
-import RightDropdownMenu from "./RightDropdownMenu";
+import UserDropdownMenu from "./UserDropdownMenu";
+import NavItem from "./NavItem";
+import SearchLink from "./SearchLink";
 
 type routeItem = {
   path: string;
   text: string;
-};
-
-interface NavItemProps {
-  path: string;
-  text: string;
-}
-
-const NavItem = ({ path, text }: NavItemProps) => {
-  return (
-    <NavLink
-      to={path}
-      className="self-center text-2xl font-semibold hover:text-textBright"
-    >
-      <span>{text}</span>
-    </NavLink>
-  );
 };
 
 const Navbar = () => {
@@ -59,21 +45,9 @@ const Navbar = () => {
       path: `/user/${username}/tvlist`,
       text: "Show List",
     },
-    {
-      path: "/search",
-      text: "Browse",
-    },
-    {
-      path: "/forum",
-      text: "Forum",
-    },
   ];
 
   const noAuthRoutes: routeItem[] = [
-    {
-      path: "/search",
-      text: "Search",
-    },
     {
       path: "/social",
       text: "Social",
@@ -100,7 +74,11 @@ const Navbar = () => {
             authRoutes.map((item: routeItem) => (
               <NavItem {...{ ...item, key: item.text }} />
             ))}
+          {isLoggedIn && username && <SearchLink title="Browse" />}
+          <NavItem {...{ path: "/forum", text: "Forum" }} />
+
           {/* No auth */}
+          {!isLoggedIn && <SearchLink title="Search" />}
           {!isLoggedIn &&
             noAuthRoutes.map((item: routeItem) => (
               <NavItem {...{ ...item, key: item.text }} />
@@ -117,9 +95,9 @@ const Navbar = () => {
             <Tippy
               interactive={true}
               placement="bottom"
-              arrow={false}
-              animation="shift-away"
-              content={<RightDropdownMenu />}
+              arrow
+              // animation="shift-away"
+              render={(attrs) => <UserDropdownMenu {...{ attrs }} />}
             >
               <div className="flex items-center">
                 <img

@@ -18,6 +18,7 @@ const RightSection = () => {
         <ContentGroup
           {...{
             title: grp.title,
+            key: grp.title,
           }}
         >
           {grp.content}
