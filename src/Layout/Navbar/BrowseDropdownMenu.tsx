@@ -81,14 +81,27 @@ const BrowseDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
     <DropdownMenu
       {...{
         mainContent: primaryLinks.map((link) => (
-          <Link
+          <div
             key={link.title}
-            to={link.url}
-            className="flex hover:text-textBright mb-2 text-2xl font-bold items-center"
+            className="flex mb-2 text-2xl font-bold items-center"
           >
-            {link.icon}
-            <div className="ms-2 font-bold">{link.title}</div>
-          </Link>
+            <Link to={link.url}>{link.icon}</Link>
+            <section className="flex flex-col ms-4">
+              <Link to={link.url} className="font-bold hover:text-textBright">
+                {link.title}
+              </Link>
+              <div>
+                {link.sublinks.map((subLink) => (
+                  <Link
+                    className="hover:text-textBright text-lg font-medium me-4"
+                    to={subLink.url}
+                  >
+                    {subLink.title}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </div>
         )),
         footerContent: footer.map((link) => (
           <Link
