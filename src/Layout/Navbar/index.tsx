@@ -12,8 +12,8 @@ import Logo from "../../assets/logo.png";
 
 import { FaAngleDown, FaSearch } from "react-icons/fa";
 import SearchModal from "../../components/search/SearchModal";
-import DropdownMenu from "./DropdownMenu";
 import Button from "../../components/UI/Button";
+import RightDropdownMenu from "./RightDropdownMenu";
 
 type routeItem = {
   path: string;
@@ -87,10 +87,12 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-bgSecondary py-4 px-56 font-body flex justify-between items-center">
+        {/* Logo */}
         <Link to="/">
           <img src={Logo} className="size-[50px]" />
         </Link>
 
+        {/* Links in the middle */}
         <div className="flex gap-6 ml-7">
           {/* Auth */}
           {isLoggedIn &&
@@ -117,7 +119,7 @@ const Navbar = () => {
               placement="bottom"
               arrow={false}
               animation="shift-away"
-              content={<DropdownMenu />}
+              content={<RightDropdownMenu />}
             >
               <div className="flex items-center">
                 <img
