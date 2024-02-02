@@ -27,10 +27,18 @@ const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
   }
 
   return (
-    <section className="w-11/12 my-10">
-      <Link to={`/search/${mediaType}/${type}`}>
-        <h3 className="text-[1.6rem] mb-3 hover:text-textBright">{title}</h3>
-      </Link>
+    <section className="w-12/12 my-10">
+      <div className="mb-3">
+        <Link
+          to={`/search/${mediaType}/${type}`}
+          className="flex justify-between"
+        >
+          <h3 className="text-[1.6rem] hover:text-textBright">{title}</h3>
+          <span className="text-xl hover:text-textBright font-bold">
+            View all
+          </span>
+        </Link>
+      </div>
       <div className="w-full flex justify-between">
         {mediaQuery.data.slice(0, 5).map((mediaItem: MediaDetailType) => (
           <MediaCard {...{ key: mediaItem.id, mediaDetails: mediaItem }} />
