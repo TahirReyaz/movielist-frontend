@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import MovieList from "./pages/Profile/MediaList";
 import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
+import Browse from "./pages/Browse";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -39,7 +40,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/search" element={<ComingSoon />} />
+            <Route path="/search" element={<Browse />} />
             <Route path="/social" element={<ComingSoon />} />
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>

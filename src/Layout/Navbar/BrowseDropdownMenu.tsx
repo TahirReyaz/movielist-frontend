@@ -95,6 +95,7 @@ const BrowseDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
                   <Link
                     className="hover:text-textBright text-lg font-medium me-4"
                     to={subLink.url}
+                    key={subLink.title}
                   >
                     {subLink.title}
                   </Link>
