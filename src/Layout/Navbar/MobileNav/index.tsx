@@ -58,7 +58,7 @@ const MobileNav = ({ isLoggedIn }: MobileNavProps) => {
       {!isMenuOpen && (
         <button
           onClick={handleToggleMenu}
-          className="fixed bottom-4 right-4 text-actionPrimary bg-bgSecondary rounded p-2"
+          className="fixed bottom-16 right-8 text-6xl text-actionPrimary bg-bgSecondary rounded-md p-2"
         >
           <FaBars />
         </button>
@@ -66,20 +66,20 @@ const MobileNav = ({ isLoggedIn }: MobileNavProps) => {
 
       {/* Mobile Nav */}
       {isMenuOpen && (
-        <div className="fixed bottom-4 right-4 bg-bgPrimary p-4 rounded-md shadow-md">
+        <div className="fixed bottom-12 right-8 bg-bgSecondary p-4 rounded-md shadow-md">
           <div className="grid grid-cols-3 gap-4">
             {menuOptions.map((option, index) => (
               <Link
                 key={index}
                 to={option.path}
-                className="text-white flex flex-col items-center p-2 hover:bg-bgSecondary hover:text-primary rounded-md"
+                className="text-white flex flex-col items-center p-2 rounded-md text-xl"
               >
-                {option.icon}
+                <span className="text-4xl">{option.icon}</span>
                 <span>{option.label}</span>
               </Link>
             ))}
             <button
-              className="text-white flex flex-col items-center p-2 hover:bg-bgSecondary hover:text-primary rounded-md"
+              className="text-white text-4xl flex flex-col items-center p-2 rounded-md"
               onClick={handleToggleMenu}
             >
               <FaTimes />
