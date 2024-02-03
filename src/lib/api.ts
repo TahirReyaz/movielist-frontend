@@ -193,10 +193,10 @@ export async function getEntryDetail(id: string | undefined) {
   }
 }
 
-export async function getSearchResults(query: string) {
+export async function getSearchMultiResults(query: string) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${backendUrl}/search/${query}`
+      `${backendUrl}/search/multi/${query}`
     );
     const results = response.data.results;
     const movies: any[] = [],
@@ -218,6 +218,38 @@ export async function getSearchResults(query: string) {
   }
 }
 
+export const getSearchResults = async ({
+  query,
+  genres,
+  year,
+  season,
+  formats,
+  mediaType,
+}: {
+  query?: string;
+  genres?: string;
+  year?: string;
+  season?: string;
+  formats?: string;
+  mediaType?: string;
+}) => {
+  const response: AxiosResponse = await axios.get(
+    `${backendUrl}/search/${mediaType}`,
+    {
+      params: {
+        query,
+        genres,
+        year,
+        season,
+        formats,
+      },
+    }
+  );
+  const results = response.data;
+
+  return results;
+};
+
 export async function followUser(userid: string, targetId: string) {
   try {
     const response: AxiosResponse = await axios.patch(
@@ -229,33 +261,6 @@ export async function followUser(userid: string, targetId: string) {
     console.log({ response });
 
     return { ...response.data, error: false };
-  } catch (error: any) {
-    console.error(error);
-    const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
-  }
-}
-
-///////////////////////////// Deprecated ////////////////////////////////
-export async function addItemToList(
-  mediatype: mediaTypeType,
-  mediaid: string | undefined,
-  userid: string,
-  listtype: listtypetype
-) {
-  const body = {
-    mediatype,
-    mediaid,
-    userid,
-    listtype,
-  };
-  try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/list/additem`,
-      body,
-      { withCredentials: true }
-    );
-    return { error: false, message: response.data.message };
   } catch (error: any) {
     console.error(error);
     const error_msg = error?.response?.data?.message;

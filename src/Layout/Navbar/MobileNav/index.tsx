@@ -14,6 +14,8 @@ import {
   FaBell,
   FaCog,
 } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/AuthSlice";
 
 interface MenuOption {
   label: string;
@@ -21,12 +23,9 @@ interface MenuOption {
   path: string;
 }
 
-interface MobileNavProps {
-  isLoggedIn: boolean;
-}
-
-const MobileNav = ({ isLoggedIn }: MobileNavProps) => {
+const MobileNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,14 +34,13 @@ const MobileNav = ({ isLoggedIn }: MobileNavProps) => {
   const menuOptions: MenuOption[] = isLoggedIn
     ? [
         { label: "Home", icon: <FaHome />, path: "/" },
-        { label: "Anime", icon: <FaFilm />, path: "/anime" },
-        { label: "Manga", icon: <FaTv />, path: "/manga" },
+        { label: "Movie List", icon: <FaFilm />, path: "/movielist" },
+        { label: "TV List", icon: <FaTv />, path: "/tvlist" },
         { label: "Forum", icon: <FaComments />, path: "/forum" },
         { label: "Profile", icon: <FaCog />, path: "/profile" },
         { label: "Notifications", icon: <FaBell />, path: "/notifications" },
         { label: "Settings", icon: <FaCog />, path: "/settings" },
         { label: "Search", icon: <FaSearch />, path: "/search" },
-        { label: "Close", icon: <FaTimes />, path: "/close" }, // 'x' button
       ]
     : [
         { label: "Forum", icon: <FaComments />, path: "/forum" },

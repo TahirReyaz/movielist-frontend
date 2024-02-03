@@ -125,7 +125,7 @@ const Navbar = () => {
           </div>
         )}
       </nav>
-      <MobileNav {...{ isLoggedIn: false }} />
+      <MobileNav />
       <SearchModal {...{ open: showModal, setOpen: setShowModal }} />
     </>
   );

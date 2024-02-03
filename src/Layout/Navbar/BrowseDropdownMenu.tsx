@@ -17,39 +17,39 @@ const BrowseDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
   const primaryLinks = [
     {
       title: "Movie",
-      url: `/search`,
+      url: `/search/movie`,
       icon: <MdMovie />,
       sublinks: [
         {
           title: "Top 100",
-          url: `/search`,
+          url: `/search/movie/top`,
         },
         {
           title: "Trending",
-          url: `/search`,
+          url: `/search/movie/trending`,
         },
         {
           title: "Top Action",
-          url: `/search`,
+          url: `/search/movie/top`,
         },
       ],
     },
     {
       title: "TV",
-      url: `/search`,
+      url: `/search/tv`,
       icon: <PiTelevisionFill />,
       sublinks: [
         {
           title: "Top 100",
-          url: `/search`,
+          url: `/search/tv/top`,
         },
         {
           title: "Trending",
-          url: `/search`,
+          url: `/search/tv/trending`,
         },
         {
           title: "Top Action",
-          url: `/search`,
+          url: `/search/tv/top`,
         },
       ],
     },

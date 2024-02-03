@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import TextInput from "../UI/TextInput";
-import { getSearchResults } from "../../lib/api";
+import { getSearchMultiResults } from "../../lib/api";
 import SearchResults from "./SearchResults";
 import Modal from "../UI/Modal";
 import { useDebounce } from "../../hooks/useDebounce";
@@ -26,7 +26,7 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
     if (query.length > 0) {
       try {
         const fetchResults = async () => {
-          const response = await getSearchResults(debouncedQuery);
+          const response = await getSearchMultiResults(debouncedQuery);
           if (response.data) {
             setResults({
               movies: response.data.movies,

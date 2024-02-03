@@ -40,7 +40,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/search" element={<Browse />} />
+            <Route path="/search/:mediaType" element={<Browse />} />
             <Route path="/social" element={<ComingSoon />} />
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>
