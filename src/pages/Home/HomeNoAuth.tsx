@@ -10,7 +10,7 @@ const HomeNoAuth = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 
   return (
-    <div className="pt-4 px-56">
+    <div className="pt-28 px-12 sm:pt-20 sm:px-56">
       {!isLoggedIn && <Landing />}
       <Browse />
     </div>

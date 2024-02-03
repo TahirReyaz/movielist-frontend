@@ -36,19 +36,19 @@ const Landing = () => {
   ];
 
   return (
-    <section className="bg-bgPrimary px-56 pt-20">
-      <h1 className="text-textWhite text-5xl font-bold">
+    <section className="bg-bgPrimary pt-0 px-0 sm:px-56 sm:pt-28">
+      <h1 className="text-textWhite text-center text-5xl font-bold">
         The next-generation movie platform
       </h1>
-      <h2 className="text-textLightBlue text-4xl">
+      <h2 className="text-textLightBlue text-center text-4xl my-12 sm:mx-40">
         Track, share, and discover your favorite movie and show with MovieList.
       </h2>
-      <div className="flex flex-wrap justify-between">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 sm:mt-40">
         {cards.map((item) => (
-          <div key={item.title} className="w-5/12 flex gap-2">
-            <img src={item.img} className="size-sm w-1/4" />
-            <div className="w-3/4">
-              <h3 className="text-textWhite font-semibold text-3xl">
+          <div key={item.title} className="grid grid-cols-3 gap-2 mb-20">
+            <img src={item.img} className="w-7/12" />
+            <div className="col-span-2">
+              <h3 className="text-textBright font-semibold text-3xl">
                 {item.title}
               </h3>
               <div className="text-textLightBlue text-2xl">
