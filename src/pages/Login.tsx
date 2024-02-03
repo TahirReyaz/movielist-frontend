@@ -72,7 +72,7 @@ const Login = () => {
   };
 
   return (
-    <main className="w-5/12 bg-bgSecondary mt-16 m-auto rounded p-10">
+    <main className="h-screen sm:h-auto sm:w-5/12 bg-bgSecondary m-0 sm:my-16 sm:m-auto rounded p-10">
       <h1 className="text-4xl font-semibold text-center">Login</h1>
       <form
         className="flex flex-col align-center justify-center"
