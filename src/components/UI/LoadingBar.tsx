@@ -6,7 +6,7 @@ const LoadingBar: React.FC = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-1 bg-actionPrimary transition-width duration-300 ${
+      className={`fixed top-0 left-0 w-full h-2 bg-gradient-to-r from-actionPrimary to-actionSecondary transition-all ${
         isFetching ? "opacity-100" : "opacity-0"
       }`}
       style={{ width: `${isFetching}%` }}
