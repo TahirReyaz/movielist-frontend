@@ -14,6 +14,7 @@ import MovieList from "./pages/Profile/MediaList";
 import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
 import Browse from "./pages/Browse";
+import LoadingBar from "./components/UI/LoadingBar";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -35,7 +36,8 @@ const App = () => {
   ];
 
   return (
-    <div className="bg-bgTertiary text-textPrimary font-sans">
+    <div className="bg-bgTertiary text-textPrimary font-sans relative">
+      <LoadingBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
