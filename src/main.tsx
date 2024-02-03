@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           style={{
             fontSize: 16,
           }}
+          className="hidden md:block"
         >
           <ReactQueryDevtools />
         </div>

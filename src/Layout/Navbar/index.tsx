@@ -16,6 +16,7 @@ import Button from "../../components/UI/Button";
 import UserDropdownMenu from "./UserDropdownMenu";
 import NavItem from "./NavItem";
 import SearchLink from "./SearchLink";
+import MobileNav from "./MobileNav";
 
 type routeItem = {
   path: string;
@@ -60,7 +61,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-bgSecondary py-4 px-56 font-body flex justify-between items-center">
+      <nav className="bg-bgSecondary py-4 px-56 font-body flex justify-between items-center hidden md:flex">
         {/* Logo */}
         <Link to="/">
           <img src={Logo} className="size-[50px]" />
@@ -124,6 +125,7 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+      <MobileNav {...{ isLoggedIn: false }} />
       <SearchModal {...{ open: showModal, setOpen: setShowModal }} />
     </>
   );
