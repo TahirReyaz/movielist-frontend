@@ -1,25 +1,30 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { mediaTypeType } from "../../constants/types";
+import { mediaTypeType, multiSearchResultType } from "../../constants/types";
 import ResultItem from "./ResultItem";
 import { Link } from "react-router-dom";
 
 interface ResultSectionProps {
-  type: mediaTypeType;
+  type: multiSearchResultType;
   title: string;
-  list: any[];
+  list?: any[];
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
   let titleField: string = "title",
     imgField: string = "poster_path",
-    timeField = "realease_date";
+    timeField = "realease_date",
+    idField = "id";
   if (type == "tv") {
     titleField = "name";
     timeField = "first_air_date";
   } else if (type == "person") {
     titleField = "name";
     imgField = "profile_path";
+  } else if (type == "user") {
+    titleField = "username";
+    imgField = "dp";
+    idField = "username";
   }
 
   return (
@@ -34,16 +39,16 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
             <ResultItem
               {...{
                 title: item[titleField],
-                type: type,
                 poster: item[imgField],
-                key: item.id,
-                url: `/${type}/${item.id}`,
+                key: item[idField],
+                url: `/${type}/${item[idField]}`,
                 time: item[timeField],
+                type,
                 setOpen,
               }}
             />
           ))}
-        {list.length > 8 && (
+        {list && list.length > 8 && (
           <Link
             to={"/"}
             className="flex py-3 px-4 hover:bg-actionPrimary justify-center text-xl text-textPrimary font-semibold"

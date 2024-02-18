@@ -1,4 +1,5 @@
 export type mediaTypeType = "movie" | "tv" | "person";
+export type multiSearchResultType = mediaTypeType | "user";
 export type bulkMediaType =
   | "upcoming"
   | "trending"

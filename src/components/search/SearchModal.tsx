@@ -11,12 +11,6 @@ interface SearchModalParams {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export type MultiSearchResults = {
-  movies: any[];
-  shows: any[];
-  people: any[];
-};
-
 const SearchModal = ({ open, setOpen }: SearchModalParams) => {
   const [query, setQuery] = React.useState("");
   const debouncedQuery = useDebounce(query);

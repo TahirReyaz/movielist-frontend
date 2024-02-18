@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { mediaTypeType } from "../../constants/types";
+import { mediaTypeType, multiSearchResultType } from "../../constants/types";
 import { Link } from "react-router-dom";
 
 import posterPlaceholder from "../../assets/posterPlaceholder.jpg";
+import personPlaceholder from "../../assets/userAvatar.png";
 import { tmdbImgEndPoint } from "../../constants/tmdb";
 
 interface ResultItemProps {
-  type: mediaTypeType;
+  type: multiSearchResultType;
   title: string;
   time?: string;
   poster?: string;
@@ -35,7 +36,13 @@ const ResultItem = ({
       className="flex py-6 px-8 hover:bg-actionPrimary"
     >
       <img
-        src={poster ? `${tmdbImgEndPoint}${poster}` : posterPlaceholder}
+        src={
+          poster
+            ? `${tmdbImgEndPoint}${poster}`
+            : type == "movie" || type == "tv"
+            ? posterPlaceholder
+            : personPlaceholder
+        }
         alt={title}
         className={`rounded-md aspect-square object-cover ${
           type == "person" ? "object-center" : "object-top"

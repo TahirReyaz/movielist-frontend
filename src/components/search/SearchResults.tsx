@@ -1,9 +1,15 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { multiSearchResults } from "./SearchModal";
 import ResultSection from "./ResultSection";
 
+type MultiSearchResults = {
+  movies?: any[];
+  tv?: any[];
+  people?: any[];
+  users?: any[];
+};
+
 interface SearchResultsProps {
-  results: multiSearchResults;
+  results: MultiSearchResults;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -15,9 +21,9 @@ const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
           {...{ title: "Movie", type: "movie", list: results.movies, setOpen }}
         />
       )}
-      {results.shows && results.shows.length > 0 && (
+      {results.tv && results.tv.length > 0 && (
         <ResultSection
-          {...{ title: "TV", type: "tv", list: results.shows, setOpen }}
+          {...{ title: "TV", type: "tv", list: results.tv, setOpen }}
         />
       )}
       {results.people && results.people.length > 0 && (
@@ -26,6 +32,16 @@ const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
             title: "Staff",
             type: "person",
             list: results.people,
+            setOpen,
+          }}
+        />
+      )}
+      {results.users && results.users.length > 0 && (
+        <ResultSection
+          {...{
+            title: "Users",
+            type: "user",
+            list: results.users,
             setOpen,
           }}
         />
