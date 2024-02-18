@@ -1,66 +1,49 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
-
+import React, { Dispatch, SetStateAction } from "react";
 import TextInput from "../UI/TextInput";
 import { getSearchMultiResults } from "../../lib/api";
 import SearchResults from "./SearchResults";
 import Modal from "../UI/Modal";
 import { useDebounce } from "../../hooks/useDebounce";
+import { useQuery } from "@tanstack/react-query";
 
 interface SearchModalParams {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export type multiSearchResults = { movies: any[]; shows: any[]; people: any[] };
+export type MultiSearchResults = {
+  movies: any[];
+  shows: any[];
+  people: any[];
+};
 
 const SearchModal = ({ open, setOpen }: SearchModalParams) => {
-  const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<multiSearchResults>({
-    movies: [],
-    shows: [],
-    people: [],
-  });
+  const [query, setQuery] = React.useState("");
   const debouncedQuery = useDebounce(query);
 
-  useEffect(() => {
-    if (query.length > 0) {
-      try {
-        const fetchResults = async () => {
-          const response = await getSearchMultiResults(debouncedQuery);
-          if (response.data) {
-            setResults({
-              movies: response.data.movies,
-              shows: response.data.tv,
-              people: response.data.people,
-            });
-          }
-          console.log({ response });
-        };
-
-        fetchResults();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, [debouncedQuery]);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["search", debouncedQuery],
+    queryFn: () => getSearchMultiResults(debouncedQuery),
+    enabled: debouncedQuery.length > 0,
+  });
 
   return (
-    <Modal {...{ open, setOpen }}>
+    <Modal open={open} setOpen={setOpen}>
       <>
         <TextInput
-          {...{
-            label: "Search MovieList",
-            type: "text",
-            name: "search",
-            value: query,
-            onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-              setQuery(event.target.value),
-            classes: "bg-bgSecondary text-textPrimary font-semibold",
-            divClasses:
-              "mb-2 mt-32 w-1/2 mx-auto p-4 bg-bgSecondary rounded-lg",
-          }}
+          label="Search MovieList"
+          type="text"
+          name="search"
+          value={query}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setQuery(event.target.value)
+          }
+          classes="bg-bgSecondary text-textPrimary font-semibold"
+          divClasses="mb-2 mt-32 w-1/2 mx-auto p-4 bg-bgSecondary rounded-lg"
         />
-        <SearchResults {...{ results, setOpen }} />
+        {isLoading && <div>Loading...</div>}
+        {isError && <div>Error fetching data</div>}
+        {data && <SearchResults results={data} setOpen={setOpen} />}
       </>
     </Modal>
   );

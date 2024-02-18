@@ -200,13 +200,11 @@ export async function getSearchMultiResults(query: string) {
     );
     const results = response.data;
     return {
-      data: {
         results,
         movies: results.movies,
         tv: results.tv,
         people: results.people,
         users: results.users,
-      },
       error: false,
     };
   } catch (error) {
