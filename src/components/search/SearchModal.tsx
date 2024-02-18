@@ -30,7 +30,7 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
           if (response.data) {
             setResults({
               movies: response.data.movies,
-              shows: response.data.shows,
+              shows: response.data.tv,
               people: response.data.people,
             });
           }

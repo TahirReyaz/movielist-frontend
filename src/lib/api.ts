@@ -198,20 +198,17 @@ export async function getSearchMultiResults(query: string) {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/search/multi/${query}`
     );
-    const results = response.data.results;
-    const movies: any[] = [],
-      shows: any[] = [],
-      people: any[] = [];
-    results.forEach((res: any) => {
-      if (res.media_type == "movie") {
-        movies.push(res);
-      } else if (res.media_type == "tv") {
-        shows.push(res);
-      } else if (res.media_type == "person") {
-        people.push(res);
-      }
-    });
-    return { data: { results, movies, shows, people }, error: false };
+    const results = response.data;
+    return {
+      data: {
+        results,
+        movies: results.movies,
+        tv: results.tv,
+        people: results.people,
+        users: results.users,
+      },
+      error: false,
+    };
   } catch (error) {
     console.error(error);
     return { error: true };
