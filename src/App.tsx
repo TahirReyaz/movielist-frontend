@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -43,6 +43,10 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/search/:mediaType" element={<Browse />} />
+            <Route
+              path="/search"
+              element={<Navigate to="/search/movie" replace />}
+            />
             <Route path="/social" element={<ComingSoon />} />
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>

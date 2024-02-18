@@ -2,6 +2,10 @@ import axios, { AxiosResponse } from "axios";
 import { bulkMediaType, listtypetype, mediaTypeType } from "../constants/types";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// const backendUrl =
+//   window.innerWidth < 768
+//     ? import.meta.env.VITE_BACKEND_URL_PHONE
+//     : import.meta.env.VITE_BACKEND_URL;
 
 export type newEntryType = {
   userid: string;
@@ -200,11 +204,11 @@ export async function getSearchMultiResults(query: string) {
     );
     const results = response.data;
     return {
-        results,
-        movies: results.movies,
-        tv: results.tv,
-        people: results.people,
-        users: results.users,
+      results,
+      movies: results.movies,
+      tv: results.tv,
+      people: results.people,
+      users: results.users,
       error: false,
     };
   } catch (error) {

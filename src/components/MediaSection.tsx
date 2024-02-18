@@ -27,7 +27,7 @@ const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
   }
 
   return (
-    <section className="w-12/12 my-10">
+    <section className="w-full my-10">
       <div className="mb-3">
         <Link
           to={`/search/${mediaType}/${type}`}
@@ -39,9 +39,9 @@ const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
           </span>
         </Link>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full grid sm:grid-cols-5 grid-cols-3 gap-4 sm:gap-16">
         {mediaQuery.data.slice(0, 5).map((mediaItem: MediaDetailType) => (
-          <MediaCard {...{ key: mediaItem.id, mediaDetails: mediaItem }} />
+          <MediaCard key={mediaItem.id} mediaDetails={mediaItem} />
         ))}
       </div>
     </section>

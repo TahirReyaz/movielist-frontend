@@ -12,7 +12,7 @@ interface FilterProps {
 
 const Filter = ({ title, options, onChange, isMulti }: FilterProps) => {
   return (
-    <div className="w-2/12">
+    <div className="w-full">
       <div className={filterHeadingClasses}>{title}</div>
       <Select
         {...{

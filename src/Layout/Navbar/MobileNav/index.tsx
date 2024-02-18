@@ -51,7 +51,7 @@ const MobileNav = () => {
       ];
 
   return (
-    <div className="block md:hidden">
+    <div className="block md:hidden z-40 relative">
       {/* Floating hamburger icon or close icon based on isMenuOpen */}
       {!isMenuOpen && (
         <button

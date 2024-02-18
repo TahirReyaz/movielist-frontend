@@ -16,7 +16,7 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   return (
-    <Link to={`/movie/${mediaDetails.id}`} className="w-2/12">
+    <Link to={`/movie/${mediaDetails.id}`}>
       <div
         className="relative"
         onMouseEnter={() => setHover(true)}

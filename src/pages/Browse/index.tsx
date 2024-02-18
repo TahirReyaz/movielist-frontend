@@ -92,9 +92,9 @@ const Browse = () => {
   console.log(mediaQuery.data);
 
   return (
-    <main className="pt-20 px-56">
-      <div className="flex justify-between">
-        <div className="w-2/12">
+    <main className="pt-28 px-4 sm:pt-20 sm:px-56">
+      <div className="grid-cols-5 gap-4 hidden md:grid">
+        <div className="w-full">
           <div className={filterHeadingClasses}>Search</div>
           <TextInput
             {...{
