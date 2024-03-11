@@ -5,6 +5,7 @@ import { RootState } from "../../../../store/AuthSlice";
 import { addEntry } from "../../../../lib/api";
 import { listtypetype } from "../../../../constants/types";
 import { MediaDetailType } from "../..";
+import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 
 type listItemType = {
   title: string;
@@ -25,12 +26,14 @@ interface MediaActionMenuProps {
   mediaid?: string;
   mediaDetails: MediaDetailType;
   currentStatus?: string;
+  attrs: attrsType;
 }
 
 const MediaActionMenu = ({
   mediaid,
   mediaDetails,
   currentStatus,
+  attrs,
 }: MediaActionMenuProps) => {
   const userid = useSelector((state: RootState) => state.auth.userid);
 
@@ -64,7 +67,10 @@ const MediaActionMenu = ({
   };
 
   return (
-    <ul className="*:px-4 *:py-2">
+    <ul
+      className="*:px-4 *:py-2 bg-white text-textLight text-2xl rounded py-2"
+      {...attrs}
+    >
       {listItems
         .filter((item) => item.status != currentStatus)
         .map((item: listItemType) => (

@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import TextInput from "../UI/TextInput";
 import { getSearchMultiResults } from "../../lib/api";
 import SearchResults from "./SearchResults";
 import Modal from "../UI/Modal";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useQuery } from "@tanstack/react-query";
 
 interface SearchModalParams {
   open: boolean;

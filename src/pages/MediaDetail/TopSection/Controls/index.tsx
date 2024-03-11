@@ -1,5 +1,5 @@
 import React from "react";
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 
 import "tippy.js/dist/tippy.css";
@@ -32,17 +32,18 @@ const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
           <Tippy
             interactive={true}
             placement="bottom-end"
-            arrow={true}
+            arrow
             trigger="click"
-            content={
+            render={(attrs) => (
               <MediaActionMenu
                 {...{
                   mediaid,
                   mediaDetails,
                   currentStatus: existingEntry?.status,
+                  attrs,
                 }}
               />
-            }
+            )}
             className="py-2 bg-white"
           >
             <div className="bg-actionSecondary p-2 h-full rounded-r-lg">

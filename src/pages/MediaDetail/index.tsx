@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Route,
   Routes,
@@ -6,6 +6,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import { getMediaDetail } from "../../lib/api";
 import MediaDetailField from "./MediaDetailField";
@@ -40,7 +41,6 @@ export type MediaDetailType = {
 
 const MediaDetail = () => {
   const { mediaid } = useParams<MediaDetailParams>();
-  const [mediaDetails, setMediaDetails] = useState<MediaDetailType>();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -56,20 +56,19 @@ const MediaDetail = () => {
     { path: "social", element: <ComingSoon />, title: "Social" },
   ];
 
-  useEffect(() => {
-    let tempMedia = [];
-    async function fetchMedia() {
-      tempMedia = await getMediaDetail(mediaType, mediaid);
-      if (tempMedia.error) {
-        navigate("/404");
-      }
-      if (mediaType == "tv") {
-        tempMedia.title = tempMedia.name;
-      }
-      setMediaDetails(tempMedia);
-    }
-    fetchMedia();
-  }, [mediaid, mediaType]);
+  const {
+    data: mediaDetails,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["mediaDetail", mediaType, mediaid],
+    queryFn: () => getMediaDetail(mediaType, mediaid),
+    enabled: mediaid && mediaType ? true : false,
+  });
+
+  if (isError) {
+    navigate("/404");
+  }
 
   return (
     <main>
