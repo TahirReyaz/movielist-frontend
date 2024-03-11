@@ -11,7 +11,7 @@ type listItemType = {
   title: string;
   status: listtypetype;
 };
-const listItems: listItemType[] = [
+const menuItems: listItemType[] = [
   {
     title: "Set as planning",
     status: "planning",
@@ -36,6 +36,16 @@ const MediaActionMenu = ({
   attrs,
 }: MediaActionMenuProps) => {
   const userid = useSelector((state: RootState) => state.auth.userid);
+
+  let list = menuItems;
+  if (mediaDetails.status !== "Released") {
+    list = [
+      {
+        title: "Set as planning",
+        status: "planning",
+      },
+    ];
+  }
 
   const listHandler = async (listtype: listtypetype) => {
     const response = await addEntry({
@@ -71,7 +81,7 @@ const MediaActionMenu = ({
       className="*:px-4 *:py-2 bg-white text-textLight text-2xl rounded py-2"
       {...attrs}
     >
-      {listItems
+      {list
         .filter((item) => item.status != currentStatus)
         .map((item: listItemType) => (
           <li
