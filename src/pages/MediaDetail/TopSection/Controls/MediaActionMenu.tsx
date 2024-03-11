@@ -38,7 +38,7 @@ const MediaActionMenu = ({
   const userid = useSelector((state: RootState) => state.auth.userid);
 
   let list = menuItems;
-  if (mediaDetails.status !== "Released") {
+  if (mediaDetails.status === "Post Production") {
     list = [
       {
         title: "Set as planning",
