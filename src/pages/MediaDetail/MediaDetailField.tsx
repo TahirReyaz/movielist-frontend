@@ -15,8 +15,10 @@ const MediaDetailField = ({
 }: MediaDetailFieldProps) => {
   return (
     <div className="p-2">
-      <div className="text-textPrimary">{fieldName}</div>
-      {value && <div className="text-textLight">{value}</div>}
+      <div className="text-textPrimary text-[1.3rem] font-medium">
+        {fieldName}
+      </div>
+      {value && <div className="text-textLight text-[1.2rem]">{value}</div>}
       {values &&
         valkey &&
         values.map((item: any, index: number) => (

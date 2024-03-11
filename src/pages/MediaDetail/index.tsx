@@ -39,6 +39,25 @@ export type MediaDetailType = {
   original_title: string | undefined;
 };
 
+const detailFields = [
+  { fieldName: "status", label: "Status" },
+  { fieldName: "number_of_episodes", label: "Number of Episodes" },
+  { fieldName: "first_air_date", label: "First Air Date" },
+  { fieldName: "release_date", label: "Release Date" },
+  { fieldName: "runtime", label: "Runtime" },
+  { fieldName: "vote_average", label: "Vote Average" },
+  { fieldName: "vote_count", label: "Vote Count" },
+  { fieldName: "popularity", label: "Popularity" },
+  {
+    fieldName: "production_companies",
+    label: "Production Companies",
+    valuesKey: "name",
+  },
+  { fieldName: "genres", label: "Genres", valuesKey: "name" },
+  { fieldName: "original_name", label: "Original Name" },
+  { fieldName: "original_title", label: "Original Title" },
+];
+
 const MediaDetail = () => {
   const { mediaid } = useParams<MediaDetailParams>();
 
@@ -89,90 +108,24 @@ const MediaDetail = () => {
                   </MediaDetailCard>
                   <MediaDetailCard>
                     <>
-                      {mediaDetails.status && (
-                        <MediaDetailField
-                          fieldName="status"
-                          value={mediaDetails.status}
-                        />
-                      )}
-
-                      {mediaDetails.number_of_episodes && (
-                        <MediaDetailField
-                          fieldName="number_of_episodes"
-                          value={mediaDetails.number_of_episodes}
-                        />
-                      )}
-
-                      {mediaDetails.first_air_date && (
-                        <MediaDetailField
-                          fieldName="first_air_date"
-                          value={mediaDetails.first_air_date}
-                        />
-                      )}
-
-                      {mediaDetails.release_date && (
-                        <MediaDetailField
-                          fieldName="release_date"
-                          value={mediaDetails.release_date}
-                        />
-                      )}
-
-                      {mediaDetails.runtime && (
-                        <MediaDetailField
-                          fieldName="runtime"
-                          value={mediaDetails.runtime}
-                        />
-                      )}
-
-                      {mediaDetails.vote_average && (
-                        <MediaDetailField
-                          fieldName="vote_average"
-                          value={mediaDetails.vote_average}
-                        />
-                      )}
-
-                      {mediaDetails.vote_count && (
-                        <MediaDetailField
-                          fieldName="vote_count"
-                          value={mediaDetails.vote_count}
-                        />
-                      )}
-
-                      {mediaDetails.popularity && (
-                        <MediaDetailField
-                          fieldName="popularity"
-                          value={mediaDetails.popularity}
-                        />
-                      )}
-
-                      {mediaDetails.production_companies && (
-                        <MediaDetailField
-                          fieldName="production_companies"
-                          values={mediaDetails.production_companies}
-                          valkey="name"
-                        />
-                      )}
-
-                      {mediaDetails.genres && (
-                        <MediaDetailField
-                          fieldName="genres"
-                          values={mediaDetails.genres}
-                          valkey="name"
-                        />
-                      )}
-
-                      {mediaDetails.original_name && (
-                        <MediaDetailField
-                          fieldName="original_name"
-                          value={mediaDetails.original_name}
-                        />
-                      )}
-
-                      {mediaDetails.original_title && (
-                        <MediaDetailField
-                          fieldName="original_title"
-                          value={mediaDetails.original_title}
-                        />
+                      {detailFields.map(
+                        ({ fieldName, label, valuesKey }) =>
+                          mediaDetails[fieldName] && (
+                            <MediaDetailField
+                              key={fieldName}
+                              fieldName={label}
+                              value={
+                                valuesKey
+                                  ? mediaDetails[fieldName].map((item: any) => (
+                                      <>
+                                        {item[valuesKey]}
+                                        <br />
+                                      </>
+                                    ))
+                                  : mediaDetails[fieldName]
+                              }
+                            />
+                          )
                       )}
                     </>
                   </MediaDetailCard>
