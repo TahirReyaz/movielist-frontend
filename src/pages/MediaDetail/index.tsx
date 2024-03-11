@@ -14,6 +14,7 @@ import MediaDetailCard from "./MediaDetailCard";
 import LowerLayout from "../../components/UI/LowerLayout";
 import ComingSoon from "../ComingSoon";
 import TopSection from "./TopSection";
+import { formatRuntime } from "../../lib/helpers";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -115,12 +116,14 @@ const MediaDetail = () => {
                               key={fieldName}
                               fieldName={label}
                               value={
-                                valuesKey
+                                fieldName === "runtime"
+                                  ? formatRuntime(mediaDetails[fieldName])
+                                  : valuesKey
                                   ? mediaDetails[fieldName].map((item: any) => (
-                                      <>
+                                      <React.Fragment>
                                         {item[valuesKey]}
                                         <br />
-                                      </>
+                                      </React.Fragment>
                                     ))
                                   : mediaDetails[fieldName]
                               }
