@@ -1,8 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { logoutAction } from "../store/AuthSlice";
+
+import { RootState, logoutAction } from "../store/AuthSlice";
 
 function Footer() {
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,6 +50,10 @@ function Footer() {
       ],
     },
   ];
+
+  if (!isLoggedIn) {
+    footerLinks[0].links.shift();
+  }
 
   return (
     <footer className="w-full p-14 font-body bg-bgFooter">
