@@ -1,38 +1,67 @@
 import { NavLink } from "react-router-dom";
-import { AiFillInstagram } from "react-icons/ai";
+
+const footerLinks = [
+  {
+    links: [
+      { text: "Logout", url: "#" },
+      { text: "Donate", url: "#" },
+      { text: "Imdb.com", url: "www.imdb.com" },
+      { text: "TheMovieDB.org", url: "www.themoviedb.org" },
+    ],
+  },
+  {
+    links: [
+      { text: "Apps", url: "#" },
+      { text: "Site Stats", url: "#" },
+      { text: "Recommendations", url: "#" },
+      { text: "API", url: "#" },
+    ],
+  },
+  {
+    links: [
+      { text: "Discord", url: "#" },
+      { text: "Twitter", url: "#" },
+      { text: "Facebook", url: "#" },
+      { text: "Github", url: "#" },
+    ],
+  },
+  {
+    links: [
+      { text: "App Data", url: "#" },
+      { text: "Moderators", url: "#" },
+      { text: "Contact", url: "#" },
+      { text: "Terms & Privacy", url: "#" },
+      { text: "Site Map", url: "#" },
+    ],
+  },
+];
 
 function Footer() {
   return (
-    <div className="flex md:flex-row flex-col w-full p-14 font-body bg-bgFooter">
-      <div className="md:w-1/2">
-        {/* <img src={} alt="" className="w-48" /> */}
-      </div>
-      <div className="md:w-1/4">
-        <ul className="flex flex-col text-center md:text-left my-3 md:my-0">
-          {/* {route.map((item: routeItem, index: number) => (
-            <li key={index}>
-              <NavLink
-                to={item.path}
-                className="mx-3 md:font-semibold text-black/60 md:text-black/40 hover:text-black hover:text-lg transition-all"
-              >
-                {item.text}
-              </NavLink>
-            </li>
-          ))} */}
-        </ul>
-      </div>
-      <div className="flex md:flex-col justify-center md:justify-start">
-        <p className="hidden md:block">Follow Us On:</p>
-        <div className="flex gap-4 md:gap-0 my-3 md:my-0">
-          <AiFillInstagram
-            className="
-          md:w-7 
-          w-9 h-auto
-          text-pink-600"
-          />
+    <footer className="w-full p-14 font-body bg-bgFooter">
+      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
+        {/* Desktop view */}
+        <div>
+          <h2 className="text-3xl font-bold text-actionPrimary my-6">
+            Site theme
+          </h2>
         </div>
+        {footerLinks.map((column, index) => (
+          <div key={index}>
+            <ul>
+              {column.links.map((link, linkIndex) => (
+                <li
+                  key={linkIndex}
+                  className="text-2xl font-semibold hover:text-actionPrimary my-6"
+                >
+                  <a href={link.url}>{link.text}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </div>
+    </footer>
   );
 }
 
