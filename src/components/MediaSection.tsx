@@ -20,7 +20,7 @@ const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
   });
 
   if (mediaQuery.isLoading) {
-    return <h3>Loading...</h3>;
+    return <h3 className="text-3xl font-semibold">Loading...</h3>;
   }
   if (mediaQuery.isError) {
     return <h3>Error</h3>;

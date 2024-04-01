@@ -74,7 +74,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
           </div>
         </>
       ) : (
-        <span>Loading...</span>
+        <span className="text-3xl font-semibold">Loading...</span>
       )}
     </div>
   );
