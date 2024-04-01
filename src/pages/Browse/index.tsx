@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import TextInput from "../../components/UI/TextInput";
@@ -111,9 +111,12 @@ const Browse = () => {
           <Filter {...filter} key={filter.title} />
         ))}
       </div>
-      {mediaSections.map((item) => (
-        <MediaSection {...{ ...item, key: item.title }} />
-      ))}
+      {(!mediaQuery.data ||
+        !mediaQuery.data.results ||
+        mediaQuery.data.results.length == 0) &&
+        mediaSections.map((item) => (
+          <MediaSection {...{ ...item, key: item.title }} />
+        ))}
     </main>
   );
 };
