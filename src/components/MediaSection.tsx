@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import { getBulkMedia } from "../lib/api";
 import MediaCard from "./MediaCard";
 import { bulkMediaType, mediaTypeType } from "../constants/types";
 import { MediaDetailType } from "../pages/MediaDetail";
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import CardList from "./UI/Media/CardList";
 
 export interface mediaSectionItem {
   type: bulkMediaType;
@@ -39,11 +40,8 @@ const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
           </span>
         </Link>
       </div>
-      <div className="w-full grid sm:grid-cols-5 grid-cols-3 gap-4 sm:gap-16">
-        {mediaQuery.data.slice(0, 5).map((mediaItem: MediaDetailType) => (
-          <MediaCard key={mediaItem.id} mediaDetails={mediaItem} />
-        ))}
-      </div>
+
+      <CardList {...{ items: mediaQuery.data.slice(0, 5) }} />
     </section>
   );
 };

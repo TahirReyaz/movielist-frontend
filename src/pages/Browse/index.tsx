@@ -7,6 +7,7 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSearchResults } from "../../lib/api";
 import { useParams } from "react-router-dom";
+import CardList from "../../components/UI/Media/CardList";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -111,12 +112,25 @@ const Browse = () => {
           <Filter {...filter} key={filter.title} />
         ))}
       </div>
+
+      {mediaQuery.isLoading && (
+        <h3 className="text-3xl font-semibold">Searching...</h3>
+      )}
+
+      {mediaQuery.isError && (
+        <h3 className="text-3xl font-semibold text-red">Error</h3>
+      )}
+
       {(!mediaQuery.data ||
         !mediaQuery.data.results ||
         mediaQuery.data.results.length == 0) &&
         mediaSections.map((item) => (
           <MediaSection {...{ ...item, key: item.title }} />
         ))}
+
+      {mediaQuery?.data?.results?.length > 0 && (
+        <CardList {...{ items: mediaQuery.data.results }} />
+      )}
     </main>
   );
 };
