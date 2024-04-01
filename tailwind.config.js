@@ -7,6 +7,7 @@ export default {
       bgPrimary: "#0a1625",
       bgTertiary: "#0b1622",
       bgFooter: "#11161d",
+      bgForeground: "#151f2e",
       bgHover: "#abbacd",
       bgBanner: "#242538",
       actionPrimary: "#3DB5F3",

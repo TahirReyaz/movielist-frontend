@@ -36,6 +36,20 @@ const App = () => {
     { path: "submissions", element: <ComingSoon /> },
   ];
 
+  const settingsSubRoutes = [
+    { path: "account", element: <ComingSoon />, title: "Account" },
+    { path: "media", element: <ComingSoon />, title: "Movie & Shows" },
+    { path: "lists", element: <ComingSoon />, title: "Lists" },
+    {
+      path: "notifications",
+      element: <ComingSoon />,
+      title: "Notifications",
+    },
+    { path: "import", element: <ComingSoon />, title: "Import Lists" },
+    { path: "apps", element: <ComingSoon />, title: "Apps" },
+    { path: "developer", element: <ComingSoon />, title: "Developer" },
+  ];
+
   return (
     <div className="bg-bgTertiary text-textPrimary font-sans relative">
       <LoadingBar />
@@ -80,6 +94,15 @@ const App = () => {
               ))}
             </Route>
             <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/:option" element={<Settings />}>
+              {settingsSubRoutes.map((route) => (
+                <Route
+                  path={route.path}
+                  element={route.element}
+                  key={route.path}
+                />
+              ))}
+            </Route>
             <Route path="/notifications" element={<ComingSoon />} />
             <Route path="*" element={<NotFound />} />
           </Route>
