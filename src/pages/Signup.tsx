@@ -72,7 +72,15 @@ const Signup = () => {
           pauseOnHover: true,
         });
       }
-    } else return;
+    } else {
+      toast.warning("Invalid values", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
   };
 
   return (
