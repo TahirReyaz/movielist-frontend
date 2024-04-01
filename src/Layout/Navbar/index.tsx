@@ -91,7 +91,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <FaSearch
               onClick={() => setShowModal(true)}
-              className="cursor-pointer"
+              className="cursor-pointer text-3xl hover:text-textBright"
             />
             <Tippy
               interactive={true}
@@ -104,9 +104,9 @@ const Navbar = () => {
                 <img
                   src={userAvatar}
                   alt="Avatar"
-                  className="size-10 ms-4 cursor-pointer"
+                  className="size-20 ms-4 cursor-pointer"
                 />
-                <FaAngleDown />
+                <FaAngleDown className="text-2xl" />
               </div>
             </Tippy>
           </div>

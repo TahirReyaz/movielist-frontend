@@ -15,6 +15,7 @@ import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
 import Browse from "./pages/Browse";
 import LoadingBar from "./components/UI/LoadingBar";
+import Settings from "./pages/Settings";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -78,7 +79,7 @@ const App = () => {
                 />
               ))}
             </Route>
-            <Route path="/settings" element={<ComingSoon />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="/notifications" element={<ComingSoon />} />
             <Route path="*" element={<NotFound />} />
           </Route>
