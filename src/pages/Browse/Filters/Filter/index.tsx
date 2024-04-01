@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-import { filterHeadingClasses } from ".";
+import { filterHeadingClasses } from "../..";
 
 interface FilterProps {
   title: string;

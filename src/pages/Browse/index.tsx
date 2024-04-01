@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import TextInput from "../../components/UI/TextInput";
-import Filter from "./Filter";
+import Filter from "./Filters/Filter";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSearchResults } from "../../lib/api";
 import { useParams } from "react-router-dom";
 import CardList from "../../components/UI/Media/CardList";
+import Filters from "./Filters";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -94,8 +95,8 @@ const Browse = () => {
 
   return (
     <main className="pt-28 px-4 sm:pt-20 sm:px-56">
-      <div className="grid-cols-5 gap-4 hidden md:grid">
-        <div className="w-full">
+      <div className="grid-cols-5 gap-4 grid">
+        <div className="w-full col-span-4 md:col-span-1">
           <div className={filterHeadingClasses}>Search</div>
           <TextInput
             {...{
@@ -108,9 +109,7 @@ const Browse = () => {
             }}
           />
         </div>
-        {filters.map((filter) => (
-          <Filter {...filter} key={filter.title} />
-        ))}
+        <Filters {...{ filters }} />
       </div>
 
       {mediaQuery.isLoading && (
