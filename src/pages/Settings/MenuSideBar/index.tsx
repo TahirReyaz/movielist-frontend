@@ -28,8 +28,8 @@ const MenuSideBar = () => {
 
   return (
     <div className="col-span-1">
-      {options.map((opt) => (
-        <ul className="flex flex-col">
+      {options.map((opt, index: number) => (
+        <ul className="flex flex-col" key={index}>
           <span className="text-xl">{opt.group}</span>
           {opt.list.map((item) => (
             <Link
