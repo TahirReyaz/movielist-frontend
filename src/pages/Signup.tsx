@@ -133,6 +133,15 @@ const Signup = () => {
             divClasses: "my-4",
           }}
         />
+        <div className="flex items-center justify-center my-12">
+          <input type="checkbox" />
+          <span className="ms-4">
+            You agree to our{" "}
+            <Link to="/terms" className="hover:text-actionPrimary">
+              terms of service
+            </Link>
+          </span>
+        </div>
         <div className="w-1/4 self-center my-4">
           <Button
             {...{
