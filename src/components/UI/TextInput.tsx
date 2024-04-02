@@ -27,7 +27,7 @@ const TextInput = ({
         type={type}
         name={name}
         id={name}
-        className={`block bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-2 pl-3 pr-20 text-gray-900 placeholder:text-gray-400 ${
+        className={`block bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 text-gray-900 placeholder:text-gray-400 ${
           classes && classes
         }`}
         placeholder={label}

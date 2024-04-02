@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { signup } from "../lib/api";
+import { Link } from "react-router-dom";
 
 type Values = {
   username: string;
@@ -84,8 +85,8 @@ const Signup = () => {
   };
 
   return (
-    <main className="w-5/12 bg-bgSecondary mt-16 m-auto rounded p-10">
-      <h1 className="text-4xl font-semibold text-center">
+    <main className="sm:h-auto sm:w-5/12 bg-bgForeground m-0 sm:my-16 sm:m-auto rounded px-20 py-16">
+      <h1 className="text-4xl font-semibold text-center mb-24">
         Sign up to MovieList
       </h1>
       <form
@@ -99,6 +100,7 @@ const Signup = () => {
             name: "email",
             value: values.email,
             onChange: handleChange,
+            divClasses: "my-4",
           }}
         />
         <TextInput
@@ -108,6 +110,7 @@ const Signup = () => {
             name: "username",
             value: values.username,
             onChange: handleChange,
+            divClasses: "my-4",
           }}
         />
         <TextInput
@@ -117,6 +120,7 @@ const Signup = () => {
             name: "password",
             value: values.password,
             onChange: handleChange,
+            divClasses: "my-4",
           }}
         />
         <TextInput
@@ -126,16 +130,28 @@ const Signup = () => {
             name: "confirmPassword",
             value: values.confirmPassword,
             onChange: handleChange,
+            divClasses: "my-4",
           }}
         />
-        <Button
-          {...{
-            type: "submit",
-            title: "Sign up",
-          }}
-        />
+        <div className="w-1/4 self-center my-4">
+          <Button
+            {...{
+              type: "submit",
+              title: "Sign up",
+              classes: "px-0 py-4",
+            }}
+          />
+        </div>
       </form>
-      <p className="text-xl">Login | Resend Verification Email</p>
+      <p className="text-xl text-center mt-24">
+        <Link to="/login" className="hover:text-actionPrimary">
+          Login
+        </Link>{" "}
+        ·{" "}
+        <Link to="#" className="hover:text-actionPrimary">
+          Resend Verification Email
+        </Link>
+      </p>
     </main>
   );
 };

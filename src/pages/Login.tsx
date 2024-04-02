@@ -7,6 +7,7 @@ import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { login } from "../lib/api";
 import { loginAction } from "../store/AuthSlice";
+import { Link } from "react-router-dom";
 
 type Values = {
   email: string;
@@ -80,8 +81,8 @@ const Login = () => {
   };
 
   return (
-    <main className="h-screen sm:h-auto sm:w-5/12 bg-bgSecondary m-0 sm:my-16 sm:m-auto rounded p-10">
-      <h1 className="text-4xl font-semibold text-center">Login</h1>
+    <main className="sm:h-auto sm:w-5/12 bg-bgForeground m-0 sm:my-16 sm:m-auto rounded px-20 py-16">
+      <h1 className="text-4xl font-semibold text-center mb-24">Login</h1>
       <form
         className="flex flex-col align-center justify-center"
         onSubmit={handleSubmit}
@@ -93,6 +94,7 @@ const Login = () => {
             name: "email",
             value: values.email,
             onChange: handleChange,
+            divClasses: "my-4",
           }}
         />
         <TextInput
@@ -102,17 +104,26 @@ const Login = () => {
             name: "password",
             value: values.password,
             onChange: handleChange,
+            divClasses: "my-4",
           }}
         />
-        <Button
-          {...{
-            type: "submit",
-            title: "Login",
-          }}
-        />
+        <div className="w-1/4 self-center my-4">
+          <Button
+            {...{
+              type: "submit",
+              title: "Login",
+              classes: "px-0 py-4",
+            }}
+          />
+        </div>
       </form>
-      <p className="text-xl">Forgot password?</p>
-      <p className="text-xl">Not registered? Create an account</p>
+      <p className="text-xl text-center">Forgot password?</p>
+      <p className="text-xl text-center mt-24 hover:text-actionPrimary">
+        Not registered?{" "}
+        <Link to="/signup" className="text-actionPrimary">
+          Create an account
+        </Link>
+      </p>
     </main>
   );
 };
