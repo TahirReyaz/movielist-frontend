@@ -21,7 +21,7 @@ export type listItemType = {
 };
 
 export type profileType = {
-  dp: string;
+  avatar: string;
   entries: entryType[] | [];
   backdrop: string;
   _id: string;

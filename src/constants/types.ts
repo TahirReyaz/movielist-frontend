@@ -21,3 +21,14 @@ export type entryType = {
   userid: string;
   mediaid: string;
 };
+
+export type userSettingsType = {
+  profileColor: string | undefined;
+  siteTheme: string | undefined;
+  about: string | undefined;
+  avatar: string | undefined;
+  banner: string | undefined;
+  timezone: string | undefined;
+  restricMessage: boolean | undefined;
+  dataCacheEnable: boolean | undefined;
+};

@@ -1,15 +1,19 @@
 import React from "react";
-import { useIsFetching } from "@tanstack/react-query";
+import { useIsFetching, useIsMutating } from "@tanstack/react-query";
 
 const LoadingBar: React.FC = () => {
   const isFetching = useIsFetching();
+  const isMutating = useIsMutating();
+
+  // Combine the loading progress from both isFetching and isMutating
+  const loadingProgress = Math.max(isFetching, isMutating);
 
   return (
     <div
       className={`fixed top-0 left-0 w-full h-2 bg-gradient-to-r from-actionPrimary to-actionSecondary transition-all ${
-        isFetching ? "opacity-100" : "opacity-0"
+        loadingProgress ? "opacity-100" : "opacity-0"
       }`}
-      style={{ width: `${isFetching}%` }}
+      style={{ width: `${loadingProgress}%` }}
     />
   );
 };

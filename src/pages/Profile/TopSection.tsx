@@ -12,11 +12,11 @@ import { tmdbImgEndPoint } from "../../constants/tmdb";
 interface TopSectionProps {
   username?: string;
   backdrop?: string;
-  dp?: string;
+  avatar?: string;
   id: string;
 }
 
-const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
+const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
   const {
     userid,
     isLoggedIn,
@@ -68,7 +68,7 @@ const TopSection = ({ username, backdrop, dp, id }: TopSectionProps) => {
         {/* Poster and buttons */}
         <div className="w-2/12">
           <img
-            src={dp ? `${tmdbImgEndPoint}${dp}` : userAvatar}
+            src={avatar ? `${tmdbImgEndPoint}${avatar}` : userAvatar}
             alt={username}
           />
         </div>

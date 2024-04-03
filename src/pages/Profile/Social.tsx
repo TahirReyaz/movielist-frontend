@@ -10,7 +10,7 @@ import { profileType } from ".";
 type socialUser = {
   _id: string;
   username: string;
-  dp: string;
+  avatar: string;
 };
 
 type socialFilterType =
@@ -132,7 +132,7 @@ const Social = () => {
                 <SocialUser
                   {...{
                     username: user.username,
-                    img: user.dp ? user.dp : userAvatar,
+                    img: user.avatar ? user.avatar : userAvatar,
                     key: user.username,
                   }}
                 />
@@ -143,7 +143,7 @@ const Social = () => {
                 <SocialUser
                   {...{
                     username: user.username,
-                    img: user.dp ? user.dp : userAvatar,
+                    img: user.avatar ? user.avatar : userAvatar,
                     key: user.username,
                   }}
                 />

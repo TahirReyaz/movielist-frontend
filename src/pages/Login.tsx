@@ -40,7 +40,6 @@ const Login = () => {
     if (validE) {
       const response = await login(values.email, values.password);
       if (!response.error) {
-        console.log({ response });
         setTimeout(() => {
           dispatch(
             loginAction({

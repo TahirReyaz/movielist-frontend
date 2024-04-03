@@ -1,5 +1,10 @@
 import axios, { AxiosResponse } from "axios";
-import { bulkMediaType, listtypetype, mediaTypeType } from "../constants/types";
+import {
+  bulkMediaType,
+  listtypetype,
+  mediaTypeType,
+  userSettingsType,
+} from "../constants/types";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 // const backendUrl =
@@ -98,7 +103,6 @@ export async function login(email: string, password: string) {
       { email, password },
       { withCredentials: true }
     );
-    console.log({ response });
     return {
       message: response.data.message,
       error: false,
@@ -170,6 +174,37 @@ export async function getUserDetail(username: string | undefined) {
   } catch (error) {
     console.error(error);
     return { error: true };
+  }
+}
+
+export async function updateUserDetail(
+  userid: string | undefined,
+  fields: Partial<userSettingsType>
+) {
+  try {
+    const updatedUserData: Partial<userSettingsType> = fields;
+
+    // Filter out undefined fields
+    const filteredData = Object.fromEntries(
+      Object.entries(updatedUserData).filter(
+        ([_, value]) => value !== undefined
+      )
+    );
+
+    console.log({ filteredData });
+    console.log({ userid });
+
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/user/${userid}`,
+      filteredData,
+      { withCredentials: true }
+    );
+    const user = response.data;
+    return { ...user, error: false, message: "Updated user" };
+  } catch (error: any) {
+    console.error(error);
+    const error_msg = error?.response?.data?.message;
+    return { message: error_msg, error: true };
   }
 }
 
@@ -256,8 +291,6 @@ export async function followUser(userid: string, targetId: string) {
       { userid },
       { withCredentials: true }
     );
-
-    console.log({ response });
 
     return { ...response.data, error: false };
   } catch (error: any) {

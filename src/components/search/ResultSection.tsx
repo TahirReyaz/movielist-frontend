@@ -23,7 +23,7 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
     imgField = "profile_path";
   } else if (type == "user") {
     titleField = "username";
-    imgField = "dp";
+    imgField = "avatar";
     idField = "username";
   }
 
