@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextInput from "../../../../components/UI/TextInput";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserDetail, updateUserDetail } from "../../../../lib/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/AuthSlice";
@@ -13,6 +13,8 @@ const About = () => {
 
   const { username, userid } = useSelector((state: RootState) => state.auth);
 
+  const queryClient = useQueryClient();
+
   const profileQuery = useQuery({
     queryKey: [`getUserProfile`],
     enabled: !!username,
@@ -24,6 +26,7 @@ const About = () => {
       return updateUserDetail(userid, { about });
     },
     onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["getUserProfile"] });
       toast.success(data.message, {
         position: "top-center",
         autoClose: 1000,
@@ -51,6 +54,8 @@ const About = () => {
     }
   }, [profileQuery.data?.about]);
 
+  console.log({ abt: profileQuery.data?.about });
+
   if (profileQuery.isLoading) {
     return <Loading />;
   }
@@ -68,26 +73,22 @@ const About = () => {
           label: "",
         }}
       />
-      {profileQuery.data.about !== about &&
-        (profileMutation.data?.about
-          ? profileMutation.data.about !== about
-          : true) &&
-        about !== "" && (
-          <div>
-            <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
-              {about}
-            </div>
-            <Button
-              {...{
-                type: "button",
-                title: "Save",
-                classes: "px-4 py-4 w-fit",
-                divClasses: "w-fit",
-                onClick: () => profileMutation.mutate(about),
-              }}
-            />
+      {profileQuery.data.about !== about && about !== "" && (
+        <div>
+          <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
+            {about}
           </div>
-        )}
+          <Button
+            {...{
+              type: "button",
+              title: "Save",
+              classes: "px-4 py-4 w-fit",
+              divClasses: "w-fit",
+              onClick: () => profileMutation.mutate(about),
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
