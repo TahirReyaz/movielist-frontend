@@ -17,3 +17,20 @@ export async function getMediaTags(
     return { error: true };
   }
 }
+
+export async function getMediaMoreDetails(
+  mediatype: string,
+  mediaid: string | undefined,
+  detailType: string
+) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/${mediatype}/${detailType}/${mediaid}`
+    );
+    const media = response.data;
+    return { ...media, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}

@@ -5,9 +5,9 @@ type LowerLayoutProps = {
 
 const LowerLayout = ({ left, right }: LowerLayoutProps) => {
   return (
-    <div className="flex px-56 pt-4">
-      {left && <div className="w-1/5">{left}</div>}
-      {right && <div className="w-4/5">{right}</div>}
+    <div className="grid grid-cols-10 gap-16 px-56 pt-4">
+      {left && <div className="col-span-2">{left}</div>}
+      {right && <div className="col-span-8">{right}</div>}
     </div>
   );
 };

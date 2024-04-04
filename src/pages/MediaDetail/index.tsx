@@ -16,6 +16,7 @@ import ComingSoon from "../ComingSoon";
 import TopSection from "./TopSection";
 import { formatRuntime } from "../../lib/helpers";
 import Tags from "./LeftSection/Tags";
+import Overview from "./Pages/Overview";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -69,7 +70,11 @@ const MediaDetail = () => {
   const mediaType = pathname.split("/")[1];
 
   const routes = [
-    { path: "/", element: <ComingSoon />, title: "Overview" },
+    {
+      path: "/",
+      element: <Overview {...{ mediaid, mediaType }} />,
+      title: "Overview",
+    },
     { path: "watch", element: <ComingSoon />, title: "Watch" },
     { path: "characters", element: <ComingSoon />, title: "Character" },
     { path: "staff", element: <ComingSoon />, title: "Staff" },
