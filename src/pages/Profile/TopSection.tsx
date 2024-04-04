@@ -24,6 +24,10 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
     username: currentUsername,
   } = useSelector((state: RootState) => state.auth);
 
+  const backdropStyle = {
+    "--backdrop-url": `url(${backdrop})`,
+  } as React.CSSProperties;
+
   let followingThisUser: boolean = false;
   if (following && following.length > 0) {
     followingThisUser = following.find(
@@ -56,42 +60,43 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
   return (
     <section className="relative">
       {/* Backdrop image */}
-      {backdrop ? (
-        <div>
-          <img src={``} alt={username} />
-        </div>
-      ) : (
-        <div className="bg-bgBanner h-full w-full absolute z-10" />
-      )}
-      {/* Poster and overview */}
-      <div className="flex px-56 z-20 relative">
-        {/* Poster and buttons */}
-        <div className="w-2/12">
-          <img
-            src={avatar ? `${tmdbImgEndPoint}${avatar}` : userAvatar}
-            alt={username}
-          />
-        </div>
-        {/* title and overview */}
-        <div className="w-9/12 p-4 flex items-end justify-between">
-          <h1 className="text-3xl text-textBright font-extrabold">
-            {username}
-          </h1>
-          <div>
-            {isLoggedIn && currentUsername !== username && (
-              <Button
-                {...{
-                  title: !followingThisUser ? "Follow" : "Following",
-                  onClick: followingThisUser
-                    ? () => {
-                        console.log("Unfollow");
-                      }
-                    : () => {
-                        followUser(userid, id);
-                      },
-                }}
-              />
-            )}
+      <div
+        style={backdropStyle}
+        className={`h-[40vh] overflow-hidden flex items-end ${
+          backdrop ? "bg-[image:var(--backdrop-url)]" : "bg-bgBanner"
+        }`}
+      >
+        {/* Poster and username */}
+        <div className="flex px-56 z-20 relative">
+          {/* Poster */}
+          <div className="w-2/12">
+            <img
+              src={avatar ? avatar : userAvatar}
+              alt={username}
+              className={` mb-4 rounded`}
+            />
+          </div>
+          {/* title and overview */}
+          <div className="w-9/12 p-4 flex items-end justify-between">
+            <h1 className="text-3xl text-textBright font-extrabold">
+              {username}
+            </h1>
+            <div>
+              {isLoggedIn && currentUsername !== username && (
+                <Button
+                  {...{
+                    title: !followingThisUser ? "Follow" : "Following",
+                    onClick: followingThisUser
+                      ? () => {
+                          console.log("Unfollow");
+                        }
+                      : () => {
+                          followUser(userid, id);
+                        },
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
