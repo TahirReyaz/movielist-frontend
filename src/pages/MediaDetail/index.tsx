@@ -15,6 +15,7 @@ import LowerLayout from "../../components/UI/LowerLayout";
 import ComingSoon from "../ComingSoon";
 import TopSection from "./TopSection";
 import { formatRuntime } from "../../lib/helpers";
+import Tags from "./LeftSection/Tags";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -132,6 +133,7 @@ const MediaDetail = () => {
                       )}
                     </>
                   </MediaDetailCard>
+                  <Tags {...{ mediaid, mediaType }} />
                 </>
               ),
               right: (
