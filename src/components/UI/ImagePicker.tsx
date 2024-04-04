@@ -1,17 +1,29 @@
 import React, { useState } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useSelector } from "react-redux";
+import { v4 } from "uuid";
 
-const ImagePicker = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+import { storage } from "../../firebase";
+import { RootState } from "../../store/AuthSlice";
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+interface ImagePickerProps {
+  src: string | undefined;
+  onUpload: (url: string) => void;
+}
+
+const ImagePicker = ({ src, onUpload }: ImagePickerProps) => {
+  const { username } = useSelector((state: RootState) => state.auth);
+
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-      };
+
+    if (file && file.type.startsWith("image/")) {
+      const imageRef = ref(storage, `user-avatar/${username}-${v4()}`);
+      const uploadedImg = await uploadBytes(imageRef, file);
+      const uploadedImgRef = ref(storage, uploadedImg.metadata.fullPath);
+      const imgUrl = await getDownloadURL(uploadedImgRef);
+      onUpload(imgUrl);
     }
   };
 
@@ -19,14 +31,16 @@ const ImagePicker = () => {
     e.preventDefault();
   };
 
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
-      };
+      const imageRef = ref(storage, `user-avatar/${username}-${v4()}`);
+      const uploadedImg = await uploadBytes(imageRef, file);
+      const uploadedImgRef = ref(storage, uploadedImg.metadata.fullPath);
+      const imgUrl = await getDownloadURL(uploadedImgRef);
+      onUpload(imgUrl);
     }
   };
 
@@ -48,11 +62,11 @@ const ImagePicker = () => {
           <label htmlFor="file-input">Drop image here or click to upload</label>
         </div>
       </div>
-      {selectedImage && (
+      {src && (
         <div className="image-preview size-80 mt-4">
           <img
-            src={selectedImage}
-            alt="Preview"
+            src={src}
+            alt="Avatar Preview"
             className="w-full h-full object-cover object-center rounded"
           />
         </div>

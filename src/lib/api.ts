@@ -191,9 +191,6 @@ export async function updateUserDetail(
       )
     );
 
-    console.log({ filteredData });
-    console.log({ userid });
-
     const response: AxiosResponse = await axios.patch(
       `${backendUrl}/user/${userid}`,
       filteredData,

@@ -54,8 +54,6 @@ const About = () => {
     }
   }, [profileQuery.data?.about]);
 
-  console.log({ abt: profileQuery.data?.about });
-
   if (profileQuery.isLoading) {
     return <Loading />;
   }
