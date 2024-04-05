@@ -34,3 +34,16 @@ export async function getMediaMoreDetails(
     return { error: true };
   }
 }
+
+export async function getStaffDetails(staffid: string | undefined) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/staff/${staffid}`
+    );
+    const media = response.data;
+    return { ...media, error: false };
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}
