@@ -21,7 +21,7 @@ const Overview = ({ mediaid, mediaType }: OverviewProps) => {
       <Staff />
       <StatusDistribution />
       <Trailer />
-      <Recommendations />
+      <Recommendations {...{ mediaid, mediaType }} />
       <Threads />
       <Reviews />
     </div>

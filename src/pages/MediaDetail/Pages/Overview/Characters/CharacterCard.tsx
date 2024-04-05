@@ -11,11 +11,14 @@ const CharacterCard = ({ char }: any) => {
         src={char.char_img ? `${tmdbImgEndPoint}${char.char_img}` : userAvatar}
         alt={char.name}
       />
-      <div className="col-span-3 grid grid-cols-2 p-4">
+      <div className="col-span-3 grid grid-cols-2 p-4 justify-between">
         <Link to="#" className="text-xl hover:text-actionPrimary">
           {char.character}
         </Link>
-        <Link to="#" className="text-xl hover:text-actionPrimary">
+        <Link
+          to="#"
+          className="text-xl hover:text-actionPrimary grid justify-end"
+        >
           {char.name}
         </Link>
       </div>
