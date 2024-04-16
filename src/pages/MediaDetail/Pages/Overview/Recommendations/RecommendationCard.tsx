@@ -22,7 +22,7 @@ const RecommendationCard = ({ media, mediaType }: RecommendationCardProps) => {
         to={`/${mediaType}/${media.id}`}
         className="hover:text-actionPrimary text-2xl font-semibold"
       >
-        {media.title}
+        {mediaType === "tv" ? media.name : media.title}
       </Link>
     </div>
   );
