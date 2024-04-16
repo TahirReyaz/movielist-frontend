@@ -1,6 +1,6 @@
 import React from "react";
-import { entryType, listtypetype } from "../../constants/types";
-import MediaDetailCard from "../../pages/MediaDetail/MediaDetailCard";
+
+import { entryType } from "../../constants/types";
 import MediaListItem from "./MediaListItem";
 
 interface MediaListGroupParams {
@@ -12,24 +12,26 @@ const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {
   return (
     <div>
       <div className="p-4">
-        <h3>{listType}</h3>
+        <h3 className="text-3xl">{listType}</h3>
       </div>
-      <MediaDetailCard classes="p-0">
+      <div className="mb-4 bg-bgSecondary rounded overflow-hidden">
         <>
-          <div className="w-full flex">
-            <div className="w-1/12"></div>
-            <div className="w-8/12">Title</div>
-            <div className="w-1/12"></div>
-            <div className="w-1/12">Score</div>
-            <div className="w-1/12">Progress</div>
+          <div className="w-full grid grid-cols-12 text-2xl font-semibold py-8">
+            <div className="col-span-1"></div>
+            <div className="col-span-8">Title</div>
+            <div className="col-span-1"></div>
+            <div className="col-span-1">Score</div>
+            <div className="col-span-1">Progress</div>
           </div>
           {entries.length > 0 ? (
-            entries.map((entry) => <MediaListItem {...{ entryId: entry.id }} />)
+            entries.map((entry) => (
+              <MediaListItem {...{ entryId: entry.id, key: entry.id }} />
+            ))
           ) : (
-            <span>No items in list</span>
+            <span className="text-2xl">No items in list</span>
           )}
         </>
-      </MediaDetailCard>
+      </div>
     </div>
   );
 };

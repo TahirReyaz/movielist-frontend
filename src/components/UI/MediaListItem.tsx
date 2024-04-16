@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { listtypetype, mediaTypeType } from "../../constants/types";
 import { getEntryDetail } from "../../lib/api";
@@ -43,10 +43,10 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
   }, [entryId]);
 
   return (
-    <div className="w-full p-2 flex hover:bg-bgHover">
+    <div className="w-full p-2 flex hover:bg-bgHoverLight">
       {entryDetails ? (
-        <>
-          <div className="w-1/12 flex">
+        <div className="grid grid-cols-12 text-2xl">
+          <div className="col-span-1 flex">
             <div className="w-3/12">.</div>
             <div className="w-7/12">
               <Link to={`/${entryDetails.mediaType}/${entryDetails.mediaid}`}>
@@ -58,21 +58,21 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
               </Link>
             </div>
           </div>
-          <div className="w-8/12 flex items-center">
+          <div className="col-span-8 flex items-center">
             <Link to={`/${entryDetails.mediaType}/${entryDetails.mediaid}`}>
               {entryDetails.title}
             </Link>
           </div>
-          <div className="w-1/12">
+          <div className="col-span-1">
             {entryDetails.rewatches ? `${entryDetails.rewatches}@` : ""}
           </div>
-          <div className="w-1/12">
+          <div className="col-span-1">
             {entryDetails.score ? entryDetails.score : ""}
           </div>
-          <div className="w-1/12">
+          <div className="col-span-1 self-center text-center">
             {entryDetails.progress ? entryDetails.progress : "0"}
           </div>
-        </>
+        </div>
       ) : (
         <span className="text-3xl font-semibold">Loading...</span>
       )}

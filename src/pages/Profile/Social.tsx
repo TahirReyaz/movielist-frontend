@@ -118,6 +118,7 @@ const Social = () => {
                     : ""
                 }`}
                 onClick={() => setCurrentSocialType(filter.type)}
+                key={filter.title}
               >
                 {filter.title}
               </span>

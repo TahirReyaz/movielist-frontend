@@ -9,6 +9,7 @@ export default {
       bgFooter: "#11161d",
       bgForeground: "#151f2e",
       bgHover: "#abbacd",
+      bgHoverLight: "#7c899a",
       bgBanner: "#242538",
       actionPrimary: "#3DB5F3",
       actionSecondary: "#59BEF4",
