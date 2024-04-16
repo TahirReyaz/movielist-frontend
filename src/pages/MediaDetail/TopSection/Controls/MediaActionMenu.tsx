@@ -48,12 +48,14 @@ const MediaActionMenu = ({
   }
 
   const listHandler = async (listtype: listtypetype) => {
+    const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
     const response = await addEntry({
-      mediaType: mediaDetails.first_air_date ? "tv" : "movie",
+      mediaType,
       mediaid,
       userid,
       status: listtype,
-      title: mediaDetails.title,
+      title:
+        (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) || "meh",
       poster: mediaDetails.poster_path,
       backdrop: mediaDetails.backdrop_path,
     });
