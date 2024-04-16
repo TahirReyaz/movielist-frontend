@@ -28,8 +28,8 @@ const Recommendations = ({ mediaid, mediaType }: RecommendationsProps) => {
     <div>
       <h2 className="text-[1.4rem] font-semibold my-4">Recommendations</h2>
       <div className="grid grid-cols-5 gap-12">
-        {recommendationsQuery.data.recommendations
-          .slice(0, 5)
+        {recommendationsQuery.data?.recommendations
+          ?.slice(0, 5)
           .map((media: any) => (
             <RecommendationCard {...{ key: media.id, media, mediaType }} />
           ))}

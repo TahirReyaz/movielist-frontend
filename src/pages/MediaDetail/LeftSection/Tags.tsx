@@ -28,7 +28,7 @@ const Tags = ({ mediaid, mediaType }: TagsProps) => {
   return (
     <div>
       <h2 className="text-[1.4rem] font-semibold mb-4">Tags</h2>
-      {tagsQuery.data.tags.map((tag: any) => (
+      {tagsQuery.data?.tags?.map((tag: any) => (
         <MediaDetailCard key={tag.id}>{tag.name}</MediaDetailCard>
       ))}
     </div>

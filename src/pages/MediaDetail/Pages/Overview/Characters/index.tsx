@@ -34,7 +34,7 @@ const Characters = ({ mediaid, mediaType }: CharactersProps) => {
       </h2>
 
       <div className="grid grid-cols-2 gap-12">
-        {charactersQuery.data.characters.slice(0, 6).map((char: any) => (
+        {charactersQuery.data?.characters?.slice(0, 6).map((char: any) => (
           <CharacterCard {...{ key: char.id, char }} />
         ))}
       </div>
