@@ -28,16 +28,34 @@ const Browse = () => {
 
   const debouncedQuery = useDebounce(query);
 
-  const mediaSections: mediaSectionItem[] = [
-    { type: "upcoming", mediaType: "movie", title: "UPCOMING MOVIES" },
+  const tvMediaSections: mediaSectionItem[] = [
+    { type: "airing_today", mediaType, title: "AIRING TODAY" },
+    { type: "on_the_air", mediaType, title: "ON THE AIR" },
+  ];
+  const movieMediaSections: mediaSectionItem[] = [
+    { type: "upcoming", mediaType, title: "UPCOMING MOVIES" },
     {
       type: "now_playing",
-      mediaType: "movie",
+      mediaType,
       title: "NOW PLAYING MOVIES",
     },
-    { type: "popular", mediaType: "movie", title: "POPULAR MOVIES" },
-    { type: "top_rated", mediaType: "movie", title: "TOP RATED MOVIES" },
   ];
+  const sameMediaSections: mediaSectionItem[] = [
+    {
+      type: "popular",
+      mediaType,
+      title: `POPULAR ${mediaType == "tv" ? "SHOWS" : "MOVIES"}`,
+    },
+    {
+      type: "top_rated",
+      mediaType,
+      title: `TOP RATED ${mediaType == "tv" ? "SHOWS" : "MOVIES"}`,
+    },
+  ];
+  const mediaSections =
+    mediaType == "tv" ? tvMediaSections : movieMediaSections;
+  mediaSections.push(...sameMediaSections);
+
   const filters = [
     {
       title: "Genres",

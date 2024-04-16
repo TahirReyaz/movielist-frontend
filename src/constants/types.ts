@@ -5,7 +5,9 @@ export type bulkMediaType =
   | "trending"
   | "popular"
   | "now_playing"
-  | "top_rated";
+  | "top_rated"
+  | "airing_today"
+  | "on_the_air";
 
 export type listtypetype =
   | "planning"

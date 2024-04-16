@@ -8,7 +8,7 @@ import CardList from "./UI/Media/CardList";
 
 export interface mediaSectionItem {
   type: bulkMediaType;
-  mediaType: mediaTypeType;
+  mediaType: any;
   title: string;
 }
 

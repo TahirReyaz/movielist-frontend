@@ -24,7 +24,8 @@ type MediaDetailParams = {
 
 export type MediaDetailType = {
   id: string;
-  title: string;
+  title?: string;
+  name?: string;
   overview: string | undefined;
   poster_path: string;
   backdrop_path: string;

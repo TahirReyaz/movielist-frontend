@@ -15,8 +15,10 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
   const { isLoggedIn, userid } = useSelector((state: RootState) => state.auth);
   const [hover, setHover] = useState<boolean>(false);
 
+  const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
+
   return (
-    <Link to={`/movie/${mediaDetails.id}`}>
+    <Link to={`/${mediaType}/${mediaDetails.id}`}>
       <div
         className="relative"
         onMouseEnter={() => setHover(true)}
@@ -33,7 +35,9 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
           />
         )}
       </div>
-      <span className="text-[1.4rem]">{mediaDetails.title}</span>
+      <span className="text-[1.4rem]">
+        {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}
+      </span>
     </Link>
   );
 };
