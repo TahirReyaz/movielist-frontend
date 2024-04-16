@@ -62,6 +62,16 @@ const authSlice = createSlice({
       localStorage.removeItem("following");
       localStorage.removeItem("followers");
     },
+    follow: (state, action) => {
+      localStorage.removeItem("following");
+
+      localStorage.setItem(
+        "following",
+        JSON.stringify(action.payload.following)
+      );
+
+      state.following = action.payload.following;
+    },
   },
 });
 
@@ -71,7 +81,11 @@ const store = configureStore({
   },
 });
 
-export const { login: loginAction, logout: logoutAction } = authSlice.actions;
+export const {
+  login: loginAction,
+  logout: logoutAction,
+  follow: followAction,
+} = authSlice.actions;
 export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

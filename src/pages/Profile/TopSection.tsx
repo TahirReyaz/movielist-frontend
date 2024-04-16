@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import userAvatar from "../../assets/userAvatar.png";
 
 import Button from "../../components/UI/Button";
-import { RootState } from "../../store/AuthSlice";
+import { RootState, followAction } from "../../store/AuthSlice";
 import { followUser } from "../../lib/api";
 import { tmdbImgEndPoint } from "../../constants/tmdb";
+import { toast } from "react-toastify";
 
 interface TopSectionProps {
   username?: string;
@@ -23,6 +24,7 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
     following,
     username: currentUsername,
   } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
 
   const backdropStyle = {
     "--backdrop-url": `url(${backdrop})`,
@@ -36,6 +38,30 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
       ? true
       : false;
   }
+
+  const handleFollow = async (userid: string, id: string) => {
+    const response = await followUser(userid, id);
+
+    if (!response.error) {
+      dispatch(followAction(response));
+
+      toast.success(`You started following ${username}`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    } else {
+      toast.error(response.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
 
   const links = [
     {
@@ -91,7 +117,7 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
                           console.log("Unfollow");
                         }
                       : () => {
-                          followUser(userid, id);
+                          handleFollow(userid, id);
                         },
                   }}
                 />

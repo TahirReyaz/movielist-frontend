@@ -89,6 +89,7 @@ const Browse = () => {
         formats,
         mediaType,
       }),
+    enabled: !!debouncedQuery && debouncedQuery !== "",
   });
 
   return (
