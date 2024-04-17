@@ -24,7 +24,9 @@ const Browse = () => {
   const [season, setSeason] = useState<string>("");
   const [formats, setFormats] = useState<string>("");
 
-  const { mediaType } = useParams<SearchMediaParams>();
+  const { mediaType: mediaTypeParam } = useParams<SearchMediaParams>();
+
+  const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
 
   const debouncedQuery = useDebounce(query);
 
