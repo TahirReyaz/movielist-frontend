@@ -15,6 +15,7 @@ export default {
       actionSecondary: "#59BEF4",
       actionNav: "#3577ff",
       red: "#ED294A",
+      favRed: "#ec294b",
       textLight: "#728AA1",
       textPrimary: "#a0b1c5",
       textBright: "#edf1f5",

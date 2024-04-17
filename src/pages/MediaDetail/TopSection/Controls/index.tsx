@@ -24,7 +24,7 @@ const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
   }
 
   return (
-    <div className="flex w-full gap-2 mb-4">
+    <div className="grid grid-cols-[auto,35px] w-full gap-4 mb-4">
       <Button
         title={title}
         type="button"
@@ -46,15 +46,15 @@ const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
             )}
             className="py-2 bg-white"
           >
-            <div className="bg-actionSecondary p-2 h-full rounded-r-lg">
-              <AiOutlineDown />
+            <div className="bg-actionSecondary p-2 h-full rounded-r-lg grid justify-center items-center cursor-pointer">
+              <AiOutlineDown className="text-2xl" />
             </div>
           </Tippy>
         }
         classes="text-[1.4rem] font-normal"
       />
-      <div className="p-2 bg-red rounded">
-        <AiFillHeart />
+      <div className="p-2 bg-favRed rounded grid items-center justify-center">
+        <AiFillHeart className="text-2xl" />
       </div>
     </div>
   );
