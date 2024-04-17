@@ -9,17 +9,31 @@ import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
 import { entryType } from "../../../../constants/types";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
+import { useQuery } from "@tanstack/react-query";
+import { getUserDetail } from "../../../../lib/api";
 
 interface ControlsProps {
-  mediaid?: string;
+  mediaid: string;
   mediaDetails: MediaDetailType;
-  entries?: entryType[];
+  username?: string;
 }
 
-const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
+const Controls = ({ mediaid, mediaDetails, username }: ControlsProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const existingEntry = entries?.find((entry) => entry.mediaid === mediaid);
+  const {
+    data: profile,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["profile", username],
+    queryFn: () => getUserDetail(username),
+    enabled: !!username,
+  });
+
+  const existingEntry = profile?.entries?.find(
+    (entry: any) => entry.mediaid === mediaid
+  );
   let title: string = "Add to List";
   if (existingEntry) {
     let status = existingEntry.status;
@@ -61,7 +75,13 @@ const Controls = ({ mediaid, mediaDetails, entries }: ControlsProps) => {
         <AiFillHeart className="text-2xl" />
       </div>
       <EntryEditorModal
-        {...{ open: showModal, setOpen: setShowModal, id: existingEntry?.id }}
+        {...{
+          open: showModal,
+          setOpen: setShowModal,
+          id: existingEntry?.id,
+          mediaid,
+          mediaType: mediaDetails.first_air_date ? "tv" : "movie",
+        }}
       />
     </div>
   );

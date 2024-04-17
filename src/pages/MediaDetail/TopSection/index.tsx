@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 
@@ -7,20 +8,16 @@ import { tmdbImgEndPoint } from "../../../constants/tmdb";
 import ComingSoon from "../../ComingSoon";
 import Controls from "./Controls";
 import { MediaDetailType } from "..";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../store/AuthSlice";
-import { entryType } from "../../../constants/types";
-import { getUserDetail } from "../../../lib/api";
 
 interface TopSectionProps {
   mediaDetails: MediaDetailType;
-  mediaid?: string;
+  mediaid: string;
   mediaType: string;
 }
 
 const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
   const { username } = useSelector((state: RootState) => state.auth);
-  const [entries, setEntries] = useState<entryType[]>();
 
   const routes = [
     { path: "/", element: <ComingSoon />, title: "Overview" },
@@ -30,20 +27,6 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
     { path: "stats", element: <ComingSoon />, title: "Stats" },
     { path: "social", element: <ComingSoon />, title: "Social" },
   ];
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const profile = await getUserDetail(username);
-        setEntries(profile.entries);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    if (username) {
-      fetchProfile();
-    }
-  }, [username, setEntries]);
 
   return (
     <div className="bg-bgSecondary">
@@ -72,7 +55,7 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
               mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
             } mb-4 rounded`}
           />
-          {username && <Controls {...{ mediaDetails, mediaid, entries }} />}
+          {username && <Controls {...{ mediaDetails, mediaid, username }} />}
         </div>
         {/* title and overview */}
         <div className="w-9/12 ms-4 p-8 flex flex-col justify-between">

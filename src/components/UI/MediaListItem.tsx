@@ -33,11 +33,11 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
 
   useEffect(() => {
     async function fetchMedia() {
-      const { data, error } = await getEntryDetail(entryId);
-      if (error) {
+      const response = await getEntryDetail(entryId);
+      if (response.error) {
         console.error("error while fetching entry details");
       }
-      setEntryDetails(data);
+      setEntryDetails(response);
     }
     fetchMedia();
   }, [entryId]);

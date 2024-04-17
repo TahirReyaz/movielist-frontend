@@ -222,7 +222,7 @@ export async function getEntryDetail(id: string | undefined) {
       `${backendUrl}/entry/${id}`
     );
     const entry = response.data;
-    return { data: entry, error: false };
+    return { ...entry, error: false };
   } catch (error) {
     console.error(error);
     return { error: true };

@@ -102,7 +102,7 @@ const MediaDetail = () => {
       {mediaDetails && (
         <>
           {/* Image and overview */}
-          <TopSection {...{ mediaid, mediaType, mediaDetails }} />
+          {mediaid && <TopSection {...{ mediaid, mediaType, mediaDetails }} />}
           {/* Rest of the details */}
           <LowerLayout
             {...{
