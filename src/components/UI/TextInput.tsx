@@ -3,11 +3,13 @@ import React from "react";
 interface TextInputProps {
   name: string;
   type: string;
-  label: string;
-  value: string;
+  label?: string;
+  value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   classes?: string;
   divClasses?: string;
+  min?: number;
+  max?: number;
 }
 
 const TextInput = ({
@@ -18,6 +20,8 @@ const TextInput = ({
   name,
   classes,
   divClasses,
+  min,
+  max,
 }: TextInputProps) => {
   return (
     <div className={`relative my-2 rounded-md ${divClasses && divClasses}`}>
@@ -31,6 +35,8 @@ const TextInput = ({
           classes && classes
         }`}
         placeholder={label}
+        min={min}
+        max={max}
       />
     </div>
   );
