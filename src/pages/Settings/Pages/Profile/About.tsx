@@ -16,7 +16,7 @@ const About = () => {
   const queryClient = useQueryClient();
 
   const profileQuery = useQuery({
-    queryKey: [`getUserProfile`],
+    queryKey: [`getUserProfile`, username],
     enabled: !!username,
     queryFn: () => getUserDetail(username),
   });
@@ -26,7 +26,7 @@ const About = () => {
       return updateUserDetail(userid, { about });
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["getUserProfile"] });
+      queryClient.invalidateQueries({ queryKey: ["getUserProfile", username] });
       toast.success(data.message, {
         position: "top-center",
         autoClose: 1000,

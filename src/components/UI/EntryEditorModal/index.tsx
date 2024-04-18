@@ -1,13 +1,16 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import Modal from "../../UI/Modal";
-import { getEntryDetail, getMediaDetail } from "../../../lib/api";
+import { addEntry, getEntryDetail, getMediaDetail } from "../../../lib/api";
 import TopSection from "./TopSection";
 import Loading from "../Loading";
 import Error from "../Error";
 import TextInput from "../TextInput";
+import { RootState } from "../../../store/AuthSlice";
 
 interface EntryEditorModalParams {
   open: boolean;
@@ -32,6 +35,10 @@ const EntryEditorModal = ({
   const [progress, setProgress] = useState("");
   const [notes, setNotes] = useState("");
 
+  const { userid } = useSelector((state: RootState) => state.auth);
+
+  const queryClient = useQueryClient();
+
   const {
     data: entry,
     isLoading,
@@ -49,8 +56,10 @@ const EntryEditorModal = ({
   } = useQuery({
     queryKey: ["media", mediaType, mediaid],
     queryFn: () => getMediaDetail(mediaType, mediaid),
-    enabled: !id && !!mediaid,
+    enabled: !!mediaid,
   });
+
+  const [fav, setFav] = useState<boolean>(entry ? entry.fav : false);
 
   const listTypeOptions = [
     { value: "watching", label: "Watching" },
@@ -61,10 +70,58 @@ const EntryEditorModal = ({
     { value: "dropped", label: "Dropped" },
   ];
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (id) {
     } else {
+      if (status) {
+        const res = await addEntry({
+          mediaid,
+          mediaType,
+          userid,
+          title: mediaType == "tv" ? media.name : media.title,
+          poster: media.poster_path,
+          backdrop: media.backdrop_path,
+          status: status,
+          startDate,
+          endDate: finishDate,
+          progress,
+          notes,
+          rewatches,
+          score,
+          fav,
+        });
+        if (res.error) {
+          toast.error(res.message, {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        } else {
+          toast.success(
+            `${
+              mediaType == "tv" ? media.name : media.title
+            } list entry updated`,
+            {
+              position: "top-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            }
+          );
+          queryClient.invalidateQueries({
+            queryKey: ["media", mediaType, mediaid],
+          });
+          setOpen(false);
+        }
+      }
     }
+  };
+
+  const handleFav = (val: boolean) => {
+    setFav(val);
   };
 
   if (isLoading || isMediaLoading) {
@@ -80,11 +137,11 @@ const EntryEditorModal = ({
         <TopSection
           {...{
             title: entry ? entry.title : media.title,
-            fav: entry ? entry.fav : false,
+            fav,
             backdrop: entry ? entry.backdrop : media.backdrop_path,
             poster: entry ? entry.poster : media.poster_path,
-            onFav: () => {},
-            onUnFav: () => {},
+            onFav: () => handleFav(true),
+            onUnFav: () => handleFav(false),
             onSave: handleSave,
             onClose: () => setOpen(false),
           }}
@@ -96,7 +153,7 @@ const EntryEditorModal = ({
               <Select
                 {...{
                   options: listTypeOptions,
-                  onChange: (val: any) => setStatus(val),
+                  onChange: (opt: any) => setStatus(opt.value),
                   className:
                     "bg-bgFooter rounded-lg text-[1.4rem] text-left text-white px-8 py-1",
                   classNames: {

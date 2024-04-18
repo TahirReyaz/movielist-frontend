@@ -16,17 +16,16 @@ export type newEntryType = {
   userid: string;
   mediaid?: string;
   status: listtypetype;
-  mediaType: mediaTypeType;
+  mediaType: string;
   title: string;
   poster: string;
   backdrop: string;
-  listid?: string;
   startDate?: string;
   endDate?: string;
   fav?: boolean;
-  progress?: number;
-  rewatches?: number;
-  score?: number;
+  progress?: string;
+  rewatches?: string;
+  score?: string;
   notes?: string;
 };
 
@@ -119,7 +118,6 @@ export async function login(email: string, password: string) {
 export const addEntry = async ({
   mediaid,
   userid,
-  listid,
   mediaType,
   status,
   startDate,
@@ -137,7 +135,6 @@ export const addEntry = async ({
     const body = {
       mediaid,
       userid,
-      listid,
       mediaType,
       status,
       startDate,
