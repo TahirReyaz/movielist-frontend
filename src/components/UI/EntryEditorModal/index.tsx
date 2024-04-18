@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 import { useSelector } from "react-redux";
@@ -27,14 +27,6 @@ const EntryEditorModal = ({
   mediaid,
   mediaType,
 }: EntryEditorModalParams) => {
-  const [status, setStatus] = useState();
-  const [startDate, setStartDate] = useState("");
-  const [finishDate, setFinishDate] = useState("");
-  const [score, setScore] = useState("");
-  const [rewatches, setRewatches] = useState("");
-  const [progress, setProgress] = useState("");
-  const [notes, setNotes] = useState("");
-
   const { userid } = useSelector((state: RootState) => state.auth);
 
   const queryClient = useQueryClient();
@@ -49,6 +41,26 @@ const EntryEditorModal = ({
     enabled: !!id,
   });
 
+  const [status, setStatus] = useState(undefined);
+  const [startDate, setStartDate] = useState("");
+  const [finishDate, setFinishDate] = useState("");
+  const [score, setScore] = useState("");
+  const [rewatches, setRewatches] = useState("");
+  const [progress, setProgress] = useState("");
+  const [notes, setNotes] = useState("");
+
+  useEffect(() => {
+    if (entry) {
+      setStatus(entry.status);
+      setStartDate(entry.startDate);
+      setFinishDate(entry.endDate);
+      setScore(entry.score);
+      setRewatches(entry.rewatches);
+      setProgress(entry.progress);
+      setNotes(entry.notes);
+    }
+  }, [entry]);
+
   const {
     data: media,
     isLoading: isMediaLoading,
@@ -61,7 +73,7 @@ const EntryEditorModal = ({
 
   const [fav, setFav] = useState<boolean>(entry ? entry.fav : false);
 
-  const listTypeOptions = [
+  const statusOptions = [
     { value: "watching", label: "Watching" },
     { value: "planning", label: "Plan to watch" },
     { value: "completed", label: "Completed" },
@@ -152,7 +164,13 @@ const EntryEditorModal = ({
               <p className="text-xl text-left text-textLight my-2">Status</p>
               <Select
                 {...{
-                  options: listTypeOptions,
+                  value: {
+                    value: status,
+                    label: statusOptions.find(
+                      (option) => option.value === status
+                    )?.label,
+                  },
+                  options: statusOptions,
                   onChange: (opt: any) => setStatus(opt.value),
                   className:
                     "bg-bgFooter rounded-lg text-[1.4rem] text-left text-white px-8 py-1",
