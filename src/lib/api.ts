@@ -202,17 +202,6 @@ export async function updateUserDetail(
   }
 }
 
-export async function getListDetail(id: string | undefined) {
-  try {
-    const response: AxiosResponse = await axios.get(`${backendUrl}/list/${id}`);
-    const list = response.data;
-    return { ...list, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
-  }
-}
-
 export async function getEntryDetail(id: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(

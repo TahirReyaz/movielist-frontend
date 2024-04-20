@@ -11,6 +11,7 @@ import Loading from "../Loading";
 import Error from "../Error";
 import TextInput from "../TextInput";
 import { RootState } from "../../../store/AuthSlice";
+import { updateEntry } from "../../../lib/api/entry";
 
 interface EntryEditorModalParams {
   open: boolean;
@@ -84,6 +85,48 @@ const EntryEditorModal = ({
 
   const handleSave = async () => {
     if (id) {
+      if (status) {
+        const res = await updateEntry({
+          status,
+          userid,
+          id,
+          startDate,
+          endDate: finishDate,
+          progress,
+          notes,
+          rewatches,
+          score,
+        });
+        if (res.error) {
+          toast.error(res.message, {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        } else {
+          toast.success(
+            `${
+              mediaType == "tv" ? media.name : media.title
+            } list entry updated`,
+            {
+              position: "top-center",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+            }
+          );
+          queryClient.invalidateQueries({
+            queryKey: ["media", mediaType, mediaid],
+          });
+          queryClient.invalidateQueries({
+            queryKey: [],
+          });
+          setOpen(false);
+        }
+      }
     } else {
       if (status) {
         const res = await addEntry({
@@ -93,7 +136,7 @@ const EntryEditorModal = ({
           title: mediaType == "tv" ? media.name : media.title,
           poster: media.poster_path,
           backdrop: media.backdrop_path,
-          status: status,
+          status,
           startDate,
           endDate: finishDate,
           progress,
@@ -124,7 +167,7 @@ const EntryEditorModal = ({
             }
           );
           queryClient.invalidateQueries({
-            queryKey: ["media", mediaType, mediaid],
+            queryKey: ["entry", id],
           });
           setOpen(false);
         }

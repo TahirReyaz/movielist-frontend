@@ -1,3 +1,5 @@
+import { newEntryType } from "../lib/api";
+
 export type mediaTypeType = "movie" | "tv" | "person";
 export type multiSearchResultType = mediaTypeType | "user";
 export type bulkMediaType =
@@ -33,4 +35,15 @@ export type userSettingsType = {
   timezone: string | undefined;
   restricMessage: boolean | undefined;
   dataCacheEnable: boolean | undefined;
+};
+
+export type existingEntryType = Omit<
+  newEntryType,
+  "title" | "mediaType" | "poster" | "backdrop"
+> & {
+  id: string;
+  title?: string;
+  mediaType?: string;
+  poster?: string;
+  backdrop?: string;
 };
