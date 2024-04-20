@@ -21,7 +21,7 @@ const MediaList = () => {
   const { pathname } = useLocation();
 
   const mediaType: mediaTypeType =
-    pathname.split("/")[3] === "movielist" ? "movie" : "tv";
+    pathname.split("/")[3].split("#")[0] === "movielist" ? "movie" : "tv";
 
   useEffect(() => {
     let tempuser = [];
