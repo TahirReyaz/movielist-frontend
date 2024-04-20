@@ -1,10 +1,9 @@
 import React from "react";
 import ContentGroup from "./ContentGroup";
+import MediaInProgress from "./MediaInProgress.tsx";
 
 const RightSection = () => {
   const contentGroups = [
-    { title: "Movie in Progress", content: <div /> },
-    { title: "TV in Progress", content: <div /> },
     { title: "Forum Activiy", content: <div /> },
     { title: "Recent Reviews", content: <div /> },
     { title: "Trending Movie and TV", content: <div /> },
@@ -14,6 +13,10 @@ const RightSection = () => {
 
   return (
     <section className="w-4/12">
+      <MediaInProgress
+        {...{ title: "Movies in Progress", mediaType: "movie" }}
+      />
+      <MediaInProgress {...{ title: "Shows in Progress", mediaType: "tv" }} />
       {contentGroups.map((grp) => (
         <ContentGroup
           {...{

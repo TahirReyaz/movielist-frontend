@@ -12,7 +12,7 @@ type listGroupType = {
   entries: entryType[] | [];
 };
 
-const MovieList = () => {
+const MediaList = () => {
   const { username } = useParams();
   const [profile, setProfile] = useState<profileType>();
   const [listGroups, setListGroups] = useState<listGroupType[]>();
@@ -109,4 +109,4 @@ const MovieList = () => {
   );
 };
 
-export default MovieList;
+export default MediaList;
