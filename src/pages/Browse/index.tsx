@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import TextInput from "../../components/UI/TextInput";
-import Filter from "./Filters/Filter";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getSearchResults } from "../../lib/api";
 import { useParams } from "react-router-dom";
 import CardList from "../../components/UI/Media/CardList";
 import Filters from "./Filters";
+import BulkMedia from "./BulkMedia";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -29,34 +29,6 @@ const Browse = () => {
   const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
 
   const debouncedQuery = useDebounce(query);
-
-  const tvMediaSections: mediaSectionItem[] = [
-    { type: "airing_today", mediaType, title: "AIRING TODAY" },
-    { type: "on_the_air", mediaType, title: "ON THE AIR" },
-  ];
-  const movieMediaSections: mediaSectionItem[] = [
-    { type: "upcoming", mediaType, title: "UPCOMING MOVIES" },
-    {
-      type: "now_playing",
-      mediaType,
-      title: "NOW PLAYING MOVIES",
-    },
-  ];
-  const sameMediaSections: mediaSectionItem[] = [
-    {
-      type: "popular",
-      mediaType,
-      title: `POPULAR ${mediaType == "tv" ? "SHOWS" : "MOVIES"}`,
-    },
-    {
-      type: "top_rated",
-      mediaType,
-      title: `TOP RATED ${mediaType == "tv" ? "SHOWS" : "MOVIES"}`,
-    },
-  ];
-  const mediaSections =
-    mediaType == "tv" ? tvMediaSections : movieMediaSections;
-  mediaSections.push(...sameMediaSections);
 
   const filters = [
     {
@@ -141,10 +113,7 @@ const Browse = () => {
 
       {(!mediaQuery.data ||
         !mediaQuery.data.results ||
-        mediaQuery.data.results.length == 0) &&
-        mediaSections.map((item) => (
-          <MediaSection {...{ ...item, key: item.title }} />
-        ))}
+        mediaQuery.data.results.length == 0) && <BulkMedia />}
 
       {mediaQuery?.data?.results?.length > 0 && (
         <CardList {...{ items: mediaQuery.data.results }} />

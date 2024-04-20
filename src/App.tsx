@@ -58,7 +58,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/search/:mediaType/:type" element={<Browse />} />
+            <Route path="/search/:mediaType/:bulkType" element={<Browse />} />
             <Route path="/search/:mediaType" element={<Browse />} />
             <Route
               path="/search"
