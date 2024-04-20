@@ -28,11 +28,10 @@ const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
 
   useEffect(() => {
     if (profile) {
-      const watchingEntries = profile.entries.filter(
+      const watchingEntries = profile?.entries?.filter(
         (entry: any) =>
           entry.status === "watching" && entry.mediaType === mediaType
       );
-      console.log({ watchingEntries });
       if (watchingEntries && watchingEntries.length > 0) {
         setEntries(watchingEntries);
       }
