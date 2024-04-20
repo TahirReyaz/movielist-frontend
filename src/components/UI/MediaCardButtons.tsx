@@ -62,7 +62,7 @@ const MediaCardButtons = ({
       mediaid,
       userid,
       status,
-      title: mediaDetails.title,
+      title: mediaDetails.title ?? "",
       poster: mediaDetails.poster_path,
       backdrop: mediaDetails.backdrop_path,
     });
