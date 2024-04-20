@@ -1,11 +1,11 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-import { getUserDetail } from "../../lib/api";
-import { profileType } from ".";
-import LowerLayout from "../../components/UI/LowerLayout";
-import MediaListGroup from "../../components/UI/MediaListGroup";
-import { entryType, mediaTypeType } from "../../constants/types";
+import { getUserDetail } from "../../../lib/api";
+import { profileType } from "..";
+import LowerLayout from "../../../components/UI/LowerLayout";
+import MediaListGroup from "../../../components/UI/MediaListGroup";
+import { entryType, mediaTypeType } from "../../../constants/types";
 
 type listGroupType = {
   title: string;
