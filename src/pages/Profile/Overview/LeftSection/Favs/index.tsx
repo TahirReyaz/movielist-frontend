@@ -14,6 +14,9 @@ const Favs = ({ fav }: FavsProps) => {
       {fav?.tv && fav.tv.length > 0 && (
         <FavSection {...{ title: "Shows", type: "tv", list: fav.tv }} />
       )}
+      {fav?.staff && fav.staff.length > 0 && (
+        <FavSection {...{ title: "Staff", type: "staff", list: fav.staff }} />
+      )}
     </div>
   );
 };

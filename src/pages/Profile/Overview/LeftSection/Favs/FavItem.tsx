@@ -33,8 +33,10 @@ const FavItem = ({ id, type }: FavItem) => {
     <Link to={`/${type}/${id}`} className="rounded">
       <img
         src={
-          data.poster_path
-            ? `${tmdbImgEndPoint}${data.poster_path}`
+          data.profile_path || data.poster_path
+            ? `${tmdbImgEndPoint}${
+                type === "staff" ? data.profile_path : data.poster_path
+              }`
             : posterPlaceholder
         }
         alt={data.title ? data.title : data.name}
