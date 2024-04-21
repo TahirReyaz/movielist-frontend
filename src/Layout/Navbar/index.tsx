@@ -24,7 +24,7 @@ type routeItem = {
 };
 
 const Navbar = () => {
-  const { isLoggedIn, username } = useSelector(
+  const { isLoggedIn, username, avatar } = useSelector(
     (state: RootState) => state.auth
   );
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -61,7 +61,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-bgSecondary py-4 px-56 font-body flex justify-between items-center hidden md:flex">
+      <nav className="bg-bgSecondary py-4 px-56 font-body justify-between items-center hidden md:flex">
         {/* Logo */}
         <Link to="/">
           <img src={Logo} className="size-[50px]" />
@@ -102,7 +102,7 @@ const Navbar = () => {
             >
               <div className="flex items-center">
                 <img
-                  src={userAvatar}
+                  src={avatar ? avatar : userAvatar}
                   alt="Avatar"
                   className="size-20 ms-4 cursor-pointer"
                 />

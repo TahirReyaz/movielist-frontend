@@ -49,6 +49,7 @@ const Login = () => {
               following: response.profile.following,
               followers: response.profile.followers,
               fav: response.profile.fav,
+              avatar: response.profile.avatar,
             })
           );
         }, 3000);
