@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 
@@ -7,19 +7,29 @@ import "tippy.js/dist/tippy.css";
 import { MediaDetailType } from "../..";
 import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
-import { entryType } from "../../../../constants/types";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserDetail } from "../../../../lib/api";
+import { toggleFav } from "../../../../lib/api/user";
+import { toast } from "react-toastify";
 
 interface ControlsProps {
   mediaid: string;
   mediaDetails: MediaDetailType;
   username?: string;
+  userid: string;
+  mediaType: string;
 }
 
-const Controls = ({ mediaid, mediaDetails, username }: ControlsProps) => {
+const Controls = ({
+  mediaid,
+  mediaDetails,
+  username,
+  userid,
+  mediaType,
+}: ControlsProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isFav, setIsFav] = useState<boolean>(false);
 
   const {
     data: profile,
@@ -31,6 +41,8 @@ const Controls = ({ mediaid, mediaDetails, username }: ControlsProps) => {
     enabled: !!username,
   });
 
+  const queryClient = useQueryClient();
+
   const existingEntry = profile?.entries?.find(
     (entry: any) => entry.mediaid === mediaid
   );
@@ -39,6 +51,42 @@ const Controls = ({ mediaid, mediaDetails, username }: ControlsProps) => {
     let status = existingEntry.status;
     title = status.charAt(0).toUpperCase() + status.slice(1);
   }
+
+  const handleFavToggle = async (toFav: boolean) => {
+    const res = await toggleFav(userid, mediaid, mediaType, toFav);
+    if (!res.error) {
+      toast.success(toFav ? "Added to Favourites" : "Removed from Favourites", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["profile", username],
+      });
+    } else {
+      toast.error(res.messsage, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (profile && profile.fav) {
+      const foundFav = profile.fav[mediaType].includes(mediaid);
+      if (foundFav) {
+        setIsFav(true);
+      } else {
+        setIsFav(false);
+      }
+    }
+  }, [profile]);
 
   return (
     <div className="grid grid-cols-[auto,35px] w-full gap-4 mb-4">
@@ -71,8 +119,13 @@ const Controls = ({ mediaid, mediaDetails, username }: ControlsProps) => {
         }
         classes="text-[1.4rem] font-normal"
       />
-      <div className="p-2 bg-favRed rounded grid items-center justify-center">
-        <AiFillHeart className="text-2xl" />
+      <div
+        className="p-2 bg-favRed rounded grid items-center justify-center cursor-pointer"
+        onClick={() => handleFavToggle(!isFav)}
+      >
+        <AiFillHeart
+          className={`text-2xl ${isFav ? "text-favPink" : "text-white"}`}
+        />
       </div>
       <EntryEditorModal
         {...{

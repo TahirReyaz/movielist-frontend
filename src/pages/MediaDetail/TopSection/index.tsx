@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -17,7 +17,7 @@ interface TopSectionProps {
 }
 
 const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
-  const { username } = useSelector((state: RootState) => state.auth);
+  const { username, userid } = useSelector((state: RootState) => state.auth);
 
   const routes = [
     { path: "/", element: <ComingSoon />, title: "Overview" },
@@ -55,7 +55,11 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
               mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
             } mb-4 rounded`}
           />
-          {username && <Controls {...{ mediaDetails, mediaid, username }} />}
+          {username && (
+            <Controls
+              {...{ mediaDetails, mediaid, username, mediaType, userid }}
+            />
+          )}
         </div>
         {/* title and overview */}
         <div className="w-9/12 ms-4 p-8 flex flex-col justify-between">
