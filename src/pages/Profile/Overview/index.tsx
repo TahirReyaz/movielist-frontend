@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,20 +11,24 @@ import { getUserDetail } from "../../../lib/api";
 
 const Overview = () => {
   const { username } = useParams<ProfileParams>();
-  const profileQuery = useQuery({
-    queryKey: [`getUserProfile`],
+  const {
+    data: profile,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["profile", username],
     enabled: !!username,
     queryFn: () => getUserDetail(username),
   });
 
-  if (profileQuery.isLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
   return (
     <PageContainer>
       <div className="grid grid-cols-10 gap-4">
-        <LeftSection {...profileQuery.data} />
+        <LeftSection {...profile} />
         <RightSection />
       </div>
     </PageContainer>

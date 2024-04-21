@@ -5,7 +5,7 @@ interface AboutProps {
 }
 
 const About = ({ about }: AboutProps) => {
-  return <div>{about}</div>;
+  return <div className="bg-bgSecondary p-8 rounded text-2xl">{about}</div>;
 };
 
 export default About;
