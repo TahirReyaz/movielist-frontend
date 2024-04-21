@@ -6,6 +6,7 @@ export type SliceStateType = {
   username: string;
   following: [string] | [];
   followers: [string] | [];
+  fav: any;
 };
 
 let initialState: SliceStateType = {
@@ -14,6 +15,13 @@ let initialState: SliceStateType = {
   username: "",
   followers: [],
   following: [],
+  fav: {
+    movie: [],
+    tv: [],
+    staff: [],
+    characters: [],
+    prod_companies: [],
+  },
 };
 
 if (localStorage.getItem("token")) {
@@ -23,6 +31,7 @@ if (localStorage.getItem("token")) {
     username: localStorage.getItem("username") || "",
     followers: JSON.parse(localStorage.getItem("followers") || "[]"),
     following: JSON.parse(localStorage.getItem("following") || "[]"),
+    fav: JSON.parse(localStorage.getItem("favs") || "[]"),
   };
 }
 
@@ -42,12 +51,14 @@ const authSlice = createSlice({
         "followers",
         JSON.stringify(action.payload.followers)
       );
+      localStorage.setItem("fav", JSON.stringify(action.payload.fav));
 
       state.isLoggedIn = true;
       state.userid = action.payload.userid;
       state.username = action.payload.username;
       state.followers = action.payload.followers;
       state.following = action.payload.following;
+      state.fav = action.payload.fav;
     },
     logout: (state) => {
       state.isLoggedIn = initialState.isLoggedIn;
@@ -55,12 +66,14 @@ const authSlice = createSlice({
       state.username = initialState.username;
       state.followers = initialState.followers;
       state.following = initialState.following;
+      state.fav = initialState.fav;
 
       localStorage.removeItem("token");
       localStorage.removeItem("userid");
       localStorage.removeItem("username");
       localStorage.removeItem("following");
       localStorage.removeItem("followers");
+      localStorage.removeItem("fav");
     },
     follow: (state, action) => {
       localStorage.removeItem("following");
@@ -71,6 +84,13 @@ const authSlice = createSlice({
       );
 
       state.following = action.payload.following;
+    },
+    toggleFav: (state, action) => {
+      localStorage.removeItem("fav");
+
+      localStorage.setItem("fav", JSON.stringify(action.payload.fav));
+
+      state.fav = action.payload.fav;
     },
   },
 });
@@ -85,6 +105,7 @@ export const {
   login: loginAction,
   logout: logoutAction,
   follow: followAction,
+  toggleFav: favAction,
 } = authSlice.actions;
 export type RootState = ReturnType<typeof store.getState>;
 
