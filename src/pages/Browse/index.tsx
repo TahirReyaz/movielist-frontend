@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import TextInput from "../../components/UI/TextInput";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useQuery } from "@tanstack/react-query";
 import { getSearchResults } from "../../lib/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CardList from "../../components/UI/Media/CardList";
 import Filters from "./Filters";
 import BulkMedia from "./BulkMedia";
+import Loading from "../../components/UI/Loading";
+import Error from "../../components/UI/Error";
+import { generateYearOptions } from "../../lib/helpers";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -29,18 +31,19 @@ const Browse = () => {
   const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
 
   const debouncedQuery = useDebounce(query);
+  const navigate = useNavigate();
 
   const filters = [
     {
       title: "Genres",
       options: [{ value: "adrak", label: "lehsun" }],
-      onChange: (val: string) => setGenres(val),
+      onChange: (opt: any) => setGenres(opt.value),
       isMulti: true,
     },
     {
       title: "Year",
-      options: [{ value: "adrak", label: "lehsun" }],
-      onChange: (val: string) => setYear(val),
+      options: generateYearOptions(),
+      onChange: (opt: any) => setYear(opt.value),
       isMulti: false,
     },
     {
@@ -51,7 +54,7 @@ const Browse = () => {
         { value: "summer", label: "Summer" },
         { value: "fall", label: "Fall" },
       ],
-      onChange: (val: string) => setSeason(val),
+      onChange: (opt: any) => setSeason(opt.value),
       isMulti: false,
     },
     {
@@ -62,7 +65,11 @@ const Browse = () => {
     },
   ];
 
-  const mediaQuery = useQuery({
+  const {
+    data: results,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: [
       `search`,
       debouncedQuery,
@@ -84,6 +91,23 @@ const Browse = () => {
     enabled: !!debouncedQuery && debouncedQuery !== "",
   });
 
+  useEffect(() => {
+    let url = `/search/${mediaType}`;
+    if (debouncedQuery && debouncedQuery.length > 0) {
+      url += `?search=${debouncedQuery}`;
+    }
+    if (year && year.length > 0) {
+      url += `?year=${year}`;
+    }
+    if (season && season.length > 0) {
+      url += `?season=${season}`;
+    }
+
+    console.log({ url });
+
+    navigate(url);
+  }, [debouncedQuery, year, season]);
+
   return (
     <main className="pt-28 px-4 sm:pt-20 sm:px-56">
       <div className="grid-cols-5 gap-4 grid">
@@ -103,20 +127,19 @@ const Browse = () => {
         <Filters {...{ filters }} />
       </div>
 
-      {mediaQuery.isLoading && (
-        <h3 className="text-3xl font-semibold">Searching...</h3>
+      {(!results || !results.results) && <BulkMedia />}
+
+      {isLoading && <Loading />}
+      {isError && <Error />}
+
+      {results?.results?.length === 0 && (
+        <div className="px-60 text-center my-20">
+          <h2 className="text-4xl font-semibold">No Results</h2>
+        </div>
       )}
 
-      {mediaQuery.isError && (
-        <h3 className="text-3xl font-semibold text-red">Error</h3>
-      )}
-
-      {(!mediaQuery.data ||
-        !mediaQuery.data.results ||
-        mediaQuery.data.results.length == 0) && <BulkMedia />}
-
-      {mediaQuery?.data?.results?.length > 0 && (
-        <CardList {...{ items: mediaQuery.data.results }} />
+      {results?.results?.length > 0 && (
+        <CardList {...{ items: results.results }} />
       )}
     </main>
   );

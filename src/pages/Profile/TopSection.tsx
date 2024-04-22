@@ -7,7 +7,6 @@ import userAvatar from "../../assets/userAvatar.png";
 import Button from "../../components/UI/Button";
 import { RootState, followAction } from "../../store/AuthSlice";
 import { followUser } from "../../lib/api";
-import { tmdbImgEndPoint } from "../../constants/tmdb";
 import { toast } from "react-toastify";
 
 interface TopSectionProps {

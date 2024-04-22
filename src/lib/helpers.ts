@@ -5,3 +5,15 @@ export const formatRuntime = (runtime: string) => {
   const minutes = totalMinutes % 60;
   return `${hours}h ${minutes}m`;
 };
+
+export const generateYearOptions = (start = 1888) => {
+  const currentYear = new Date().getFullYear();
+  const startYear = start;
+  const years = [];
+
+  for (let year = currentYear + 1; year >= startYear; year--) {
+    years.push({ value: `${year}`, label: year });
+  }
+
+  return years;
+};
