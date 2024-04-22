@@ -6,11 +6,11 @@ import {
   userSettingsType,
 } from "../constants/types";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-// const backendUrl =
-//   window.innerWidth < 768
-//     ? import.meta.env.VITE_BACKEND_URL_PHONE
-//     : import.meta.env.VITE_BACKEND_URL;
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const backendUrl =
+  window.innerWidth < 768
+    ? import.meta.env.VITE_BACKEND_URL_PHONE
+    : import.meta.env.VITE_BACKEND_URL;
 
 export type newEntryType = {
   userid: string;

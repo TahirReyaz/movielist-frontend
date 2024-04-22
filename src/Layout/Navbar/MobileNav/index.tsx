@@ -25,7 +25,9 @@ interface MenuOption {
 
 const MobileNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, username } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const handleToggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -34,10 +36,14 @@ const MobileNav = () => {
   const menuOptions: MenuOption[] = isLoggedIn
     ? [
         { label: "Home", icon: <FaHome />, path: "/" },
-        { label: "Movie List", icon: <FaFilm />, path: "/movielist" },
-        { label: "TV List", icon: <FaTv />, path: "/tvlist" },
+        {
+          label: "Movie List",
+          icon: <FaFilm />,
+          path: `/user/${username}/movielist`,
+        },
+        { label: "TV List", icon: <FaTv />, path: `/user/${username}/tvlist` },
         { label: "Forum", icon: <FaComments />, path: "/forum" },
-        { label: "Profile", icon: <FaCog />, path: "/profile" },
+        { label: "Profile", icon: <FaCog />, path: `/user/${username}` },
         { label: "Notifications", icon: <FaBell />, path: "/notifications" },
         { label: "Settings", icon: <FaCog />, path: "/settings" },
         { label: "Search", icon: <FaSearch />, path: "/search" },

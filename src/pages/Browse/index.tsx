@@ -103,9 +103,7 @@ const Browse = () => {
       url += `?season=${season}`;
     }
 
-    console.log({ url });
-
-    navigate(url);
+    if (url !== `/search/${mediaType}`) navigate(url);
   }, [debouncedQuery, year, season]);
 
   return (
