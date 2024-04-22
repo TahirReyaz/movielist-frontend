@@ -99,7 +99,7 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
             <img
               src={avatar ? avatar : userAvatar}
               alt={username}
-              className={` mb-4 rounded size-40`}
+              className={` mb-4 rounded size-40 object-cover`}
             />
           </div>
           {/* title and overview */}
