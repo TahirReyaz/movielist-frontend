@@ -104,7 +104,7 @@ const Navbar = () => {
                 <img
                   src={avatar ? avatar : userAvatar}
                   alt="Avatar"
-                  className="size-20 ms-4 cursor-pointer"
+                  className="size-20 ms-4 cursor-pointer rounded"
                 />
                 <FaAngleDown className="text-2xl" />
               </div>

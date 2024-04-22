@@ -93,17 +93,17 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
         }`}
       >
         {/* Poster and username */}
-        <div className="flex px-56 z-20 relative">
+        <div className="grid grid-cols-11 px-56 z-20 relative">
           {/* Poster */}
-          <div className="w-2/12">
+          <div className="col-span-2">
             <img
               src={avatar ? avatar : userAvatar}
               alt={username}
-              className={` mb-4 rounded`}
+              className={` mb-4 rounded size-40`}
             />
           </div>
           {/* title and overview */}
-          <div className="w-9/12 p-4 flex items-end justify-between">
+          <div className="col-span-9 p-4 flex items-end justify-between">
             <h1 className="text-3xl text-textBright font-extrabold">
               {username}
             </h1>
