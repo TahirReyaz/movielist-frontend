@@ -7,7 +7,7 @@ const Feed = () => {
   const [isGlobal, setIsGlobal] = useState<boolean>(true);
 
   return (
-    <section className="w-7/12">
+    <section className="col-span-7">
       <div className="flex justify-between">
         <h2 className="text-[1.4rem] font-medium px-4 py-2">Activity</h2>
         <div className="flex">

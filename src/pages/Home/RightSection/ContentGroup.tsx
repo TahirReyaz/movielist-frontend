@@ -7,7 +7,7 @@ interface ContentGroupProps {
 
 const ContentGroup = ({ title, children }: ContentGroupProps) => {
   return (
-    <div>
+    <div className="hidden md:block">
       <h2 className="text-[1.4rem] font-medium px-4 py-2 hover:text-actionPrimary cursor-pointer">
         {title}
       </h2>

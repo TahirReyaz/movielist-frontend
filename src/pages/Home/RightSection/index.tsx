@@ -12,7 +12,7 @@ const RightSection = () => {
   ];
 
   return (
-    <section className="w-4/12">
+    <section className="col-span-4 order-first md:order-last">
       <MediaInProgress
         {...{ title: "Movies in Progress", mediaType: "movie" }}
       />
