@@ -31,7 +31,7 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
         />
         {isLoggedIn && hover && (
           <MediaCardButtons
-            {...{ userid, mediaid: mediaDetails.id, mediaDetails }}
+            {...{ userid, mediaid: mediaDetails.id, mediaDetails, mediaType }}
           />
         )}
       </div>

@@ -18,6 +18,7 @@ interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   userid: string;
   mediaid: string;
+  mediaType: string;
 }
 
 interface MenuButtonProps {
@@ -51,18 +52,21 @@ const MediaCardButtons = ({
   mediaDetails,
   userid,
   mediaid,
+  mediaType,
 }: MediaCardButtonsProps) => {
   const clickHandler = async (
     e: React.MouseEvent<HTMLDivElement>,
     status: listtypetype
   ) => {
     e.preventDefault();
+    const title =
+      mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
     const response = await addEntry({
-      mediaType: mediaDetails.first_air_date ? "tv" : "movie",
+      mediaType,
       mediaid,
       userid,
       status,
-      title: mediaDetails.title ?? "",
+      title,
       poster: mediaDetails.poster_path,
       backdrop: mediaDetails.backdrop_path,
     });
