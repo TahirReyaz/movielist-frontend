@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import TextInput from "../../../../components/UI/TextInput";
+import Lists from "./Lists";
 
 const LeftSection = () => {
   const [search, setSearch] = useState("");
+  const [list, setList] = useState("all");
 
   return (
     <div className="mt-12">
@@ -16,7 +18,12 @@ const LeftSection = () => {
           classes: "bg-bgSecondary",
         }}
       />
-      <div>Lists</div>
+      <Lists
+        {...{
+          onChange: (val) => setList(val),
+          val: list,
+        }}
+      />
       <div>Filters</div>
       <div>Year</div>
       <div>Sort</div>
