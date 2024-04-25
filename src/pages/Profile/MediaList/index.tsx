@@ -1,11 +1,12 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { getUserDetail } from "../../../lib/api";
-import { profileType } from "..";
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "../../../components/UI/MediaListGroup";
 import { entryType, mediaTypeType } from "../../../constants/types";
+import LeftSection from "./LeftSection.tsx";
 
 type listGroupType = {
   title: string;
@@ -14,7 +15,6 @@ type listGroupType = {
 
 const MediaList = () => {
   const { username } = useParams();
-  const [profile, setProfile] = useState<profileType>();
   const [listGroups, setListGroups] = useState<listGroupType[]>();
 
   const navigate = useNavigate();
@@ -23,17 +23,11 @@ const MediaList = () => {
   const mediaType: mediaTypeType =
     pathname.split("/")[3].split("#")[0] === "movielist" ? "movie" : "tv";
 
-  useEffect(() => {
-    let tempuser = [];
-    async function fetchMedia() {
-      tempuser = await getUserDetail(username);
-      if (tempuser.error) {
-        navigate("/404");
-      }
-      setProfile(tempuser);
-    }
-    fetchMedia();
-  }, [username]);
+  const { data: profile, isError } = useQuery({
+    queryKey: ["profile", username],
+    queryFn: () => getUserDetail(username),
+    enabled: !!username,
+  });
 
   useEffect(() => {
     if (profile && profile.entries.length > 0) {
@@ -44,8 +38,8 @@ const MediaList = () => {
       const paused: entryType[] = [];
 
       profile.entries
-        .filter((entry) => entry.mediaType === mediaType)
-        .forEach((entry) => {
+        .filter((entry: any) => entry.mediaType === mediaType)
+        .forEach((entry: any) => {
           if (entry.status === "planning") {
             planning.push(entry);
           } else if (entry.status === "watching") {
@@ -68,19 +62,14 @@ const MediaList = () => {
     }
   }, [profile, mediaType]);
 
+  if (isError) {
+    navigate("/404");
+  }
+
   return (
     <LowerLayout
       {...{
-        left: (
-          <div>
-            <div>Search box</div>
-            <div>Lists</div>
-            <div>Filters</div>
-            <div>Year</div>
-            <div>Sort</div>
-            <div>Button</div>
-          </div>
-        ),
+        left: <LeftSection />,
         right: (
           <div className="flex flex-col">
             {profile && profile.entries.length > 0 ? (
