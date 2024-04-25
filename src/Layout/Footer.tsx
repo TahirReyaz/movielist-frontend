@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { RootState, logoutAction } from "../store/AuthSlice";
+import { Link } from "react-router-dom";
 
-function Footer() {
+const Footer = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch();
@@ -20,8 +21,8 @@ function Footer() {
           },
         },
         { text: "Donate", url: "#" },
-        { text: "Imdb.com", url: "www.imdb.com" },
-        { text: "TheMovieDB.org", url: "www.themoviedb.org" },
+        { text: "Imdb.com", url: "www.imdb.com", ext: true },
+        { text: "TheMovieDB.org", url: "www.themoviedb.org", ext: true },
       ],
     },
     {
@@ -37,7 +38,11 @@ function Footer() {
         { text: "Discord", url: "#" },
         { text: "Twitter", url: "#" },
         { text: "Facebook", url: "#" },
-        { text: "Github", url: "#" },
+        {
+          text: "Github",
+          url: "https://github.com/TahirReyaz/movielist-frontend",
+          ext: true,
+        },
       ],
     },
     {
@@ -75,7 +80,9 @@ function Footer() {
                   {link.action ? (
                     <div onClick={link.action}>{link.text}</div>
                   ) : (
-                    <a href={link.url}>{link.text}</a>
+                    <Link to={link.url} target={link.ext ? "_blank" : "_self"}>
+                      {link.text}
+                    </Link>
                   )}
                 </li>
               ))}
@@ -85,6 +92,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
