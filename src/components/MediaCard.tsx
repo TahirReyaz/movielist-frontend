@@ -35,7 +35,7 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
           />
         )}
       </div>
-      <span className="text-[1.4rem]">
+      <span className="text-[1.4rem] my-4">
         {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}
       </span>
     </Link>
