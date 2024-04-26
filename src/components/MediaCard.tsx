@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { RootState } from "../store/AuthSlice";
 import MediaCardButtons from "./UI/MediaCardButtons";
 import { MediaDetailType } from "../pages/MediaDetail";
-import { tmdbImgEndPoint } from "../constants/tmdb";
+import {
+  posterSizes,
+  tmdbImgBaseUrl,
+  tmdbImgEndPoint,
+} from "../constants/tmdb";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -27,7 +31,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         ref={innerRef}
       >
         <img
-          src={`${tmdbImgEndPoint}${mediaDetails.poster_path}`}
+          src={`${tmdbImgBaseUrl}/${posterSizes.md}${mediaDetails.poster_path}`}
           alt={mediaDetails.title}
           className="rounded"
         />
