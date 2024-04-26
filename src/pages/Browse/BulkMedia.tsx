@@ -53,6 +53,7 @@ const BulkMedia = () => {
     isLoading,
     isError,
     fetchNextPage,
+    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["bulk", mediaType, bulkType],
     queryFn: ({ pageParam }) => {
@@ -79,7 +80,11 @@ const BulkMedia = () => {
     return (
       <>
         <CardList {...{ items: content }} />
-        <Button {...{ title: "Load More", onClick: fetchNextPage }} />
+        {isFetchingNextPage ? (
+          <Loading title="Loading More..." />
+        ) : (
+          <Button {...{ title: "Load More", onClick: fetchNextPage }} />
+        )}
       </>
     );
   }
