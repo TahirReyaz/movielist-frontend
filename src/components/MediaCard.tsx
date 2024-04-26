@@ -9,9 +9,10 @@ import { tmdbImgEndPoint } from "../constants/tmdb";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
+  innerRef?: React.Ref<HTMLDivElement>;
 }
 
-const MediaCard = ({ mediaDetails }: MediaItemProps) => {
+const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
   const { isLoggedIn, userid } = useSelector((state: RootState) => state.auth);
   const [hover, setHover] = useState<boolean>(false);
 
@@ -23,6 +24,7 @@ const MediaCard = ({ mediaDetails }: MediaItemProps) => {
         className="relative"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
+        ref={innerRef}
       >
         <img
           src={`${tmdbImgEndPoint}${mediaDetails.poster_path}`}

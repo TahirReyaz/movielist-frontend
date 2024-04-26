@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 
 import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import { getBulkMedia } from "../../lib/api";
@@ -18,6 +19,9 @@ type SearchMediaParams = {
 const BulkMedia = () => {
   const { mediaType: mediaTypeParam, bulkType } =
     useParams<SearchMediaParams>();
+
+  const { ref: intersectionRef, inView } = useInView();
+
   const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
 
   const tvMediaSections: mediaSectionItem[] = [
@@ -54,6 +58,7 @@ const BulkMedia = () => {
     isError,
     fetchNextPage,
     isFetchingNextPage,
+    hasNextPage,
   } = useInfiniteQuery({
     queryKey: ["bulk", mediaType, bulkType],
     queryFn: ({ pageParam }) => {
@@ -64,9 +69,16 @@ const BulkMedia = () => {
     enabled: !!bulkType,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1;
+      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
+      return nextPage;
     },
   });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   if (isLoading) {
     return <Loading />;
@@ -79,12 +91,8 @@ const BulkMedia = () => {
     const content = bulkResults?.pages.flat();
     return (
       <>
-        <CardList {...{ items: content }} />
-        {isFetchingNextPage ? (
-          <Loading title="Loading More..." />
-        ) : (
-          <Button {...{ title: "Load More", onClick: fetchNextPage }} />
-        )}
+        <CardList {...{ items: content, innerRef: intersectionRef }} />
+        {isFetchingNextPage && <Loading title="Loading More..." />}
       </>
     );
   }
