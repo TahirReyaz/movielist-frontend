@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import { getBulkMedia } from "../../lib/api";
@@ -8,6 +8,7 @@ import { bulkMediaType, mediaTypeType } from "../../constants/types";
 import CardList from "../../components/UI/Media/CardList";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
+import Button from "../../components/UI/Button";
 
 type SearchMediaParams = {
   mediaType: mediaTypeType;
@@ -51,14 +52,19 @@ const BulkMedia = () => {
     data: bulkResults,
     isLoading,
     isError,
-  } = useQuery({
+    fetchNextPage,
+  } = useInfiniteQuery({
     queryKey: ["bulk", mediaType, bulkType],
-    queryFn: () => {
+    queryFn: ({ pageParam }) => {
       if (bulkType) {
-        return getBulkMedia(mediaType, bulkType);
+        return getBulkMedia(mediaType, bulkType, pageParam);
       }
     },
     enabled: !!bulkType,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.length + 1;
+    },
   });
 
   if (isLoading) {
@@ -68,8 +74,14 @@ const BulkMedia = () => {
     return <Error />;
   }
 
-  if (bulkType) {
-    return <CardList {...{ items: bulkResults }} />;
+  if (bulkType && bulkResults) {
+    const content = bulkResults?.pages.flat();
+    return (
+      <>
+        <CardList {...{ items: content }} />
+        <Button {...{ title: "Load More", onClick: fetchNextPage }} />
+      </>
+    );
   }
 
   return (

@@ -31,11 +31,17 @@ export type newEntryType = {
 
 export async function getBulkMedia(
   mediatype: mediaTypeType,
-  bulktype: bulkMediaType
+  bulktype: bulkMediaType,
+  page: number = 1
 ) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/bulk/${bulktype}`
+      `${backendUrl}/${mediatype}/bulk/${bulktype}`,
+      {
+        params: {
+          page,
+        },
+      }
     );
     const medias = response.data;
     return medias;
