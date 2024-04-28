@@ -18,11 +18,12 @@ import Browse from "./pages/Browse";
 import LoadingBar from "./components/UI/LoadingBar";
 import Settings from "./pages/Settings";
 import Staff from "./pages/Staff";
+import Characters from "./pages/MediaDetail/Pages/Characters";
 
 const App = () => {
   const mediaSubRoutes = [
     { path: "watch", element: <ComingSoon /> },
-    { path: "characters", element: <ComingSoon /> },
+    { path: "characters", element: <Characters /> },
     { path: "staff", element: <ComingSoon /> },
     { path: "stats", element: <ComingSoon /> },
     { path: "social", element: <ComingSoon /> },

@@ -5,7 +5,7 @@ import Loading from "../../../../../components/UI/Loading";
 import { getMediaMoreDetails } from "../../../../../lib/api/media";
 import Error from "../../../../../components/UI/Error";
 import CharacterCard from "./CharacterCard";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useResolvedPath } from "react-router-dom";
 
 interface CharactersProps {
   mediaid: string | undefined;
@@ -13,6 +13,8 @@ interface CharactersProps {
 }
 
 const Characters = ({ mediaid, mediaType }: CharactersProps) => {
+  const location = useLocation();
+  console.log({ path: location });
   const charactersQuery = useQuery({
     queryKey: ["characters", mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid, "characters"),
@@ -30,7 +32,7 @@ const Characters = ({ mediaid, mediaType }: CharactersProps) => {
   return (
     <div>
       <h2 className="text-[1.4rem] font-semibold my-4">
-        <Link to="/characters">Characters</Link>
+        <Link to={`${location.pathname}/characters`}>Characters</Link>
       </h2>
 
       <div className="grid grid-cols-2 gap-12">

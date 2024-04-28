@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 
 import { tmdbImgEndPoint } from "../../../constants/tmdb";
-import ComingSoon from "../../ComingSoon";
 import Controls from "./Controls";
 import { MediaDetailType } from "..";
 import { RootState } from "../../../store/AuthSlice";
@@ -20,12 +19,12 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
   const { username, userid } = useSelector((state: RootState) => state.auth);
 
   const routes = [
-    { path: "/", element: <ComingSoon />, title: "Overview" },
-    { path: "watch", element: <ComingSoon />, title: "Watch" },
-    { path: "characters", element: <ComingSoon />, title: "Character" },
-    { path: "staff", element: <ComingSoon />, title: "Staff" },
-    { path: "stats", element: <ComingSoon />, title: "Stats" },
-    { path: "social", element: <ComingSoon />, title: "Social" },
+    { path: "/", title: "Overview" },
+    { path: "watch", title: "Watch" },
+    { path: "characters", title: "Characters" },
+    { path: "staff", title: "Staff" },
+    { path: "stats", title: "Stats" },
+    { path: "social", title: "Social" },
   ];
 
   return (

@@ -17,6 +17,7 @@ import TopSection from "./TopSection";
 import { formatRuntime } from "../../lib/helpers";
 import Tags from "./LeftSection/Tags";
 import Overview from "./Pages/Overview";
+import Characters from "./Pages/Characters";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -77,7 +78,7 @@ const MediaDetail = () => {
       title: "Overview",
     },
     { path: "watch", element: <ComingSoon />, title: "Watch" },
-    { path: "characters", element: <ComingSoon />, title: "Character" },
+    { path: "characters", element: <Characters />, title: "Character" },
     { path: "staff", element: <ComingSoon />, title: "Staff" },
     { path: "stats", element: <ComingSoon />, title: "Stats" },
     { path: "social", element: <ComingSoon />, title: "Social" },
