@@ -107,6 +107,8 @@ const Controls = ({
                   mediaDetails,
                   currentStatus: existingEntry?.status,
                   attrs,
+                  setShowModal,
+                  mediaType,
                 }}
               />
             )}

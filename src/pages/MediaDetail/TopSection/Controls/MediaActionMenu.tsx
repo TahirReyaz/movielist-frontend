@@ -6,6 +6,7 @@ import { addEntry } from "../../../../lib/api";
 import { listtypetype } from "../../../../constants/types";
 import { MediaDetailType } from "../..";
 import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
+import { Dispatch, SetStateAction } from "react";
 
 type listItemType = {
   title: string;
@@ -27,6 +28,8 @@ interface MediaActionMenuProps {
   mediaDetails: MediaDetailType;
   currentStatus?: string;
   attrs: attrsType;
+  mediaType: string;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const MediaActionMenu = ({
@@ -34,6 +37,8 @@ const MediaActionMenu = ({
   mediaDetails,
   currentStatus,
   attrs,
+  setShowModal,
+  mediaType,
 }: MediaActionMenuProps) => {
   const userid = useSelector((state: RootState) => state.auth.userid);
 
@@ -48,7 +53,6 @@ const MediaActionMenu = ({
   }
 
   const listHandler = async (listtype: listtypetype) => {
-    const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
     const response = await addEntry({
       mediaType,
       mediaid,
@@ -88,14 +92,19 @@ const MediaActionMenu = ({
         .map((item: listItemType) => (
           <li
             key={item.title}
-            className="hover:bg-actionPrimary cursor-pointer"
-            onClick={listHandler.bind(this, item.status)}
+            className="hover:bg-actionPrimary hover:text-white cursor-pointer"
+            onClick={() => listHandler(item.status)}
           >
             {item.title}
           </li>
         ))}
       <hr />
-      <li className="hover:bg-actionPrimary">Open List Editor</li>
+      <li
+        className="hover:bg-actionPrimary hover:text-white cursor-pointer"
+        onClick={() => setShowModal(true)}
+      >
+        Open List Editor
+      </li>
     </ul>
   );
 };
