@@ -14,13 +14,13 @@ type listItemType = {
 };
 const menuItems: listItemType[] = [
   {
-    title: "Set as planning",
+    title: "Set as Planning",
     status: "planning",
   },
-  { title: "Set as watching", status: "watching" },
-  { title: "Set as paused", status: "paused" },
-  { title: "Set as dropped", status: "dropped" },
-  { title: "Set as completed", status: "completed" },
+  { title: "Set as Watching", status: "watching" },
+  { title: "Set as Paused", status: "paused" },
+  { title: "Set as Dropped", status: "dropped" },
+  { title: "Set as Completed", status: "completed" },
 ];
 
 interface MediaActionMenuProps {
@@ -84,7 +84,7 @@ const MediaActionMenu = ({
 
   return (
     <ul
-      className="*:px-4 *:py-2 bg-white text-textLight text-2xl rounded py-2"
+      className="*:px-4 *:py-2 bg-white text-textLighter text-center text-2xl rounded py-2"
       {...attrs}
     >
       {list
