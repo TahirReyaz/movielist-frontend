@@ -1,18 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getStaffCredits } from "../../../lib/api/staff";
 import Loading from "../../../components/UI/Loading";
+import CreditSection from "./CreditSection";
 
 interface CreditsProps {
   id: string;
 }
 
 const Credits = ({ id }: CreditsProps) => {
-  const {
-    data: credits,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["credits", id],
     queryFn: () => getStaffCredits(id),
     enabled: !!id,
@@ -25,7 +22,19 @@ const Credits = ({ id }: CreditsProps) => {
     return;
   }
 
-  return <div>Credits</div>;
+  return (
+    <section className="px-24">
+      {data.credits.length > 0 &&
+        data.credits.map((year: any) => (
+          <CreditSection
+            {...{
+              title: year.year,
+              items: year.items,
+            }}
+          />
+        ))}
+    </section>
+  );
 };
 
 export default Credits;
