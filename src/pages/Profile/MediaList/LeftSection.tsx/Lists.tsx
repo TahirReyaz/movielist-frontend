@@ -26,6 +26,7 @@ const Lists = ({ onChange, val }: ListsProps) => {
       <span className="text-2xl text-textLight">Lists</span>
       {types.map((type) => (
         <div
+          key={type.type}
           onClick={() => onChange(type.type)}
           className={`text-2xl py-2 px-4 mt-2 cursor-pointer flex justify-between ${
             val === type.type && "font-semibold bg-bgSecondary"

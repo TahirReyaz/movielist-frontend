@@ -1,10 +1,10 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import React from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getUserDetail } from "../../../lib/api";
 import LowerLayout from "../../../components/UI/LowerLayout";
-import MediaListGroup from "../../../components/UI/MediaListGroup";
+import MediaListGroup from "./MediaListGroup.tsx";
 import { entryType, mediaTypeType } from "../../../constants/types";
 import LeftSection from "./LeftSection.tsx";
 
