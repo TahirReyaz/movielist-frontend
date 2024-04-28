@@ -31,7 +31,7 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
     <div className="bg-bgSecondary">
       {/* Backdrop image */}
       {mediaDetails.backdrop_path && (
-        <div className="h-[50vh] overflow-hidden">
+        <div className="h-[25vh] md:h-[50vh] overflow-hidden">
           <img
             src={`${tmdbImgEndPoint}${mediaDetails.backdrop_path}`}
             alt={mediaDetails.title}
@@ -40,9 +40,9 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
         </div>
       )}
       {/* Poster and overview */}
-      <div className="flex px-56">
+      <div className="grid grid-cols-12 px-12 md:px-56">
         {/* Poster and buttons */}
-        <div className="w-2/12">
+        <div className="col-span-12 md:col-span-2 grid grid-cols-3 gap-4 md:block">
           <img
             src={
               mediaDetails.poster_path
@@ -61,11 +61,11 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
           )}
         </div>
         {/* title and overview */}
-        <div className="w-9/12 ms-4 p-8 flex flex-col justify-between">
+        <div className="col-span-12 md:col-span-9 ms-4 p-0 md:p-8 flex flex-col justify-between">
           <div>
             <h1 className="text-3xl font-normal">{mediaDetails.title}</h1>
             {mediaDetails.overview && (
-              <p className="text-textLight text-[1.4rem] mt-6">
+              <p className="text-textLight text-[1.4rem] mt-6 hidden md:block">
                 {mediaDetails.overview}
               </p>
             )}

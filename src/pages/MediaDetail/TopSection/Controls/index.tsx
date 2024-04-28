@@ -89,7 +89,7 @@ const Controls = ({
   }, [profile]);
 
   return (
-    <div className="grid grid-cols-[auto,35px] w-full gap-4 mb-4">
+    <div className="grid grid-cols-[auto,35px] col-span-2 w-full gap-4 mb-4">
       <Button
         title={title}
         type="button"
@@ -120,9 +120,10 @@ const Controls = ({
           </Tippy>
         }
         classes="text-[1.4rem] font-normal"
+        divClasses="h-[max-content]"
       />
       <div
-        className="p-2 bg-favRed rounded grid items-center justify-center cursor-pointer"
+        className="p-2 bg-favRed rounded grid items-center justify-center cursor-pointer h-fit md:h-full"
         onClick={() => handleFavToggle(!isFav)}
       >
         <AiFillHeart

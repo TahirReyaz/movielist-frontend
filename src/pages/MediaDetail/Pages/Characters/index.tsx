@@ -38,7 +38,7 @@ const Characters = () => {
     <div>
       <h2 className="text-[1.4rem] text-right font-semibold my-4">Dropdown</h2>
 
-      <div className="grid grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {characters?.characters?.map((char: any) => (
           <CharacterCard {...{ key: char.id, char }} />
         ))}

@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link, useLocation } from "react-router-dom";
 
 import Loading from "../../../../../components/UI/Loading";
 import { getMediaMoreDetails } from "../../../../../lib/api/media";
 import Error from "../../../../../components/UI/Error";
 import CharacterCard from "./CharacterCard";
-import { Link, useLocation, useResolvedPath } from "react-router-dom";
 
 interface CharactersProps {
   mediaid: string | undefined;
@@ -35,7 +35,7 @@ const Characters = ({ mediaid, mediaType }: CharactersProps) => {
         <Link to={`${location.pathname}/characters`}>Characters</Link>
       </h2>
 
-      <div className="grid grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {charactersQuery.data?.characters?.slice(0, 6).map((char: any) => (
           <CharacterCard {...{ key: char.id, char }} />
         ))}

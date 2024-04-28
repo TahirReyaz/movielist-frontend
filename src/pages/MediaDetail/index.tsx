@@ -71,19 +71,6 @@ const MediaDetail = () => {
 
   const mediaType = pathname.split("/")[1];
 
-  const routes = [
-    {
-      path: "/",
-      element: <Overview {...{ mediaid, mediaType }} />,
-      title: "Overview",
-    },
-    { path: "watch", element: <ComingSoon />, title: "Watch" },
-    { path: "characters", element: <Characters />, title: "Character" },
-    { path: "staff", element: <ComingSoon />, title: "Staff" },
-    { path: "stats", element: <ComingSoon />, title: "Stats" },
-    { path: "social", element: <ComingSoon />, title: "Social" },
-  ];
-
   const {
     data: mediaDetails,
     isLoading,
@@ -93,6 +80,23 @@ const MediaDetail = () => {
     queryFn: () => getMediaDetail(mediaType, mediaid),
     enabled: mediaid && mediaType ? true : false,
   });
+
+  const routes = [
+    {
+      path: "/",
+      element: (
+        <Overview
+          {...{ mediaid, mediaType, overview: mediaDetails.overview }}
+        />
+      ),
+      title: "Overview",
+    },
+    { path: "watch", element: <ComingSoon />, title: "Watch" },
+    { path: "characters", element: <Characters />, title: "Character" },
+    { path: "staff", element: <ComingSoon />, title: "Staff" },
+    { path: "stats", element: <ComingSoon />, title: "Stats" },
+    { path: "social", element: <ComingSoon />, title: "Social" },
+  ];
 
   if (isError) {
     navigate("/404");
@@ -109,12 +113,16 @@ const MediaDetail = () => {
             {...{
               left: (
                 <>
-                  <MediaDetailCard>
-                    <span className="text-sm">#75 Highest Rated All Time</span>
-                  </MediaDetailCard>
-                  <MediaDetailCard>
-                    <span className="text-sm">#5 Most Popular All Time</span>
-                  </MediaDetailCard>
+                  <div className="hidden md:block">
+                    <MediaDetailCard>
+                      <span className="text-sm">
+                        #75 Highest Rated All Time
+                      </span>
+                    </MediaDetailCard>
+                    <MediaDetailCard>
+                      <span className="text-sm">#5 Most Popular All Time</span>
+                    </MediaDetailCard>
+                  </div>
                   <MediaDetailCard>
                     <>
                       {detailFields.map(
@@ -140,7 +148,9 @@ const MediaDetail = () => {
                       )}
                     </>
                   </MediaDetailCard>
-                  <Tags {...{ mediaid, mediaType }} />
+                  <div className="hidden md:block">
+                    <Tags {...{ mediaid, mediaType }} />
+                  </div>
                 </>
               ),
               right: (
@@ -156,6 +166,10 @@ const MediaDetail = () => {
               ),
             }}
           />
+
+          <div className="block md:hidden px-12">
+            <Tags {...{ mediaid, mediaType }} />
+          </div>
         </>
       )}
     </main>
