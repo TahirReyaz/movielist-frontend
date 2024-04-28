@@ -1,14 +1,10 @@
 import axios, { AxiosResponse } from "axios";
+import { backendUrl } from "../../constants";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-export async function getMediaTags(
-  mediatype: string,
-  mediaid: string | undefined
-) {
+export async function getStaffDetails(id: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/tags/${mediaid}`
+      `${backendUrl}/staff/${id}`
     );
     const media = response.data;
     return { ...media, error: false };
@@ -18,14 +14,10 @@ export async function getMediaTags(
   }
 }
 
-export async function getMediaMoreDetails(
-  mediatype: string,
-  mediaid: string | undefined,
-  detailType: string
-) {
+export async function getStaffCredits(id: string | undefined) {
   try {
     const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/${detailType}/${mediaid}`
+      `${backendUrl}/staff/${id}/credits`
     );
     const media = response.data;
     return { ...media, error: false };

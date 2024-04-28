@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import posterPlaceholder from "../../../../../assets/posterPlaceholder.jpg";
 
 import { getMediaDetail } from "../../../../../lib/api";
-import { getStaffDetails } from "../../../../../lib/api/media";
+import { getStaffDetails } from "../../../../../lib/api/staff";
 import { tmdbImgEndPoint } from "../../../../../constants/tmdb";
 import { Link } from "react-router-dom";
 
