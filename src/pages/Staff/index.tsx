@@ -36,18 +36,20 @@ const Staff = () => {
   return (
     <main>
       {staffid && <TopSection {...{ name: staff.name, id: staffid }} />}
-      <div className="px-24">
-        <div className="px-8 grid grid-cols-5">
-          <img
-            src={
-              staff.profile_path
-                ? `${tmdbImgEndPoint}${staff.profile_path}`
-                : userAvatar
-            }
-            alt={staff.name}
-            className="rounded -mt-28"
-          />
-          <div className="col-span-4 ps-20 pt-8">
+      <div className="px-12 md:px-24">
+        <div className="px:0 md:px-8 grid grid-cols-1 md:grid-cols-5">
+          <div className="px-20 md:px-0">
+            <img
+              src={
+                staff.profile_path
+                  ? `${tmdbImgEndPoint}${staff.profile_path}`
+                  : userAvatar
+              }
+              alt={staff.name}
+              className="rounded -mt-28"
+            />
+          </div>
+          <div className="col-span-4 ps-0 md:ps-20 pt-8">
             {/* Detail fields */}
             <div className="mb-8">
               <DetailSection {...{ title: "Birth", value: staff.birthday }} />

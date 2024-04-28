@@ -20,15 +20,17 @@ const CreditCard = ({
 }: CreditCardProps) => {
   return (
     <div>
-      <img
-        src={
-          poster_path
-            ? `${tmdbImgBaseUrl}/${posterSizes.md}${poster_path}`
-            : posterPlaceholder
-        }
-        alt={original_title}
-        className={`rounded-md`}
-      />
+      <Link to={`/${media_type}/${id}`}>
+        <img
+          src={
+            poster_path
+              ? `${tmdbImgBaseUrl}/${posterSizes.md}${poster_path}`
+              : posterPlaceholder
+          }
+          alt={original_title}
+          className={`rounded-md`}
+        />
+      </Link>
       <p className="mt-4 text-[1.4rem] font-semibold">{character}</p>
       <Link to={`/${media_type}/${id}`} className="text-xl mt-4">
         {original_title}

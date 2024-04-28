@@ -51,9 +51,11 @@ const TopSection = ({ name, id }: TopSectionProps) => {
   };
 
   return (
-    <div className="pt-20 pb-12 ps-80 pe-28 bg-bgForeground">
-      <div className="ps-60 grid grid-cols-2">
-        <h1 className="font-extrabold text-5xl">{name}</h1>
+    <div className="pt-20 pb-40 md:pb-12 ps-12 md:ps-80 pe-28 bg-bgForeground">
+      <div className="ps-0 md:ps-60 grid grid-cols-1 md:grid-cols-2">
+        <h1 className="font-extrabold text-5xl text-center md:text-left">
+          {name}
+        </h1>
         <div
           className="p-2 py-2 bg-favRed rounded grid items-center justify-center cursor-pointer w-40 place-self-end"
           onClick={() => handleFavToggle(!isFav)}
