@@ -34,3 +34,20 @@ export async function getMediaMoreDetails(
     return { error: true };
   }
 }
+
+export async function getGenreList(mediatype: string) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/${mediatype}/genre`
+    );
+    const genres = response.data.genres;
+    const options: any[] = [];
+    genres.forEach((genre: any) =>
+      options.push({ value: genre.id, label: genre.name })
+    );
+    return options;
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+}

@@ -11,6 +11,7 @@ import BulkMedia from "./BulkMedia";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
 import { generateYearOptions } from "../../lib/helpers";
+import { getGenreList } from "../../lib/api/media";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -33,11 +34,20 @@ const Browse = () => {
   const debouncedQuery = useDebounce(query);
   const navigate = useNavigate();
 
+  const { data: genreOptions } = useQuery({
+    queryKey: ["genre", "list"],
+    queryFn: () => getGenreList(mediaType),
+    enabled: !!mediaType,
+  });
+
+  console.log({ genres });
+
   const filters = [
     {
       title: "Genres",
-      options: [{ value: "adrak", label: "lehsun" }],
-      onChange: (opt: any) => setGenres(opt.value),
+      onChange: (opts: any[]) =>
+        setGenres(opts.map((opt: any) => opt.value).join(",")),
+      options: genreOptions,
       isMulti: true,
     },
     {
@@ -73,22 +83,25 @@ const Browse = () => {
     queryKey: [
       `search`,
       debouncedQuery,
-      genres,
       year,
       season,
       formats,
       mediaType,
+      genres,
     ],
     queryFn: () =>
       getSearchResults({
         query: debouncedQuery,
-        genres,
         year,
         season,
         formats,
         mediaType,
+        genres,
       }),
-    enabled: !!debouncedQuery && debouncedQuery !== "",
+    enabled:
+      (!!debouncedQuery && debouncedQuery !== "") ||
+      (!!genres && genres !== "") ||
+      (!!year && year !== ""),
   });
 
   useEffect(() => {

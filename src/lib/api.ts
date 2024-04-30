@@ -256,6 +256,9 @@ export const getSearchResults = async ({
   formats?: string;
   mediaType?: string;
 }) => {
+  // if (genres) {
+  //   genres = encodeURIComponent(genres);
+  // }
   const response: AxiosResponse = await axios.get(
     `${backendUrl}/search/${mediaType}`,
     {
