@@ -86,7 +86,7 @@ const MediaDetail = () => {
       path: "/",
       element: (
         <Overview
-          {...{ mediaid, mediaType, overview: mediaDetails.overview }}
+          {...{ mediaid, mediaType, overview: mediaDetails?.overview }}
         />
       ),
       title: "Overview",
