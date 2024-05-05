@@ -6,11 +6,16 @@ import { MediaDetailType } from "../../../../pages/MediaDetail";
 interface CardListProps {
   items: MediaDetailType[];
   innerRef?: React.Ref<HTMLDivElement>;
+  maxResults?: number;
 }
 
-const CardList = ({ items, innerRef }: CardListProps) => {
+const CardList = ({ items, innerRef, maxResults }: CardListProps) => {
   return (
-    <div className="w-full my-4 grid sm:grid-cols-5 grid-cols-3 gap-4 sm:gap-16">
+    <div
+      className={`w-full my-4 grid grid-cols-3 md:grid-cols-${
+        maxResults ? maxResults : "5"
+      } gap-4 sm:gap-16`}
+    >
       {items?.map((mediaItem: MediaDetailType, index) => {
         if (items.length === index + 1) {
           return (

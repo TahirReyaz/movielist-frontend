@@ -9,10 +9,16 @@ import CardList from "./UI/Media/CardList";
 export interface mediaSectionItem {
   type: bulkMediaType;
   mediaType: any;
-  title: string;
+  title?: string;
+  maxResults?: number;
 }
 
-const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
+const MediaSection = ({
+  type,
+  mediaType,
+  title,
+  maxResults,
+}: mediaSectionItem) => {
   const mediaQuery = useQuery({
     queryKey: [`${type}_${mediaType}`],
     queryFn: () => getBulkMedia(mediaType, type),
@@ -27,19 +33,28 @@ const MediaSection = ({ type, mediaType, title }: mediaSectionItem) => {
 
   return (
     <section className="w-full my-10">
-      <div className="mb-3">
-        <Link
-          to={`/search/${mediaType}/${type}`}
-          className="flex justify-between"
-        >
-          <h3 className="text-[1.6rem] hover:text-textBright">{title}</h3>
-          <span className="text-xl hover:text-textBright font-bold">
-            View all
-          </span>
-        </Link>
-      </div>
+      {title && (
+        <div className="mb-3">
+          <Link
+            to={`/search/${mediaType}/${type}`}
+            className="flex justify-between"
+          >
+            <h3 className="text-[1.6rem] hover:text-textBright">{title}</h3>
+            <span className="text-xl hover:text-textBright font-bold">
+              View all
+            </span>
+          </Link>
+        </div>
+      )}
 
-      <CardList {...{ items: mediaQuery.data.slice(0, 5) }} />
+      <CardList
+        {...{
+          items: maxResults
+            ? mediaQuery.data.slice(0, maxResults)
+            : mediaQuery.data.slice(0, 5),
+          maxResults,
+        }}
+      />
     </section>
   );
 };
