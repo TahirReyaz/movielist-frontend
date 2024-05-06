@@ -21,7 +21,7 @@ const MediaList = () => {
   const allowedList = pathArray[4] ? pathArray[4] : "all";
 
   const { data: lists, isError } = useQuery({
-    queryKey: ["lists", username],
+    queryKey: ["lists", username, mediaType],
     queryFn: () => getUserLists(username, mediaType),
     enabled: !!username,
   });

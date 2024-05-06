@@ -30,7 +30,6 @@ const App = () => {
   ];
 
   const profileSubRoutes = [
-    { path: "tvlist", element: <MediaList /> },
     { path: "favorites", element: <ComingSoon /> },
     { path: "stats", element: <ComingSoon /> },
     { path: "social", element: <Social /> },
@@ -69,6 +68,9 @@ const App = () => {
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username" element={<Profile />}>
               <Route path="movielist" element={<MediaList />}>
+                <Route path=":allowedList" element={<MediaList />} />
+              </Route>
+              <Route path="tvlist" element={<MediaList />}>
                 <Route path=":allowedList" element={<MediaList />} />
               </Route>
               {profileSubRoutes.map((route) => (

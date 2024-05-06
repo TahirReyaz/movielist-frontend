@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 
 import { getUserDetail } from "../../lib/api";
@@ -62,7 +62,9 @@ const Profile = () => {
         <Route path="movielist" element={<MediaList />}>
           <Route path=":allowedList" element={<MediaList />} />
         </Route>
-        <Route path="tvlist" element={<MediaList />} />
+        <Route path="tvlist" element={<MediaList />}>
+          <Route path=":allowedList" element={<MediaList />} />
+        </Route>
         <Route path="favorites" element={<ComingSoon />} />
         <Route path="stats" element={<ComingSoon />} />
         <Route path="social" element={<Social />} />
