@@ -17,3 +17,16 @@ export const generateYearOptions = (start = 1888) => {
 
   return years;
 };
+
+export const updateList = (lists: any, allowedList: string) => {
+  const newList = lists;
+  if (lists && lists.all) {
+    if (allowedList === "all") {
+      newList.lists = lists.all;
+    } else {
+      newList.lists = lists.all.filter((grp: any) => grp.type === allowedList);
+    }
+  }
+
+  return newList;
+};

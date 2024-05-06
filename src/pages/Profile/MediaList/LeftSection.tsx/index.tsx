@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
 
-const LeftSection = () => {
+interface LeftSectionProps {
+  allowedList: string;
+}
+
+const LeftSection = ({ allowedList }: LeftSectionProps) => {
   const [search, setSearch] = useState("");
-  const [list, setList] = useState("all");
 
   return (
     <div className="mt-12">
@@ -20,8 +23,7 @@ const LeftSection = () => {
       />
       <Lists
         {...{
-          onChange: (val) => setList(val),
-          val: list,
+          val: allowedList,
         }}
       />
       <div>Filters</div>

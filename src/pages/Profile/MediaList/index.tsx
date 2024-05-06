@@ -1,47 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { getUserDetail } from "../../../lib/api";
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
-import { entryType, mediaTypeType } from "../../../constants/types";
+import { mediaTypeType } from "../../../constants/types";
 import LeftSection from "./LeftSection.tsx";
-
-type listGroupType = {
-  title: string;
-  entries: entryType[] | [];
-};
+import { getUserLists } from "../../../lib/api/user.ts";
+import { updateList } from "../../../lib/helpers.ts";
 
 const MediaList = () => {
   const { username } = useParams();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const pathArray = pathname.split("/");
 
   const mediaType: mediaTypeType =
-    pathname.split("/")[3].split("#")[0] === "movielist" ? "movie" : "tv";
+    pathArray[3].split("#")[0] === "movielist" ? "movie" : "tv";
+  const allowedList = pathArray[4] ? pathArray[4] : "all";
 
-  const { data: profile, isError } = useQuery({
-    queryKey: ["profile", username],
-    queryFn: () => getUserDetail(username),
+  const { data: lists, isError } = useQuery({
+    queryKey: ["lists", username],
+    queryFn: () => getUserLists(username, mediaType),
     enabled: !!username,
   });
 
-  const listGrps: listGroupType[] = [];
-  if (profile?.transEntries) {
-    for (const listType in profile.transEntries[mediaType]) {
-      if (
-        profile.transEntries[mediaType][listType].length &&
-        profile.transEntries[mediaType][listType].length > 0
-      ) {
-        listGrps.push({
-          title: `${listType} ${mediaType}`,
-          entries: profile.transEntries[mediaType][listType],
-        });
-      }
-    }
-  }
+  const listMutation = useMutation({
+    mutationFn: (lists: any) => {
+      return updateList(lists, allowedList);
+    },
+  });
+
+  useEffect(() => {
+    listMutation.mutate(lists);
+  }, [allowedList, lists]);
 
   if (isError) {
     navigate("/404");
@@ -50,13 +43,13 @@ const MediaList = () => {
   return (
     <LowerLayout
       {...{
-        left: <LeftSection />,
+        left: <LeftSection {...{ allowedList }} />,
         right: (
           <div className="flex flex-col">
-            {profile && listGrps.length > 0 ? (
+            {lists?.lists && lists?.lists?.length > 0 ? (
               <>
                 <div className="self-end">Buttons</div>
-                {listGrps.map((grp: any) => (
+                {lists.lists.map((grp: any) => (
                   <MediaListGroup
                     {...{
                       entries: grp.entries,

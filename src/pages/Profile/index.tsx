@@ -8,6 +8,8 @@ import { entryType, listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Social from "./Social";
 import ComingSoon from "../ComingSoon";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../../components/UI/Loading";
 
 export type ProfileParams = {
   username: string;
@@ -32,40 +34,41 @@ export type profileType = {
 const Profile = () => {
   const { username } = useParams<ProfileParams>();
 
-  const [profile, setProfile] = useState<profileType>();
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let tempuser = [];
-    async function fetchMedia() {
-      tempuser = await getUserDetail(username);
-      if (tempuser.error) {
-        navigate("/404");
-      }
-      setProfile(tempuser);
-    }
-    fetchMedia();
-  }, [username]);
+  const {
+    data: profile,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["profile", username],
+    queryFn: () => getUserDetail(username),
+    enabled: !!username,
+  });
+
+  if (isError) {
+    navigate("/404");
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <main>
-      {profile && (
-        <>
-          {/* Image and overview */}
-          <TopSection {...{ id: profile._id, ...profile, username }} />
-          <Routes>
-            <Route path="/" element={<Overview />} />
-            <Route path="movielist" element={<MediaList />} />
-            <Route path="tvlist" element={<MediaList />} />
-            <Route path="favorites" element={<ComingSoon />} />
-            <Route path="stats" element={<ComingSoon />} />
-            <Route path="social" element={<Social />} />
-            <Route path="reviews" element={<ComingSoon />} />
-            <Route path="submissions" element={<ComingSoon />} />
-          </Routes>
-        </>
-      )}
+      <TopSection {...{ id: profile._id, ...profile, username }} />
+      <Routes>
+        <Route path="/" element={<Overview />} />
+        <Route path="movielist" element={<MediaList />}>
+          <Route path=":allowedList" element={<MediaList />} />
+        </Route>
+        <Route path="tvlist" element={<MediaList />} />
+        <Route path="favorites" element={<ComingSoon />} />
+        <Route path="stats" element={<ComingSoon />} />
+        <Route path="social" element={<Social />} />
+        <Route path="reviews" element={<ComingSoon />} />
+        <Route path="submissions" element={<ComingSoon />} />
+      </Routes>
     </main>
   );
 };

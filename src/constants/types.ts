@@ -47,3 +47,9 @@ export type existingEntryType = Omit<
   poster?: string;
   backdrop?: string;
 };
+
+export type listGroupType = {
+  title: string;
+  entries: entryType[] | [];
+  type: string;
+};

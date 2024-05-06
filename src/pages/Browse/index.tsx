@@ -40,8 +40,6 @@ const Browse = () => {
     enabled: !!mediaType,
   });
 
-  console.log({ genres });
-
   const filters = [
     {
       title: "Genres",
