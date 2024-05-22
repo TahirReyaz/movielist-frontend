@@ -127,14 +127,14 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
       </div>
       {/* Links */}
       <ul
-        className="flex bg-bgSecondary z-20 justify-around px-48 items-center relative text-xl"
+        className="flex bg-bgSecondary z-20 justify-around px-12 md:px-48 items-center relative text-xl w-screen overflow-x-auto"
         id="pagenav"
       >
         {links.map((link) => (
           <Link
             to={link.to}
             key={link.title}
-            className="p-4 text-textLight hover:text-actionPrimary"
+            className="p-4 text-textLight hover:text-actionPrimary min-w-fit-content"
           >
             {link.title}
           </Link>
