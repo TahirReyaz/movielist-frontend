@@ -79,6 +79,9 @@ export default {
           "sans-serif",
         ],
       },
+      minWidth: {
+        "fit-content": "fit-content",
+      },
     },
   },
   plugins: [],

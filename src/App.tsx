@@ -19,6 +19,7 @@ import LoadingBar from "./components/UI/LoadingBar";
 import Settings from "./pages/Settings";
 import Staff from "./pages/Staff";
 import Characters from "./pages/MediaDetail/Pages/Characters";
+import Notifications from "./pages/Notifications";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -112,7 +113,7 @@ const App = () => {
               ))}
             </Route>
             <Route path="/staff/:staffid" element={<Staff />} />
-            <Route path="/notifications" element={<ComingSoon />} />
+            <Route path="/notifications" element={<Notifications />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

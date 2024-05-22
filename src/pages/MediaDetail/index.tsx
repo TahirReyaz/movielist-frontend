@@ -9,15 +9,13 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 import { getMediaDetail } from "../../lib/api";
-import MediaDetailField from "./MediaDetailField";
-import MediaDetailCard from "./MediaDetailCard";
 import LowerLayout from "../../components/UI/LowerLayout";
 import ComingSoon from "../ComingSoon";
 import TopSection from "./TopSection";
-import { formatRuntime } from "../../lib/helpers";
 import Tags from "./LeftSection/Tags";
 import Overview from "./Pages/Overview";
 import Characters from "./Pages/Characters";
+import LeftSection from "./LeftSection";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -43,25 +41,6 @@ export type MediaDetailType = {
   original_name: string | undefined;
   original_title: string | undefined;
 };
-
-const detailFields = [
-  { fieldName: "status", label: "Status" },
-  { fieldName: "number_of_episodes", label: "Number of Episodes" },
-  { fieldName: "first_air_date", label: "First Air Date" },
-  { fieldName: "release_date", label: "Release Date" },
-  { fieldName: "runtime", label: "Runtime" },
-  { fieldName: "vote_average", label: "Vote Average" },
-  { fieldName: "vote_count", label: "Vote Count" },
-  { fieldName: "popularity", label: "Popularity" },
-  {
-    fieldName: "production_companies",
-    label: "Production Companies",
-    valuesKey: "name",
-  },
-  { fieldName: "genres", label: "Genres", valuesKey: "name" },
-  { fieldName: "original_name", label: "Original Name" },
-  { fieldName: "original_title", label: "Original Title" },
-];
 
 const MediaDetail = () => {
   const { mediaid } = useParams<MediaDetailParams>();
@@ -111,48 +90,7 @@ const MediaDetail = () => {
           {/* Rest of the details */}
           <LowerLayout
             {...{
-              left: (
-                <>
-                  <div className="hidden md:block">
-                    <MediaDetailCard>
-                      <span className="text-sm">
-                        #75 Highest Rated All Time
-                      </span>
-                    </MediaDetailCard>
-                    <MediaDetailCard>
-                      <span className="text-sm">#5 Most Popular All Time</span>
-                    </MediaDetailCard>
-                  </div>
-                  <MediaDetailCard>
-                    <>
-                      {detailFields.map(
-                        ({ fieldName, label, valuesKey }) =>
-                          mediaDetails[fieldName] && (
-                            <MediaDetailField
-                              key={fieldName}
-                              fieldName={label}
-                              value={
-                                fieldName === "runtime"
-                                  ? formatRuntime(mediaDetails[fieldName])
-                                  : valuesKey
-                                  ? mediaDetails[fieldName].map((item: any) => (
-                                      <React.Fragment>
-                                        {item[valuesKey]}
-                                        <br />
-                                      </React.Fragment>
-                                    ))
-                                  : mediaDetails[fieldName]
-                              }
-                            />
-                          )
-                      )}
-                    </>
-                  </MediaDetailCard>
-                  <div className="hidden md:block">
-                    <Tags {...{ mediaid, mediaType }} />
-                  </div>
-                </>
-              ),
+              left: <LeftSection {...{ mediaDetails, mediaid, mediaType }} />,
               right: (
                 <Routes>
                   {routes.map((route) => (

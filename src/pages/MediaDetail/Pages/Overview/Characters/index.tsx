@@ -14,7 +14,6 @@ interface CharactersProps {
 
 const Characters = ({ mediaid, mediaType }: CharactersProps) => {
   const location = useLocation();
-  console.log({ path: location });
   const charactersQuery = useQuery({
     queryKey: ["characters", mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid, "characters"),
