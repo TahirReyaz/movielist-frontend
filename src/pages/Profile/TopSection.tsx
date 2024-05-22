@@ -92,7 +92,7 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
         }`}
       >
         {/* Poster and username */}
-        <div className="grid grid-cols-11 px-56 z-20 relative">
+        <div className="grid grid-cols-11 px-12 md:px-56 z-20 relative">
           {/* Poster */}
           <div className="col-span-2">
             <img
