@@ -118,8 +118,12 @@ const Browse = () => {
   }, [debouncedQuery, year, season]);
 
   return (
-    <main className="pt-28 px-4 sm:pt-20 sm:px-56">
-      <div className="grid-cols-5 gap-4 grid">
+    <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
+      {/* Mobile Header */}
+      <div className="md:hidden mb-12 text-5xl font-bold">
+        <h1>Browse</h1>
+      </div>
+      <div className="grid-cols-5 gap-4 grid px-4 md:px-0">
         <div className="w-full col-span-4 md:col-span-1">
           <div className={filterHeadingClasses}>Search</div>
           <TextInput
