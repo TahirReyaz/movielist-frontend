@@ -28,7 +28,7 @@ const Overview = () => {
   return (
     <PageContainer>
       <div className="grid grid-cols-10 gap-4">
-        <LeftSection {...profile} />
+        <LeftSection {...profile._doc} />
         <RightSection />
       </div>
     </PageContainer>
