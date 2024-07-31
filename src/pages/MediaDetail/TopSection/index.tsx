@@ -34,7 +34,7 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
         <div className="h-[25vh] md:h-[50vh] overflow-hidden">
           <img
             src={`${tmdbImgEndPoint}${mediaDetails.backdrop_path}`}
-            alt={mediaDetails.title}
+            alt={mediaType == "movie" ? mediaDetails.title : mediaDetails.name}
             className="object-top"
           />
         </div>
@@ -63,7 +63,9 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
         {/* title and overview */}
         <div className="col-span-12 md:col-span-9 ms-4 p-0 md:p-8 flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-normal">{mediaDetails.title}</h1>
+            <h1 className="text-3xl font-normal">
+              {mediaType == "movie" ? mediaDetails.title : mediaDetails.name}
+            </h1>
             {mediaDetails.overview && (
               <p className="text-textLight text-[1.4rem] mt-6 hidden md:block">
                 {mediaDetails.overview}
