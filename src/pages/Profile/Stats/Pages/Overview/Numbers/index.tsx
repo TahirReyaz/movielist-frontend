@@ -1,22 +1,30 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { RiMovie2Line } from "react-icons/ri";
+import { FiMonitor } from "react-icons/fi";
+import { FaPlay, FaCalendar, FaHourglass, FaPercentage } from "react-icons/fa";
 
 import { RootState } from "../../../../../../store";
 import Loading from "../../../../../../components/UI/Loading";
 import StatItem from "./StatItem";
+import { IconType } from "react-icons";
 
 const Numbers = () => {
   const overview = useSelector(
     (state: RootState) => state.profile.stats?.overview
   );
 
-  const stats: { icon: string; value?: number; title: string }[] = [
-    { icon: "", value: overview?.totalMovies, title: "Total Movies" },
-    { icon: "", value: overview?.totalShows, title: "Total Shows" },
-    { icon: "", value: overview?.episodesWatched, title: "Episodes Watched" },
-    { icon: "", value: overview?.daysWatched, title: "Days Watched" },
-    { icon: "", value: overview?.daysPlanned, title: "Days Planned" },
-    { icon: "", value: overview?.meanScore, title: "Mean Score" },
+  const stats: { Icon: IconType; value?: number; title: string }[] = [
+    { Icon: RiMovie2Line, value: overview?.totalMovies, title: "Total Movies" },
+    { Icon: FiMonitor, value: overview?.totalShows, title: "Total Shows" },
+    {
+      Icon: FaPlay,
+      value: overview?.episodesWatched,
+      title: "Episodes Watched",
+    },
+    { Icon: FaCalendar, value: overview?.daysWatched, title: "Days Watched" },
+    { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
+    { Icon: FaPercentage, value: overview?.meanScore, title: "Mean Score" },
   ];
 
   if (!overview) {

@@ -1,14 +1,17 @@
 import React from "react";
+import { IconType } from "react-icons";
 
 interface StatItemProps {
   value?: number;
   title: string;
-  icon: string;
+  Icon: IconType;
 }
-const StatItem = ({ value, title, icon }: StatItemProps) => {
+const StatItem = ({ value, title, Icon }: StatItemProps) => {
   return (
-    <div className="grid grid-cols-5">
-      <div>icon</div>
+    <div className="grid grid-cols-5 mb-12 items-center">
+      <div className="rounded-full bg-white p-2 w-fit">
+        <Icon className="text-4xl" />
+      </div>
       <div className="col-span-4">
         {value && (
           <h1 className="text-4xl font-bold mb-4">
