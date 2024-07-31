@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { RootState } from "../../../../store";
 
 const MenuSideBar = () => {
   const { option } = useParams();
+  const username = useSelector((state: RootState) => state.profile.username);
 
   const options = [
     {
@@ -29,7 +32,9 @@ const MenuSideBar = () => {
               className={`px-4 py-1 my-2 cursor:pointer text-[1.4rem] rounded ${
                 option === item.path ? "font-semibold bg-bgForeground" : ""
               }`}
-              to={`/stats/${item.path === "/" ? "" : item.path}`}
+              to={`/user/${username}/stats/${
+                item.path === "/" ? "" : item.path
+              }`}
               key={item.title}
             >
               {item.title}

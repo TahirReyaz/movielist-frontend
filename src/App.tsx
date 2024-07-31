@@ -20,6 +20,8 @@ import Settings from "./pages/Settings";
 import Staff from "./pages/Staff";
 import Characters from "./pages/MediaDetail/Pages/Characters";
 import Notifications from "./pages/Notifications";
+import Stats from "./pages/Profile/Stats";
+import Overview from "./pages/Profile/Stats/Pages/Overview";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -32,7 +34,6 @@ const App = () => {
 
   const profileSubRoutes = [
     { path: "favorites", element: <ComingSoon /> },
-    { path: "stats", element: <ComingSoon /> },
     { path: "social", element: <Social /> },
     { path: "reviews", element: <ComingSoon /> },
     { path: "submissions", element: <ComingSoon /> },
@@ -52,6 +53,14 @@ const App = () => {
     { path: "developer", element: <ComingSoon />, title: "Developer" },
   ];
 
+  const statsSubRoutes = [
+    { path: "genres", element: <ComingSoon /> },
+    { path: "tags", element: <ComingSoon /> },
+    { path: "actors", element: <ComingSoon /> },
+    { path: "studios", element: <ComingSoon /> },
+    { path: "staff", element: <ComingSoon /> },
+  ];
+
   return (
     <div className="bg-bgTertiary text-textPrimary font-sans relative">
       <LoadingBar />
@@ -67,7 +76,16 @@ const App = () => {
             />
             <Route path="/social" element={<ComingSoon />} />
             <Route path="/forum" element={<ComingSoon />} />
-            <Route path="/user/:username" element={<Profile />}>
+            <Route path="/user/:username/*" element={<Profile />}>
+              <Route path="stats/*" element={<Stats />}>
+                {statsSubRoutes.map((route) => (
+                  <Route
+                    path={route.path}
+                    element={route.element}
+                    key={route.path}
+                  />
+                ))}
+              </Route>
               <Route path="movielist" element={<MediaList />}>
                 <Route path=":allowedList" element={<MediaList />} />
               </Route>

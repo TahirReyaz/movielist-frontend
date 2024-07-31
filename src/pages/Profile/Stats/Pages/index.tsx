@@ -6,21 +6,19 @@ import Overview from "./Overview";
 
 const Pages = () => {
   const routes = [
-    { path: "/", element: <Overview />, title: "Profile" },
-    { path: "account", element: <ComingSoon />, title: "Account" },
-    { path: "media", element: <ComingSoon />, title: "Movie & Shows" },
-    { path: "lists", element: <ComingSoon />, title: "Lists" },
-    { path: "notifications", element: <ComingSoon />, title: "Notifications" },
-    { path: "import", element: <ComingSoon />, title: "Import Lists" },
-    { path: "apps", element: <ComingSoon />, title: "Apps" },
-    { path: "developer", element: <ComingSoon />, title: "Developer" },
+    { path: "/", element: <Overview /> },
+    { path: "genres", element: <ComingSoon /> },
+    { path: "tags", element: <ComingSoon /> },
+    { path: "actors", element: <ComingSoon /> },
+    { path: "studios", element: <ComingSoon /> },
+    { path: "staff", element: <ComingSoon /> },
   ];
 
   return (
     <div className="col-span-3">
       <Routes>
         {routes.map((route) => (
-          <Route path={route.path} element={route.element} key={route.title} />
+          <Route path={route.path} element={route.element} key={route.path} />
         ))}
       </Routes>
     </div>

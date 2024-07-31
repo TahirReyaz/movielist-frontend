@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import {
+  Outlet,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getUserDetail } from "../../lib/api";
@@ -81,6 +87,7 @@ const Profile = () => {
         <Route path="reviews" element={<ComingSoon />} />
         <Route path="submissions" element={<ComingSoon />} />
       </Routes>
+      <Outlet />
     </main>
   );
 };
