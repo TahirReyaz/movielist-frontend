@@ -15,7 +15,7 @@ import {
   FaCog,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/AuthSlice";
+import { RootState } from "../../../store";
 
 interface MenuOption {
   label: string;

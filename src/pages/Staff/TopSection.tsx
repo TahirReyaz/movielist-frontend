@@ -5,7 +5,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { AiFillHeart } from "react-icons/ai";
 
 import { toggleFav } from "../../lib/api/user";
-import { RootState, favAction } from "../../store/AuthSlice";
+import { RootState } from "../../store";
+import { favAction } from "../../store/AuthSlice";
 
 interface TopSectionProps {
   name: string;

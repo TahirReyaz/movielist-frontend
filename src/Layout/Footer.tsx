@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { RootState, logoutAction } from "../store/AuthSlice";
+import { RootState } from "../store";
+import { logoutAction } from "../store/AuthSlice";
 import { Link } from "react-router-dom";
 
 const Footer = () => {

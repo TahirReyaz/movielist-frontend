@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,6 +11,8 @@ import TopSection from "./TopSection";
 import Social from "./Social";
 import ComingSoon from "../ComingSoon";
 import Loading from "../../components/UI/Loading";
+import { useDispatch } from "react-redux";
+import { setProfile } from "../../store/ProfileSlice";
 
 export type ProfileParams = {
   username: string;
@@ -36,6 +38,7 @@ const Profile = () => {
   const { username } = useParams<ProfileParams>();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     data: profile,
@@ -50,6 +53,12 @@ const Profile = () => {
   if (isError) {
     navigate("/404");
   }
+
+  useEffect(() => {
+    if (profile) {
+      dispatch(setProfile(profile._doc));
+    }
+  }, [profile]);
 
   if (isLoading) {
     return <Loading />;

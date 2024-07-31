@@ -11,7 +11,8 @@ import { FaGear } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { RootState, logoutAction } from "../../store/AuthSlice";
+import { RootState } from "../../store";
+import { logoutAction } from "../../store/AuthSlice";
 import DropdownMenu from "./DropdownMenu";
 import { attrsType } from "./BrowseDropdownMenu";
 

@@ -10,7 +10,7 @@ import TopSection from "./TopSection";
 import Loading from "../Loading";
 import Error from "../Error";
 import TextInput from "../TextInput";
-import { RootState } from "../../../store/AuthSlice";
+import { RootState } from "../../../store";
 import { updateEntry } from "../../../lib/api/entry";
 
 interface EntryEditorModalParams {

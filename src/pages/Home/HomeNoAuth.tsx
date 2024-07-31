@@ -3,7 +3,7 @@ import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import { useSelector } from "react-redux";
 
 import Landing from "../../components/home/Landing";
-import { RootState } from "../../store/AuthSlice";
+import { RootState } from "../../store";
 import Browse from "../Browse";
 
 const HomeNoAuth = () => {

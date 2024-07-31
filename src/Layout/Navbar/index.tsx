@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/AuthSlice";
+import { RootState } from "../../store";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 

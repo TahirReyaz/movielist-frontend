@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { v4 } from "uuid";
 
 import { storage } from "../../firebase";
-import { RootState } from "../../store/AuthSlice";
+import { RootState } from "../../store";
 
 interface ImagePickerProps {
   src: string | undefined;

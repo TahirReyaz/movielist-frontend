@@ -3,7 +3,7 @@ import TextInput from "../../../../components/UI/TextInput";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserDetail, updateUserDetail } from "../../../../lib/api";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/AuthSlice";
+import { RootState } from "../../../../store";
 import Loading from "../../../../components/UI/Loading";
 import Button from "../../../../components/UI/Button";
 import { toast } from "react-toastify";

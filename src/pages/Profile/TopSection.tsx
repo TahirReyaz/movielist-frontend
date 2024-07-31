@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import userAvatar from "../../assets/userAvatar.png";
 
 import Button from "../../components/UI/Button";
-import { RootState, followAction } from "../../store/AuthSlice";
+import { RootState } from "../../store";
+import { followAction } from "../../store/AuthSlice.tsx";
 import { followUser } from "../../lib/api";
 import { toast } from "react-toastify";
 

@@ -7,7 +7,7 @@ import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 import { tmdbImgEndPoint } from "../../../constants/tmdb";
 import Controls from "./Controls";
 import { MediaDetailType } from "..";
-import { RootState } from "../../../store/AuthSlice";
+import { RootState } from "../../../store";
 
 interface TopSectionProps {
   mediaDetails: MediaDetailType;

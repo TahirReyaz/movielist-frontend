@@ -4,7 +4,7 @@ import { getUserDetail } from "../../../../lib/api";
 import Loading from "../../../../components/UI/Loading";
 import Error from "../../../../components/UI/Error";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/AuthSlice";
+import { RootState } from "../../../../store";
 import EntryCard from "./EntryCard";
 
 interface MediaInProgressProps {

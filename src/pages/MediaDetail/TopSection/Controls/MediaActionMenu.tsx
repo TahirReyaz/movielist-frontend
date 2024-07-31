@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { RootState } from "../../../../store/AuthSlice";
+import { RootState } from "../../../../store";
 import { addEntry } from "../../../../lib/api";
 import { listtypetype } from "../../../../constants/types";
 import { MediaDetailType } from "../..";

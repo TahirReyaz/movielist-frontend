@@ -1,7 +1,7 @@
 import React from "react";
 import HomeAuth from "./HomeAuth";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store/AuthSlice";
+import { RootState } from "../../store";
 import HomeNoAuth from "./HomeNoAuth";
 
 const Home = () => {

@@ -38,7 +38,7 @@ if (localStorage.getItem("token")) {
   };
 }
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -109,12 +109,6 @@ const authSlice = createSlice({
   },
 });
 
-const store = configureStore({
-  reducer: {
-    auth: authSlice.reducer,
-  },
-});
-
 export const {
   login: loginAction,
   logout: logoutAction,
@@ -122,6 +116,3 @@ export const {
   toggleFav: favAction,
   changeDp: changeDpAction,
 } = authSlice.actions;
-export type RootState = ReturnType<typeof store.getState>;
-
-export default store;

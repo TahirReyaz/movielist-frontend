@@ -2,10 +2,11 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import ComingSoon from "../../../ComingSoon";
+import Overview from "./Overview";
 
 const Pages = () => {
   const routes = [
-    { path: "/", element: <ComingSoon />, title: "Profile" },
+    { path: "/", element: <Overview />, title: "Profile" },
     { path: "account", element: <ComingSoon />, title: "Account" },
     { path: "media", element: <ComingSoon />, title: "Movie & Shows" },
     { path: "lists", element: <ComingSoon />, title: "Lists" },

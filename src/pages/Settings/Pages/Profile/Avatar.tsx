@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import { getUserDetail, updateUserDetail } from "../../../../lib/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, changeDpAction } from "../../../../store/AuthSlice";
+import { RootState } from "../../../../store";
+import { changeDpAction } from "../../../../store/AuthSlice";
 
 const Avatar = () => {
   const { username, userid } = useSelector((state: RootState) => state.auth);

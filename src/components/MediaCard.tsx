@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { RootState } from "../store/AuthSlice";
+import { RootState } from "../store";
 import MediaCardButtons from "./UI/MediaCardButtons";
 import { MediaDetailType } from "../pages/MediaDetail";
 import {
