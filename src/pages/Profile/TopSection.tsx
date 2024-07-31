@@ -127,7 +127,7 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
       </div>
       {/* Links */}
       <ul
-        className="flex bg-bgSecondary z-20 justify-around px-12 md:px-48 items-center relative text-xl w-screen overflow-x-auto"
+        className="flex bg-bgSecondary z-20 justify-around px-12 md:px-48 items-center relative text-xl w-full overflow-x-auto"
         id="pagenav"
       >
         {links.map((link) => (
