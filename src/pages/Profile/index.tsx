@@ -1,14 +1,15 @@
 import React from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import { getUserDetail } from "../../lib/api";
 import MediaList from "./MediaList";
 import Overview from "./Overview";
+import Stats from "./Stats";
 import { entryType, listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Social from "./Social";
 import ComingSoon from "../ComingSoon";
-import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/UI/Loading";
 
 export type ProfileParams = {
@@ -66,7 +67,7 @@ const Profile = () => {
           <Route path=":allowedList" element={<MediaList />} />
         </Route>
         <Route path="favorites" element={<ComingSoon />} />
-        <Route path="stats" element={<ComingSoon />} />
+        <Route path="stats" element={<Stats />} />
         <Route path="social" element={<Social />} />
         <Route path="reviews" element={<ComingSoon />} />
         <Route path="submissions" element={<ComingSoon />} />
