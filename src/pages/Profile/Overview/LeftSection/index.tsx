@@ -1,14 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import About from "./About";
 import Favs from "./Favs";
 import GenreOverview from "./GenreOverview";
+import { RootState } from "../../../../store";
 
-interface LeftSectionProps {
-  about: string;
-  fav?: any;
-}
-
-const LeftSection = ({ about, fav }: LeftSectionProps) => {
+const LeftSection = () => {
+  const { about, fav } = useSelector((state: RootState) => state.profile);
   return (
     <section className="col-span-4">
       {about && <About {...{ about }} />}

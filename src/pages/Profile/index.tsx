@@ -61,7 +61,7 @@ const Profile = () => {
 
   return (
     <main>
-      <TopSection {...{ id: profile._id, ...profile, username }} />
+      <TopSection />
       <Outlet />
     </main>
   );

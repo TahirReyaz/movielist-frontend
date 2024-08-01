@@ -10,21 +10,22 @@ import { followAction } from "../../store/AuthSlice.tsx";
 import { followUser } from "../../lib/api";
 import { toast } from "react-toastify";
 
-interface TopSectionProps {
-  username?: string;
-  backdrop?: string;
-  avatar?: string;
-  id: string;
-}
-
-const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
+const TopSection = () => {
   const {
     userid,
     isLoggedIn,
     following,
-    username: currentUsername,
+    username: loggedUsername,
   } = useSelector((state: RootState) => state.auth);
+  const {
+    username: profileUsername,
+    backdrop,
+    avatar,
+    _id: id,
+  } = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
+
+  console.log({ profileUsername, backdrop, avatar, id });
 
   const backdropStyle = {
     "--backdrop-url": `url(${backdrop})`,
@@ -45,7 +46,7 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
     if (!response.error) {
       dispatch(followAction(response));
 
-      toast.success(`You started following ${username}`, {
+      toast.success(`You started following ${profileUsername}`, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -65,22 +66,25 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
 
   const links = [
     {
-      to: `/user/${username}`,
+      to: `/user/${profileUsername}`,
       title: "Overview",
     },
     {
-      to: `/user/${username}/movielist#pagenav`,
+      to: `/user/${profileUsername}/movielist#pagenav`,
       title: "Movie List",
     },
-    { to: `/user/${username}/tvlist#pagenav`, title: "TV List" },
-    { to: `/user/${username}/favorites#pagenav`, title: "Favorites" },
-    { to: `/user/${username}/stats#pagenav`, title: "Stats" },
+    { to: `/user/${profileUsername}/tvlist#pagenav`, title: "TV List" },
+    { to: `/user/${profileUsername}/favorites#pagenav`, title: "Favorites" },
+    { to: `/user/${profileUsername}/stats#pagenav`, title: "Stats" },
     {
-      to: `/user/${username}/social#pagenav`,
+      to: `/user/${profileUsername}/social#pagenav`,
       title: "Social",
     },
-    { to: `/user/${username}/reviews#pagenav`, title: "Reviews" },
-    { to: `/user/${username}/submissions#pagenav`, title: "Submissions" },
+    { to: `/user/${profileUsername}/reviews#pagenav`, title: "Reviews" },
+    {
+      to: `/user/${profileUsername}/submissions#pagenav`,
+      title: "Submissions",
+    },
   ];
 
   return (
@@ -98,17 +102,17 @@ const TopSection = ({ username, backdrop, avatar, id }: TopSectionProps) => {
           <div className="col-span-2">
             <img
               src={avatar ? avatar : userAvatar}
-              alt={username}
+              alt={profileUsername}
               className={` mb-4 rounded size-40 object-cover`}
             />
           </div>
           {/* title and overview */}
           <div className="col-span-9 p-4 flex items-end justify-between">
             <h1 className="text-3xl text-textBright font-extrabold">
-              {username}
+              {profileUsername}
             </h1>
             <div>
-              {isLoggedIn && currentUsername !== username && (
+              {isLoggedIn && loggedUsername !== profileUsername && (
                 <Button
                   {...{
                     title: !followingThisUser ? "Follow" : "Following",
