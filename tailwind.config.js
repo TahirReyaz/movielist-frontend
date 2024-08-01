@@ -24,6 +24,13 @@ export default {
       textLightBlue: "#acd5f2",
       shadow: "#313644",
       backdrop: "#12161c",
+      anilist: {
+        gray: {
+          regent: "#7C899A",
+          bermuda: "#728AA1",
+        },
+        mirage: "#151F2E",
+      },
       // anilist's colors
       background: {
         100: "rgb(237, 241, 245)",

@@ -9,8 +9,8 @@ interface StatItemProps {
 const StatItem = ({ value, title, Icon }: StatItemProps) => {
   return (
     <div className="grid grid-cols-5 mb-12 items-center">
-      <div className="rounded-full bg-white p-2 w-fit">
-        <Icon className="text-4xl" />
+      <div className="rounded-full bg-anilist-mirage p-4 w-fit">
+        <Icon className="text-3xl text-anilist-gray-bermuda" />
       </div>
       <div className="col-span-4">
         {value && (

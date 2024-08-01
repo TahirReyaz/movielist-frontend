@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const Pages = () => {
   return (
-    <div className="col-span-3">
+    <div className="col-span-4">
       <Outlet />
     </div>
   );

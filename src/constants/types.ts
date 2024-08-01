@@ -53,3 +53,9 @@ export type listGroupType = {
   entries: entryType[] | [];
   type: string;
 };
+
+export type genreStatListItem = {
+  title: string;
+  posterPath: string;
+  id: number;
+};

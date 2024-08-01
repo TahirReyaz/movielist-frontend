@@ -23,6 +23,7 @@ import Notifications from "./pages/Notifications";
 import Stats from "./pages/Profile/Stats";
 import StatsOverview from "./pages/Profile/Stats/Pages/Overview";
 import ProfileOverview from "./pages/Profile/Overview";
+import Genres from "./pages/Profile/Stats/Pages/Genres";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -55,7 +56,7 @@ const App = () => {
   ];
 
   const statsSubRoutes = [
-    { path: "genres", element: <ComingSoon /> },
+    { path: "genres", element: <Genres /> },
     { path: "tags", element: <ComingSoon /> },
     { path: "actors", element: <ComingSoon /> },
     { path: "studios", element: <ComingSoon /> },
