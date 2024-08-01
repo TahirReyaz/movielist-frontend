@@ -29,7 +29,7 @@ const Avatar = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["profile", username] });
-      dispatch(changeDpAction({ avatar: data.avatar }));
+      dispatch(changeDpAction(data));
 
       toast.success(data.message, {
         position: "top-center",
