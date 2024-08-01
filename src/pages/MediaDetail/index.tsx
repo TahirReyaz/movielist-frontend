@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Route,
   Routes,
@@ -16,6 +16,9 @@ import Tags from "./LeftSection/Tags";
 import Overview from "./Pages/Overview";
 import Characters from "./Pages/Characters";
 import LeftSection from "./LeftSection";
+import { useAppDispatch } from "../../hooks/redux";
+import { setDetails } from "../../store/MediaSlice";
+import Loading from "../../components/UI/Loading";
 
 type MediaDetailParams = {
   mediaid: string;
@@ -47,6 +50,7 @@ const MediaDetail = () => {
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
 
   const mediaType = pathname.split("/")[1];
 
@@ -81,16 +85,26 @@ const MediaDetail = () => {
     navigate("/404");
   }
 
+  useEffect(() => {
+    if (mediaDetails) {
+      dispatch(setDetails({ ...mediaDetails, mediaType, mediaid }));
+    }
+  }, [mediaDetails]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <main>
       {mediaDetails && (
         <>
           {/* Image and overview */}
-          {mediaid && <TopSection {...{ mediaid, mediaType, mediaDetails }} />}
+          {mediaid && <TopSection />}
           {/* Rest of the details */}
           <LowerLayout
             {...{
-              left: <LeftSection {...{ mediaDetails, mediaid, mediaType }} />,
+              left: <LeftSection />,
               right: (
                 <Routes>
                   {routes.map((route) => (

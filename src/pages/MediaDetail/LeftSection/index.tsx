@@ -4,12 +4,7 @@ import MediaDetailCard from "../MediaDetailCard";
 import MediaDetailField from "../MediaDetailField";
 import { formatRuntime } from "../../../lib/helpers";
 import Tags from "./Tags";
-
-interface LeftSectionProps {
-  mediaDetails: any;
-  mediaid?: string;
-  mediaType: string;
-}
+import { useAppSelector } from "../../../hooks/redux";
 
 const detailFields = [
   { fieldName: "status", label: "Status" },
@@ -30,11 +25,9 @@ const detailFields = [
   { fieldName: "original_title", label: "Original Title" },
 ];
 
-const LeftSection = ({
-  mediaDetails,
-  mediaid,
-  mediaType,
-}: LeftSectionProps) => {
+const LeftSection = () => {
+  const mediaDetails = useAppSelector((state) => state.media);
+  const { mediaid, mediaType } = mediaDetails;
   return (
     <>
       <div className="hidden md:block">

@@ -12,10 +12,9 @@ import { toast } from "react-toastify";
 
 const TopSection = () => {
   const {
-    userid,
     isLoggedIn,
-    following,
     username: loggedUsername,
+    profileData,
   } = useSelector((state: RootState) => state.auth);
   const {
     username: profileUsername,
@@ -24,6 +23,9 @@ const TopSection = () => {
     _id: id,
   } = useSelector((state: RootState) => state.profile);
   const dispatch = useDispatch();
+
+  const following = profileData?.following,
+    userid = profileData?._id;
 
   console.log({ profileUsername, backdrop, avatar, id });
 

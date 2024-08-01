@@ -1,22 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 
 import { tmdbImgEndPoint } from "../../../constants/tmdb";
 import Controls from "./Controls";
-import { MediaDetailType } from "..";
-import { RootState } from "../../../store";
+import { useAppSelector } from "../../../hooks/redux";
 
-interface TopSectionProps {
-  mediaDetails: MediaDetailType;
-  mediaid: string;
-  mediaType: string;
-}
-
-const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
-  const { username, userid } = useSelector((state: RootState) => state.auth);
+const TopSection = () => {
+  const { username } = useAppSelector((state) => state.auth);
+  const mediaDetails = useAppSelector((state) => state.media);
+  const { mediaid, mediaType } = mediaDetails;
 
   const routes = [
     { path: "/", title: "Overview" },
@@ -54,11 +48,7 @@ const TopSection = ({ mediaDetails, mediaid, mediaType }: TopSectionProps) => {
               mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
             } mb-4 rounded`}
           />
-          {username && (
-            <Controls
-              {...{ mediaDetails, mediaid, username, mediaType, userid }}
-            />
-          )}
+          {username && <Controls />}
         </div>
         {/* title and overview */}
         <div className="col-span-12 md:col-span-9 ms-4 p-0 md:p-8 flex flex-col justify-between">

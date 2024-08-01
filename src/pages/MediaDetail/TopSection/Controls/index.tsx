@@ -4,42 +4,23 @@ import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 
 import "tippy.js/dist/tippy.css";
 
-import { MediaDetailType } from "../..";
 import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserDetail } from "../../../../lib/api";
+import { useQueryClient } from "@tanstack/react-query";
 import { toggleFav } from "../../../../lib/api/user";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../../../hooks/redux";
 
-interface ControlsProps {
-  mediaid: string;
-  mediaDetails: MediaDetailType;
-  username?: string;
-  userid: string;
-  mediaType: string;
-}
+const Controls = () => {
+  const { username, profileData: profile } = useAppSelector(
+    (state) => state.auth
+  );
+  const userid = profile?._id;
+  const { mediaType, mediaid } = useAppSelector((state) => state.media);
 
-const Controls = ({
-  mediaid,
-  mediaDetails,
-  username,
-  userid,
-  mediaType,
-}: ControlsProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isFav, setIsFav] = useState<boolean>(false);
-
-  const {
-    data: profile,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["profile", username],
-    queryFn: () => getUserDetail(username),
-    enabled: !!username,
-  });
 
   const queryClient = useQueryClient();
 
@@ -103,12 +84,9 @@ const Controls = ({
             render={(attrs) => (
               <MediaActionMenu
                 {...{
-                  mediaid,
-                  mediaDetails,
                   currentStatus: existingEntry?.status,
                   attrs,
                   setShowModal,
-                  mediaType,
                 }}
               />
             )}
@@ -135,8 +113,6 @@ const Controls = ({
           open: showModal,
           setOpen: setShowModal,
           id: existingEntry?.id,
-          mediaid,
-          mediaType: mediaDetails.first_air_date ? "tv" : "movie",
         }}
       />
     </div>

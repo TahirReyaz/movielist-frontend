@@ -1,12 +1,11 @@
-import { useSelector } from "react-redux";
+import react from "react";
 import { toast } from "react-toastify";
 
-import { RootState } from "../../../../store";
 import { addEntry } from "../../../../lib/api";
 import { listtypetype } from "../../../../constants/types";
-import { MediaDetailType } from "../..";
 import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 import { Dispatch, SetStateAction } from "react";
+import { useAppSelector } from "../../../../hooks/redux";
 
 type listItemType = {
   title: string;
@@ -24,23 +23,19 @@ const menuItems: listItemType[] = [
 ];
 
 interface MediaActionMenuProps {
-  mediaid?: string;
-  mediaDetails: MediaDetailType;
   currentStatus?: string;
   attrs: attrsType;
-  mediaType: string;
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const MediaActionMenu = ({
-  mediaid,
-  mediaDetails,
   currentStatus,
   attrs,
   setShowModal,
-  mediaType,
 }: MediaActionMenuProps) => {
-  const userid = useSelector((state: RootState) => state.auth.userid);
+  const userid = useAppSelector((state) => state.auth.profileData._id);
+  const mediaDetails = useAppSelector((state) => state.media);
+  const { mediaid, mediaType } = mediaDetails;
 
   let list = menuItems;
   if (mediaDetails.status === "Post Production") {

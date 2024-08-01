@@ -12,23 +12,17 @@ import Error from "../Error";
 import TextInput from "../TextInput";
 import { RootState } from "../../../store";
 import { updateEntry } from "../../../lib/api/entry";
+import { useAppSelector } from "../../../hooks/redux";
 
 interface EntryEditorModalParams {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
-  mediaid: string;
-  mediaType: string;
 }
 
-const EntryEditorModal = ({
-  open,
-  setOpen,
-  id,
-  mediaid,
-  mediaType,
-}: EntryEditorModalParams) => {
-  const { userid } = useSelector((state: RootState) => state.auth);
+const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
+  const userid = useAppSelector((state) => state.auth.profileData._id);
+  const { mediaid, mediaType } = useAppSelector((state) => state.media);
 
   const queryClient = useQueryClient();
 

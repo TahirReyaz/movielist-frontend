@@ -4,20 +4,20 @@ export type SliceStateType = any;
 
 let initialState: SliceStateType = {};
 
-export const profileSlice = createSlice({
-  name: "profile",
+export const mediaSlice = createSlice({
+  name: "media",
   initialState,
   reducers: {
-    setProfile: (state, action) => {
+    setDetails: (state, action) => {
       for (const key in action.payload) {
         state[key] = action.payload[key];
       }
     },
-    removeProfile: (state) => {
+    removeDetails: (state) => {
       console.log({ state });
       state = initialState;
     },
   },
 });
 
-export const { setProfile, removeProfile } = profileSlice.actions;
+export const { setDetails, removeDetails } = mediaSlice.actions;
