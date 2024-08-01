@@ -14,7 +14,9 @@ interface TopSectionProps {
 }
 
 const TopSection = ({ name, id }: TopSectionProps) => {
-  const { userid, fav } = useSelector((state: RootState) => state.auth);
+  const { _id: userid, fav } = useSelector(
+    (state: RootState) => state.auth.profileData
+  );
 
   const isFav = fav?.staff?.includes(id);
 

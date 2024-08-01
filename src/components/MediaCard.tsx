@@ -17,7 +17,10 @@ export interface MediaItemProps {
 }
 
 const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
-  const { isLoggedIn, userid } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, profileData } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const userid = profileData?._id;
   const [hover, setHover] = useState<boolean>(false);
 
   const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
