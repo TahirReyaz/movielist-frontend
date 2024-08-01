@@ -21,7 +21,8 @@ import Staff from "./pages/Staff";
 import Characters from "./pages/MediaDetail/Pages/Characters";
 import Notifications from "./pages/Notifications";
 import Stats from "./pages/Profile/Stats";
-import Overview from "./pages/Profile/Stats/Pages/Overview";
+import StatsOverview from "./pages/Profile/Stats/Pages/Overview";
+import ProfileOverview from "./pages/Profile/Overview";
 
 const App = () => {
   const mediaSubRoutes = [
@@ -77,7 +78,9 @@ const App = () => {
             <Route path="/social" element={<ComingSoon />} />
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username/*" element={<Profile />}>
+              <Route index element={<ProfileOverview />} />
               <Route path="stats/*" element={<Stats />}>
+                <Route index element={<StatsOverview />} />
                 {statsSubRoutes.map((route) => (
                   <Route
                     path={route.path}

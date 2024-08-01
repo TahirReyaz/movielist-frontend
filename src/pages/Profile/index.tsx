@@ -1,21 +1,10 @@
 import React, { useEffect } from "react";
-import {
-  Outlet,
-  Route,
-  Routes,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getUserDetail } from "../../lib/api";
-import MediaList from "./MediaList";
-import Overview from "./Overview";
-import Stats from "./Stats";
 import { entryType, listtypetype, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
-import Social from "./Social";
-import ComingSoon from "../ComingSoon";
 import Loading from "../../components/UI/Loading";
 import { useDispatch } from "react-redux";
 import { setProfile } from "../../store/ProfileSlice";
@@ -73,20 +62,6 @@ const Profile = () => {
   return (
     <main>
       <TopSection {...{ id: profile._id, ...profile, username }} />
-      <Routes>
-        <Route path="/" element={<Overview />} />
-        <Route path="movielist" element={<MediaList />}>
-          <Route path=":allowedList" element={<MediaList />} />
-        </Route>
-        <Route path="tvlist" element={<MediaList />}>
-          <Route path=":allowedList" element={<MediaList />} />
-        </Route>
-        <Route path="favorites" element={<ComingSoon />} />
-        <Route path="stats" element={<Stats />} />
-        <Route path="social" element={<Social />} />
-        <Route path="reviews" element={<ComingSoon />} />
-        <Route path="submissions" element={<ComingSoon />} />
-      </Routes>
       <Outlet />
     </main>
   );
