@@ -1,42 +1,30 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getUserDetail } from "../lib/api";
 
 export type SliceStateType = {
   isLoggedIn: boolean;
-  userid: string;
   username: string;
-  following: [string] | [];
-  followers: [string] | [];
-  fav: any;
-  avatar: string;
+  profileData: any;
+  loading: boolean;
+  error: string | null;
 };
 
 let initialState: SliceStateType = {
   isLoggedIn: false,
-  userid: "",
   username: "",
-  followers: [],
-  following: [],
-  fav: {
-    movie: [],
-    tv: [],
-    staff: [],
-    characters: [],
-    prod_companies: [],
-  },
-  avatar: "",
+  profileData: undefined,
+  loading: false,
+  error: null,
 };
 
-if (localStorage.getItem("token")) {
-  initialState = {
-    isLoggedIn: true,
-    userid: localStorage.getItem("userid") || "",
-    username: localStorage.getItem("username") || "",
-    followers: JSON.parse(localStorage.getItem("followers") || "[]"),
-    following: JSON.parse(localStorage.getItem("following") || "[]"),
-    fav: JSON.parse(localStorage.getItem("favs") || "[]"),
-    avatar: localStorage.getItem("avatar") || "",
-  };
-}
+// Thunk to fetch user details
+export const fetchUserDetails = createAsyncThunk(
+  "user/fetchUserDetails",
+  async (username: string) => {
+    const response = await getUserDetail(username);
+    return response;
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -45,67 +33,47 @@ export const authSlice = createSlice({
     login: (state, action) => {
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("username", action.payload.username);
-      localStorage.setItem("userid", action.payload.userid);
-      localStorage.setItem(
-        "following",
-        JSON.stringify(action.payload.following)
-      );
-      localStorage.setItem(
-        "followers",
-        JSON.stringify(action.payload.followers)
-      );
-      localStorage.setItem("fav", JSON.stringify(action.payload.fav));
-      localStorage.setItem("avatar", JSON.stringify(action.payload.avatar));
 
       state.isLoggedIn = true;
-      state.userid = action.payload.userid;
       state.username = action.payload.username;
-      state.followers = action.payload.followers;
-      state.following = action.payload.following;
-      state.fav = action.payload.fav;
-      state.avatar = action.payload.avatar;
+      state.profileData = action.payload.profile;
     },
     logout: (state) => {
       state.isLoggedIn = initialState.isLoggedIn;
-      state.userid = initialState.userid;
       state.username = initialState.username;
-      state.followers = initialState.followers;
-      state.following = initialState.following;
-      state.fav = initialState.fav;
-      state.avatar = initialState.avatar;
+      state.profileData = initialState.profileData;
 
       localStorage.removeItem("token");
-      localStorage.removeItem("userid");
       localStorage.removeItem("username");
-      localStorage.removeItem("following");
-      localStorage.removeItem("followers");
-      localStorage.removeItem("fav");
-      localStorage.removeItem("avatar");
     },
     follow: (state, action) => {
-      localStorage.removeItem("following");
-
-      localStorage.setItem(
-        "following",
-        JSON.stringify(action.payload.following)
-      );
-
-      state.following = action.payload.following;
+      state.profileData = action.payload;
     },
     toggleFav: (state, action) => {
-      localStorage.removeItem("fav");
-
-      localStorage.setItem("fav", JSON.stringify(action.payload.fav));
-
-      state.fav = action.payload.fav;
+      state.profileData = action.payload;
     },
     changeDp: (state, action) => {
-      localStorage.removeItem("avatar");
-
-      localStorage.setItem("avatar", action.payload.avatar);
-
-      state.avatar = action.payload.avatar;
+      state.profileData = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserDetails.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.profileData = action.payload;
+        state.username = action.payload.username;
+        state.loading = false;
+      })
+      .addCase(fetchUserDetails.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.username = "";
+        state.loading = false;
+        state.error = action.error.message || "Failed to fetch user details";
+      });
   },
 });
 

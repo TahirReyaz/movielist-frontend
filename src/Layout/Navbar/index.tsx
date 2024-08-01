@@ -24,7 +24,7 @@ type routeItem = {
 };
 
 const Navbar = () => {
-  const { isLoggedIn, username, avatar } = useSelector(
+  const { isLoggedIn, username, profileData } = useSelector(
     (state: RootState) => state.auth
   );
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -102,7 +102,7 @@ const Navbar = () => {
             >
               <div className="flex items-center">
                 <img
-                  src={avatar ? avatar : userAvatar}
+                  src={profileData?.avatar ? profileData.avatar : userAvatar}
                   alt="Avatar"
                   className="size-20 ms-4 cursor-pointer rounded object-cover"
                 />

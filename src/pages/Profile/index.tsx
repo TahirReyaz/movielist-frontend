@@ -51,7 +51,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (profile) {
-      dispatch(setProfile(profile._doc));
+      dispatch(setProfile(profile));
     }
   }, [profile]);
 

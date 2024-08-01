@@ -11,7 +11,10 @@ import { toast } from "react-toastify";
 const About = () => {
   const [about, setAbout] = useState<string>("");
 
-  const { username, userid } = useSelector((state: RootState) => state.auth);
+  const { username, profileData } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const userid = profileData?._id;
 
   const queryClient = useQueryClient();
 
@@ -71,7 +74,7 @@ const About = () => {
           label: "",
         }}
       />
-      {profileQuery.data.about !== about && about !== "" && (
+      {profileQuery.data?.about !== about && about !== "" && (
         <div>
           <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
             {about}

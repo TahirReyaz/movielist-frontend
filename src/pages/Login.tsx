@@ -43,13 +43,9 @@ const Login = () => {
         setTimeout(() => {
           dispatch(
             loginAction({
-              userid: response.profile._id,
               username: response.profile.username,
               token: response.token,
-              following: response.profile.following,
-              followers: response.profile.followers,
-              fav: response.profile.fav,
-              avatar: response.profile.avatar,
+              profile: response.profile,
             })
           );
         }, 3000);

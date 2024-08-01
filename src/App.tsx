@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -12,57 +12,48 @@ import MediaDetail from "./pages/MediaDetail";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import MediaList from "./pages/Profile/MediaList";
-import Social from "./pages/Profile/Social";
 import ComingSoon from "./pages/ComingSoon";
 import Browse from "./pages/Browse";
 import LoadingBar from "./components/UI/LoadingBar";
 import Settings from "./pages/Settings";
 import Staff from "./pages/Staff";
-import Characters from "./pages/MediaDetail/Pages/Characters";
 import Notifications from "./pages/Notifications";
 import Stats from "./pages/Profile/Stats";
 import StatsOverview from "./pages/Profile/Stats/Pages/Overview";
 import ProfileOverview from "./pages/Profile/Overview";
-import Genres from "./pages/Profile/Stats/Pages/Genres";
+import {
+  mediaSubRoutes,
+  profileSubRoutes,
+  settingsSubRoutes,
+  statsSubRoutes,
+} from "./routes";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { fetchUserDetails } from "./store/AuthSlice";
+import Loading from "./components/UI/Loading";
 
 const App = () => {
-  const mediaSubRoutes = [
-    { path: "watch", element: <ComingSoon /> },
-    { path: "characters", element: <Characters /> },
-    { path: "staff", element: <ComingSoon /> },
-    { path: "stats", element: <ComingSoon /> },
-    { path: "social", element: <ComingSoon /> },
-  ];
+  const dispatch = useAppDispatch();
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
+  const user = useAppSelector((state) => state.auth);
 
-  const profileSubRoutes = [
-    { path: "favorites", element: <ComingSoon /> },
-    { path: "social", element: <Social /> },
-    { path: "reviews", element: <ComingSoon /> },
-    { path: "submissions", element: <ComingSoon /> },
-  ];
+  useEffect(() => {
+    if (token && username) {
+      dispatch(fetchUserDetails(username));
+    }
+  }, [dispatch, token, username]);
 
-  const settingsSubRoutes = [
-    { path: "account", element: <ComingSoon />, title: "Account" },
-    { path: "media", element: <ComingSoon />, title: "Movie & Shows" },
-    { path: "lists", element: <ComingSoon />, title: "Lists" },
-    {
-      path: "notifications",
-      element: <ComingSoon />,
-      title: "Notifications",
-    },
-    { path: "import", element: <ComingSoon />, title: "Import Lists" },
-    { path: "apps", element: <ComingSoon />, title: "Apps" },
-    { path: "developer", element: <ComingSoon />, title: "Developer" },
-  ];
+  if (user.loading) {
+    return (
+      <div className="h-screen bg-anilist-mirage">
+        <Loading />
+      </div>
+    );
+  }
 
-  const statsSubRoutes = [
-    { path: "genres", element: <Genres /> },
-    { path: "tags", element: <ComingSoon /> },
-    { path: "actors", element: <ComingSoon /> },
-    { path: "studios", element: <ComingSoon /> },
-    { path: "staff", element: <ComingSoon /> },
-  ];
-
+  if (user.error) {
+    return <div>Error: {user.error}</div>;
+  }
   return (
     <div className="bg-bgTertiary text-textPrimary font-sans relative">
       <LoadingBar />

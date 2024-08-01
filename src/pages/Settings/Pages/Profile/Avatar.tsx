@@ -9,7 +9,10 @@ import { RootState } from "../../../../store";
 import { changeDpAction } from "../../../../store/AuthSlice";
 
 const Avatar = () => {
-  const { username, userid } = useSelector((state: RootState) => state.auth);
+  const { username, profileData } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const userid = profileData?._id;
 
   const queryClient = useQueryClient();
   const dispatch = useDispatch();

@@ -172,7 +172,7 @@ export async function getUserDetail(username: string | undefined) {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/user/${username}`
     );
-    const user = response.data;
+    const user = response.data?._doc;
     return { ...user, error: false };
   } catch (error) {
     console.error(error);
