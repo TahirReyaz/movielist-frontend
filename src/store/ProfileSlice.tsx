@@ -14,6 +14,7 @@ export const profileSlice = createSlice({
       }
     },
     removeProfile: (state) => {
+      console.log({ state });
       state = initialState;
     },
   },

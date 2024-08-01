@@ -19,6 +19,7 @@ const GenreItem = ({
   list,
   index,
 }: GenreItemProps) => {
+  console.log({ statTypeId });
   return (
     <div className="rounded-lg overflow-hidden">
       {/* Text */}

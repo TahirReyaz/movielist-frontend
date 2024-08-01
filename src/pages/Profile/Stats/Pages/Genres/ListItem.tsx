@@ -3,6 +3,7 @@ import { genreStatListItem } from "../../../../../constants/types";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 
 const ListItem = ({ title, id, posterPath }: genreStatListItem) => {
+  console.log({ id });
   return (
     <div className="overflow-hidden">
       <img
