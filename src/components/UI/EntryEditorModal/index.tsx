@@ -185,10 +185,10 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
       <div className="mx-48 bg-bgSecondary rounded">
         <TopSection
           {...{
-            title: entry ? entry.title : media.title,
+            title: entry ? entry.title : media?.title,
             fav,
-            backdrop: entry ? entry.backdrop : media.backdrop_path,
-            poster: entry ? entry.poster : media.poster_path,
+            backdrop: entry ? entry.backdrop : media?.backdrop_path,
+            poster: entry ? entry.poster : media?.poster_path,
             onFav: () => handleFav(true),
             onUnFav: () => handleFav(false),
             onSave: handleSave,
