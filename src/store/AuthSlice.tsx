@@ -4,6 +4,7 @@ import { getUserDetail } from "../lib/api";
 export type SliceStateType = {
   isLoggedIn: boolean;
   username: string;
+  userid: string;
   profileData: any;
   loading: boolean;
   error: string | null;
@@ -12,6 +13,7 @@ export type SliceStateType = {
 let initialState: SliceStateType = {
   isLoggedIn: false,
   username: "",
+  userid: "",
   profileData: undefined,
   loading: false,
   error: null,
@@ -36,11 +38,13 @@ export const authSlice = createSlice({
 
       state.isLoggedIn = true;
       state.username = action.payload.username;
+      state.userid = action.payload.profile._id;
       state.profileData = action.payload.profile;
     },
     logout: (state) => {
       state.isLoggedIn = initialState.isLoggedIn;
       state.username = initialState.username;
+      state.userid = initialState.userid;
       state.profileData = initialState.profileData;
 
       localStorage.removeItem("token");
@@ -66,6 +70,7 @@ export const authSlice = createSlice({
         state.isLoggedIn = true;
         state.profileData = action.payload;
         state.username = action.payload.username;
+        state.userid = action.payload._id;
         state.loading = false;
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {

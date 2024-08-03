@@ -11,12 +11,12 @@ import { toast } from "react-toastify";
 import { addEntry } from "../../lib/api";
 import { listtypetype } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
+import { useAppSelector } from "../../hooks/redux";
 
 const iconClass = "rounded-full bg-bgPrimary mb-2 me-2 p-1.5 opacity-90";
 
 interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
-  userid: string;
   mediaid: string;
   mediaType: string;
 }
@@ -50,10 +50,11 @@ const MenuButton = ({ setTo, Icon, onClick, status }: MenuButtonProps) => {
 
 const MediaCardButtons = ({
   mediaDetails,
-  userid,
   mediaid,
   mediaType,
 }: MediaCardButtonsProps) => {
+  const { userid } = useAppSelector((state) => state.auth);
+
   const clickHandler = async (
     e: React.MouseEvent<HTMLDivElement>,
     status: listtypetype
