@@ -30,3 +30,11 @@ export const updateList = (lists: any, allowedList: string) => {
 
   return newList;
 };
+
+export const findExistingEntry = (userData: any, mediaid: string) => {
+  let existingEntry;
+  existingEntry = userData?.entries?.find(
+    (entry: any) => entry.mediaid == mediaid
+  );
+  return existingEntry;
+};

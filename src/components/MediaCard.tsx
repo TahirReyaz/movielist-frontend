@@ -5,11 +5,8 @@ import { Link } from "react-router-dom";
 import { RootState } from "../store";
 import MediaCardButtons from "./UI/MediaCardButtons";
 import { MediaDetailType } from "../pages/MediaDetail";
-import {
-  posterSizes,
-  tmdbImgBaseUrl,
-  tmdbImgEndPoint,
-} from "../constants/tmdb";
+import { posterSizes, tmdbImgBaseUrl } from "../constants/tmdb";
+import { findExistingEntry } from "../lib/helpers";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -20,8 +17,9 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
   const { isLoggedIn, profileData } = useSelector(
     (state: RootState) => state.auth
   );
-  const userid = profileData?._id;
   const [hover, setHover] = useState<boolean>(false);
+
+  const existingEntry = findExistingEntry(profileData, mediaDetails.id);
 
   const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
 
@@ -40,11 +38,17 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         />
         {isLoggedIn && hover && (
           <MediaCardButtons
-            {...{ userid, mediaid: mediaDetails.id, mediaDetails, mediaType }}
+            {...{
+              mediaid: mediaDetails.id,
+              mediaDetails,
+              mediaType,
+              entry: existingEntry,
+            }}
           />
         )}
       </div>
       <span className="text-[1.4rem] my-4">
+        {existingEntry && existingEntry.status}{" "}
         {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}
       </span>
     </Link>

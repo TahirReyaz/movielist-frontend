@@ -1,17 +1,19 @@
 import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import Tippy from "@tippyjs/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FaCalendar, FaCheck } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { IconType } from "react-icons";
+import { toast } from "react-toastify";
 
 import "tippy.js/animations/shift-away.css";
 
-import { toast } from "react-toastify";
 import { addEntry } from "../../lib/api";
 import { listtypetype } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
+import { updateEntry } from "../../lib/api/entry";
 
 const iconClass = "rounded-full bg-bgPrimary mb-2 me-2 p-1.5 opacity-90";
 
@@ -19,6 +21,7 @@ interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   mediaid: string;
   mediaType: string;
+  entry?: any;
 }
 
 interface MenuButtonProps {
@@ -52,8 +55,11 @@ const MediaCardButtons = ({
   mediaDetails,
   mediaid,
   mediaType,
+  entry,
 }: MediaCardButtonsProps) => {
-  const { userid } = useAppSelector((state) => state.auth);
+  const { userid, username } = useAppSelector((state) => state.auth);
+
+  const queryClient = useQueryClient();
 
   const clickHandler = async (
     e: React.MouseEvent<HTMLDivElement>,
@@ -62,17 +68,25 @@ const MediaCardButtons = ({
     e.preventDefault();
     const title =
       mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
-    const response = await addEntry({
-      mediaType,
-      mediaid,
-      userid,
-      status,
-      title,
-      poster: mediaDetails.poster_path,
-      backdrop: mediaDetails.backdrop_path,
-    });
-    if (!response.error) {
-      toast.success(response.message, {
+    let response;
+    if (entry) {
+      response = await updateEntry({ userid, status, id: entry.id });
+    } else {
+      response = await addEntry({
+        mediaType,
+        mediaid,
+        userid,
+        status,
+        title,
+        poster: mediaDetails.poster_path,
+        backdrop: mediaDetails.backdrop_path,
+      });
+    }
+    if (!response?.error) {
+      // Update entry data in auth redux
+      queryClient.invalidateQueries({ queryKey: ["user", username] });
+
+      toast.success(response?.message, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -80,7 +94,7 @@ const MediaCardButtons = ({
         pauseOnHover: true,
       });
     } else {
-      toast.error(response.message, {
+      toast.error(response?.message, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -89,6 +103,7 @@ const MediaCardButtons = ({
       });
     }
   };
+
   return (
     <Tippy
       interactive={true}
