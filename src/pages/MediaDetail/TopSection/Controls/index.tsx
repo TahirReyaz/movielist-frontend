@@ -60,6 +60,9 @@ const Controls = () => {
         setIsFav(false);
       }
     }
+  }, [profile]);
+
+  useEffect(() => {
     if (profile?.entries) {
       const existingEntry = profile?.entries?.find(
         (entry: any) => entry.mediaid === mediaid
@@ -90,6 +93,7 @@ const Controls = () => {
                   currentStatus: existingEntry?.status,
                   attrs,
                   setShowModal,
+                  existingEntry,
                 }}
               />
             )}

@@ -6,6 +6,8 @@ import { listtypetype } from "../../../../constants/types";
 import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 import { Dispatch, SetStateAction } from "react";
 import { useAppSelector } from "../../../../hooks/redux";
+import { updateEntry } from "../../../../lib/api/entry";
+import { useQueryClient } from "@tanstack/react-query";
 
 type listItemType = {
   title: string;
@@ -26,16 +28,20 @@ interface MediaActionMenuProps {
   currentStatus?: string;
   attrs: attrsType;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  existingEntry?: any;
 }
 
 const MediaActionMenu = ({
   currentStatus,
   attrs,
   setShowModal,
+  existingEntry,
 }: MediaActionMenuProps) => {
-  const userid = useAppSelector((state) => state.auth.profileData._id);
+  const { userid, username } = useAppSelector((state) => state.auth);
   const mediaDetails = useAppSelector((state) => state.media);
   const { mediaid, mediaType } = mediaDetails;
+
+  const queryClient = useQueryClient();
 
   let list = menuItems;
   if (mediaDetails.status === "Post Production") {
@@ -48,18 +54,31 @@ const MediaActionMenu = ({
   }
 
   const listHandler = async (listtype: listtypetype) => {
-    const response = await addEntry({
-      mediaType,
-      mediaid,
-      userid,
-      status: listtype,
-      title:
-        (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) || "meh",
-      poster: mediaDetails.poster_path,
-      backdrop: mediaDetails.backdrop_path,
-    });
-    if (!response.error) {
-      toast.success(response.message, {
+    let response;
+    if (existingEntry) {
+      response = await updateEntry({
+        userid,
+        id: existingEntry.id,
+        status: listtype,
+      });
+    } else {
+      response = await addEntry({
+        mediaType,
+        mediaid,
+        userid,
+        status: listtype,
+        title:
+          (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) || "meh",
+        poster: mediaDetails.poster_path,
+        backdrop: mediaDetails.backdrop_path,
+      });
+    }
+    if (!response?.error) {
+      queryClient.invalidateQueries({
+        queryKey: ["user", username],
+      });
+
+      toast.success(response?.message, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -67,7 +86,7 @@ const MediaActionMenu = ({
         pauseOnHover: true,
       });
     } else {
-      toast.error(response.message, {
+      toast.error(response?.message, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
