@@ -41,7 +41,9 @@ export const getUserLists = async (
         if (entries[listType].length && entries[listType].length > 0) {
           allListGrps.push({
             type: listType,
-            title: `${listType} ${mediaType}`,
+            title:
+              listType.charAt(0).toUpperCase() +
+              listType.slice(1).toLowerCase(),
             entries: entries[listType],
           });
         }

@@ -10,6 +10,7 @@ import {
 } from "../../../constants/tmdb";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../components/UI/Loading";
+import StatusDot from "../../../components/UI/StatusDot";
 
 interface MediaListItemProps {
   entryId: string;
@@ -45,14 +46,20 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
     enabled: !!entryId,
   });
 
+  if (isError) {
+    return <div />;
+  }
+
   return (
-    <div className="w-full p-2 flex hover:bg-bgHoverLight">
+    <div className="w-full p-2 flex hover:bg-bgHoverLight hover:text-textBright">
       {isLoading ? (
         <Loading />
       ) : (
         <div className="grid grid-cols-12 text-2xl">
           <div className="col-span-1 flex">
-            <div className="w-3/12">.</div>
+            <div className="w-3/12">
+              <StatusDot {...{ color: "" }} />
+            </div>
             <div className="w-7/12">
               <Link to={`/${entry.mediaType}/${entry.mediaid}`}>
                 <img
@@ -71,9 +78,11 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
           <div className="col-span-1">
             {entry.rewatches ? `${entry.rewatches}@` : ""}
           </div>
-          <div className="col-span-1">{entry.score ? entry.score : ""}</div>
+          <div className="col-span-1 self-center">
+            {entry.score ? entry.score : ""}
+          </div>
           <div className="col-span-1 self-center text-center">
-            {entry.progress ? entry.progress : "0"}
+            {`${entry.progress ?? "0"}/${entry.data?.number_of_episodes}`}
           </div>
         </div>
       )}

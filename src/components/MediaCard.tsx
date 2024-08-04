@@ -8,6 +8,7 @@ import { MediaDetailType } from "../pages/MediaDetail";
 import { posterSizes, tmdbImgBaseUrl } from "../constants/tmdb";
 import { findExistingEntry } from "../lib/helpers";
 import { statusColors } from "../constants";
+import StatusDot from "./UI/StatusDot";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -50,10 +51,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
       </div>
       <span className="text-[1.4rem] relative font-medium">
         {existingEntry && (
-          <span
-            className={`inline-block w-4 h-4 mr-4 rounded-full`}
-            style={{ backgroundColor: statusColors[existingEntry.status] }}
-          />
+          <StatusDot {...{ color: statusColors[existingEntry.status] }} />
         )}
         {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}
       </span>
