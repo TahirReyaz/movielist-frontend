@@ -9,12 +9,10 @@ interface CardListProps {
   maxResults?: number;
 }
 
-const CardList = ({ items, innerRef, maxResults }: CardListProps) => {
+const CardList = ({ items, innerRef, maxResults = 5 }: CardListProps) => {
   return (
     <div
-      className={`w-full my-4 grid grid-cols-3 md:grid-cols-${
-        maxResults ? maxResults : "5"
-      } gap-4 sm:gap-16`}
+      className={`w-full my-4 grid grid-cols-3 md:grid-cols-${maxResults} gap-4 sm:gap-16`}
     >
       {items?.map((mediaItem: MediaDetailType, index) => {
         if (items.length === index + 1) {

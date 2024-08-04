@@ -90,10 +90,13 @@ const BulkMedia = () => {
   if (bulkType && bulkResults) {
     const content = bulkResults?.pages.flat();
     return (
-      <>
+      <div>
+        <div className="flex justify-end my-8">
+          <div className="">Layout and sorting</div>
+        </div>
         <CardList {...{ items: content, innerRef: intersectionRef }} />
         {isFetchingNextPage && <Loading title="Loading More..." />}
-      </>
+      </div>
     );
   }
 

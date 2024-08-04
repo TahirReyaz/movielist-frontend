@@ -35,7 +35,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         <img
           src={`${tmdbImgBaseUrl}/${posterSizes.md}${mediaDetails.poster_path}`}
           alt={mediaDetails.title}
-          className="rounded"
+          className="rounded-md mb-4"
         />
         {isLoggedIn && hover && (
           <MediaCardButtons
@@ -48,10 +48,10 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
           />
         )}
       </div>
-      <span className="text-[1.4rem] my-4">
+      <span className="text-[1.4rem] relative font-medium">
         {existingEntry && (
           <span
-            className={`inline-block w-4 h-4 mr-2 rounded-full`}
+            className={`inline-block w-4 h-4 mr-4 rounded-full`}
             style={{ backgroundColor: statusColors[existingEntry.status] }}
           />
         )}
