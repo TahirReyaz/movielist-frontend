@@ -21,7 +21,6 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const existingEntry = findExistingEntry(profileData, mediaDetails.id);
-  const statusColor = statusColors[existingEntry?.status];
 
   const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
 
@@ -52,9 +51,8 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
       <span className="text-[1.4rem] my-4">
         {existingEntry && (
           <span
-            className={`inline-block w-4 h-4 mr-2 ${
-              statusColor ? `bg-anilist-${statusColor}` : ""
-            } rounded-full`}
+            className={`inline-block w-4 h-4 mr-2 rounded-full`}
+            style={{ backgroundColor: statusColors[existingEntry.status] }}
           />
         )}
         {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}

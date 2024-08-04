@@ -8,9 +8,9 @@ export const statusColors: {
   planning?: string;
   [key: string]: string | undefined;
 } = {
-  completed: "atlantis",
-  watching: "azure_radiance",
-  dropped: "amaranth",
-  paused: "tickle_me_pink",
-  planning: "cinnabar",
+  completed: "#64D22D",
+  watching: "#00AAFF",
+  dropped: "#EC294B",
+  paused: "#F779A4",
+  planning: "#E74C3C",
 };
