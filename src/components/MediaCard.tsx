@@ -7,6 +7,7 @@ import MediaCardButtons from "./UI/MediaCardButtons";
 import { MediaDetailType } from "../pages/MediaDetail";
 import { posterSizes, tmdbImgBaseUrl } from "../constants/tmdb";
 import { findExistingEntry } from "../lib/helpers";
+import { statusColors } from "../constants";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -20,6 +21,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const existingEntry = findExistingEntry(profileData, mediaDetails.id);
+  const statusColor = statusColors[existingEntry?.status];
 
   const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
 
@@ -48,7 +50,13 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         )}
       </div>
       <span className="text-[1.4rem] my-4">
-        {existingEntry && existingEntry.status}{" "}
+        {existingEntry && (
+          <span
+            className={`inline-block w-4 h-4 mr-2 ${
+              statusColor ? `bg-anilist-${statusColor}` : ""
+            } rounded-full`}
+          />
+        )}
         {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}
       </span>
     </Link>
