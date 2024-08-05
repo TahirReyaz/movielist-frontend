@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getUserDetail } from "../../../../lib/api";
-import Loading from "../../../../components/UI/Loading";
-import Error from "../../../../components/UI/Error";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
+
 import EntryCard from "./EntryCard";
+import { useAppSelector } from "../../../../hooks/redux";
 
 interface MediaInProgressProps {
   title: string;
@@ -14,17 +10,7 @@ interface MediaInProgressProps {
 
 const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
   const [entries, setEntries] = useState([]);
-  const { username } = useSelector((state: RootState) => state.auth);
-
-  const {
-    data: profile,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["user", username],
-    queryFn: () => getUserDetail(username),
-    enabled: !!username,
-  });
+  const { profileData: profile } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (profile) {
@@ -38,12 +24,6 @@ const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
     }
   }, [profile]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (isError) {
-    return <Error />;
-  }
   if (!entries || entries.length === 0) {
     return <div />;
   }
