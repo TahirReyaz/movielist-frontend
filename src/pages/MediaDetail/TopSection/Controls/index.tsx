@@ -13,10 +13,11 @@ import { toast } from "react-toastify";
 import { useAppSelector } from "../../../../hooks/redux";
 
 const Controls = () => {
-  const { username, profileData: profile } = useAppSelector(
-    (state) => state.auth
-  );
-  const userid = profile?._id;
+  const {
+    username,
+    profileData: profile,
+    userid,
+  } = useAppSelector((state) => state.auth);
   const { mediaType, mediaid } = useAppSelector((state) => state.media);
 
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -38,7 +39,7 @@ const Controls = () => {
       });
 
       queryClient.invalidateQueries({
-        queryKey: ["profile", username],
+        queryKey: ["user", username],
       });
     } else {
       toast.error(res.messsage, {
@@ -105,7 +106,7 @@ const Controls = () => {
           </Tippy>
         }
         classes="text-[1.4rem] font-normal"
-        divClasses="h-[max-content]"
+        divClasses="h-[max-content] font-normal"
       />
       <div
         className="p-2 bg-favRed rounded grid items-center justify-center cursor-pointer h-fit md:h-full"
