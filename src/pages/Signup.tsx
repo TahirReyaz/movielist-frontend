@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { signup } from "../lib/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Values = {
   username: string;
@@ -20,6 +20,8 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -72,6 +74,7 @@ const Signup = () => {
           closeOnClick: true,
           pauseOnHover: true,
         });
+        navigate("/login");
       }
     } else {
       toast.warning("Invalid values", {
