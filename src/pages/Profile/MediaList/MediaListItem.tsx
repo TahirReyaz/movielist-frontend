@@ -8,9 +8,10 @@ import {
   tmdbImgBaseUrl,
   tmdbImgEndPoint,
 } from "../../../constants/tmdb";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loading from "../../../components/UI/Loading";
 import StatusDot from "../../../components/UI/StatusDot";
+import { increaseProgess } from "../../../lib/api/entry";
 
 interface MediaListItemProps {
   entryId: string;
@@ -36,6 +37,8 @@ export type EntryDetailType = {
 };
 
 const MediaListItem = ({ entryId }: MediaListItemProps) => {
+  const queryClient = useQueryClient();
+
   const {
     data: entry,
     isLoading,
@@ -44,6 +47,15 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
     queryKey: ["entry", entryId],
     queryFn: () => getEntryDetail(entryId),
     enabled: !!entryId,
+  });
+
+  const entryMutation = useMutation({
+    mutationFn: () => {
+      return increaseProgess(entryId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["entry", entryId] });
+    },
   });
 
   if (isError) {
@@ -82,7 +94,17 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
             {entry.score ? entry.score : ""}
           </div>
           <div className="col-span-1 self-center text-center">
-            {`${entry.progress ?? "0"}/${entry.data?.number_of_episodes}`}
+            {`${entry.progress ?? "0"}/${
+              entry.data?.number_of_episodes ?? "1"
+            }`}
+            {entry.status != "completed" && (
+              <span
+                onClick={() => entryMutation.mutate()}
+                className="cursor-pointer"
+              >
+                +
+              </span>
+            )}
           </div>
         </div>
       )}
