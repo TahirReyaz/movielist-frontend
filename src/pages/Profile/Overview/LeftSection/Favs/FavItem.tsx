@@ -5,7 +5,11 @@ import posterPlaceholder from "../../../../../assets/posterPlaceholder.jpg";
 
 import { getMediaDetail } from "../../../../../lib/api";
 import { getStaffDetails } from "../../../../../lib/api/staff";
-import { tmdbImgEndPoint } from "../../../../../constants/tmdb";
+import {
+  posterSizes,
+  tmdbImgBaseUrl,
+  tmdbImgEndPoint,
+} from "../../../../../constants/tmdb";
 import { Link } from "react-router-dom";
 
 interface FavItem {
@@ -34,7 +38,7 @@ const FavItem = ({ id, type }: FavItem) => {
       <img
         src={
           data.profile_path || data.poster_path
-            ? `${tmdbImgEndPoint}${
+            ? `${tmdbImgBaseUrl}/${posterSizes.sm}${
                 type === "staff" ? data.profile_path : data.poster_path
               }`
             : posterPlaceholder

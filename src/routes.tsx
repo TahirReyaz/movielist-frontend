@@ -2,6 +2,7 @@ import ComingSoon from "./pages/ComingSoon";
 import Genres from "./pages/Profile/Stats/Pages/Genres";
 import Characters from "./pages/MediaDetail/Pages/Characters";
 import Social from "./pages/Profile/Social";
+import Favourites from "./pages/Profile/Favourites";
 
 export const mediaSubRoutes = [
   { path: "watch", element: <ComingSoon /> },
@@ -12,7 +13,7 @@ export const mediaSubRoutes = [
 ];
 
 export const profileSubRoutes = [
-  { path: "favorites", element: <ComingSoon /> },
+  { path: "favorites", element: <Favourites /> },
   { path: "social", element: <Social /> },
   { path: "reviews", element: <ComingSoon /> },
   { path: "submissions", element: <ComingSoon /> },
