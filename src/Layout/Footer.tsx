@@ -28,12 +28,12 @@ const Footer = () => {
     },
     {
       links: [
-        { text: "Apps", url: "#" },
-        { text: "Site Stats", url: "#" },
-        { text: "Recommendations", url: "#" },
+        { text: "Apps", url: "/apps" },
+        { text: "Site Stats", url: "/site-stats" },
+        { text: "Recommendations", url: "/recommendations" },
         {
           text: "API",
-          url: "https://github.com/TahirReyaz/movielist-frontend",
+          url: "https://github.com/TahirReyaz/movielist-backtend",
           ext: true,
         },
       ],
@@ -52,10 +52,10 @@ const Footer = () => {
     },
     {
       links: [
-        { text: "App Data", url: "#" },
-        { text: "Moderators", url: "#" },
+        { text: "Add Data", url: "/submission-manual" },
+        { text: "Moderators", url: "/moderators" },
         { text: "Contact", url: "#" },
-        { text: "Terms & Privacy", url: "#" },
+        { text: "Terms & Privacy", url: "/terms" },
         { text: "Site Map", url: "#" },
       ],
     },

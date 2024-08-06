@@ -31,6 +31,12 @@ import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { fetchUserDetails } from "./store/AuthSlice";
 import Loading from "./components/UI/Loading";
 import Donate from "./pages/Donate";
+import Apps from "./pages/Apps";
+import SiteStats from "./pages/SiteStats";
+import Moderators from "./pages/Moderators";
+import Recommendations from "./pages/Recommendations";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import SubmissionManual from "./pages/SubmissionManual";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +52,7 @@ const App = () => {
 
   if (user.loading) {
     return (
-      <div className="h-screen bg-anilist-mirage">
+      <div className="h-screen bg-anilist-mirage text-white">
         <Loading />
       </div>
     );
@@ -129,6 +135,12 @@ const App = () => {
             <Route path="/staff/:staffid" element={<Staff />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/apps" element={<Apps />} />
+            <Route path="/site-stats" element={<SiteStats />} />
+            <Route path="/moderators" element={<Moderators />} />
+            <Route path="/recommendations" element={<Recommendations />} />
+            <Route path="/terms" element={<PrivacyPolicy />} />
+            <Route path="/submission-manual" element={<SubmissionManual />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
