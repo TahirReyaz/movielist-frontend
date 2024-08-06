@@ -7,7 +7,7 @@ interface FavsProps {
 
 const Favs = ({ fav }: FavsProps) => {
   return (
-    <div>
+    <div className="hidden md:block">
       {fav?.movie && fav.movie.length > 0 && (
         <FavSection {...{ title: "Movie", type: "movie", list: fav.movie }} />
       )}

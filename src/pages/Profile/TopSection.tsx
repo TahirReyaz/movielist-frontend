@@ -91,7 +91,7 @@ const TopSection = () => {
 
   return (
     <section className="relative">
-      {/* Backdrop image */}
+      {/* Backdrop, poster, username */}
       <div
         style={backdropStyle}
         className={`h-[40vh] overflow-hidden flex items-end ${
@@ -134,14 +134,14 @@ const TopSection = () => {
       </div>
       {/* Links */}
       <ul
-        className="flex bg-bgSecondary z-20 justify-around px-12 md:px-48 items-center relative text-xl w-full overflow-x-auto"
+        className="flex bg-bgSecondary z-20 justify-around px-12 md:px-48 items-center relative text-2xl md:text-xl w-full overflow-x-auto"
         id="pagenav"
       >
         {links.map((link) => (
           <Link
             to={link.to}
             key={link.title}
-            className="p-4 text-textLight hover:text-actionPrimary min-w-fit-content"
+            className="p-4 text-textLight hover:text-actionPrimary min-w-fit-content font-medium"
           >
             {link.title}
           </Link>

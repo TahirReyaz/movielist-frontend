@@ -7,7 +7,7 @@ const GenreOverview = () => {
     (state: RootState) => state.profile.stats?.genres
   );
   return (
-    <div>
+    <div className="hidden md:block">
       <h3 className="font-semibold text-xl">Genre Overview</h3>
       <div></div>
     </div>

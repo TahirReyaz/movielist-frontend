@@ -1,17 +1,16 @@
 import React from "react";
 
-import PageContainer from "../../../components/UI/PageContainer";
 import LeftSection from "./LeftSection";
 import RightSection from "./RightSection";
 
 const Overview = () => {
   return (
-    <PageContainer>
-      <div className="grid grid-cols-10 gap-4">
+    <div className="pt-12 px-8 md:px-60">
+      <div className="md:grid grid-cols-10 gap-4">
         <LeftSection />
         <RightSection />
       </div>
-    </PageContainer>
+    </div>
   );
 };
 
