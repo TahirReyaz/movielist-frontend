@@ -2,7 +2,6 @@ import React from "react";
 
 import MediaDetailCard from "../MediaDetailCard";
 import MediaDetailField from "../MediaDetailField";
-import { formatRuntime } from "../../../lib/helpers";
 import Tags from "./Tags";
 import { useAppSelector } from "../../../hooks/redux";
 
@@ -43,20 +42,14 @@ const LeftSection = () => {
           ({ fieldName, label, valuesKey }) =>
             mediaDetails[fieldName] && (
               <MediaDetailField
-                key={fieldName}
-                fieldName={label}
-                value={
-                  fieldName === "runtime"
-                    ? formatRuntime(mediaDetails[fieldName])
-                    : valuesKey
-                    ? mediaDetails[fieldName].map((item: any) => (
-                        <React.Fragment>
-                          {item[valuesKey]}
-                          <br />
-                        </React.Fragment>
-                      ))
-                    : mediaDetails[fieldName]
-                }
+                {...{
+                  key: fieldName,
+                  fieldName,
+                  label,
+                  value: mediaDetails[fieldName],
+                  values: mediaDetails[fieldName],
+                  valkey: valuesKey,
+                }}
               />
             )
         )}

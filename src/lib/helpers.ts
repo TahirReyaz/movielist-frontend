@@ -1,5 +1,5 @@
 // Function to format runtime to hours and minutes
-export const formatRuntime = (runtime: string) => {
+export const formatRuntime = (runtime: any) => {
   const totalMinutes = parseInt(runtime, 10);
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
