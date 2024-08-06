@@ -10,7 +10,7 @@ interface RecommendationCardProps {
 
 const RecommendationCard = ({ media, mediaType }: RecommendationCardProps) => {
   return (
-    <div>
+    <div className="w-2/5 md:w-full flex flex-col flex-shrink-0 gap-4">
       <Link to={`/${mediaType}/${media.id}`}>
         <img
           src={`${tmdbImgEndPoint}${media.poster_path}`}
@@ -20,7 +20,7 @@ const RecommendationCard = ({ media, mediaType }: RecommendationCardProps) => {
       </Link>
       <Link
         to={`/${mediaType}/${media.id}`}
-        className="hover:text-actionPrimary text-2xl font-semibold"
+        className="hover:text-actionPrimary text-xl md:text-2xl font-medium"
       >
         {mediaType === "tv" ? media.name : media.title}
       </Link>

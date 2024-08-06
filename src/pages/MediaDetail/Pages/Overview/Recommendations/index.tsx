@@ -11,28 +11,33 @@ interface RecommendationsProps {
   mediaType: string;
 }
 const Recommendations = ({ mediaid, mediaType }: RecommendationsProps) => {
-  const recommendationsQuery = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["recommendations", mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid, "recommendations"),
     enabled: mediaid && mediaType ? true : false,
   });
 
-  if (recommendationsQuery.isLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (recommendationsQuery.isError) {
+  if (isError) {
     return <Error />;
   }
   return (
     <div>
       <h2 className="text-[1.4rem] font-semibold my-4">Recommendations</h2>
-      <div className="grid grid-cols-5 gap-12">
-        {recommendationsQuery.data?.recommendations
-          ?.slice(0, 5)
-          .map((media: any) => (
+      <div className="hidden md:grid grid-cols-5 gap-12">
+        {data?.recommendations?.slice(0, 5).map((media: any) => (
+          <RecommendationCard {...{ key: media.id, media, mediaType }} />
+        ))}
+      </div>
+      <div className="md:hidden overflow-auto">
+        <div className="flex gap-8">
+          {data?.recommendations?.slice(0, 5).map((media: any) => (
             <RecommendationCard {...{ key: media.id, media, mediaType }} />
           ))}
+        </div>
       </div>
     </div>
   );

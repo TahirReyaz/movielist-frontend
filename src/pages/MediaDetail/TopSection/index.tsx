@@ -50,7 +50,7 @@ const TopSection = () => {
           />
           {username && <Controls />}
         </div>
-        {/* title and overview */}
+        {/* title and overview and links */}
         <div className="col-span-12 md:col-span-9 ms-0 md:ms-4 p-0 md:p-8 flex flex-col justify-between">
           <div className="mb-8 md:mb-0">
             <h1 className="text-3xl font-normal">
