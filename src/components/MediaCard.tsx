@@ -49,7 +49,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
           />
         )}
       </div>
-      <span className="text-[1.4rem] relative font-medium">
+      <span className="text-xl md:text-[1.4rem] relative font-medium">
         {existingEntry && (
           <StatusDot {...{ color: statusColors[existingEntry.status] }} />
         )}
