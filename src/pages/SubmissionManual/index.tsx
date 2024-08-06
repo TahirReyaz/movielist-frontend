@@ -3,7 +3,7 @@ import ComingSoon from "../ComingSoon";
 
 const SubmissionManual = () => {
   return (
-    <div className="pt-12 px-8 md:px-60 h-screen">
+    <div className="pt-12 px-8 md:px-60  min-h-[50vh]">
       <h1 className="text-5xl font-medium text-center mb-16">
         There is no feature for adding media yet
       </h1>

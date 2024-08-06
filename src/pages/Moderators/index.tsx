@@ -11,7 +11,7 @@ const modData = [
 
 const Moderators = () => {
   return (
-    <main className="pt-12 px-8 md:px-80 md:pt-20 min-h-screen">
+    <main className="pt-12 px-8 md:px-80 md:pt-20 min-h-[50vh]">
       {modData.map((grp: any) => (
         <ModSection {...{ key: grp.type, ...grp }} />
       ))}

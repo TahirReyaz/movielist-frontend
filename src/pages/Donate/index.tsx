@@ -10,7 +10,7 @@ const doables = [
 
 const Donate = () => {
   return (
-    <div className="pt-12 px-8 md:px-60 h-screen">
+    <div className="pt-12 px-8 md:px-60  min-h-[50vh]">
       <h1 className="text-5xl font-medium text-center mb-16">
         Currently not accepting any donations
       </h1>
