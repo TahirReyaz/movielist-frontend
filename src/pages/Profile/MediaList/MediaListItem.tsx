@@ -68,7 +68,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
         <Loading />
       ) : (
         <div className="grid grid-cols-12 text-2xl">
-          <div className="col-span-1 flex">
+          <div className="col-span-2 md:col-span-1 flex">
             <div className="w-3/12">
               <StatusDot {...{ color: "" }} />
             </div>
@@ -82,29 +82,42 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
               </Link>
             </div>
           </div>
-          <div className="col-span-8 flex items-center">
-            <Link to={`/${entry.mediaType}/${entry.mediaid}`}>
-              {entry.title}
-            </Link>
-          </div>
-          <div className="col-span-1">
-            {entry.rewatches ? `${entry.rewatches}@` : ""}
-          </div>
-          <div className="col-span-1 self-center">
-            {entry.score ? entry.score : ""}
-          </div>
-          <div className="col-span-1 self-center text-center">
-            {`${entry.progress ?? "0"}/${
-              entry.data?.number_of_episodes ?? "1"
-            }`}
-            {entry.status != "completed" && (
-              <span
-                onClick={() => entryMutation.mutate()}
-                className="cursor-pointer"
-              >
-                +
-              </span>
-            )}
+          <div className="col-span-10 md:col-span-11 grid md:grid-cols-11">
+            <div className="col-span-10 md:col-span-9 grid grid-cols-9">
+              <div className="col-span-8 flex items-center">
+                <Link to={`/${entry.mediaType}/${entry.mediaid}`}>
+                  {entry.title}
+                </Link>
+              </div>
+              <div className="col-span-1">
+                {entry.rewatches ? `${entry.rewatches}@` : ""}
+              </div>
+            </div>
+
+            {/* Score and progress */}
+            <div className="col-span-10 md:col-span-2 grid-cols-2">
+              <div className="col-span-1 self-center">
+                {entry.score ? (
+                  <span className="inline md:hidden">Score: {entry.score}</span>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="col-span-1 self-center text-right md:text-center">
+                <span className="inline md:hidden">Progress: </span>
+                {`${entry.progress ?? "0"}/${
+                  entry.data?.number_of_episodes ?? "1"
+                }`}
+                {entry.status != "completed" && (
+                  <span
+                    onClick={() => entryMutation.mutate()}
+                    className="cursor-pointer"
+                  >
+                    +
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -16,7 +16,7 @@ const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {
       </div>
       <div className="mb-4 bg-bgSecondary rounded-md overflow-hidden">
         <>
-          <div className="w-full grid grid-cols-4 md:grid-cols-12 text-2xl font-medium py-8 pe-8">
+          <div className="w-full hidden md:grid grid-cols-4 md:grid-cols-12 text-2xl font-medium py-8 pe-8">
             <div className="md:col-span-1" />
             <div className="col-span-1 md:col-span-8">Title</div>
             <div className="col-span-1" />
@@ -28,7 +28,7 @@ const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {
               <MediaListItem {...{ entryId: entry.id, key: entry.id }} />
             ))
           ) : (
-            <span className="text-2xl">No items in list</span>
+            <span className="text-2xl p-8">No items in list</span>
           )}
         </>
       </div>
