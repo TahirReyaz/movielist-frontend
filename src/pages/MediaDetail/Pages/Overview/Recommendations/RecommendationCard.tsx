@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { tmdbImgEndPoint } from "../../../../../constants/tmdb";
+import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 
 interface RecommendationCardProps {
   media: any;
@@ -13,7 +13,7 @@ const RecommendationCard = ({ media, mediaType }: RecommendationCardProps) => {
     <div className="w-2/5 md:w-full flex flex-col flex-shrink-0 gap-4">
       <Link to={`/${mediaType}/${media.id}`}>
         <img
-          src={`${tmdbImgEndPoint}${media.poster_path}`}
+          src={`${tmdbImgBaseUrl}/${posterSizes.md}${media.poster_path}`}
           alt={media.name}
           className="rounded"
         />

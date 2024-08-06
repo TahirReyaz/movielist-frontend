@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 import { getEntryDetail } from "../../../../lib/api";
-import { tmdbImgEndPoint } from "../../../../constants/tmdb";
+import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
 import { increaseProgess } from "../../../../lib/api/entry";
 
 interface EntryCardProps {
@@ -46,7 +46,7 @@ const EntryCard = ({ id }: EntryCardProps) => {
       to={`/${entry.mediaType}/${entry.mediaid}`}
     >
       <img
-        src={`${tmdbImgEndPoint}/${entry.poster}`}
+        src={`${tmdbImgBaseUrl}/${posterSizes.md}${entry.poster}`}
         alt={entry.title}
         className="rounded h-60 md:h-full"
       />

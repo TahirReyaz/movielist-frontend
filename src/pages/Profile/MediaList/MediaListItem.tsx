@@ -68,6 +68,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
         <Loading />
       ) : (
         <div className="grid grid-cols-12 text-2xl">
+          {/* Dot and poster */}
           <div className="col-span-2 md:col-span-1 flex">
             <div className="w-3/12">
               <StatusDot {...{ color: "" }} />
@@ -82,9 +83,11 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
               </Link>
             </div>
           </div>
+          {/* Title, score, progress */}
           <div className="col-span-10 md:col-span-11 grid md:grid-cols-11">
+            {/* Title and rewatches */}
             <div className="col-span-10 md:col-span-9 grid grid-cols-9">
-              <div className="col-span-8 flex items-center">
+              <div className="col-span-8 flex items-center font-semibold md:font-normal">
                 <Link to={`/${entry.mediaType}/${entry.mediaid}`}>
                   {entry.title}
                 </Link>
