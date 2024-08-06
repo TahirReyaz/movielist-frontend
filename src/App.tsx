@@ -30,6 +30,7 @@ import {
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { fetchUserDetails } from "./store/AuthSlice";
 import Loading from "./components/UI/Loading";
+import Donate from "./pages/Donate";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -127,6 +128,7 @@ const App = () => {
             </Route>
             <Route path="/staff/:staffid" element={<Staff />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/donate" element={<Donate />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

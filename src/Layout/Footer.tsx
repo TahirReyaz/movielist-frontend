@@ -21,7 +21,7 @@ const Footer = () => {
             navigate("/");
           },
         },
-        { text: "Donate", url: "#" },
+        { text: "Donate", url: "/donate" },
         { text: "Imdb.com", url: "www.imdb.com", ext: true },
         { text: "TheMovieDB.org", url: "www.themoviedb.org", ext: true },
       ],
@@ -31,7 +31,11 @@ const Footer = () => {
         { text: "Apps", url: "#" },
         { text: "Site Stats", url: "#" },
         { text: "Recommendations", url: "#" },
-        { text: "API", url: "#" },
+        {
+          text: "API",
+          url: "https://github.com/TahirReyaz/movielist-frontend",
+          ext: true,
+        },
       ],
     },
     {
