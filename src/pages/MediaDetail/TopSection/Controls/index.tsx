@@ -77,7 +77,7 @@ const Controls = () => {
   }, [profile]);
 
   return (
-    <div className="grid grid-cols-[auto,35px] col-span-2 w-full gap-4 mb-4">
+    <div className="grid grid-cols-[auto,35px] items-end col-span-2 w-full gap-4 mb-4">
       <Button
         title={title}
         type="button"
