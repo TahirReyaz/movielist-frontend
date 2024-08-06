@@ -5,8 +5,8 @@ import {
   mediaTypeType,
   userSettingsType,
 } from "../constants/types";
+import { backendUrl } from "../constants";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
 // const backendUrl =
 //   window.innerWidth < 768
 //     ? import.meta.env.VITE_BACKEND_URL_PHONE

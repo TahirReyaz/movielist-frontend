@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { existingEntryType } from "../../constants/types";
-
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { backendUrl } from "../../constants";
 
 export const updateEntry = async ({
   userid,

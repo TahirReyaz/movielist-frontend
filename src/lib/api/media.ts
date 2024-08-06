@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { backendUrl } from "../../constants";
 
 export async function getMediaTags(
   mediatype: string,

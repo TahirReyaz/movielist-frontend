@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { listGroupType } from "../../constants/types";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { listGroupType } from "../../constants/types";
+import { backendUrl } from "../../constants";
 
 export const toggleFav = async (
   userid: string,
