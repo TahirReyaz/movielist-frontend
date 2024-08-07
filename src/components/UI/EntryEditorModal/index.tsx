@@ -20,6 +20,10 @@ interface EntryEditorModalParams {
   id?: string;
 }
 
+const Label = ({ label }: { label: string }) => {
+  return <p className="text-xl text-left text-textLight my-2">{label}</p>;
+};
+
 const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
   const userid = useAppSelector((state) => state.auth.profileData._id);
   const { mediaid, mediaType } = useAppSelector((state) => state.media);
@@ -43,6 +47,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
   const [rewatches, setRewatches] = useState("");
   const [progress, setProgress] = useState("");
   const [notes, setNotes] = useState("");
+  const [maxProgress, setMaxProgress] = useState(0);
 
   useEffect(() => {
     if (entry) {
@@ -53,6 +58,13 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
       setRewatches(entry.rewatches);
       setProgress(entry.progress);
       setNotes(entry.notes);
+      if (entry.data) {
+        if (entry.mediaType == "movie") {
+          setMaxProgress(1);
+        } else {
+          setMaxProgress(entry.data.number_of_episodes);
+        }
+      }
     }
   }, [entry]);
 
@@ -173,6 +185,16 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
     setFav(val);
   };
 
+  useEffect(() => {
+    if (media) {
+      if (mediaType == "movie") {
+        setMaxProgress(1);
+      } else {
+        setMaxProgress(media.number_of_episodes);
+      }
+    }
+  }, [media]);
+
   if (isLoading || isMediaLoading) {
     return <Loading />;
   }
@@ -196,9 +218,11 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
           }}
         />
         <div className="grid grid-cols-4 gap-8 p-20 pb-0">
+          {/* Status and start date */}
           <div>
+            {/* Status */}
             <div className="my-8">
-              <p className="text-xl text-left text-textLight my-2">Status</p>
+              <Label label="Status" />
               <Select
                 {...{
                   value: {
@@ -221,10 +245,9 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
                 }}
               />
             </div>
+            {/* Start date */}
             <div className="my-8">
-              <p className="text-xl text-left text-textLight my-2">
-                Start Date
-              </p>
+              <Label label="Start Date" />
               <TextInput
                 {...{
                   type: "date",
@@ -236,9 +259,11 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
               />
             </div>
           </div>
+          {/* Score and finish date */}
           <div>
+            {/* Score */}
             <div className="my-8">
-              <p className="text-xl text-left text-textLight my-2">Score</p>
+              <Label label="Score" />
               <TextInput
                 {...{
                   type: "number",
@@ -251,10 +276,9 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
                 }}
               />
             </div>
+            {/* Finish date */}
             <div className="my-8">
-              <p className="text-xl text-left text-textLight my-2">
-                Finish Date
-              </p>
+              <Label label="Finish Date" />
               <TextInput
                 {...{
                   type: "date",
@@ -266,26 +290,26 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
               />
             </div>
           </div>
+          {/* Progress and rewatches */}
           <div>
+            {/* Progress */}
             <div className="my-8">
-              <p className="text-xl text-left text-textLight my-2">
-                Episode Progress
-              </p>
+              <Label label="Episode Progress" />
               <TextInput
                 {...{
                   type: "number",
                   value: progress,
                   onChange: (e) => setProgress(e.target.value),
                   name: "score",
+                  max: maxProgress,
                   classes: "!bg-bgFooter text-white",
                   min: 0,
                 }}
               />
             </div>
+            {/* Rewatches */}
             <div className="my-8">
-              <p className="text-xl text-left text-textLight my-2">
-                Total Rewatches
-              </p>
+              <Label label="Total Rewatches" />
               <TextInput
                 {...{
                   type: "number",
@@ -303,7 +327,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
         </div>
         <div className="grid grid-cols-4 p-20 pt-0">
           <div className="col-span-3">
-            <p className="text-xl text-left text-textLight my-2">Notes</p>
+            <Label label="Notes" />
             <TextInput
               {...{
                 type: "text",
