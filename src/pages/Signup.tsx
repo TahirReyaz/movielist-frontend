@@ -77,7 +77,14 @@ const Signup = () => {
         navigate("/login");
       }
     } else {
-      toast.warning("Invalid values", {
+      let msg = "Confirm password must be same as password";
+      if (!validE) {
+        msg = "Email id not valid";
+      } else if (!validP) {
+        msg =
+          "Password must have minimum length of 8 characters, contain a capital and a small letter, contain a number and a special character";
+      }
+      toast.warning(msg, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
