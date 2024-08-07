@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import TextInput from "../../components/UI/TextInput";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useQuery } from "@tanstack/react-query";
 import { getSearchResults } from "../../lib/api";
-import { useNavigate, useParams } from "react-router-dom";
 import CardList from "../../components/UI/Media/CardList";
 import Filters from "./Filters";
 import BulkMedia from "./BulkMedia";
@@ -21,15 +21,20 @@ type SearchMediaParams = {
 };
 
 const Browse = () => {
-  const [query, setQuery] = useState<string>("");
-  const [genres, setGenres] = useState<string>("");
-  const [year, setYear] = useState<string>("");
-  const [season, setSeason] = useState<string>("");
-  const [formats, setFormats] = useState<string>("");
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const initialSearchQuery = searchParams.get("search") || "";
 
   const { mediaType: mediaTypeParam } = useParams<SearchMediaParams>();
 
   const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
+
+  const [query, setQuery] = useState<string>(initialSearchQuery);
+  const [genres, setGenres] = useState<string>("");
+  const [year, setYear] = useState<string>("");
+  const [season, setSeason] = useState<string>("");
+  const [formats, setFormats] = useState<string>("");
 
   const debouncedQuery = useDebounce(query);
   const navigate = useNavigate();

@@ -38,7 +38,11 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
           classes="bg-bgSecondary text-textPrimary font-medium"
           divClasses="mb-2 mt-32 w-1/2 mx-auto p-4 bg-bgSecondary rounded-lg"
         />
-        {isLoading && <div className="text-3xl font-semibold">Loading...</div>}
+        {isLoading && (
+          <div className="text-3xl text-anilist-gray-regent font-semibold">
+            Loading...
+          </div>
+        )}
         {isError && <div>Error fetching data</div>}
         {data && (
           <SearchResults
