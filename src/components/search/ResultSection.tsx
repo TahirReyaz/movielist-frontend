@@ -8,9 +8,16 @@ interface ResultSectionProps {
   title: string;
   list?: any[];
   setOpen: Dispatch<SetStateAction<boolean>>;
+  query?: string;
 }
 
-const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
+const ResultSection = ({
+  type,
+  title,
+  list,
+  setOpen,
+  query,
+}: ResultSectionProps) => {
   let titleField: string = "title",
     imgField: string = "poster_path",
     timeField = "release_date",
@@ -26,6 +33,14 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
     imgField = "avatar";
     idField = "username";
   }
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    if (!event.ctrlKey && !event.metaKey) {
+      setOpen(false);
+    }
+  };
 
   return (
     <div className="w-[48.5%]">
@@ -48,9 +63,10 @@ const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
               }}
             />
           ))}
-        {list && list.length > 8 && (
+        {list && list.length > 8 && query && (
           <Link
-            to={"/"}
+            onClick={handleClick}
+            to={`/search/tv?search=${query}`}
             className="flex py-3 px-4 hover:bg-actionPrimary justify-center text-xl text-textPrimary font-semibold"
           >
             {`View all ${title.toLowerCase()} results`}

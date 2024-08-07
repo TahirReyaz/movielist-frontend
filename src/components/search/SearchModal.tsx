@@ -40,7 +40,11 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
         />
         {isLoading && <div className="text-3xl font-semibold">Loading...</div>}
         {isError && <div>Error fetching data</div>}
-        {data && <SearchResults results={data} setOpen={setOpen} />}
+        {data && (
+          <SearchResults
+            {...{ results: data, setOpen: setOpen, query: debouncedQuery }}
+          />
+        )}
       </>
     </Modal>
   );

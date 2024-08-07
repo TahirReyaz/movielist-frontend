@@ -11,19 +11,26 @@ type MultiSearchResults = {
 interface SearchResultsProps {
   results: MultiSearchResults;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  query: string;
 }
 
-const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
+const SearchResults = ({ results, setOpen, query }: SearchResultsProps) => {
   return (
     <div className="flex flex-wrap w-full justify-between">
       {results.movies && results.movies.length > 0 && (
         <ResultSection
-          {...{ title: "Movie", type: "movie", list: results.movies, setOpen }}
+          {...{
+            title: "Movie",
+            type: "movie",
+            list: results.movies,
+            setOpen,
+            query,
+          }}
         />
       )}
       {results.tv && results.tv.length > 0 && (
         <ResultSection
-          {...{ title: "TV", type: "tv", list: results.tv, setOpen }}
+          {...{ title: "TV", type: "tv", list: results.tv, setOpen, query }}
         />
       )}
       {results.people && results.people.length > 0 && (
@@ -33,6 +40,7 @@ const SearchResults = ({ results, setOpen }: SearchResultsProps) => {
             type: "person",
             list: results.people,
             setOpen,
+            query,
           }}
         />
       )}
