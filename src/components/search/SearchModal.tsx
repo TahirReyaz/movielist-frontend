@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { FaSearch } from "react-icons/fa";
 
 import TextInput from "../UI/TextInput";
 import { getSearchMultiResults } from "../../lib/api";
@@ -33,7 +34,8 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setQuery(event.target.value)
           }
-          classes="bg-bgSecondary text-textPrimary font-semibold"
+          Icon={FaSearch}
+          classes="bg-bgSecondary text-textPrimary font-medium"
           divClasses="mb-2 mt-32 w-1/2 mx-auto p-4 bg-bgSecondary rounded-lg"
         />
         {isLoading && <div className="text-3xl font-semibold">Loading...</div>}

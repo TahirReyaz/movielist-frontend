@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { mediaTypeType, multiSearchResultType } from "../../constants/types";
+import { multiSearchResultType } from "../../constants/types";
 import ResultItem from "./ResultItem";
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,7 @@ interface ResultSectionProps {
 const ResultSection = ({ type, title, list, setOpen }: ResultSectionProps) => {
   let titleField: string = "title",
     imgField: string = "poster_path",
-    timeField = "realease_date",
+    timeField = "release_date",
     idField = "id";
   if (type == "tv") {
     titleField = "name";
