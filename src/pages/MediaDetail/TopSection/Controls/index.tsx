@@ -29,7 +29,10 @@ const Controls = () => {
   );
   const isFav = profile?.fav[mediaType]?.includes(mediaid);
   let status = existingEntry?.status;
-  const title = status.charAt(0).toUpperCase() + status.slice(1);
+  let title = "Add to list";
+  if (status) {
+    title = status?.charAt(0).toUpperCase() + status?.slice(1);
+  }
 
   const handleFavToggle = async (toFav: boolean) => {
     const res = await toggleFav(userid, mediaid, mediaType, toFav);
