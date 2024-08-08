@@ -6,8 +6,6 @@ export type SliceStateType = {
   username: string;
   userid: string;
   profileData: any;
-  loading: boolean;
-  error: string | null;
 };
 
 let initialState: SliceStateType = {
@@ -15,18 +13,7 @@ let initialState: SliceStateType = {
   username: "",
   userid: "",
   profileData: undefined,
-  loading: false,
-  error: null,
 };
-
-// Thunk to fetch user details
-export const fetchUserDetails = createAsyncThunk(
-  "user/fetchUserDetails",
-  async (username: string) => {
-    const response = await getUserDetail(username);
-    return response;
-  }
-);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -59,26 +46,12 @@ export const authSlice = createSlice({
     changeDp: (state, action) => {
       state.profileData = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchUserDetails.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchUserDetails.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
-        state.profileData = action.payload;
-        state.username = action.payload.username;
-        state.userid = action.payload._id;
-        state.loading = false;
-      })
-      .addCase(fetchUserDetails.rejected, (state, action) => {
-        state.isLoggedIn = false;
-        state.username = "";
-        state.loading = false;
-        state.error = action.error.message || "Failed to fetch user details";
-      });
+    saveUser: (state, action) => {
+      state.isLoggedIn = true;
+      state.username = action.payload.username;
+      state.userid = action.payload.profile._id;
+      state.profileData = action.payload.profile;
+    },
   },
 });
 
@@ -88,4 +61,5 @@ export const {
   follow: followAction,
   toggleFav: favAction,
   changeDp: changeDpAction,
+  saveUser,
 } = authSlice.actions;

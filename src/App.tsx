@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,7 +29,6 @@ import {
   statsSubRoutes,
 } from "./routes";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
-import { fetchUserDetails } from "./store/AuthSlice";
 import Loading from "./components/UI/Loading";
 import Donate from "./pages/Donate";
 import Apps from "./pages/Apps";
@@ -37,30 +37,43 @@ import Moderators from "./pages/Moderators";
 import Recommendations from "./pages/Recommendations";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SubmissionManual from "./pages/SubmissionManual";
+import Error from "./components/UI/Error";
+import { getUserDetail } from "./lib/api";
+import { saveUser } from "./store/AuthSlice";
 
 const App = () => {
   const dispatch = useAppDispatch();
   const token = localStorage.getItem("token");
-  const username = localStorage.getItem("username");
-  const user = useAppSelector((state) => state.auth);
+  const username = localStorage.getItem("username") || "";
+
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["user", username],
+    queryFn: () => getUserDetail(username),
+    enabled: username && token ? true : false,
+  });
 
   useEffect(() => {
-    if (token && username) {
-      dispatch(fetchUserDetails(username));
+    if (user) {
+      dispatch(saveUser({ username, profile: user }));
     }
-  }, [dispatch, token, username]);
+  }, [user]);
 
-  if (user.loading) {
+  if (isLoading) {
     return (
-      <div className="h-screen bg-anilist-mirage text-white">
-        <Loading />
+      <div className="h-screen p-20 bg-anilist-mirage text-white">
+        <Loading title="Fetching user details..." />
       </div>
     );
   }
 
-  if (user.error) {
-    return <div>Error: {user.error}</div>;
+  if (isError) {
+    return <Error />;
   }
+
   return (
     <div className="bg-bgTertiary text-textPrimary font-sans relative">
       <LoadingBar />

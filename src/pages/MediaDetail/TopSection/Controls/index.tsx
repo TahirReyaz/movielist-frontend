@@ -21,11 +21,15 @@ const Controls = () => {
   const { mediaType, mediaid } = useAppSelector((state) => state.media);
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [isFav, setIsFav] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>("Add to List");
-  const [existingEntry, setExistingEntry] = useState<any>();
 
   const queryClient = useQueryClient();
+
+  const existingEntry = profile?.entries?.find(
+    (entry: any) => entry.mediaid === mediaid
+  );
+  const isFav = profile?.fav[mediaType]?.includes(mediaid);
+  let status = existingEntry?.status;
+  const title = status.charAt(0).toUpperCase() + status.slice(1);
 
   const handleFavToggle = async (toFav: boolean) => {
     const res = await toggleFav(userid, mediaid, mediaType, toFav);
@@ -51,30 +55,6 @@ const Controls = () => {
       });
     }
   };
-
-  useEffect(() => {
-    if (profile?.fav) {
-      const foundFav = profile.fav[mediaType]?.includes(mediaid);
-      if (foundFav) {
-        setIsFav(true);
-      } else {
-        setIsFav(false);
-      }
-    }
-  }, [profile]);
-
-  useEffect(() => {
-    if (profile?.entries) {
-      const existingEntry = profile?.entries?.find(
-        (entry: any) => entry.mediaid === mediaid
-      );
-      if (existingEntry) {
-        let status = existingEntry.status;
-        setTitle(status.charAt(0).toUpperCase() + status.slice(1));
-        setExistingEntry(existingEntry);
-      }
-    }
-  }, [profile]);
 
   return (
     <div className="grid grid-cols-[auto,35px] items-end col-span-2 w-full gap-4 mb-4">
