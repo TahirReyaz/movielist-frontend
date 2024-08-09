@@ -21,7 +21,7 @@ const MobileHeader = () => {
           className="bg-anilist-mirage p-8 text-3xl font-medium rounded-md grid grid-rows-5 gap-8"
         >
           {searchTypes.map((type: any) => (
-            <Link to={`/search/${type.to}`} className="w-[35vw]">
+            <Link to={`/search/${type.to}`} key={type.to} className="w-[35vw]">
               {type.label}
             </Link>
           ))}

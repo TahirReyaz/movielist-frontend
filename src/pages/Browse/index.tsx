@@ -14,6 +14,7 @@ import { generateYearOptions } from "../../lib/helpers";
 import { getGenreList } from "../../lib/api/media";
 import MobileHeader from "./MobileHeader";
 import { searchTypes } from "../../constants";
+import Staff from "./Pages/Staff";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -29,18 +30,16 @@ const Browse = () => {
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search") || "";
 
-  const { mediaType: mediaTypeParam } = useParams<SearchMediaParams>();
+  const { mediaType } = useParams<SearchMediaParams>();
 
-  if (!mediaTypeParam) {
-    const typeFound = searchTypes.find(
-      (type: any) => type.to == mediaTypeParam
-    );
+  if (mediaType) {
+    const typeFound = searchTypes.find((type: any) => type.to == mediaType);
     if (!typeFound) {
       navigate("/404");
+    } else if (mediaType == "staff") {
+      return <Staff />;
     }
   }
-
-  const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
 
   const [query, setQuery] = useState<string>(initialSearchQuery);
   const [genres, setGenres] = useState<string>("");
@@ -52,7 +51,7 @@ const Browse = () => {
 
   const { data: genreOptions } = useQuery({
     queryKey: ["genre", "list"],
-    queryFn: () => getGenreList(mediaType),
+    queryFn: () => getGenreList(mediaType ?? "movie"),
     enabled: !!mediaType,
   });
 
@@ -136,6 +135,7 @@ const Browse = () => {
   return (
     <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
       <MobileHeader />
+
       {/* Filters */}
       <div className="grid-cols-5 gap-4 grid px-4 md:px-0">
         <div className="w-full col-span-4 md:col-span-1">
