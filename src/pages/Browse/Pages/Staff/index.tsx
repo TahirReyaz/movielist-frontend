@@ -60,8 +60,11 @@ const Staff = () => {
       </div>
       {isLoading && <Loading />}
       {isError && <Error />}
-      {!isLoading && !isError && (
+      {!isLoading && !isError && results && results.length > 0 && (
         <SearchResults {...{ results, type: "staff" }} />
+      )}
+      {!isLoading && !isError && results && results.length == 0 && (
+        <h1 className="text-center text-3xl font-medium">No Results</h1>
       )}
     </main>
   );

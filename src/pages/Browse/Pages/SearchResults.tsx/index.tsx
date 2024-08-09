@@ -13,7 +13,7 @@ const SearchResults = ({ results, type }: { results: any[]; type: string }) => {
           img = result.profile_path
             ? `${tmdbImgBaseUrl}/${posterSizes.lg}${result.profile_path}`
             : placeholderImg,
-          id = result.username;
+          id = result.id;
 
         if (type == "user") {
           title = result.username;
