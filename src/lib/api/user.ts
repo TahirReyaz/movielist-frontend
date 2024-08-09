@@ -55,3 +55,21 @@ export const getUserLists = async (
     return { error: true };
   }
 };
+
+export const searchUsers = async (query: string) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/search/user`,
+      {
+        params: {
+          query,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+};

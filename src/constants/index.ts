@@ -20,5 +20,5 @@ export const searchTypes = [
   { label: "TV", to: "tv" },
   { label: "Staff", to: "staff" },
   { label: "Studios", to: "studio" },
-  { label: "Users", to: "user" },
+  { label: "Users", to: "users" },
 ];

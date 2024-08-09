@@ -45,7 +45,7 @@ const TextInput = ({
         type={type}
         name={name}
         id={name}
-        className={`blockfocus:outline-none w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 text-gray-900 placeholder:text-gray-400 ${
+        className={`block focus:outline-none w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 text-gray-900 placeholder:text-gray-400 ${
           Icon && "col-span-11"
         } ${classes && classes} ${bg}`}
         placeholder={label}

@@ -26,3 +26,21 @@ export async function getStaffCredits(id: string | undefined) {
     return { error: true };
   }
 }
+
+export const searchStaff = async (query: string) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/search/staff`,
+      {
+        params: {
+          query,
+        },
+      }
+    );
+
+    return response.data?.results;
+  } catch (error) {
+    console.error(error);
+    return { error: true };
+  }
+};

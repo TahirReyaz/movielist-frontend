@@ -15,6 +15,7 @@ import { getGenreList } from "../../lib/api/media";
 import MobileHeader from "./MobileHeader";
 import { searchTypes } from "../../constants";
 import Staff from "./Pages/Staff";
+import Users from "./Pages/Users";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -38,6 +39,8 @@ const Browse = () => {
       navigate("/404");
     } else if (mediaType == "staff") {
       return <Staff />;
+    } else if (mediaType == "users") {
+      return <Users />;
     }
   }
 
