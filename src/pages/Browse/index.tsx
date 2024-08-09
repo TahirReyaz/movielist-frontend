@@ -16,6 +16,7 @@ import MobileHeader from "./MobileHeader";
 import { searchTypes } from "../../constants";
 import Staff from "./Pages/Staff";
 import Users from "./Pages/Users";
+import Studios from "./Pages/Studios";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -41,6 +42,8 @@ const Browse = () => {
       return <Staff />;
     } else if (mediaType == "users") {
       return <Users />;
+    } else if (mediaType == "studios") {
+      return <Studios />;
     }
   }
 
