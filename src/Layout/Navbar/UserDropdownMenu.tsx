@@ -8,16 +8,17 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { RootState } from "../../store";
 import { logoutAction } from "../../store/AuthSlice";
 import DropdownMenu from "./DropdownMenu";
 import { attrsType } from "./BrowseDropdownMenu";
+import { useAppSelector } from "../../hooks/redux";
 
 const UserDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
-  const { username } = useSelector((state: RootState) => state.auth);
+  const { username } = useAppSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

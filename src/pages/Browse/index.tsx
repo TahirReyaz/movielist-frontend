@@ -12,6 +12,8 @@ import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
 import { generateYearOptions } from "../../lib/helpers";
 import { getGenreList } from "../../lib/api/media";
+import MobileHeader from "./MobileHeader";
+import { searchTypes } from "../../constants";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -22,11 +24,21 @@ type SearchMediaParams = {
 
 const Browse = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search") || "";
 
   const { mediaType: mediaTypeParam } = useParams<SearchMediaParams>();
+
+  if (!mediaTypeParam) {
+    const typeFound = searchTypes.find(
+      (type: any) => type.to == mediaTypeParam
+    );
+    if (!typeFound) {
+      navigate("/404");
+    }
+  }
 
   const mediaType = mediaTypeParam == "tv" ? "tv" : "movie";
 
@@ -37,7 +49,6 @@ const Browse = () => {
   const [formats, setFormats] = useState<string>("");
 
   const debouncedQuery = useDebounce(query);
-  const navigate = useNavigate();
 
   const { data: genreOptions } = useQuery({
     queryKey: ["genre", "list"],
@@ -124,10 +135,8 @@ const Browse = () => {
 
   return (
     <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
-      {/* Mobile Header */}
-      <div className="md:hidden mb-12 text-5xl font-bold">
-        <h1>Browse</h1>
-      </div>
+      <MobileHeader />
+      {/* Filters */}
       <div className="grid-cols-5 gap-4 grid px-4 md:px-0">
         <div className="w-full col-span-4 md:col-span-1">
           <div className={filterHeadingClasses}>Search</div>

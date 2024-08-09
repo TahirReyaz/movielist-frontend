@@ -14,3 +14,11 @@ export const statusColors: {
   paused: "#F779A4",
   planning: "#E74C3C",
 };
+
+export const searchTypes = [
+  { label: "Movie", to: "movie" },
+  { label: "TV", to: "tv" },
+  { label: "Staff", to: "staff" },
+  { label: "Studios", to: "studio" },
+  { label: "Users", to: "user" },
+];
