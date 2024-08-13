@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { HiDotsHorizontal } from "react-icons/hi";
 
 import { listtypetype, mediaTypeType } from "../../../constants/types";
 import { getEntryDetail } from "../../../lib/api";
-import { Link } from "react-router-dom";
-import {
-  posterSizes,
-  tmdbImgBaseUrl,
-  tmdbImgEndPoint,
-} from "../../../constants/tmdb";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { posterSizes, tmdbImgBaseUrl } from "../../../constants/tmdb";
 import Loading from "../../../components/UI/Loading";
 import StatusDot from "../../../components/UI/StatusDot";
 import { increaseProgess } from "../../../lib/api/entry";
+import EntryEditorModal from "../../../components/UI/EntryEditorModal";
 
 interface MediaListItemProps {
   entryId: string;
@@ -37,6 +35,8 @@ export type EntryDetailType = {
 };
 
 const MediaListItem = ({ entryId }: MediaListItemProps) => {
+  const [hover, setHover] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const {
@@ -63,24 +63,40 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
   }
 
   return (
-    <div className="w-full p-2 flex hover:bg-bgHoverLight hover:text-textBright">
+    <div
+      className="w-full p-2 flex hover:bg-bgHoverLight hover:text-textBright"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       {isLoading ? (
         <Loading />
       ) : (
         <div className="grid grid-cols-12 text-2xl">
           {/* Dot and poster */}
           <div className="col-span-2 md:col-span-1 flex">
+            {/* Dot */}
             <div className="w-3/12">
               <StatusDot {...{ color: "" }} />
             </div>
+            {/* Poster */}
             <div className="w-7/12">
-              <Link to={`/${entry.mediaType}/${entry.mediaid}`}>
+              <img
+                src={`${tmdbImgBaseUrl}/${posterSizes.xs}${entry.poster}`}
+                alt={entry.title}
+                className="rounded aspect-square object-cover object-top cursor-pointer"
+                onClick={() => setShowModal(true)}
+              />
+              {/* {!hover ? (
+                <div className="rounded bg-anilist-gray-gull aspect-square p-3">
+                  <HiDotsHorizontal className="text-2xl" />
+                </div>
+              ) : (
                 <img
                   src={`${tmdbImgBaseUrl}/${posterSizes.xs}${entry.poster}`}
                   alt={entry.title}
                   className="rounded aspect-square object-cover object-top"
                 />
-              </Link>
+              )} */}
             </div>
           </div>
           {/* Title, score, progress */}
@@ -99,6 +115,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
 
             {/* Score and progress */}
             <div className="col-span-10 md:col-span-2 grid-cols-2">
+              {/* Score */}
               <div className="col-span-1 self-center">
                 {entry.score ? (
                   <span className="inline md:hidden">Score: {entry.score}</span>
@@ -106,6 +123,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
                   ""
                 )}
               </div>
+              {/* Progress */}
               <div className="col-span-1 self-center text-right md:text-center">
                 <span className="inline md:hidden">Progress: </span>
                 {`${entry.progress ?? "0"}/${
@@ -124,6 +142,13 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
           </div>
         </div>
       )}
+      <EntryEditorModal
+        {...{
+          open: showModal,
+          setOpen: setShowModal,
+          id: entryId,
+        }}
+      />
     </div>
   );
 };
