@@ -35,7 +35,7 @@ const TopSection = ({
     <div className="bg-bgSecondary">
       <div
         style={backdropStyle}
-        className={`h-[25vh] flex flex-col ${
+        className={`h-[20vh] md:h-[30vh] flex flex-col ${
           backdrop ? "bg-[image:var(--backdrop-url)]" : "bg-bgBanner"
         }`}
       >
@@ -47,17 +47,19 @@ const TopSection = ({
           />
         </div>
         {/* poster, title and buttons */}
-        <div className="grid grid-cols-6 px-20">
-          <div className="col-span-5 grid grid-cols-8">
+        <div className="grid grid-cols-4 md:grid-cols-6 px-8 md:px-20">
+          {/* Poster and title */}
+          <div className="col-span-3 md:col-span-5 grid grid-cols-3 md:grid-cols-8">
             <img
               src={poster ? `${tmdbImgEndPoint}${poster}` : posterPlaceholder}
               alt={title}
-              className="rounded col-span-1 "
+              className="rounded col-span-1"
             />
-            <div className="text-3xl text-white col-span-7 grid items-end justify-start ms-8 mb-20">
+            <div className="text-3xl text-white col-span-2 md:col-span-7 grid items-end justify-start ms-8 mb-20">
               {title}
             </div>
           </div>
+          {/* Buttons */}
           <div className="grid items-end grid-cols-2 mb-20">
             <AiFillHeart
               className={`text-3xl col-span-1 mx-8 cursor-pointer ${

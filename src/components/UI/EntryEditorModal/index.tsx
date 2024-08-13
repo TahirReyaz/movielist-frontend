@@ -203,7 +203,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
 
   return (
     <Modal open={open} setOpen={setOpen}>
-      <div className="mx-48 bg-bgSecondary rounded">
+      <div className="mx-0 md:mx-48 w-full md:w-fit bg-bgSecondary rounded-0 md:rounded-md">
         <TopSection
           {...{
             title: entry ? entry.title : media?.title,
@@ -216,9 +216,9 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
             onClose: () => setOpen(false),
           }}
         />
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-4">
           <div className="col-span-3">
-            <div className="grid grid-cols-3 gap-8 p-20 pb-0">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-20 pb-0">
               {/* Status and start date */}
               <div>
                 {/* Status */}

@@ -21,7 +21,7 @@ const WarningModal = ({
 }: WarningModalParams) => {
   return (
     <Modal open={open} setOpen={setOpen}>
-      <div className="bg-anilist-ebony_clay text-anilist-gray-gull w-[400px] p-8 align-center">
+      <div className="bg-anilist-ebony_clay text-anilist-gray-gull w-screen md:w-[400px] p-8 align-center">
         <div className="flex justify-between">
           <h2 className="text-3xl">{title}</h2>
           <RxCross1
