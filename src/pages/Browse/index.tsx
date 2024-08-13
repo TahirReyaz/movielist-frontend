@@ -45,7 +45,7 @@ const Browse = () => {
   const { data: genreOptions } = useQuery({
     queryKey: ["genre", "list"],
     queryFn: () => getGenreList(mediaType ?? "movie"),
-    enabled: !!mediaType,
+    enabled: !!mediaType && (mediaType == "movie" || mediaType == "tv"),
   });
 
   const filters = [
@@ -105,9 +105,10 @@ const Browse = () => {
         genres,
       }),
     enabled:
-      (!!debouncedQuery && debouncedQuery !== "") ||
-      (!!genres && genres !== "") ||
-      (!!year && year !== ""),
+      ((!!debouncedQuery && debouncedQuery !== "") ||
+        (!!genres && genres !== "") ||
+        (!!year && year !== "")) &&
+      (mediaType == "movie" || mediaType == "tv"),
   });
 
   useEffect(() => {

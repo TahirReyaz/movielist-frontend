@@ -82,7 +82,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {isLoading ? (
+      {isLoading || !entry ? (
         <Loading />
       ) : (
         <div className="grid grid-cols-12 text-2xl">

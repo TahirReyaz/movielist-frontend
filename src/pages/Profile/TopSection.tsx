@@ -27,8 +27,6 @@ const TopSection = () => {
   const following = profileData?.following,
     userid = profileData?._id;
 
-  console.log({ profileUsername, backdrop, avatar, id });
-
   const backdropStyle = {
     "--backdrop-url": `url(${backdrop})`,
   } as React.CSSProperties;
