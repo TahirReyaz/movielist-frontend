@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "./Carousel";
 import { genreStatListItem } from "../../../../../constants/types";
+import { formatTimeWatched } from "../../../../../lib/helpers";
 
 interface GenreItemProps {
   title: string;
@@ -9,6 +10,7 @@ interface GenreItemProps {
   meanScore: number;
   list: genreStatListItem[];
   index: number;
+  timeWatched: number;
 }
 
 const GenreItem = ({
@@ -18,8 +20,12 @@ const GenreItem = ({
   meanScore,
   list,
   index,
+  timeWatched,
 }: GenreItemProps) => {
+  const { days, hours } = formatTimeWatched(timeWatched);
+
   console.log({ statTypeId });
+
   return (
     <div className="rounded-lg overflow-hidden">
       {/* Text */}
@@ -27,7 +33,7 @@ const GenreItem = ({
         {/* Genre and index */}
         <div className="flex justify-between flex-row mb-8">
           <h2 className="text-4xl font-semibold">{title}</h2>
-          <div className="rounded-full p-4 bg-anilist-gray-regent w-fit h-fit">
+          <div className="flex justify-center items-center rounded-full bg-anilist-gray-regent w-12 h-12">
             <h3 className="text-white/90 text-xl font-medium">{index + 1}</h3>
           </div>
         </div>
@@ -42,7 +48,9 @@ const GenreItem = ({
             <p className="text-xl">Mean Score</p>
           </div>
           <div>
-            <h3 className="text-3xl font-semibold">{count}</h3>
+            <h3 className="text-3xl font-semibold">{`${
+              days && `${days} days `
+            }${hours} hours`}</h3>
             <p className="text-xl">Time Watched</p>
           </div>
         </div>

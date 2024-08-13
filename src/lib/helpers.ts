@@ -6,6 +6,13 @@ export const formatRuntime = (runtime: any) => {
   return `${hours}h ${minutes}m`;
 };
 
+export const formatTimeWatched = (hours: number) => {
+  const days = Math.floor(hours / 24);
+  const remainingHours = Math.round(hours % 24);
+
+  return { days, hours: remainingHours };
+};
+
 export const generateYearOptions = (start = 1888) => {
   const currentYear = new Date().getFullYear();
   const startYear = start;
