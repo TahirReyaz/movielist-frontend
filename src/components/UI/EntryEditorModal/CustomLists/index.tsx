@@ -1,9 +1,10 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
 
 import { deleteEntry } from "../../../../lib/api/entry";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAppSelector } from "../../../../hooks/redux";
+import WarningModal from "../../WarningModal";
 
 const CustomLists = ({
   id,
@@ -12,6 +13,8 @@ const CustomLists = ({
   id: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const [openWarningModal, setOpenWarningModal] = useState<boolean>(false);
+
   const { username } = useAppSelector((state) => state.auth);
   const queryClient = useQueryClient();
 
@@ -54,11 +57,21 @@ const CustomLists = ({
       <div className="flex justify-end">
         <div
           className="px-8 py-4 bg-black/20 text-anilist-gray-athens_gray w-fit rounded hover:bg-anilist-mandy text-xl cursor-pointer"
-          onClick={handleDelete}
+          onClick={() => setOpenWarningModal(true)}
         >
           Delete
         </div>
       </div>
+      <WarningModal
+        {...{
+          open: openWarningModal,
+          setOpen: setOpenWarningModal,
+          action: handleDelete,
+          title: "Warning",
+          message: "Are you sure you want to delete this list entry?",
+          actionName: "OK",
+        }}
+      />
     </div>
   );
 };
