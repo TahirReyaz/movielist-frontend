@@ -35,7 +35,7 @@ const TopSection = ({
     <div className="bg-bgSecondary">
       <div
         style={backdropStyle}
-        className={`h-[40vh] flex flex-col ${
+        className={`h-[25vh] flex flex-col ${
           backdrop ? "bg-[image:var(--backdrop-url)]" : "bg-bgBanner"
         }`}
       >

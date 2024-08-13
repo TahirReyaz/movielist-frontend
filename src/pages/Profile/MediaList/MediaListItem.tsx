@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 
 import { listtypetype, mediaTypeType } from "../../../constants/types";
@@ -10,6 +10,7 @@ import Loading from "../../../components/UI/Loading";
 import StatusDot from "../../../components/UI/StatusDot";
 import { increaseProgess } from "../../../lib/api/entry";
 import EntryEditorModal from "../../../components/UI/EntryEditorModal";
+import { useAppSelector } from "../../../hooks/redux";
 
 interface MediaListItemProps {
   entryId: string;
@@ -37,7 +38,12 @@ export type EntryDetailType = {
 const MediaListItem = ({ entryId }: MediaListItemProps) => {
   const [hover, setHover] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const { username, isLoggedIn } = useAppSelector((state) => state.auth);
+  const { username: profUsername } = useAppSelector((state) => state.profile);
+
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const {
     data: entry,
@@ -57,6 +63,14 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
       queryClient.invalidateQueries({ queryKey: ["entry", entryId] });
     },
   });
+
+  const handleClick = () => {
+    if (isLoggedIn && username && username == profUsername) {
+      setShowModal(true);
+    } else {
+      navigate(`/${entry.mediaType}/${entry.mediaid}`);
+    }
+  };
 
   if (isError) {
     return <div />;
@@ -84,7 +98,7 @@ const MediaListItem = ({ entryId }: MediaListItemProps) => {
                 src={`${tmdbImgBaseUrl}/${posterSizes.xs}${entry.poster}`}
                 alt={entry.title}
                 className="rounded aspect-square object-cover object-top cursor-pointer"
-                onClick={() => setShowModal(true)}
+                onClick={handleClick}
               />
               {/* {!hover ? (
                 <div className="rounded bg-anilist-gray-gull aspect-square p-3">
