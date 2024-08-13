@@ -34,19 +34,6 @@ const Browse = () => {
 
   const { mediaType } = useParams<SearchMediaParams>();
 
-  if (mediaType) {
-    const typeFound = searchTypes.find((type: any) => type.to == mediaType);
-    if (!typeFound) {
-      navigate("/404");
-    } else if (mediaType == "staff") {
-      return <Staff />;
-    } else if (mediaType == "users") {
-      return <Users />;
-    } else if (mediaType == "studios") {
-      return <Studios />;
-    }
-  }
-
   const [query, setQuery] = useState<string>(initialSearchQuery);
   const [genres, setGenres] = useState<string>("");
   const [year, setYear] = useState<string>("");
@@ -137,6 +124,19 @@ const Browse = () => {
 
     if (url !== `/search/${mediaType}`) navigate(url);
   }, [debouncedQuery, year, season]);
+
+  if (mediaType) {
+    const typeFound = searchTypes.find((type: any) => type.to == mediaType);
+    if (!typeFound) {
+      navigate("/404");
+    } else if (mediaType == "staff") {
+      return <Staff />;
+    } else if (mediaType == "users") {
+      return <Users />;
+    } else if (mediaType == "studios") {
+      return <Studios />;
+    }
+  }
 
   return (
     <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
