@@ -4,6 +4,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
 import { generateYearOptions } from "../../../../lib/helpers";
+import YearRangeFilter from "./YearFilter";
 
 export interface FilterProps {
   filters: {
@@ -68,17 +69,7 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
           <option value="">All Countries</option>
         </select>
         {/* Year */}
-        <select
-          name="releaseYear"
-          value={filters.releaseYear}
-          onChange={(e) => onFilterChange(e.target.name, e.target.value)}
-          className="p-2 border rounded"
-        >
-          <option value="">All years</option>
-          {generateYearOptions().map((opt) => (
-            <option value={opt.value}>{opt.label}</option>
-          ))}
-        </select>
+        <YearRangeFilter {...{ filters, onFilterChange }} />
       </div>
     </div>
   );

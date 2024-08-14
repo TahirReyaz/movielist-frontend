@@ -28,7 +28,7 @@ const MediaList = () => {
   const [filters, setFilters] = useState({
     genre: "",
     country: "",
-    releaseYear: "",
+    releaseYear: "1887",
     status: allowedList,
     searchTerm: "",
     sortBy: "",
@@ -67,11 +67,13 @@ const MediaList = () => {
 
     // Filter by release year
     if (filters.releaseYear) {
-      filtered = filtered.filter(
-        (entry: any) =>
-          new Date(entry.data.release_date).getFullYear() ===
-          Number(filters.releaseYear)
-      );
+      if (filters.releaseYear !== "1887") {
+        filtered = filtered.filter(
+          (entry: any) =>
+            new Date(entry.data.release_date).getFullYear() ===
+            Number(filters.releaseYear)
+        );
+      }
     }
 
     // Fuzzy search by title
@@ -94,9 +96,14 @@ const MediaList = () => {
         } else if (filters.sortBy === "progress") {
           return b.progress - a.progress;
         } else if (filters.sortBy === "startDate") {
-          return (
-            new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-          );
+          if (a.startDate?.length > 0 && b.startDate?.length > 0) {
+            return (
+              new Date(a.startDate)?.getTime() -
+              new Date(b.startDate)?.getTime()
+            );
+          } else {
+            return 0;
+          }
         }
         return 0;
       });
