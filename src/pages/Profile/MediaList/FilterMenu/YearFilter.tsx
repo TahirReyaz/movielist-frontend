@@ -15,7 +15,7 @@ const YearRangeFilter = ({ filters, onFilterChange }: FilterProps) => {
     <div className="flex flex-col items-center">
       <label
         htmlFor="yearRange"
-        className="text-xl font-medium mb-4 self-start"
+        className="text-xl text-anilist-gray-regent my-8 self-start"
       >
         Year{filters.releaseYear === "1887" ? "" : ": " + filters.releaseYear}
       </label>

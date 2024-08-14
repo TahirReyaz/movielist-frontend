@@ -5,6 +5,7 @@ import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
 import { generateYearOptions } from "../../../../lib/helpers";
 import YearRangeFilter from "./YearFilter";
+import SortMenu from "./SortMenu";
 
 export interface FilterProps {
   filters: {
@@ -23,6 +24,7 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
 
   return (
     <div className="mt-12">
+      {/* Search and toggle */}
       <div className="grid grid-cols-12 gap-4">
         {/* Search */}
         <TextInput
@@ -36,6 +38,7 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
             divClasses: "col-span-10 md:col-span-12",
           }}
         />
+        {/* Toggle */}
         <HiDotsHorizontal
           className="md:hidden col-span-2 md:col-span-0 bg-bgSecondary rounded p-2 text-3xl"
           onClick={() => setShow((prev) => !prev)}
@@ -70,6 +73,7 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
         </select>
         {/* Year */}
         <YearRangeFilter {...{ filters, onFilterChange }} />
+        <SortMenu {...{ filters, onFilterChange }} />
       </div>
     </div>
   );

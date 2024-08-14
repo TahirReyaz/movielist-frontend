@@ -31,7 +31,7 @@ const MediaList = () => {
     releaseYear: "1887",
     status: allowedList,
     searchTerm: "",
-    sortBy: "",
+    sortBy: "title",
   });
 
   const fuse = useMemo(
@@ -109,7 +109,6 @@ const MediaList = () => {
       });
     }
 
-    // Ensure that the result is an array
     return filtered;
   }, [entries, filters, fuse]);
 
