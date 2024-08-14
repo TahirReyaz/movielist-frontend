@@ -1,6 +1,5 @@
 import React from "react";
 
-import { entryType } from "../../../constants/types";
 import MediaListItem from "./MediaListItem";
 
 interface MediaListGroupParams {

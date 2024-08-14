@@ -26,7 +26,7 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
         <TextInput
           {...{
             value: filters.searchTerm,
-            onChange: (e) => onFilterChange(e.target.name, e.target.value),
+            onChange: (e) => onFilterChange("searchTerm", e.target.value),
             name: "search",
             type: "text",
             label: "Filter",
