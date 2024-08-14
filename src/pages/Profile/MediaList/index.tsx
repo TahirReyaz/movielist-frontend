@@ -1,19 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import React, { useMemo, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import Fuse from "fuse.js";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
 import { mediaTypeType } from "../../../constants/types";
-import LeftSection from "./LeftSection.tsx";
+import FilterMenu from "./FilterMenu";
 import { getUserMediaEntries } from "../../../lib/api/user.ts";
-import { updateList } from "../../../lib/helpers.ts";
-import FilterMenu from "./FilterMenu.tsx";
+import Error from "../../../components/UI/Error.tsx";
 
 const MediaList = () => {
   const { username } = useParams();
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");
 
@@ -128,12 +126,13 @@ const MediaList = () => {
     );
   }, [filteredEntries]);
 
-  const handleFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
+  const handleFilterChange = (name: string, value: string) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
+
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <LowerLayout
@@ -178,7 +177,7 @@ const MediaList = () => {
                 />
               </>
             ) : (
-              <h3 className="text-2xl">No entries. Add some!!</h3>
+              <h3 className="text-2xl">No entries found</h3>
             )}
           </div>
         ),
