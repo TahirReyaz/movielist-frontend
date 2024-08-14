@@ -13,7 +13,7 @@ export const formatTimeWatched = (hours: number) => {
   return { days, hours: remainingHours };
 };
 
-export const generateYearOptions = (start = 1888) => {
+export const generateYearOptions = (start = 1887) => {
   const currentYear = new Date().getFullYear();
   const startYear = start;
   const years = [];

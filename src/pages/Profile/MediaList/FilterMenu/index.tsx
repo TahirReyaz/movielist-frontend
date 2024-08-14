@@ -3,6 +3,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 
 import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
+import { generateYearOptions } from "../../../../lib/helpers";
 
 export interface FilterProps {
   filters: {
@@ -47,7 +48,7 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
             onFilterChange,
           }}
         />
-        <div>Filters</div>
+        <div className="text-2xl text-textLight">Filters</div>
         {/* Genre */}
         <select
           name="genre"
@@ -74,10 +75,9 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
           className="p-2 border rounded"
         >
           <option value="">All years</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
+          {generateYearOptions().map((opt) => (
+            <option value={opt.value}>{opt.label}</option>
+          ))}
         </select>
       </div>
     </div>
