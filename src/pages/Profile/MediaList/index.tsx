@@ -68,9 +68,13 @@ const MediaList = () => {
     // Filter by release year
     if (filters.releaseYear) {
       if (filters.releaseYear !== "1887") {
+        let dateField = "release_date";
+        if (mediaType == "tv") {
+          dateField = "first_air_date";
+        }
         filtered = filtered.filter(
           (entry: any) =>
-            new Date(entry.data.release_date).getFullYear() ===
+            new Date(entry.data[dateField]).getFullYear() ===
             Number(filters.releaseYear)
         );
       }
@@ -155,30 +159,35 @@ const MediaList = () => {
                   {...{
                     entries: groupedEntries.watching,
                     listType: "Watching",
+                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.planning,
                     listType: "Planning",
+                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.completed,
                     listType: "Completed",
+                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.paused,
                     listType: "Paused",
+                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.dropped,
                     listType: "Dropped",
+                    mediaType,
                   }}
                 />
               </>

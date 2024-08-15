@@ -5,9 +5,14 @@ import MediaListItem from "./MediaListItem";
 interface MediaListGroupParams {
   listType: string;
   entries: any[];
+  mediaType: string;
 }
 
-const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {
+const MediaListGroup = ({
+  listType,
+  entries,
+  mediaType,
+}: MediaListGroupParams) => {
   if (!entries || entries.length === 0) {
     return;
   }
@@ -27,7 +32,7 @@ const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {
           </div>
           {entries.length > 0 ? (
             entries.map((entry) => (
-              <MediaListItem {...{ entryId: entry._id, key: entry.id }} />
+              <MediaListItem {...{ entry, key: entry.id, mediaType }} />
             ))
           ) : (
             <span className="text-2xl p-8">No items in list</span>

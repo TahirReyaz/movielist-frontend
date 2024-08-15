@@ -36,7 +36,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
   } = useQuery({
     queryKey: ["entry", id],
     queryFn: () => getEntryDetail(id),
-    enabled: !!id,
+    enabled: !!id && open,
   });
 
   const [status, setStatus] = useState(undefined);
