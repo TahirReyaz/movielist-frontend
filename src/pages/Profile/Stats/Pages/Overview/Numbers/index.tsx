@@ -13,7 +13,7 @@ import { useAppSelector } from "../../../../../../hooks/redux";
 const Numbers = () => {
   const { mediaType } = useParams<{ mediaType: string }>();
   const overview = useAppSelector(
-    (state) => state.profile.stats[mediaType as string]?.overview
+    (state) => state.profile.stats?.[mediaType as string]?.overview
   );
 
   const movieStats: { Icon: IconType; value?: number; title: string }[] = [

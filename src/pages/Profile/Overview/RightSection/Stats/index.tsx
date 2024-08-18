@@ -4,7 +4,9 @@ import { mediaTypeType } from "../../../../../constants/types";
 import Item from "./Item";
 
 const Stats = ({ type }: { type: mediaTypeType }) => {
-  const stats = useAppSelector((state) => state.profile?.stats[type]?.overview);
+  const stats = useAppSelector(
+    (state) => state.profile?.stats?.[type]?.overview
+  );
   let totalTitle = "Total Movies",
     daysWatched = Math.round(stats?.daysWatched ?? 0);
   if (type === "tv") {

@@ -10,7 +10,7 @@ const Genres = () => {
 
   const { mediaType } = useParams<{ mediaType: string }>();
   const genreStats = useAppSelector(
-    (state) => state.profile.stats[mediaType as string]?.genres
+    (state) => state.profile.stats?.[mediaType as string]?.genres
   );
 
   const sortedGenres = genreStats ? [...genreStats] : [];
