@@ -3,20 +3,35 @@ import { useSelector } from "react-redux";
 import { RiMovie2Line } from "react-icons/ri";
 import { FiMonitor } from "react-icons/fi";
 import { FaPlay, FaCalendar, FaHourglass, FaPercentage } from "react-icons/fa";
-
-import { RootState } from "../../../../../../store";
-import Loading from "../../../../../../components/UI/Loading";
-import StatItem from "./StatItem";
+import { useParams } from "react-router-dom";
 import { IconType } from "react-icons";
 
+import Loading from "../../../../../../components/UI/Loading";
+import StatItem from "./StatItem";
+import { useAppSelector } from "../../../../../../hooks/redux";
+
 const Numbers = () => {
-  const overview = useSelector(
-    (state: RootState) => state.profile.stats?.overview
+  const { mediaType } = useParams<{ mediaType: string }>();
+  const overview = useAppSelector(
+    (state) => state.profile.stats[mediaType as string]?.overview
   );
 
-  const stats: { Icon: IconType; value?: number; title: string }[] = [
-    { Icon: RiMovie2Line, value: overview?.totalMovies, title: "Total Movies" },
-    { Icon: FiMonitor, value: overview?.totalShows, title: "Total Shows" },
+  const movieStats: { Icon: IconType; value?: number; title: string }[] = [
+    {
+      Icon: RiMovie2Line,
+      value: overview?.count,
+      title: "Total Movies",
+    },
+    { Icon: FaCalendar, value: overview?.daysWatched, title: "Days Watched" },
+    { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
+    { Icon: FaPercentage, value: overview?.meanScore, title: "Mean Score" },
+  ];
+  const tvStats: { Icon: IconType; value?: number; title: string }[] = [
+    {
+      Icon: RiMovie2Line,
+      value: overview?.count,
+      title: "Total Shows",
+    },
     {
       Icon: FaPlay,
       value: overview?.episodesWatched,
@@ -26,6 +41,8 @@ const Numbers = () => {
     { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
     { Icon: FaPercentage, value: overview?.meanScore, title: "Mean Score" },
   ];
+
+  const stats = mediaType == "tv" ? tvStats : movieStats;
 
   if (!overview) {
     return <Loading />;

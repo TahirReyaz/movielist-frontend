@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../store";
+import { useParams } from "react-router-dom";
+
 import GenreItem from "./GenreItem";
 import SortButton from "./SortButton";
+import { useAppSelector } from "../../../../../hooks/redux";
 
 const Genres = () => {
   const [sortBy, setSortBy] = useState<"count" | "timeWatched">("count");
 
-  const genreStats = useSelector(
-    (state: RootState) => state.profile.stats?.genres
+  const { mediaType } = useParams<{ mediaType: string }>();
+  const genreStats = useAppSelector(
+    (state) => state.profile.stats[mediaType as string]?.genres
   );
-
-  const handleSort = (sortBy: "count" | "timeWatched") => {
-    setSortBy(sortBy);
-  };
 
   const sortedGenres = genreStats ? [...genreStats] : [];
 

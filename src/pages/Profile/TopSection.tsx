@@ -70,19 +70,19 @@ const TopSection = () => {
       title: "Overview",
     },
     {
-      to: `/user/${profileUsername}/movielist#pagenav`,
+      to: `/user/${profileUsername}/movielist`,
       title: "Movie List",
     },
-    { to: `/user/${profileUsername}/tvlist#pagenav`, title: "TV List" },
-    { to: `/user/${profileUsername}/favorites#pagenav`, title: "Favorites" },
-    { to: `/user/${profileUsername}/stats#pagenav`, title: "Stats" },
+    { to: `/user/${profileUsername}/tvlist`, title: "TV List" },
+    { to: `/user/${profileUsername}/favorites`, title: "Favorites" },
+    { to: `/user/${profileUsername}/stats/movie/overview`, title: "Stats" },
     {
-      to: `/user/${profileUsername}/social#pagenav`,
+      to: `/user/${profileUsername}/social`,
       title: "Social",
     },
-    { to: `/user/${profileUsername}/reviews#pagenav`, title: "Reviews" },
+    { to: `/user/${profileUsername}/reviews`, title: "Reviews" },
     {
-      to: `/user/${profileUsername}/submissions#pagenav`,
+      to: `/user/${profileUsername}/submissions`,
       title: "Submissions",
     },
   ];
