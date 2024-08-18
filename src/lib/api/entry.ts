@@ -54,9 +54,9 @@ export const increaseProgess = async (id: string) => {
 export const deleteEntry = async (id: string) => {
   try {
     await axios.delete(`${backendUrl}/entry/${id}`, { withCredentials: true });
-    return { message: "List Entry Deleted", error: false };
+    return { message: "List Entry Deleted" };
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    return new Error(error_msg);
   }
 };

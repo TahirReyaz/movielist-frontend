@@ -19,8 +19,8 @@ const CustomLists = ({
   const queryClient = useQueryClient();
 
   const handleDelete = async () => {
-    const response = await deleteEntry(id);
-    if (!response.error) {
+    try {
+      const response = await deleteEntry(id);
       toast.success(response.message, {
         position: "top-center",
         autoClose: 1000,
@@ -31,8 +31,8 @@ const CustomLists = ({
       queryClient.invalidateQueries({ queryKey: ["user", username] });
       queryClient.invalidateQueries({ queryKey: ["profile", username] });
       setOpen(false);
-    } else {
-      toast.error(response.message, {
+    } catch (error: any) {
+      toast.error(error.message, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
