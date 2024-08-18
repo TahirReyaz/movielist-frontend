@@ -33,6 +33,12 @@ const Signup = () => {
     return result;
   };
 
+  const usernameValidity = () => {
+    const re = /\s/;
+    const result = re.test(values.username);
+    return !result;
+  };
+
   const passwordValidity = () => {
     // regex for password validation (at least 1 uppercase, 1 lowercase, 1 number, 1 special character,  min 8 characters long)
     const re =
@@ -48,11 +54,12 @@ const Signup = () => {
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
+    const validU = usernameValidity();
     const validE = emailValidity();
     const validP = passwordValidity();
     const validCP = confirmPasswordValidity();
 
-    if (validE && validP && validCP) {
+    if (validE && validP && validCP && validU) {
       const response = await signup(
         values.email,
         values.password,
@@ -83,6 +90,8 @@ const Signup = () => {
       } else if (!validP) {
         msg =
           "Password must have minimum length of 8 characters, contain a capital and a small letter, contain a number and a special character";
+      } else if (!validU) {
+        msg = "Username must not contain whitespace";
       }
       toast.warning(msg, {
         position: "top-center",
