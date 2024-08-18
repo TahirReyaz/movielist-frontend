@@ -91,8 +91,7 @@ const App = () => {
             <Route path="/forum" element={<ComingSoon />} />
             <Route path="/user/:username/*" element={<Profile />}>
               <Route index element={<ProfileOverview />} />
-              <Route path="stats/*" element={<Stats />}>
-                <Route index element={<StatsOverview />} />
+              <Route path="stats/:mediaType/*" element={<Stats />}>
                 {statsSubRoutes.map((route) => (
                   <Route
                     path={route.path}
@@ -101,6 +100,10 @@ const App = () => {
                   />
                 ))}
               </Route>
+              <Route
+                path="stats/:mediaType"
+                element={<Navigate to="overview" replace />}
+              />
               <Route path="movielist" element={<MediaList />}>
                 <Route path=":allowedList" element={<MediaList />} />
               </Route>

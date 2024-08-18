@@ -3,6 +3,7 @@ import Genres from "./pages/Profile/Stats/Pages/Genres";
 import Characters from "./pages/MediaDetail/Pages/Characters";
 import Social from "./pages/Profile/Social";
 import Favourites from "./pages/Profile/Favourites";
+import Overview from "./pages/Profile/Stats/Pages/Overview";
 
 export const mediaSubRoutes = [
   { path: "watch", element: <ComingSoon /> },
@@ -34,6 +35,7 @@ export const settingsSubRoutes = [
 ];
 
 export const statsSubRoutes = [
+  { path: "overview", element: <Overview /> },
   { path: "genres", element: <Genres /> },
   { path: "tags", element: <ComingSoon /> },
   { path: "actors", element: <ComingSoon /> },

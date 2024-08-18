@@ -7,7 +7,7 @@ import Pages from "./Pages";
 const Stats = () => {
   return (
     <PageContainer>
-      <div className="pt-12 grid grid-cols-1 md:grid-cols-5">
+      <div className="pt-12 grid grid-cols-1 md:grid-cols-5 gap-16">
         <MenuSideBar />
         <Pages />
       </div>

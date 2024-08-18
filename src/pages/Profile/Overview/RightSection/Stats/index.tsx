@@ -4,14 +4,12 @@ import { mediaTypeType } from "../../../../../constants/types";
 import Item from "./Item";
 
 const Stats = ({ type }: { type: mediaTypeType }) => {
-  const stats = useAppSelector((state) => state.profile?.stats?.overview);
-  let total = stats?.totalMovies,
-    totalTitle = "Total Movies",
-    daysWatched = Math.round(stats?.daysWatchedMovie ?? 0);
+  const stats = useAppSelector((state) => state.profile?.stats[type]?.overview);
+  let totalTitle = "Total Movies",
+    daysWatched = Math.round(stats?.daysWatched ?? 0);
   if (type === "tv") {
-    total = stats?.totalShows;
     totalTitle = "Total Shows";
-    daysWatched = Math.round(stats?.daysWatchedTv ?? 0);
+    daysWatched = Math.round(stats?.daysWatched ?? 0);
   }
   return (
     <div className="rounded-lg mb-8">
@@ -19,7 +17,7 @@ const Stats = ({ type }: { type: mediaTypeType }) => {
         <Item
           {...{
             title: totalTitle,
-            value: total,
+            value: stats?.count,
           }}
         />
         <Item
