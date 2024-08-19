@@ -1,51 +1,40 @@
 import React, { useState } from "react";
-import TextInput from "../../../components/UI/TextInput";
-import Button from "../../../components/UI/Button";
+
+import GlobalActivities from "./GlobalActivities";
+import FollowingActivities from "./FollowingActivities";
+import NewActivity from "./NewActivity";
 
 const Feed = () => {
-  const [newActivity, setNewActivity] = useState<string>("");
-  const [isGlobal, setIsGlobal] = useState<boolean>(true);
+  const [activityType, setActivityType] = useState<string>("Global");
+
+  const options: string[] = ["Following", "Global"];
 
   return (
     <section className="md:col-span-7">
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-4">
         <h2 className="text-[1.4rem] font-medium px-4 py-2">Activity</h2>
         <div className="flex">
-          <div
-            className={`font-normal text-xl py-2 px-4 rounded hover:text-actionPrimary cursor-pointer ${
-              !isGlobal ? "bg-bgSecondary" : "bg-bgFooter"
-            }`}
-            onClick={() => setIsGlobal(false)}
-          >
-            Following
-          </div>
-          <div
-            className={`font-normal text-xl py-2 px-4 rounded hover:text-actionPrimary cursor-pointer ${
-              isGlobal ? "bg-bgSecondary" : "bg-bgFooter"
-            }`}
-            onClick={() => setIsGlobal(true)}
-          >
-            Global
-          </div>
+          {options.map((option) => (
+            <div
+              className={`text-xl py-2 px-4 rounded hover:text-actionPrimary cursor-pointer ${
+                activityType === option
+                  ? "bg-bgFooter font-medium"
+                  : "bg-anilist-mirage font-normal"
+              }`}
+              onClick={() => setActivityType(option)}
+              key={option}
+            >
+              {option}
+            </div>
+          ))}
         </div>
       </div>
-      <div>
-        <TextInput
-          {...{
-            name: "newActivity",
-            label: "Write a status...",
-            value: newActivity,
-            onChange: (e) => setNewActivity(e.target.value),
-            type: "text",
-            classes: "bg-bgSecondary",
-          }}
-        />
-      </div>
-      <div>
-        <div className="bg-bgSecondary p-6">
-          <p className="text-[1.4rem] rounded">No global activity yet</p>
-        </div>
-      </div>
+      <NewActivity />
+      {activityType === "Global" ? (
+        <GlobalActivities />
+      ) : (
+        <FollowingActivities />
+      )}
     </section>
   );
 };
