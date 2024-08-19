@@ -9,6 +9,7 @@ export const mediaSlice = createSlice({
   initialState,
   reducers: {
     setDetails: (state, action) => {
+      Object.keys(state).forEach((key) => delete state[key]);
       for (const key in action.payload) {
         state[key] = action.payload[key];
       }

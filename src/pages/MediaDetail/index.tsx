@@ -89,7 +89,7 @@ const MediaDetail = () => {
     if (mediaDetails) {
       dispatch(setDetails({ ...mediaDetails, mediaType, mediaid }));
     }
-  }, [mediaDetails]);
+  }, [mediaDetails, mediaType, mediaid]);
 
   if (isLoading) {
     return <Loading />;
