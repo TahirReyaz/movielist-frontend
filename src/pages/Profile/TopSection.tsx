@@ -1,51 +1,41 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 import userAvatar from "../../assets/userAvatar.png";
 
 import Button from "../../components/UI/Button";
-import { RootState } from "../../store";
-import { followAction } from "../../store/AuthSlice.tsx";
 import { followUser } from "../../lib/api";
-import { toast } from "react-toastify";
+import { followUserType } from "../../constants/types.ts";
+import { useAppSelector } from "../../hooks/redux.ts";
 
 const TopSection = () => {
   const {
     isLoggedIn,
     username: loggedUsername,
     profileData,
-  } = useSelector((state: RootState) => state.auth);
+  } = useAppSelector((state) => state.auth);
   const {
     username: profileUsername,
     backdrop,
     avatar,
-    _id: id,
-  } = useSelector((state: RootState) => state.profile);
-  const dispatch = useDispatch();
+  } = useAppSelector((state) => state.profile);
 
-  const following = profileData?.following,
-    userid = profileData?._id;
+  const queryClient = useQueryClient();
+
+  const followingThisUser = profileData?.following?.some(
+    (user: followUserType) => user.username == profileUsername
+  );
 
   const backdropStyle = {
     "--backdrop-url": `url(${backdrop})`,
   } as React.CSSProperties;
 
-  let followingThisUser: boolean = false;
-  if (following && following.length > 0) {
-    followingThisUser = following.find(
-      (followingId: string) => followingId === id
-    )
-      ? true
-      : false;
-  }
+  const handleFollow = async () => {
+    const response = await followUser(profileUsername);
 
-  const handleFollow = async (userid: string, id: string) => {
-    const response = await followUser(userid, id);
-
-    if (!response.error) {
-      dispatch(followAction(response));
-
+    try {
       toast.success(`You started following ${profileUsername}`, {
         position: "top-center",
         autoClose: 1000,
@@ -53,7 +43,14 @@ const TopSection = () => {
         closeOnClick: true,
         pauseOnHover: true,
       });
-    } else {
+
+      queryClient.invalidateQueries({
+        queryKey: ["user", loggedUsername],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["profile", profileUsername],
+      });
+    } catch (error) {
       toast.error(response.message, {
         position: "top-center",
         autoClose: 1000,
@@ -120,9 +117,7 @@ const TopSection = () => {
                       ? () => {
                           console.log("Unfollow");
                         }
-                      : () => {
-                          handleFollow(userid, id);
-                        },
+                      : handleFollow,
                   }}
                 />
               )}

@@ -7,11 +7,6 @@ import {
 } from "../constants/types";
 import { backendUrl } from "../constants";
 
-// const backendUrl =
-//   window.innerWidth < 768
-//     ? import.meta.env.VITE_BACKEND_URL_PHONE
-//     : import.meta.env.VITE_BACKEND_URL;
-
 export type newEntryType = {
   userid: string;
   mediaid?: string;
@@ -276,18 +271,17 @@ export const getSearchResults = async ({
   return results;
 };
 
-export async function followUser(userid: string, targetId: string) {
+export async function followUser(targetUsername: string) {
   try {
     const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/follow/${targetId}`,
-      { userid },
+      `${backendUrl}/user/follow/${targetUsername}`,
+      undefined,
       { withCredentials: true }
     );
 
-    return { ...response.data, error: false };
+    return response.data;
   } catch (error: any) {
     console.error(error);
-    const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    return error;
   }
 }

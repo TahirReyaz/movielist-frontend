@@ -59,3 +59,8 @@ export type genreStatListItem = {
   posterPath: string;
   id: number;
 };
+
+export type followUserType = {
+  username: string;
+  avatar?: string;
+};
