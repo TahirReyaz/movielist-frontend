@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -6,8 +6,11 @@ import { followUserType } from "../../../constants/types";
 import { followUser } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import Button from "../../../components/UI/Button";
+import { unfollowUser } from "../../../lib/api/user";
 
 const FollowButton = () => {
+  const [hover, setHover] = useState<boolean>(false);
+
   const {
     isLoggedIn,
     username: loggedUsername,
@@ -25,11 +28,14 @@ const FollowButton = () => {
   );
 
   let followButtonTitle = followingThisUser ? "Following" : "Follow";
+  if (hover && followingThisUser) {
+    followButtonTitle = "Unfollow";
+  }
 
   const handleFollow = async () => {
-    const response = await followUser(profileUsername);
-
     try {
+      await followUser(profileUsername);
+
       toast.success(`You started following ${profileUsername}`, {
         position: "top-center",
         autoClose: 1000,
@@ -44,8 +50,37 @@ const FollowButton = () => {
       queryClient.invalidateQueries({
         queryKey: ["profile", profileUsername],
       });
-    } catch (error) {
-      toast.error(response.message, {
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      await unfollowUser(profileUsername);
+
+      toast.success(`You unfollowed ${profileUsername}`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["user", loggedUsername],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["profile", profileUsername],
+      });
+    } catch (error: any) {
+      toast.error(error.message, {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -61,11 +96,9 @@ const FollowButton = () => {
         <Button
           {...{
             title: followButtonTitle,
-            onClick: followingThisUser
-              ? () => {
-                  console.log("Unfollow");
-                }
-              : handleFollow,
+            onClick: followingThisUser ? handleUnfollow : handleFollow,
+            onMouseEnter: () => setHover(true),
+            onMouseLeave: () => setHover(false),
           }}
         />
       )}

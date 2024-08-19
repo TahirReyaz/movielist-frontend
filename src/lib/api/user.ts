@@ -103,7 +103,6 @@ export const unfollowUser = async (targetUsername: string) => {
 
     return response.data;
   } catch (error: any) {
-    console.error(error);
-    return error;
+    throw new Error(error);
   }
 };
