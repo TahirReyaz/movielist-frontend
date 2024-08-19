@@ -8,6 +8,8 @@ interface ButtonProps {
   endElement?: React.ReactNode;
   classes?: string;
   divClasses?: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const Button = ({
@@ -18,15 +20,21 @@ const Button = ({
   endElement,
   classes,
   divClasses,
+  onMouseEnter,
+  onMouseLeave,
 }: ButtonProps) => {
   return (
     <div
-      className={`bg-actionPrimary rounded text-white w-full flex ${
-        divClasses && divClasses
-      }`}
+      {...{
+        className: `bg-actionPrimary rounded text-white w-full flex ${
+          divClasses && divClasses
+        }`,
+        onMouseEnter,
+        onMouseLeave,
+      }}
     >
       <button
-        className={`p-2 text-2xl font-semibold ${
+        className={`p-2 text-2xl font-medium ${
           endElement ? "w-9/12" : "w-full"
         } ${classes && classes}`}
         type={type}

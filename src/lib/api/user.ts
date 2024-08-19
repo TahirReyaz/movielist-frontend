@@ -93,3 +93,17 @@ export const getUserMediaEntries = async (
     return { error: true };
   }
 };
+
+export const unfollowUser = async (targetUsername: string) => {
+  try {
+    const response: AxiosResponse = await axios.delete(
+      `${backendUrl}/user/unfollow/${targetUsername}`,
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error);
+    return error;
+  }
+};
