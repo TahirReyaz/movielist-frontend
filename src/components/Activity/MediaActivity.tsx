@@ -17,11 +17,14 @@ const MediaActivity = ({
   return (
     <div className="grid grid-cols-8 rounded-lg overflow-hidden bg-anilist-mirage">
       {/* Poster */}
-      <Link to={`/${mediaType}/${mediaid}`}>
+      <Link
+        to={`/${mediaType}/${mediaid}`}
+        className="col-span-2 md:col-span-1"
+      >
         <img src={image} />
       </Link>
       {/* User, title and menu */}
-      <div className="col-span-2 md:col-span-5 p-4 flex flex-col justify-between">
+      <div className="col-span-4 md:col-span-5 p-4 flex flex-col justify-between">
         <div>
           <Link to={`/user/${owner.username}`}>
             <h2 className="text-2xl text-anilist-blue-picton">
@@ -47,7 +50,7 @@ const MediaActivity = ({
         </Link>
       </div>
       {/* time, comments and like */}
-      <div className="col-span-1 md:col-span-2 py-4 pe-4 flex justify-end items-stretch">
+      <div className="col-span-2 md:col-span-2 py-4 pe-4 flex justify-end items-stretch">
         <h5 className="text-lg font-medium">{time}</h5>
       </div>
     </div>
