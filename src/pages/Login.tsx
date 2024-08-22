@@ -1,6 +1,5 @@
 import React, { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
 import TextInput from "../components/UI/TextInput";
@@ -8,6 +7,11 @@ import Button from "../components/UI/Button";
 import { login } from "../lib/api";
 import { loginAction } from "../store/AuthSlice";
 import { Link } from "react-router-dom";
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from "../utils/toastUtils";
 
 type Values = {
   email: string;
@@ -49,31 +53,13 @@ const Login = () => {
             })
           );
         }, 3000);
-        toast.success(response.message, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
+        showSuccessToast(response.message);
         setTimeout(() => navigate("/"), 1000);
       } else {
-        toast.error(response.message, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
+        showErrorToast(response.message);
       }
     } else {
-      toast.warning("Invalid values", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showWarningToast("Email id not valid");
     }
   };
 

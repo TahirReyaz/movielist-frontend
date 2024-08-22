@@ -5,7 +5,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { FaCalendar, FaCheck } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { IconType } from "react-icons";
-import { toast } from "react-toastify";
 
 import "tippy.js/animations/shift-away.css";
 
@@ -14,6 +13,7 @@ import { listtypetype } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api/entry";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 
 const iconClass = "rounded-full bg-bgPrimary mb-2 me-2 p-1.5 opacity-90";
 
@@ -86,21 +86,9 @@ const MediaCardButtons = ({
       // Update entry data in auth redux
       queryClient.invalidateQueries({ queryKey: ["user", username] });
 
-      toast.success(response?.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(response?.message);
     } else {
-      toast.error(response?.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(response?.message);
     }
   };
 

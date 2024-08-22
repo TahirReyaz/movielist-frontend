@@ -1,10 +1,14 @@
 import React, { SyntheticEvent, useState } from "react";
-import { toast } from "react-toastify";
 
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { signup } from "../lib/api";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWarningToast,
+} from "../utils/toastUtils";
 
 type Values = {
   username: string;
@@ -66,21 +70,9 @@ const Signup = () => {
         values.username
       );
       if (response.error) {
-        toast.error(response.message, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
+        showErrorToast(response.message);
       } else {
-        toast.success(response.message, {
-          position: "top-center",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-        });
+        showSuccessToast(response.message);
         navigate("/login");
       }
     } else {
@@ -93,13 +85,7 @@ const Signup = () => {
       } else if (!validU) {
         msg = "Username must not contain whitespace";
       }
-      toast.warning(msg, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showWarningToast(msg);
     }
   };
 

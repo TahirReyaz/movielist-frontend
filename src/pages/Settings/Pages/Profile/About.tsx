@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import TextInput from "../../../../components/UI/TextInput";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserDetail, updateUserDetail } from "../../../../lib/api";
 import { useSelector } from "react-redux";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import TextInput from "../../../../components/UI/TextInput";
+import { getUserDetail, updateUserDetail } from "../../../../lib/api";
 import { RootState } from "../../../../store";
 import Loading from "../../../../components/UI/Loading";
 import Button from "../../../../components/UI/Button";
-import { toast } from "react-toastify";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 const About = () => {
   const [about, setAbout] = useState<string>("");
@@ -30,22 +31,10 @@ const About = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["getUserProfile", username] });
-      toast.success(data.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(data.message);
     },
     onError: (error) => {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(error.message);
     },
   });
 

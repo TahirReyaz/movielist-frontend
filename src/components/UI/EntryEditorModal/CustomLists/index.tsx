@@ -1,10 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { deleteEntry } from "../../../../lib/api/entry";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAppSelector } from "../../../../hooks/redux";
 import WarningModal from "../../WarningModal";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 const CustomLists = ({
   id,
@@ -21,24 +21,12 @@ const CustomLists = ({
   const handleDelete = async () => {
     try {
       const response = await deleteEntry(id);
-      toast.success(response.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(response.message);
       queryClient.invalidateQueries({ queryKey: ["user", username] });
       queryClient.invalidateQueries({ queryKey: ["profile", username] });
       setOpen(false);
     } catch (error: any) {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(error.message);
     }
   };
 

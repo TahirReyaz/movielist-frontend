@@ -1,12 +1,11 @@
 import React from "react";
-import FileUpload from "../../../../components/UI/FileUpload";
 import ImagePicker from "../../../../components/UI/ImagePicker";
-import { toast } from "react-toastify";
 import { getUserDetail, updateUserDetail } from "../../../../lib/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import { changeDpAction } from "../../../../store/AuthSlice";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 const Avatar = () => {
   const { username, profileData } = useSelector(
@@ -31,23 +30,11 @@ const Avatar = () => {
       queryClient.invalidateQueries({ queryKey: ["profile", username] });
       dispatch(changeDpAction(data));
 
-      toast.success(data.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(data.message);
       return;
     },
     onError: (error) => {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(error.message);
     },
   });
 

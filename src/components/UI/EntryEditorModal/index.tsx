@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
-import { toast } from "react-toastify";
 
 import Modal from "../../UI/Modal";
 import { addEntry, getEntryDetail, getMediaDetail } from "../../../lib/api";
@@ -12,6 +11,7 @@ import TextInput from "../TextInput";
 import { updateEntry } from "../../../lib/api/entry";
 import { useAppSelector } from "../../../hooks/redux";
 import CustomLists from "./CustomLists";
+import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 
 interface EntryEditorModalParams {
   open: boolean;
@@ -103,25 +103,10 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
           score,
         });
         if (res.error) {
-          toast.error(res.message, {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-          });
+          showErrorToast(res.message);
         } else {
-          toast.success(
-            `${
-              mediaType == "tv" ? media.name : media.title
-            } list entry updated`,
-            {
-              position: "top-center",
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-            }
+          showSuccessToast(
+            `${mediaType == "tv" ? media.name : media.title} list entry updated`
           );
           queryClient.invalidateQueries({
             queryKey: ["media", mediaType, mediaid],
@@ -151,25 +136,10 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
           fav,
         });
         if (res.error) {
-          toast.error(res.message, {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-          });
+          showErrorToast(res.message);
         } else {
-          toast.success(
-            `${
-              mediaType == "tv" ? media.name : media.title
-            } list entry updated`,
-            {
-              position: "top-center",
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-            }
+          showSuccessToast(
+            `${mediaType == "tv" ? media.name : media.title} list entry updated`
           );
           queryClient.invalidateQueries({
             queryKey: ["entry", id],

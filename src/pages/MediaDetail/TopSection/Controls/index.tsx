@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 
@@ -9,8 +9,8 @@ import MediaActionMenu from "./MediaActionMenu";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
 import { useQueryClient } from "@tanstack/react-query";
 import { toggleFav } from "../../../../lib/api/user";
-import { toast } from "react-toastify";
 import { useAppSelector } from "../../../../hooks/redux";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 const Controls = () => {
   const {
@@ -37,25 +37,15 @@ const Controls = () => {
   const handleFavToggle = async (toFav: boolean) => {
     const res = await toggleFav(userid, mediaid, mediaType, toFav);
     if (!res.error) {
-      toast.success(toFav ? "Added to Favourites" : "Removed from Favourites", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(
+        toFav ? "Added to Favourites" : "Removed from Favourites"
+      );
 
       queryClient.invalidateQueries({
         queryKey: ["user", username],
       });
     } else {
-      toast.error(res.messsage, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(res.message);
     }
   };
 

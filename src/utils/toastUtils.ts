@@ -26,3 +26,10 @@ export const showSuccessToast = (
 export const showErrorToast = (message: string, options: ToastOptions = {}) => {
   toast.error(message, { ...defaultOptions, ...options });
 };
+
+export const showWarningToast = (
+  message: string,
+  options: ToastOptions = {}
+) => {
+  toast.warning(message, { ...defaultOptions, ...options });
+};

@@ -1,13 +1,13 @@
 import react from "react";
-import { toast } from "react-toastify";
+import { Dispatch, SetStateAction } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { addEntry } from "../../../../lib/api";
 import { listtypetype } from "../../../../constants/types";
 import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
-import { Dispatch, SetStateAction } from "react";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
-import { useQueryClient } from "@tanstack/react-query";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 type listItemType = {
   title: string;
@@ -78,21 +78,9 @@ const MediaActionMenu = ({
         queryKey: ["user", username],
       });
 
-      toast.success(response?.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(response?.message);
     } else {
-      toast.error(response?.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(response?.message);
     }
   };
 

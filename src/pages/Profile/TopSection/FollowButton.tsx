@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { followUserType } from "../../../constants/types";
@@ -7,6 +6,7 @@ import { followUser } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import Button from "../../../components/UI/Button";
 import { unfollowUser } from "../../../lib/api/user";
+import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 
 const FollowButton = () => {
   const [hover, setHover] = useState<boolean>(false);
@@ -36,13 +36,7 @@ const FollowButton = () => {
     try {
       await followUser(profileUsername);
 
-      toast.success(`You started following ${profileUsername}`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(`You started following ${profileUsername}`);
 
       queryClient.invalidateQueries({
         queryKey: ["user", loggedUsername],
@@ -51,13 +45,7 @@ const FollowButton = () => {
         queryKey: ["profile", profileUsername],
       });
     } catch (error: any) {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(error.message);
     }
   };
 
@@ -65,13 +53,7 @@ const FollowButton = () => {
     try {
       await unfollowUser(profileUsername);
 
-      toast.success(`You unfollowed ${profileUsername}`, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(`You unfollowed ${profileUsername}`);
 
       queryClient.invalidateQueries({
         queryKey: ["user", loggedUsername],
@@ -80,13 +62,7 @@ const FollowButton = () => {
         queryKey: ["profile", profileUsername],
       });
     } catch (error: any) {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(error.message);
     }
   };
 
