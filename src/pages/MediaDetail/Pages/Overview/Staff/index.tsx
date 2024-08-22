@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Staff = () => {
   return (
     <div>
-      <h2 className="text-[1.4rem] font-semibold my-4">
+      <h2 className="text-[1.4rem] font-medium my-4">
         <Link to="/characters">Staff</Link>
       </h2>
 
