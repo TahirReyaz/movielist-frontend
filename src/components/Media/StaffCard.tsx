@@ -1,11 +1,11 @@
 import React from "react";
-
-import { tmdbImgEndPoint } from "../../../../../constants/tmdb";
-import userAvatar from "../../../../../assets/userAvatar.png";
 import { Link } from "react-router-dom";
-import { CastMember } from "../../../../../constants/types/media";
 
-const CharacterCard = ({ id, character, name, profile_path }: CastMember) => {
+import { tmdbImgEndPoint } from "../../constants/tmdb";
+import userAvatar from "../../assets/userAvatar.png";
+import { CrewMember } from "../../constants/types/media";
+
+const StaffCard = ({ id, department, name, profile_path }: CrewMember) => {
   return (
     <div className="grid grid-cols-7 rounded overflow-hidden bg-bgForeground">
       <Link to={`/staff/${id}`}>
@@ -15,16 +15,16 @@ const CharacterCard = ({ id, character, name, profile_path }: CastMember) => {
         />
       </Link>
       <div className="col-span-6 p-4 flex flex-col items-start justify-between">
-        <p className="text-xl">{character}</p>
         <Link
           to={`/staff/${id}`}
           className="text-xl hover:text-actionPrimary grid justify-end"
         >
           {name}
         </Link>
+        <p className="text-lg font-light">{department}</p>
       </div>
     </div>
   );
 };
 
-export default CharacterCard;
+export default StaffCard;

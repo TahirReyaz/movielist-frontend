@@ -31,12 +31,12 @@ const Characters = ({ mediaid, mediaType }: CharactersProps) => {
   }
 
   return (
-    <div>
-      <h2 className="text-[1.4rem] font-semibold my-4">
+    <div className="mb-20">
+      <h2 className="text-[1.4rem] font-medium my-4">
         <Link to={`${location.pathname}/characters`}>Characters</Link>
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {data &&
           data.characters
             ?.slice(0, 6)
