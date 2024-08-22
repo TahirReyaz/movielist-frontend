@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getEntryDetail } from "../../../../lib/api";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
 import { increaseProgess } from "../../../../lib/api/entry";
+import { showErrorToast } from "../../../../utils/toastUtils";
 
 interface EntryCardProps {
   id: string;
@@ -31,6 +32,9 @@ const EntryCard = ({ id }: EntryCardProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["entry", id] });
+    },
+    onError: (error: any) => {
+      showErrorToast(error.message);
     },
   });
 

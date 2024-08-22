@@ -1,4 +1,4 @@
-export type MovieDetailType = {
+export type MovieDetail = {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: string;
@@ -26,7 +26,7 @@ export type MovieDetailType = {
   vote_count: number;
 };
 
-export type TvDetailType = {
+export type TvDetail = {
   adult: boolean;
   backdrop_path: string;
   created_by: TvCreatorType[];
@@ -59,6 +59,23 @@ export type TvDetailType = {
   type: string;
   vote_average: number;
   vote_count: number;
+};
+
+export type PersonDetailType = {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string | null;
+  gender: number;
+  homepage: string | null;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string | null;
 };
 
 export type LastEpisodeToAir = {
@@ -121,6 +138,7 @@ export type MediaDetailSeasonType = {
 
 export type MovieStatusType = "Released";
 export type TvStatusType = "Ended" | "Returning Series";
+export type StaffDept = "Acting";
 
 export type MediaDetailProductionCompanyType = {
   id: number;

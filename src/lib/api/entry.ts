@@ -39,15 +39,12 @@ export const updateEntry = async ({
 
 export const increaseProgess = async (id: string) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/entry/${id}/increaseprogress`,
-      undefined,
-      { withCredentials: true }
-    );
-    return { data: response.data, message: "Increased", error: false };
+    await axios.patch(`${backendUrl}/entry/${id}/increaseprogress`, undefined, {
+      withCredentials: true,
+    });
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    throw new Error(error_msg);
   }
 };
 
