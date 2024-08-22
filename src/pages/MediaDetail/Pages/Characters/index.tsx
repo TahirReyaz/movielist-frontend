@@ -17,10 +17,10 @@ const Characters = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["characters", mediaType, mediaid],
+    queryKey: ["credits", mediaType, mediaid],
     queryFn: () => {
       if (mediaType) {
-        return getMediaMoreDetails(mediaType, mediaid, "characters");
+        return getMediaMoreDetails(mediaType, mediaid, "credits");
       }
     },
     enabled: mediaid && mediaType ? true : false,

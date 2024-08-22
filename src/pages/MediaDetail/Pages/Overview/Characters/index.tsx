@@ -15,8 +15,8 @@ interface CharactersProps {
 const Characters = ({ mediaid, mediaType }: CharactersProps) => {
   const location = useLocation();
   const charactersQuery = useQuery({
-    queryKey: ["characters", mediaid],
-    queryFn: () => getMediaMoreDetails(mediaType, mediaid, "characters"),
+    queryKey: ["credits", mediaType, mediaid],
+    queryFn: () => getMediaMoreDetails(mediaType, mediaid, "credits"),
     enabled: mediaid && mediaType ? true : false,
   });
 

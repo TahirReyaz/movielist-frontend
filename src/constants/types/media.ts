@@ -78,6 +78,39 @@ export interface PersonDetail {
   profile_path: string | null;
 }
 
+export interface CastMember
+  extends Omit<
+    PersonDetail,
+    | "biography"
+    | "also_known_as"
+    | "birthday"
+    | "deathday"
+    | "homepage"
+    | "place_of_birth"
+    | "imdb_id"
+  > {
+  cast_id: number;
+  character: string;
+  order: number;
+  credit_id: string;
+}
+
+export interface CrewMember
+  extends Omit<
+    PersonDetail,
+    | "biography"
+    | "also_known_as"
+    | "birthday"
+    | "deathday"
+    | "homepage"
+    | "place_of_birth"
+    | "imdb_id"
+  > {
+  department: string;
+  job: string;
+  credit_id: string;
+}
+
 export type LastEpisodeToAir = {
   id: number; // Defaults to 0
   name: string;

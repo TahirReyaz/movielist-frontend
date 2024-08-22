@@ -27,8 +27,8 @@ export async function getMediaMoreDetails(
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/${detailType}/${mediaid}`
     );
-    const media = response.data;
-    return { ...media, error: false };
+    const details = response.data;
+    return { ...details, error: false };
   } catch (error) {
     console.error(error);
     return { error: true };
