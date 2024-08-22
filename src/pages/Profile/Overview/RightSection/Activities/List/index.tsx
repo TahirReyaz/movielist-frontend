@@ -19,7 +19,7 @@ const List = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["activities", "global"],
+    queryKey: ["activities", "user", username],
     queryFn: ({ pageParam }) => getProfileActivities(username!, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {

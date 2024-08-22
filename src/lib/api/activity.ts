@@ -13,8 +13,8 @@ export const getGlobalActivities = async (page: number = 1) => {
     );
     const activities = response.data.activities;
     return activities;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
@@ -33,7 +33,25 @@ export const getProfileActivities = async (
     );
     const activities = response.data.activities;
     return activities;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const getFollowingActivities = async (page: number = 1) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/activities/following`,
+      {
+        params: {
+          page,
+        },
+        withCredentials: true,
+      }
+    );
+    const activities = response.data.activities;
+    return activities;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
