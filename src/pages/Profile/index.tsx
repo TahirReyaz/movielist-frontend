@@ -53,7 +53,7 @@ const Profile = () => {
     if (profile) {
       dispatch(setProfile(profile));
     }
-  }, [profile]);
+  }, [profile, username]);
 
   if (isLoading) {
     return <Loading />;

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { activity } from "../../constants/types/activity";
 import { Link } from "react-router-dom";
 import { calculateElasedTime } from "../../lib/helpers";
+import { ActivityProps } from ".";
 
 const MediaActivity = ({
   title,
@@ -12,10 +12,11 @@ const MediaActivity = ({
   mediaid,
   mediaType,
   createdAt,
-}: activity) => {
+  atProfile,
+}: ActivityProps) => {
   const time = calculateElasedTime(createdAt);
   return (
-    <div className="grid grid-cols-8 rounded-lg overflow-hidden bg-anilist-mirage">
+    <div className="grid grid-cols-8 rounded-lg overflow-hidden bg-anilist-mirage mb-4">
       {/* Poster */}
       <Link
         to={`/${mediaType}/${mediaid}`}
@@ -25,13 +26,17 @@ const MediaActivity = ({
       </Link>
       {/* User, title and menu */}
       <div className="col-span-4 md:col-span-5 p-4 flex flex-col justify-between">
-        <div>
-          <Link to={`/user/${owner.username}`}>
-            <h2 className="text-2xl text-anilist-blue-picton">
-              {owner.username}
-            </h2>
-          </Link>
-        </div>
+        {/* user */}
+        {!atProfile && (
+          <div>
+            <Link to={`/user/${owner.username}`}>
+              <h2 className="text-2xl text-anilist-blue-picton">
+                {owner.username}
+              </h2>
+            </Link>
+          </div>
+        )}
+        {/* title */}
         <h3 className="text-xl">
           {action}{" "}
           <Link
@@ -42,12 +47,15 @@ const MediaActivity = ({
           </Link>
         </h3>
 
-        <Link
-          to={`/user/${owner.username}`}
-          className="rounded overflow-hidden"
-        >
-          <img src={owner.avatar} className="size-16 rounded" />
-        </Link>
+        {/* User avatar */}
+        {!atProfile && (
+          <Link
+            to={`/user/${owner.username}`}
+            className="rounded overflow-hidden"
+          >
+            <img src={owner.avatar} className="size-16 rounded" />
+          </Link>
+        )}
       </div>
       {/* time, comments and like */}
       <div className="col-span-2 md:col-span-2 py-4 pe-4 flex justify-end items-stretch">

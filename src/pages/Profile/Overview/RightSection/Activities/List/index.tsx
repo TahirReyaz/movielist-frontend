@@ -1,13 +1,16 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { getGlobalActivities } from "../../../../lib/api/activity";
-import Loading from "../../../../components/UI/Loading";
-import Error from "../../../../components/UI/Error";
-import Activity from "../../../../components/Activity";
-import { activity } from "../../../../constants/types/activity";
+import Loading from "../../../../../../components/UI/Loading";
+import Error from "../../../../../../components/UI/Error";
+import Activity from "../../../../../../components/Activity";
+import { activity } from "../../../../../../constants/types/activity";
+import { getProfileActivities } from "../../../../../../lib/api/activity";
 
-const GlobalActivities = () => {
+const List = () => {
+  const { username } = useParams();
+
   const {
     data: activityData,
     isLoading,
@@ -17,12 +20,13 @@ const GlobalActivities = () => {
     hasNextPage,
   } = useInfiniteQuery({
     queryKey: ["activities", "global"],
-    queryFn: ({ pageParam }) => getGlobalActivities(pageParam),
+    queryFn: ({ pageParam }) => getProfileActivities(username!, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
+      const nextPage = lastPage?.length ? allPages?.length + 1 : undefined;
       return nextPage;
     },
+    enabled: !!username,
   });
 
   const activities = activityData?.pages.flat();
@@ -39,7 +43,7 @@ const GlobalActivities = () => {
       {activities &&
         activities.length > 0 &&
         activities.map((activity: activity) => (
-          <Activity {...{ key: activity._id, ...activity, atProfile: false }} />
+          <Activity {...{ key: activity._id, ...activity, atProfile: true }} />
         ))}
       {/* {(!activities || activities.length === 0) && (
         <div className="bg-bgSecondary p-6">
@@ -59,4 +63,4 @@ const GlobalActivities = () => {
   );
 };
 
-export default GlobalActivities;
+export default List;

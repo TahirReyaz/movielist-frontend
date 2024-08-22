@@ -4,7 +4,11 @@ import { activity } from "../../constants/types/activity";
 import MediaActivity from "./MediaActivity";
 import StatusActivity from "./StatusActivity";
 
-const Activity = (activity: activity) => {
+export interface ActivityProps extends activity {
+  atProfile: boolean;
+}
+
+const Activity = (activity: ActivityProps) => {
   if (activity.type === "status") {
     return <StatusActivity />;
   } else {
