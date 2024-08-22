@@ -111,6 +111,12 @@ export interface CrewMember
   credit_id: string;
 }
 
+export interface MediaCredits {
+  id: number;
+  characters: CastMember[];
+  crew: CrewMember[];
+}
+
 export type LastEpisodeToAir = {
   id: number; // Defaults to 0
   name: string;
