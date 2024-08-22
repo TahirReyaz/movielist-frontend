@@ -9,6 +9,7 @@ import StatusDot from "../../../components/UI/StatusDot";
 import { increaseProgess } from "../../../lib/api/entry";
 import EntryEditorModal from "../../../components/UI/EntryEditorModal";
 import { useAppSelector } from "../../../hooks/redux";
+import { showErrorToast } from "../../../utils/toastUtils";
 
 interface MediaListItemProps {
   entry: any;
@@ -52,6 +53,9 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
       queryClient.invalidateQueries({
         queryKey: ["entries", profUsername, mediaType],
       });
+    },
+    onError: (error: any) => {
+      showErrorToast(error.message);
     },
   });
 
