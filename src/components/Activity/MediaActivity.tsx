@@ -1,5 +1,7 @@
 import React from "react";
 
+import userAvatarPlaceholder from "../../assets/userAvatar.png";
+
 import { Link } from "react-router-dom";
 import { calculateElasedTime } from "../../lib/helpers";
 import { ActivityProps } from ".";
@@ -53,7 +55,10 @@ const MediaActivity = ({
             to={`/user/${owner.username}`}
             className="rounded overflow-hidden"
           >
-            <img src={owner.avatar} className="size-16 rounded" />
+            <img
+              src={owner.avatar ?? userAvatarPlaceholder}
+              className="size-16 rounded"
+            />
           </Link>
         )}
       </div>
