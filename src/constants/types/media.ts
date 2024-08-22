@@ -61,7 +61,7 @@ export type TvDetail = {
   vote_count: number;
 };
 
-export type PersonDetailType = {
+export interface PersonDetail {
   adult: boolean;
   also_known_as: string[];
   biography: string;
@@ -76,7 +76,7 @@ export type PersonDetailType = {
   place_of_birth: string;
   popularity: number;
   profile_path: string | null;
-};
+}
 
 export type LastEpisodeToAir = {
   id: number; // Defaults to 0

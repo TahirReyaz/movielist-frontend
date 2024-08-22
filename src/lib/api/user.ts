@@ -5,7 +5,7 @@ import { backendUrl } from "../../constants";
 
 export const toggleFav = async (
   userid: string,
-  entityId: string,
+  entityId: string | number,
   entityType: string,
   fav: boolean
 ) => {

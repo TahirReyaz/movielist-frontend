@@ -1,16 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { AiFillHeart } from "react-icons/ai";
 
 import { toggleFav } from "../../lib/api/user";
 import { RootState } from "../../store";
 import { favAction } from "../../store/AuthSlice";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 
 interface TopSectionProps {
   name: string;
-  id: string;
+  id: number;
 }
 
 const TopSection = ({ name, id }: TopSectionProps) => {
@@ -26,13 +26,9 @@ const TopSection = ({ name, id }: TopSectionProps) => {
   const handleFavToggle = async (toFav: boolean) => {
     const res = await toggleFav(userid, id, "staff", toFav);
     if (!res.error) {
-      toast.success(toFav ? "Added to Favourites" : "Removed from Favourites", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showSuccessToast(
+        toFav ? "Added to Favourites" : "Removed from Favourites"
+      );
 
       dispatch(
         favAction({
@@ -43,13 +39,7 @@ const TopSection = ({ name, id }: TopSectionProps) => {
         queryKey: ["staff", id],
       });
     } else {
-      toast.error(res.messsage, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      showErrorToast(res.message);
     }
   };
 

@@ -11,6 +11,7 @@ import Error from "../../components/UI/Error";
 import { tmdbImgEndPoint, translateGender } from "../../constants/tmdb";
 import TopSection from "./TopSection";
 import Credits from "./Credits";
+import { PersonDetail } from "../../constants/types/media";
 
 const Staff = () => {
   const { staffid } = useParams();
@@ -19,7 +20,7 @@ const Staff = () => {
     data: staff,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<PersonDetail>({
     queryKey: ["staff", staffid],
     queryFn: () => getStaffDetails(staffid),
     enabled: !!staffid,
@@ -35,55 +36,59 @@ const Staff = () => {
 
   return (
     <main>
-      {staffid && <TopSection {...{ name: staff.name, id: staffid }} />}
-      <div className="px-12 md:px-24">
-        <div className="px:0 md:px-8 grid grid-cols-1 md:grid-cols-5">
-          <div className="px-20 md:px-0">
-            <img
-              src={
-                staff.profile_path
-                  ? `${tmdbImgEndPoint}${staff.profile_path}`
-                  : userAvatar
-              }
-              alt={staff.name}
-              className="rounded -mt-28"
-            />
-          </div>
-          <div className="col-span-4 ps-0 md:ps-20 pt-8">
-            {/* Detail fields */}
-            <div className="mb-8">
-              <DetailSection {...{ title: "Birth", value: staff.birthday }} />
-              <DetailSection {...{ title: "Age", value: "" }} />
-              <DetailSection
-                {...{
-                  title: "Gender",
-                  value: translateGender[staff.gender],
-                }}
-              />
-              <DetailSection {...{ title: "Years active", value: "" }} />
-              <DetailSection
-                {...{
-                  title: "Hometown",
-                  value: staff.place_of_birth,
-                }}
+      {staff && <TopSection {...{ name: staff.name, id: staff.id }} />}
+      {staff && (
+        <div className="px-12 md:px-24">
+          <div className="px:0 md:px-8 grid grid-cols-1 md:grid-cols-5">
+            <div className="px-20 md:px-0">
+              <img
+                src={
+                  staff.profile_path
+                    ? `${tmdbImgEndPoint}${staff.profile_path}`
+                    : userAvatar
+                }
+                alt={staff.name}
+                className="rounded -mt-28"
               />
             </div>
-            {/* Links */}
-            <div className="mb-8">
-              <Link
-                to={staff.homepage}
-                className="text-actionPrimary text-[1.4rem]"
-              >
-                Homepage
-              </Link>
+            <div className="col-span-4 ps-0 md:ps-20 pt-8">
+              {/* Detail fields */}
+              <div className="mb-8">
+                <DetailSection {...{ title: "Birth", value: staff.birthday }} />
+                <DetailSection {...{ title: "Age", value: "" }} />
+                <DetailSection
+                  {...{
+                    title: "Gender",
+                    value: translateGender[staff.gender],
+                  }}
+                />
+                <DetailSection {...{ title: "Years active", value: "" }} />
+                <DetailSection
+                  {...{
+                    title: "Hometown",
+                    value: staff.place_of_birth,
+                  }}
+                />
+              </div>
+              {/* Links */}
+              {staff.homepage && (
+                <div className="mb-8">
+                  <Link
+                    to={staff.homepage}
+                    className="text-actionPrimary text-[1.4rem]"
+                  >
+                    Homepage
+                  </Link>
+                </div>
+              )}
+              {/* Bio */}
+              <div className="mb-8 text-[1.4rem]">{staff.biography}</div>
+              {/* Awards */}
+              <div></div>
             </div>
-            {/* Bio */}
-            <div className="mb-8 text-[1.4rem]">{staff.biography}</div>
-            {/* Awards */}
-            <div></div>
           </div>
         </div>
-      </div>
+      )}
       {staffid && <Credits {...{ id: staffid }} />}
     </main>
   );
