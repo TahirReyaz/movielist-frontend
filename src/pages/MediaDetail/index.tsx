@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getMediaDetail } from "../../lib/api";
@@ -64,23 +58,6 @@ const MediaDetail = () => {
     enabled: mediaid && mediaType ? true : false,
   });
 
-  const routes = [
-    {
-      path: "/",
-      element: (
-        <Overview
-          {...{ mediaid, mediaType, overview: mediaDetails?.overview }}
-        />
-      ),
-      title: "Overview",
-    },
-    { path: "watch", element: <ComingSoon />, title: "Watch" },
-    { path: "characters", element: <Characters />, title: "Character" },
-    { path: "staff", element: <ComingSoon />, title: "Staff" },
-    { path: "stats", element: <ComingSoon />, title: "Stats" },
-    { path: "social", element: <ComingSoon />, title: "Social" },
-  ];
-
   if (isError) {
     navigate("/404");
   }
@@ -105,17 +82,7 @@ const MediaDetail = () => {
           <LowerLayout
             {...{
               left: <LeftSection />,
-              right: (
-                <Routes>
-                  {routes.map((route) => (
-                    <Route
-                      path={route.path}
-                      element={route.element}
-                      key={route.title}
-                    />
-                  ))}
-                </Routes>
-              ),
+              right: <Outlet />,
             }}
           />
 

@@ -28,7 +28,7 @@ import {
   settingsSubRoutes,
   statsSubRoutes,
 } from "./routes";
-import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { useAppDispatch } from "./hooks/redux";
 import Loading from "./components/UI/Loading";
 import Donate from "./pages/Donate";
 import Apps from "./pages/Apps";
@@ -40,6 +40,7 @@ import SubmissionManual from "./pages/SubmissionManual";
 import Error from "./components/UI/Error";
 import { getUserDetail } from "./lib/api";
 import { saveUser } from "./store/AuthSlice";
+import Overview from "./pages/MediaDetail/Pages/Overview";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -121,6 +122,7 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path={`/movie/:mediaid`} element={<MediaDetail />}>
+              <Route index element={<Overview />} />
               {mediaSubRoutes.map((route) => (
                 <Route
                   path={route.path}
@@ -130,6 +132,7 @@ const App = () => {
               ))}
             </Route>
             <Route path={`/tv/:mediaid`} element={<MediaDetail />}>
+              <Route index element={<Overview />} />
               {mediaSubRoutes.map((route) => (
                 <Route
                   path={route.path}

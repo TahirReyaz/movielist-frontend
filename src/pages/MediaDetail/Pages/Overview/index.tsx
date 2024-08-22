@@ -1,4 +1,5 @@
 import React from "react";
+
 import Characters from "./Characters";
 import Relations from "./Relations";
 import Staff from "./Staff";
@@ -7,15 +8,13 @@ import Trailer from "./Trailer";
 import Recommendations from "./Recommendations";
 import Threads from "./Threads";
 import Reviews from "./Reviews";
+import { useAppSelector } from "../../../../hooks/redux";
 
-interface OverviewProps {
-  mediaid: string | undefined;
-  mediaType: string;
-  overview: string;
-}
+const Overview = () => {
+  const { mediaid, mediaType, overview } = useAppSelector(
+    (state) => state.media
+  );
 
-const Overview = ({ mediaid, mediaType, overview }: OverviewProps) => {
-  console.log({ overview });
   return (
     <div>
       <div className="md:hidden">

@@ -4,11 +4,12 @@ import Characters from "./pages/MediaDetail/Pages/Characters";
 import Social from "./pages/Profile/Social";
 import Favourites from "./pages/Profile/Favourites";
 import Overview from "./pages/Profile/Stats/Pages/Overview";
+import Staff from "./pages/MediaDetail/Pages/Staff";
 
 export const mediaSubRoutes = [
   { path: "watch", element: <ComingSoon /> },
   { path: "characters", element: <Characters /> },
-  { path: "staff", element: <ComingSoon /> },
+  { path: "staff", element: <Staff /> },
   { path: "stats", element: <ComingSoon /> },
   { path: "social", element: <ComingSoon /> },
 ];
