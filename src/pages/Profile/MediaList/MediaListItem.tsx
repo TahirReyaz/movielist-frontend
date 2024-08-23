@@ -10,6 +10,7 @@ import { increaseProgess } from "../../../lib/api/entry";
 import EntryEditorModal from "../../../components/UI/EntryEditorModal";
 import { useAppSelector } from "../../../hooks/redux";
 import { showErrorToast } from "../../../utils/toastUtils";
+import { useLoadingBar } from "../../../components/UI/LoadingBar";
 
 interface MediaListItemProps {
   entry: any;
@@ -43,18 +44,22 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
   const { username: profUsername } = useAppSelector((state) => state.profile);
 
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
   const navigate = useNavigate();
 
   const entryMutation = useMutation({
     mutationFn: () => {
+      loadingBar.current?.continuousStart();
       return increaseProgess(entry._id);
     },
     onSuccess: () => {
+      loadingBar.current?.complete();
       queryClient.invalidateQueries({
         queryKey: ["entries", profUsername, mediaType],
       });
     },
     onError: (error: any) => {
+      loadingBar.current?.complete();
       showErrorToast(error.message);
     },
   });

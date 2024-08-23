@@ -8,6 +8,7 @@ import { RootState } from "../../../../store";
 import Loading from "../../../../components/UI/Loading";
 import Button from "../../../../components/UI/Button";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 
 const About = () => {
   const [about, setAbout] = useState<string>("");
@@ -18,6 +19,7 @@ const About = () => {
   const userid = profileData?._id;
 
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   const profileQuery = useQuery({
     queryKey: [`getUserProfile`, username],
@@ -27,13 +29,16 @@ const About = () => {
 
   const profileMutation = useMutation({
     mutationFn: (about: string | undefined) => {
+      loadingBar.current?.continuousStart();
       return updateUserDetail(userid, { about });
     },
     onSuccess: (data) => {
+      loadingBar.current?.complete();
       queryClient.invalidateQueries({ queryKey: ["getUserProfile", username] });
       showSuccessToast(data.message);
     },
     onError: (error) => {
+      loadingBar.current?.complete();
       showErrorToast(error.message);
     },
   });

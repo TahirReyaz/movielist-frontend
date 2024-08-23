@@ -6,6 +6,7 @@ import { getEntryDetail } from "../../../../lib/api";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
 import { increaseProgess } from "../../../../lib/api/entry";
 import { showErrorToast } from "../../../../utils/toastUtils";
+import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 
 interface EntryCardProps {
   id: string;
@@ -15,6 +16,7 @@ const EntryCard = ({ id }: EntryCardProps) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   const {
     data: entry,
@@ -28,12 +30,15 @@ const EntryCard = ({ id }: EntryCardProps) => {
 
   const entryMutation = useMutation({
     mutationFn: () => {
+      loadingBar.current?.continuousStart();
       return increaseProgess(id);
     },
     onSuccess: () => {
+      loadingBar.current?.complete();
       queryClient.invalidateQueries({ queryKey: ["entry", id] });
     },
     onError: (error: any) => {
+      loadingBar.current?.complete();
       showErrorToast(error.message);
     },
   });
