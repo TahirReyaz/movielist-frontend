@@ -1,21 +1,30 @@
-import React from "react";
-import { useIsFetching, useIsMutating } from "@tanstack/react-query";
+import React, { createContext, useContext, useRef } from "react";
+import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 
-const LoadingBar: React.FC = () => {
-  const isFetching = useIsFetching();
-  const isMutating = useIsMutating();
+// Create context with a default of undefined
+const LoadingBarContext = createContext<
+  React.RefObject<LoadingBarRef> | undefined
+>(undefined);
 
-  // Combine the loading progress from both isFetching and isMutating
-  const loadingProgress = Math.max(isFetching, isMutating);
+export const LoadingBarProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  // Initialize the ref for LoadingBar
+  const loadingBarRef = useRef<LoadingBarRef>(null);
 
   return (
-    <div
-      className={`fixed top-0 left-0 w-full h-2 bg-gradient-to-r from-actionPrimary to-actionSecondary transition-all ${
-        loadingProgress ? "opacity-100" : "opacity-0"
-      }`}
-      style={{ width: `${loadingProgress}%` }}
-    />
+    <LoadingBarContext.Provider value={loadingBarRef}>
+      <LoadingBar color="#59BEF4" height={3} ref={loadingBarRef} />
+      {children}
+    </LoadingBarContext.Provider>
   );
 };
 
-export default LoadingBar;
+// Custom hook to use the loading bar context
+export const useLoadingBar = () => {
+  const context = useContext(LoadingBarContext);
+  if (context === undefined) {
+    throw new Error("useLoadingBar must be used within a LoadingBarProvider");
+  }
+  return context;
+};

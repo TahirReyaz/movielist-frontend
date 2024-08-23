@@ -1,6 +1,7 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { FaComment, FaHeart } from "react-icons/fa";
 
 import userAvatarPlaceholder from "../../assets/userAvatar.png";
 
@@ -9,7 +10,7 @@ import { ActivityProps } from ".";
 import { likeActivity, unlikeActivity } from "../../lib/api/activity";
 import { showErrorToast } from "../../utils/toastUtils";
 import { useAppSelector } from "../../hooks/redux";
-import { FaComment, FaHeart } from "react-icons/fa";
+import { useLoadingBar } from "../UI/LoadingBar";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -28,7 +29,9 @@ const MediaActivity = ({
 }: ActivityProps) => {
   const username = useAppSelector((state) => state.auth?.username);
   const isLoggedin = useAppSelector((state) => state.auth?.isLoggedIn);
+
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   let liked = false;
   if (username && likes) {
@@ -37,6 +40,7 @@ const MediaActivity = ({
 
   const activityMutation = useMutation({
     mutationFn: (type: string) => {
+      loadingBar.current?.continuousStart();
       if (type === "like") {
         return likeActivity(_id);
       } else {
@@ -44,6 +48,7 @@ const MediaActivity = ({
       }
     },
     onSuccess: () => {
+      loadingBar.current?.complete();
       if (atProfile && username) {
         queryClient.invalidateQueries({
           queryKey: ["activities", "user", username],
@@ -53,6 +58,7 @@ const MediaActivity = ({
       }
     },
     onError: (error: any) => {
+      loadingBar.current?.complete();
       showErrorToast(error.message);
     },
   });

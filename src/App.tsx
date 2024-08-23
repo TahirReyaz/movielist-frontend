@@ -15,12 +15,10 @@ import Profile from "./pages/Profile";
 import MediaList from "./pages/Profile/MediaList";
 import ComingSoon from "./pages/ComingSoon";
 import Browse from "./pages/Browse";
-import LoadingBar from "./components/UI/LoadingBar";
 import Settings from "./pages/Settings";
 import Staff from "./pages/Staff";
 import Notifications from "./pages/Notifications";
 import Stats from "./pages/Profile/Stats";
-import StatsOverview from "./pages/Profile/Stats/Pages/Overview";
 import ProfileOverview from "./pages/Profile/Overview";
 import {
   mediaSubRoutes,
@@ -77,7 +75,6 @@ const App = () => {
 
   return (
     <div className="bg-bgTertiary text-textPrimary font-sans relative">
-      <LoadingBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
