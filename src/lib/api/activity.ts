@@ -75,7 +75,7 @@ export const likeActivity = async (id: string) => {
 export const unlikeActivity = async (id: string) => {
   try {
     const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/activity/like/${id}`,
+      `${backendUrl}/activity/unlike/${id}`,
       {},
       {
         withCredentials: true,

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { activity } from "../../constants/types/activity";
+import { Activity as ActivityType } from "../../constants/types/activity";
 import MediaActivity from "./MediaActivity";
 import StatusActivity from "./StatusActivity";
 
-export interface ActivityProps extends activity {
+export interface ActivityProps extends ActivityType {
   atProfile: boolean;
   location: string;
 }

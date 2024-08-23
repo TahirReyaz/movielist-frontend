@@ -1,6 +1,6 @@
 import { followUserType, mediaTypeType } from "../types";
 
-export type activity = {
+export type Activity = {
   _id: string;
   image: string;
   likes?: [followUserType];

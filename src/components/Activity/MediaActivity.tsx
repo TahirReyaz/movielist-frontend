@@ -12,7 +12,7 @@ import { useAppSelector } from "../../hooks/redux";
 import { FaComment, FaHeart } from "react-icons/fa";
 
 const iconClass =
-  "text-xl font-semibold text-anilist-blue-cadet cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
+  "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
 
 const MediaActivity = ({
   title,
@@ -26,8 +26,14 @@ const MediaActivity = ({
   likes,
   location,
 }: ActivityProps) => {
-  const username = useAppSelector((state) => state.profile?.username);
+  const username = useAppSelector((state) => state.auth?.username);
+  const isLoggedin = useAppSelector((state) => state.auth?.isLoggedIn);
   const queryClient = useQueryClient();
+
+  let liked = false;
+  if (username && likes) {
+    liked = likes.some((user) => user.username == username);
+  }
 
   const activityMutation = useMutation({
     mutationFn: (type: string) => {
@@ -50,6 +56,16 @@ const MediaActivity = ({
       showErrorToast(error.message);
     },
   });
+
+  const handleClick = () => {
+    if (isLoggedin) {
+      if (liked) {
+        activityMutation.mutate("unlike");
+      } else {
+        activityMutation.mutate("like");
+      }
+    }
+  };
 
   const time = calculateElasedTime(createdAt);
   const atProfile = location === "user";
@@ -103,12 +119,17 @@ const MediaActivity = ({
       <div className="col-span-2 md:col-span-2 py-4 pe-4 flex flex-col justify-between items-end">
         <h5 className="text-lg font-medium">{time}</h5>
         <div className="flex gap-4">
-          <span className={iconClass} onClick={() => {}}>
+          <span
+            className={iconClass + " text-anilist-blue-cadet "}
+            onClick={() => {}}
+          >
             {0} <FaComment />
           </span>
           <span
-            className={iconClass}
-            onClick={() => activityMutation.mutate("like")}
+            className={`${iconClass} ${
+              liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
+            }`}
+            onClick={handleClick}
           >
             {likes?.length} <FaHeart />
           </span>
