@@ -43,7 +43,14 @@ const List = () => {
       {activities &&
         activities.length > 0 &&
         activities.map((activity: activity) => (
-          <Activity {...{ key: activity._id, ...activity, atProfile: true }} />
+          <Activity
+            {...{
+              key: activity._id,
+              ...activity,
+              atProfile: true,
+              location: "user",
+            }}
+          />
         ))}
       {/* {(!activities || activities.length === 0) && (
         <div className="bg-bgSecondary p-6">

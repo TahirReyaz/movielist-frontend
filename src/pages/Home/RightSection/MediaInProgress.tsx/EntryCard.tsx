@@ -56,7 +56,7 @@ const EntryCard = ({ id }: EntryCardProps) => {
       />
       {/* Mobile details */}
       <div className="flex justify-between flex-col md:hidden bg-bgSecondary p-4 text-2xl">
-        <Link to={`/${entry.mediaType}/${entry.mediaid}`}>{entry.title}</Link>
+        <p className="cursor-pointer">{entry.title}</p>
         <p>
           {entry.progress && <span>Ep {entry.progress}</span>}
           {entry.data?.number_of_episodes && (

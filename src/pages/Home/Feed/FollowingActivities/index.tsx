@@ -39,7 +39,14 @@ const FollowingActivities = () => {
       {activities &&
         activities.length > 0 &&
         activities.map((activity: activity) => (
-          <Activity {...{ key: activity._id, ...activity, atProfile: false }} />
+          <Activity
+            {...{
+              key: activity._id,
+              ...activity,
+              atProfile: false,
+              location: "following",
+            }}
+          />
         ))}
       {/* {(!activities || activities.length === 0) && (
         <div className="bg-bgSecondary p-6">

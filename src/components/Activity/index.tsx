@@ -6,6 +6,7 @@ import StatusActivity from "./StatusActivity";
 
 export interface ActivityProps extends activity {
   atProfile: boolean;
+  location: string;
 }
 
 const Activity = (activity: ActivityProps) => {

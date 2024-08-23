@@ -55,3 +55,35 @@ export const getFollowingActivities = async (page: number = 1) => {
     throw new Error(error);
   }
 };
+
+export const likeActivity = async (id: string) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/activity/like/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  } catch (error: any) {
+    const msg = error?.response?.data?.message;
+    throw new Error(msg);
+  }
+};
+
+export const unlikeActivity = async (id: string) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/activity/like/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  } catch (error: any) {
+    const msg = error?.response?.data?.message;
+    throw new Error(msg);
+  }
+};
