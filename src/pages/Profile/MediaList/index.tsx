@@ -160,35 +160,30 @@ const MediaList = () => {
                   {...{
                     entries: groupedEntries.watching,
                     listType: "Watching",
-                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.planning,
                     listType: "Planning",
-                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.completed,
                     listType: "Completed",
-                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.paused,
                     listType: "Paused",
-                    mediaType,
                   }}
                 />
                 <MediaListGroup
                   {...{
                     entries: groupedEntries.dropped,
                     listType: "Dropped",
-                    mediaType,
                   }}
                 />
               </>
