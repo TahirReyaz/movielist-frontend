@@ -3,7 +3,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import { StatusType, mediaTypeType } from "../../../constants/types";
 import { posterSizes, tmdbImgBaseUrl } from "../../../constants/tmdb";
 import StatusDot from "../../../components/UI/StatusDot";
 import { increaseProgess } from "../../../lib/api/entry";
@@ -13,31 +12,18 @@ import { showErrorToast } from "../../../utils/toastUtils";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
 import { Entry } from "../../../constants/types/entry";
 
-interface MediaListItemProps {
-  entry: Entry;
-  mediaType: mediaTypeType;
-}
-
-export type EntryDetailType = {
-  id: string;
-  title: string;
-  poster: string;
-  backdrop: string;
-  mediaType: mediaTypeType;
-  userid: string;
-  listid: string;
-  mediaid: string;
-  status: StatusType;
-  startDate?: string;
-  endDate?: string;
-  fav?: boolean;
-  score?: number;
-  rewatches?: number;
-  progress?: number;
-  notes?: string;
-};
-
-const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
+const MediaListItem = ({
+  _id,
+  mediaType,
+  title,
+  poster,
+  mediaid,
+  rewatches,
+  score,
+  progress,
+  status,
+  data,
+}: Entry) => {
   const [hover, setHover] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -51,7 +37,7 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
   const entryMutation = useMutation({
     mutationFn: () => {
       loadingBar.current?.continuousStart();
-      return increaseProgess(entry._id);
+      return increaseProgess(_id);
     },
     onSuccess: () => {
       loadingBar.current?.complete();
@@ -65,11 +51,16 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
     },
   });
 
+  let showIncreaseIcon: boolean = false;
+  if (username === profUsername && status != "completed") {
+    showIncreaseIcon = true;
+  }
+
   const handleClick = () => {
     if (isLoggedIn && username && username == profUsername) {
       setShowModal(true);
     } else {
-      navigate(`/${entry.mediaType}/${entry.mediaid}`);
+      navigate(`/${mediaType}/${mediaid}`);
     }
   };
 
@@ -89,8 +80,8 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
           {/* Poster */}
           <div className="w-7/12">
             <img
-              src={`${tmdbImgBaseUrl}/${posterSizes.xs}${entry.poster}`}
-              alt={entry.title}
+              src={`${tmdbImgBaseUrl}/${posterSizes.xs}${poster}`}
+              alt={title}
               className="rounded aspect-square object-cover object-top cursor-pointer"
               onClick={handleClick}
             />
@@ -100,8 +91,8 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
                 </div>
               ) : (
                 <img
-                  src={`${tmdbImgBaseUrl}/${posterSizes.xs}${entry.poster}`}
-                  alt={entry.title}
+                  src={`${tmdbImgBaseUrl}/${posterSizes.xs}${poster}`}
+                  alt={title}
                   className="rounded aspect-square object-cover object-top"
                 />
               )} */}
@@ -112,21 +103,17 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
           {/* Title and rewatches */}
           <div className="col-span-10 md:col-span-9 grid grid-cols-9">
             <div className="col-span-8 flex items-center font-semibold md:font-normal">
-              <Link to={`/${entry.mediaType}/${entry.mediaid}`}>
-                {entry.title}
-              </Link>
+              <Link to={`/${mediaType}/${mediaid}`}>{title}</Link>
             </div>
-            <div className="col-span-1">
-              {entry.rewatches ? `${entry.rewatches}@` : ""}
-            </div>
+            <div className="col-span-1">{rewatches ? `${rewatches}@` : ""}</div>
           </div>
 
           {/* Score and progress */}
           <div className="col-span-10 md:col-span-2 grid-cols-2">
             {/* Score */}
             <div className="col-span-1 self-center">
-              {entry.score ? (
-                <span className="inline md:hidden">Score: {entry.score}</span>
+              {score ? (
+                <span className="inline md:hidden">Score: {score}</span>
               ) : (
                 ""
               )}
@@ -134,10 +121,8 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
             {/* Progress */}
             <div className="col-span-1 self-center text-right md:text-center">
               <span className="inline md:hidden">Progress: </span>
-              {`${entry.progress ?? "0"}/${
-                entry.data?.number_of_episodes ?? "1"
-              }`}
-              {entry.status != "completed" && (
+              {`${progress ?? "0"}/${data?.number_of_episodes ?? "1"}`}
+              {showIncreaseIcon && (
                 <span
                   onClick={() => entryMutation.mutate()}
                   className="cursor-pointer"
@@ -153,7 +138,7 @@ const MediaListItem = ({ entry, mediaType }: MediaListItemProps) => {
         {...{
           open: showModal,
           setOpen: setShowModal,
-          id: entry._id,
+          id: _id,
         }}
       />
     </div>

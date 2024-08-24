@@ -7,6 +7,7 @@ import { increaseProgess } from "../../../../lib/api/entry";
 import { showErrorToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { Entry } from "../../../../constants/types/entry";
+import { useAppSelector } from "../../../../hooks/redux";
 
 const EntryCard = ({
   _id,
@@ -18,6 +19,7 @@ const EntryCard = ({
   data,
 }: Entry) => {
   const [hover, setHover] = useState<boolean>(false);
+  const { username } = useAppSelector((state) => state.auth);
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
@@ -29,7 +31,9 @@ const EntryCard = ({
     },
     onSuccess: () => {
       loadingBar.current?.complete();
-      queryClient.invalidateQueries({ queryKey: ["entry", _id] });
+      queryClient.invalidateQueries({
+        queryKey: ["entries", username, mediaType],
+      });
     },
     onError: (error: any) => {
       loadingBar.current?.complete();
