@@ -139,6 +139,8 @@ const MediaListItem = ({
           open: showModal,
           setOpen: setShowModal,
           id: _id,
+          mediaid,
+          mediaType,
         }}
       />
     </div>

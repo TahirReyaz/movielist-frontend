@@ -138,18 +138,18 @@ export async function updateUserDetail(
   }
 }
 
-export async function getEntryDetail(id: string | undefined) {
+export const getEntryDetail = async (id: string) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/entry/${id}`
     );
     const entry = response.data;
-    return { ...entry, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return entry;
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
   }
-}
+};
 
 export async function getSearchMultiResults(query: string) {
   try {

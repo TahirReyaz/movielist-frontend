@@ -94,6 +94,8 @@ const Controls = () => {
           open: showModal,
           setOpen: setShowModal,
           id: existingEntry?.id,
+          mediaid,
+          mediaType,
         }}
       />
     </div>

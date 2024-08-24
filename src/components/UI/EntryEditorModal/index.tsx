@@ -9,25 +9,30 @@ import Loading from "../Loading";
 import Error from "../Error";
 import TextInput from "../TextInput";
 import { updateEntry } from "../../../lib/api/entry";
-import { useAppSelector } from "../../../hooks/redux";
 import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { Entry } from "../../../constants/types/entry";
-import { StatusType } from "../../../constants/types";
+import { StatusType, mediaTypeType } from "../../../constants/types";
 
 interface EntryEditorModalParams {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
+  mediaid: string;
+  mediaType: mediaTypeType;
 }
 
 const Label = ({ label }: { label: string }) => {
   return <p className="text-xl text-left text-textLight my-2">{label}</p>;
 };
 
-const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
-  const { mediaid, mediaType } = useAppSelector((state) => state.media);
-
+const EntryEditorModal = ({
+  open,
+  setOpen,
+  id,
+  mediaid,
+  mediaType,
+}: EntryEditorModalParams) => {
   const queryClient = useQueryClient();
 
   const {
@@ -36,7 +41,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
     isError,
   } = useQuery<Entry>({
     queryKey: ["entry", id],
-    queryFn: () => getEntryDetail(id),
+    queryFn: () => getEntryDetail(id!),
     enabled: !!id && open,
   });
 
@@ -49,25 +54,6 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
   const [notes, setNotes] = useState<string | undefined>("");
   const [maxProgress, setMaxProgress] = useState(0);
 
-  useEffect(() => {
-    if (entry) {
-      if (entry.status) setStatus(entry.status);
-      if (entry.startDate) setStartDate(entry.startDate);
-      if (entry.endDate) setFinishDate(entry.endDate);
-      if (entry.score) setScore(entry.score);
-      if (entry.rewatches) setRewatches(entry.rewatches);
-      if (entry.progress) setProgress(entry.progress);
-      if (entry.notes) setNotes(entry.notes);
-      if (entry.data) {
-        if (entry.mediaType == "movie") {
-          setMaxProgress(1);
-        } else {
-          setMaxProgress(entry.data.number_of_episodes);
-        }
-      }
-    }
-  }, [entry]);
-
   const {
     data: media,
     isLoading: isMediaLoading,
@@ -75,7 +61,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
   } = useQuery({
     queryKey: ["media", mediaType, mediaid],
     queryFn: () => getMediaDetail(mediaType, mediaid),
-    enabled: !!mediaid,
+    enabled: !!mediaid && open,
   });
 
   const [fav, setFav] = useState<boolean>(false);
@@ -153,6 +139,25 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
   };
 
   useEffect(() => {
+    if (entry) {
+      if (entry.status) setStatus(entry.status);
+      if (entry.startDate) setStartDate(entry.startDate);
+      if (entry.endDate) setFinishDate(entry.endDate);
+      if (entry.score) setScore(entry.score);
+      if (entry.rewatches) setRewatches(entry.rewatches);
+      if (entry.progress) setProgress(entry.progress);
+      if (entry.notes) setNotes(entry.notes);
+      if (entry.data) {
+        if (entry.mediaType == "movie") {
+          setMaxProgress(1);
+        } else {
+          setMaxProgress(entry.data.number_of_episodes);
+        }
+      }
+    }
+  }, [entry]);
+
+  useEffect(() => {
     if (media) {
       if (mediaType == "movie") {
         setMaxProgress(1);
@@ -174,10 +179,10 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
       <div className="mx-0 md:mx-48 w-full md:w-fit bg-bgSecondary rounded-0 md:rounded-md">
         <TopSection
           {...{
-            title: entry ? entry.title : media?.title,
+            title: media?.title,
             fav,
-            backdrop: entry ? entry.backdrop : media?.backdrop_path,
-            poster: entry ? entry.poster : media?.poster_path,
+            backdrop: media?.backdrop_path,
+            poster: media?.poster_path,
             onFav: () => handleFav(true),
             onUnFav: () => handleFav(false),
             onSave: handleSave,
