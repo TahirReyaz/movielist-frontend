@@ -48,12 +48,6 @@ export type existingEntryType = Omit<
   backdrop?: string;
 };
 
-export type listGroupType = {
-  title: string;
-  entries: entryType[] | [];
-  type: string;
-};
-
 export type genreStatListItem = {
   title: string;
   posterPath: string;
