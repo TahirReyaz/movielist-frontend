@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import TextInput from "../../../../components/UI/TextInput";
-import { getUserDetail, updateUserDetail } from "../../../../lib/api";
+import { updateUserDetail } from "../../../../lib/api";
 import { RootState } from "../../../../store";
-import Loading from "../../../../components/UI/Loading";
 import Button from "../../../../components/UI/Button";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
@@ -21,12 +20,6 @@ const About = () => {
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 
-  const profileQuery = useQuery({
-    queryKey: [`getUserProfile`, username],
-    enabled: !!username,
-    queryFn: () => getUserDetail(username),
-  });
-
   const profileMutation = useMutation({
     mutationFn: (about: string | undefined) => {
       loadingBar.current?.continuousStart();
@@ -34,7 +27,7 @@ const About = () => {
     },
     onSuccess: (data) => {
       loadingBar.current?.complete();
-      queryClient.invalidateQueries({ queryKey: ["getUserProfile", username] });
+      queryClient.invalidateQueries({ queryKey: ["user", username] });
       showSuccessToast(data.message);
     },
     onError: (error) => {
@@ -44,16 +37,12 @@ const About = () => {
   });
 
   useEffect(() => {
-    if (profileQuery.isFetched && profileQuery.data.about) {
-      if (profileQuery.data.about !== about) {
-        setAbout(profileQuery.data.about);
+    if (profileData.about) {
+      if (profileData.about !== about) {
+        setAbout(profileData.about);
       }
     }
-  }, [profileQuery.data?.about]);
-
-  if (profileQuery.isLoading) {
-    return <Loading />;
-  }
+  }, [profileData]);
 
   return (
     <div>
@@ -68,7 +57,7 @@ const About = () => {
           label: "",
         }}
       />
-      {profileQuery.data?.about !== about && about !== "" && (
+      {profileData.about !== about && about !== "" && (
         <div>
           <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
             {about}

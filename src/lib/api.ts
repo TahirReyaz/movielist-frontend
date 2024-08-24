@@ -113,18 +113,18 @@ export const addEntry = async (body: newEntryType) => {
   }
 };
 
-export async function getUserDetail(username: string | undefined) {
+export const getUserDetail = async (username: string | undefined) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/user/${username}`
     );
     const user = response.data?._doc;
-    return { ...user, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return user;
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
   }
-}
+};
 
 export async function updateUserDetail(
   userid: string | undefined,

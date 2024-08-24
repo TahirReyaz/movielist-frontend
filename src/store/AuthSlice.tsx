@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getUserDetail } from "../lib/api";
+import { createSlice } from "@reduxjs/toolkit";
 
 export type SliceStateType = {
   isLoggedIn: boolean;

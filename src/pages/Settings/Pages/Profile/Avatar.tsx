@@ -1,7 +1,7 @@
 import React from "react";
 import ImagePicker from "../../../../components/UI/ImagePicker";
-import { getUserDetail, updateUserDetail } from "../../../../lib/api";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { updateUserDetail } from "../../../../lib/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import { changeDpAction } from "../../../../store/AuthSlice";
@@ -18,12 +18,6 @@ const Avatar = () => {
   const loadingBar = useLoadingBar();
   const dispatch = useDispatch();
 
-  const profileQuery = useQuery({
-    queryKey: ["profile", username],
-    enabled: !!username,
-    queryFn: () => getUserDetail(username),
-  });
-
   const profileMutation = useMutation({
     mutationFn: (url: string | undefined) => {
       loadingBar.current?.continuousStart();
@@ -31,7 +25,7 @@ const Avatar = () => {
     },
     onSuccess: (data) => {
       loadingBar.current?.complete();
-      queryClient.invalidateQueries({ queryKey: ["profile", username] });
+      queryClient.invalidateQueries({ queryKey: ["user", username] });
       dispatch(changeDpAction(data));
 
       showSuccessToast(data.message);
@@ -48,7 +42,7 @@ const Avatar = () => {
       {/* <FileUpload {...{ type: "image" }} /> */}
       <ImagePicker
         {...{
-          src: profileQuery.data?.avatar,
+          src: profileData.avatar,
           onUpload: (url: string) => profileMutation.mutate(url),
         }}
       />
