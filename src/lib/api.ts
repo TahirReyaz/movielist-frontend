@@ -8,7 +8,6 @@ import {
 import { backendUrl } from "../constants";
 
 export type newEntryType = {
-  userid: string;
   mediaid?: string;
   status: listtypetype;
   mediaType: string;
@@ -99,39 +98,8 @@ export async function login(email: string, password: string) {
   }
 }
 
-export const addEntry = async ({
-  mediaid,
-  userid,
-  mediaType,
-  status,
-  startDate,
-  endDate,
-  fav,
-  progress,
-  rewatches,
-  score,
-  notes,
-  title,
-  poster,
-  backdrop,
-}: newEntryType) => {
+export const addEntry = async (body: newEntryType) => {
   try {
-    const body = {
-      mediaid,
-      userid,
-      mediaType,
-      status,
-      startDate,
-      endDate,
-      fav,
-      progress,
-      rewatches,
-      score,
-      notes,
-      title,
-      poster,
-      backdrop,
-    };
     const response: AxiosResponse = await axios.post(
       `${backendUrl}/entry`,
       body,

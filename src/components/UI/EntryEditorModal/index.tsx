@@ -24,7 +24,6 @@ const Label = ({ label }: { label: string }) => {
 };
 
 const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
-  const userid = useAppSelector((state) => state.auth.profileData._id);
   const { mediaid, mediaType } = useAppSelector((state) => state.media);
 
   const queryClient = useQueryClient();
@@ -93,7 +92,6 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
       if (status) {
         const res = await updateEntry({
           status,
-          userid,
           id,
           startDate,
           endDate: finishDate,
@@ -122,7 +120,6 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
         const res = await addEntry({
           mediaid,
           mediaType,
-          userid,
           title: mediaType == "tv" ? media.name : media.title,
           poster: media.poster_path,
           backdrop: media.backdrop_path,

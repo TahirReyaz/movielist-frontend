@@ -57,7 +57,7 @@ const MediaCardButtons = ({
   mediaType,
   entry,
 }: MediaCardButtonsProps) => {
-  const { userid, username } = useAppSelector((state) => state.auth);
+  const { username } = useAppSelector((state) => state.auth);
 
   const queryClient = useQueryClient();
 
@@ -70,12 +70,11 @@ const MediaCardButtons = ({
       mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
     let response;
     if (entry) {
-      response = await updateEntry({ userid, status, id: entry.id });
+      response = await updateEntry({ status, id: entry.id });
     } else {
       response = await addEntry({
         mediaType,
         mediaid,
-        userid,
         status,
         title,
         poster: mediaDetails.poster_path,

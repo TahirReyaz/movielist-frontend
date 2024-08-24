@@ -37,7 +37,7 @@ const MediaActionMenu = ({
   setShowModal,
   existingEntry,
 }: MediaActionMenuProps) => {
-  const { userid, username } = useAppSelector((state) => state.auth);
+  const { username } = useAppSelector((state) => state.auth);
   const mediaDetails = useAppSelector((state) => state.media);
   const { mediaid, mediaType } = mediaDetails;
 
@@ -57,7 +57,6 @@ const MediaActionMenu = ({
     let response;
     if (existingEntry) {
       response = await updateEntry({
-        userid,
         id: existingEntry.id,
         status: listtype,
       });
@@ -65,7 +64,6 @@ const MediaActionMenu = ({
       response = await addEntry({
         mediaType,
         mediaid,
-        userid,
         status: listtype,
         title:
           (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) || "meh",

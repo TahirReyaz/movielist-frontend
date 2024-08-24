@@ -3,7 +3,6 @@ import { existingEntryType } from "../../constants/types";
 import { backendUrl } from "../../constants";
 
 export const updateEntry = async ({
-  userid,
   status,
   startDate,
   endDate,
@@ -15,7 +14,6 @@ export const updateEntry = async ({
 }: existingEntryType) => {
   try {
     const body = {
-      userid,
       status,
       startDate,
       endDate,
@@ -54,6 +52,6 @@ export const deleteEntry = async (id: string) => {
     return { message: "List Entry Deleted" };
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
-    return new Error(error_msg);
+    throw new Error(error_msg);
   }
 };
