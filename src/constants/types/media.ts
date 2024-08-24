@@ -1,64 +1,52 @@
-export type MovieDetail = {
+type MediaDetailBase = {
   adult: boolean;
   backdrop_path: string;
-  belongs_to_collection: string;
-  budget: number;
-  genre_ids: MediaDetailGenreType[];
   homepage: string;
   id: number;
-  imdb_id: string;
   original_language: string;
-  original_title: string;
   overview: string;
   popularity: number;
   poster_path: string;
-  production_companies: MediaDetailProductionCompanyType[];
-  production_countries: MediaDetailProductionCountryType[];
-  release_date: string;
-  revenue: number;
-  runtime: number;
-  spoken_languages: MediaDetailLanguageType[];
+  production_companies: ProductionCompany[];
+  production_countries: ProductionCountry[];
+  spoken_languages: Language[];
   status: string;
   tagline: string;
-  title: string;
-  video: boolean;
   vote_average: number;
   vote_count: number;
 };
 
-export type TvDetail = {
-  adult: boolean;
-  backdrop_path: string;
-  created_by: TvCreatorType[];
+export type MovieDetail = MediaDetailBase & {
+  belongs_to_collection: string;
+  budget: number;
+  genre_ids: MediaDetailGenre[];
+  imdb_id: string;
+  original_title: string;
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  title: string;
+  video: boolean;
+};
+
+export type TvDetail = MediaDetailBase & {
+  created_by: TvCreator[];
   episode_run_time: number[];
   first_air_date: string;
-  genres: MediaDetailGenreType[];
-  homepage: string;
-  id: number;
+  genres: MediaDetailGenre[];
   in_production: boolean;
   languages: string[];
   last_air_date: string;
-  last_episode_to_air: EpisodeType;
+  last_episode_to_air: Episode;
   name: string;
   next_episode_to_air: string;
-  networks: MediaDetailNetworkType[];
+  networks: Network[];
   number_of_episodes: number;
   number_of_seasons: number;
   origin_country: string[];
-  original_language: string;
   original_name: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  production_companies: MediaDetailProductionCompanyType[];
-  production_countries: MediaDetailProductionCountryType[];
-  seasons: MediaDetailSeasonType[];
-  spoken_languages: MediaDetailLanguageType[];
-  status: string;
-  tagline: string;
+  seasons: Season[];
   type: string;
-  vote_average: number;
-  vote_count: number;
 };
 
 export interface PersonDetail {
@@ -132,9 +120,9 @@ export type LastEpisodeToAir = {
   still_path: string;
 };
 
-export type MediaDetailGenreType = { id: number; name: string };
+export type MediaDetailGenre = { id: number; name: string };
 
-export type TvCreatorType = {
+export type TvCreator = {
   id: number;
   credit_id: string;
   name: string;
@@ -142,7 +130,7 @@ export type TvCreatorType = {
   profile_path: string;
 };
 
-export type EpisodeType = {
+export type Episode = {
   id: number;
   name: string;
   overview: string;
@@ -157,14 +145,14 @@ export type EpisodeType = {
   still_path: string;
 };
 
-export type MediaDetailNetworkType = {
+export type Network = {
   id: number;
   logo_path: string;
   name: string;
   origin_country: string;
 };
 
-export type MediaDetailSeasonType = {
+export type Season = {
   air_date: string;
   episode_count: number;
   id: number;
@@ -175,23 +163,23 @@ export type MediaDetailSeasonType = {
   vote_average: number;
 };
 
-export type MovieStatusType = "Released";
-export type TvStatusType = "Ended" | "Returning Series";
+export type MovieStatus = "Released";
+export type TvStatus = "Ended" | "Returning Series";
 export type StaffDept = "Acting";
 
-export type MediaDetailProductionCompanyType = {
+export type ProductionCompany = {
   id: number;
   logo_path: string;
   name: string;
   origin_country: string;
 };
 
-export type MediaDetailProductionCountryType = {
+export type ProductionCountry = {
   iso_3166_1: string;
   name: string;
 };
 
-export type MediaDetailLanguageType = {
+export type Language = {
   english_name: string;
   iso_639_1: string;
   name: string;

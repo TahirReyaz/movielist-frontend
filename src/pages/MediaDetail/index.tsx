@@ -4,11 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getMediaDetail } from "../../lib/api";
 import LowerLayout from "../../components/UI/LowerLayout";
-import ComingSoon from "../ComingSoon";
 import TopSection from "./TopSection";
 import Tags from "./LeftSection/Tags";
-import Overview from "./Pages/Overview";
-import Characters from "./Pages/Characters";
 import LeftSection from "./LeftSection";
 import { useAppDispatch } from "../../hooks/redux";
 import { setDetails } from "../../store/MediaSlice";
