@@ -2,40 +2,34 @@ import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-import { getEntryDetail } from "../../../../lib/api";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
 import { increaseProgess } from "../../../../lib/api/entry";
 import { showErrorToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
+import { Entry } from "../../../../constants/types/entry";
 
-interface EntryCardProps {
-  id: string;
-}
-
-const EntryCard = ({ id }: EntryCardProps) => {
+const EntryCard = ({
+  _id,
+  mediaid,
+  mediaType,
+  progress,
+  title,
+  poster,
+  data,
+}: Entry) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 
-  const {
-    data: entry,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["entry", id],
-    queryFn: () => getEntryDetail(id),
-    enabled: !!id,
-  });
-
   const entryMutation = useMutation({
     mutationFn: () => {
       loadingBar.current?.continuousStart();
-      return increaseProgess(id);
+      return increaseProgess(_id);
     },
     onSuccess: () => {
       loadingBar.current?.complete();
-      queryClient.invalidateQueries({ queryKey: ["entry", id] });
+      queryClient.invalidateQueries({ queryKey: ["entry", _id] });
     },
     onError: (error: any) => {
       loadingBar.current?.complete();
@@ -43,31 +37,25 @@ const EntryCard = ({ id }: EntryCardProps) => {
     },
   });
 
-  if (isLoading || isError) {
-    return;
-  }
-
   return (
     <Link
       className="rounded relative mb-8 flex md:block z-9 flex-shrink-0"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      to={`/${entry.mediaType}/${entry.mediaid}`}
+      to={`/${mediaType}/${mediaid}`}
     >
       <img
-        src={`${tmdbImgBaseUrl}/${posterSizes.md}${entry.poster}`}
-        alt={entry.title}
+        src={`${tmdbImgBaseUrl}/${posterSizes.md}${poster}`}
+        alt={title}
         className="rounded h-60 md:h-full"
       />
       {/* Mobile details */}
       <div className="flex justify-between flex-col md:hidden bg-bgSecondary p-4 text-2xl">
-        <p className="cursor-pointer">{entry.title}</p>
+        <p className="cursor-pointer">{title}</p>
         <p>
-          {entry.progress && <span>Ep {entry.progress}</span>}
-          {entry.data?.number_of_episodes && (
-            <span>/{entry.data.number_of_episodes}</span>
-          )}
-          {entry.mediaType == "movie" && <span>/1</span>}
+          {progress && <span>Ep {progress}</span>}
+          {data?.number_of_episodes && <span>/{data.number_of_episodes}</span>}
+          {mediaType == "movie" && <span>/1</span>}
           <span
             onClick={(e) => {
               entryMutation.mutate();
@@ -88,11 +76,9 @@ const EntryCard = ({ id }: EntryCardProps) => {
           }}
           className="hidden md:block absolute bottom-0 z-10 bg-backdrop/70 w-full text-center p-4 text-white text-xl cursor-pointer"
         >
-          {entry.progress && <span>Ep {entry.progress}</span>}
-          {entry.data?.number_of_episodes && (
-            <span>/{entry.data.number_of_episodes}</span>
-          )}
-          {entry.mediaType == "movie" && <span>/1</span>}
+          {progress && <span>Ep {progress}</span>}
+          {data?.number_of_episodes && <span>/{data.number_of_episodes}</span>}
+          {mediaType == "movie" && <span>/1</span>}
           <span className="ms-2"> +</span>
         </div>
       )}

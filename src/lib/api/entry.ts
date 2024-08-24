@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { mediaTypeType } from "../../constants/types";
 import { backendUrl } from "../../constants";
-import { UpdateEntryFields } from "../../constants/types/entry";
+import { Entry, UpdateEntryFields } from "../../constants/types/entry";
 
 export const updateEntry = async ({
   status,
@@ -63,9 +63,26 @@ export const getUserMediaEntries = async (
 ) => {
   try {
     const response = await axios.get(
-      `${backendUrl}/entries/${username}/${mediaType}`
+      `${backendUrl}/entries/user/${username}/${mediaType}`
     );
     return response.data;
+  } catch (error: any) {
+    const error_msg = error?.response?.data?.message;
+    throw new Error(error_msg);
+  }
+};
+
+export const getWatchingUserMediaEntries = async (
+  username: string,
+  mediaType: mediaTypeType
+) => {
+  try {
+    const entries = await getUserMediaEntries(username, mediaType);
+    const watchingEntries: Entry[] = entries?.filter(
+      (entry: Entry) =>
+        entry.status === "watching" && entry.mediaType === mediaType
+    );
+    return watchingEntries;
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
     throw new Error(error_msg);

@@ -1,30 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import EntryCard from "./EntryCard";
 import { useAppSelector } from "../../../../hooks/redux";
+import { getWatchingUserMediaEntries } from "../../../../lib/api/entry";
+import { mediaTypeType } from "../../../../constants/types";
+import Loading from "../../../../components/UI/Loading";
+import { Entry } from "../../../../constants/types/entry";
 
 interface MediaInProgressProps {
   title: string;
-  mediaType: string;
+  mediaType: mediaTypeType;
 }
 
 const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
-  const [entries, setEntries] = useState([]);
-  const { profileData: profile } = useAppSelector((state) => state.auth);
+  const { username } = useAppSelector((state) => state.auth);
+  const {
+    data: entries,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["entries", username, mediaType],
+    queryFn: () => getWatchingUserMediaEntries(username, mediaType),
+    enabled: !!username,
+  });
 
-  useEffect(() => {
-    if (profile) {
-      const watchingEntries = profile?.entries?.filter(
-        (entry: any) =>
-          entry.status === "watching" && entry.mediaType === mediaType
-      );
-      if (watchingEntries && watchingEntries.length > 0) {
-        setEntries(watchingEntries);
-      }
-    }
-  }, [profile]);
-
-  if (!entries || entries.length === 0) {
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (isError || !entries || entries.length === 0) {
     return <div />;
   }
 
@@ -34,11 +38,11 @@ const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
         {title}
       </h2>
       <div className="flex flex-row md:grid md:grid-cols-4 overflow-auto md:overflow-hidden gap-8">
-        {entries.map((entry: any) => (
+        {entries.map((entry: Entry) => (
           <EntryCard
             {...{
-              key: entry.id,
-              id: entry.id,
+              key: entry._id,
+              ...entry,
             }}
           />
         ))}

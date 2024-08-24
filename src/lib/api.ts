@@ -102,7 +102,7 @@ export const getUserDetail = async (username: string | undefined) => {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/user/${username}`
     );
-    const user = response.data?._doc;
+    const user = response.data;
     return user;
   } catch (error: any) {
     const msg = error.response?.data?.message;
