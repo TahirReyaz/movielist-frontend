@@ -1,11 +1,11 @@
-import { followUserType, mediaTypeType } from "../types";
+import { RefUser, mediaTypeType } from "../types";
 
 export type Activity = {
   _id: string;
   image: string;
-  likes?: [followUserType];
+  likes?: [RefUser];
   action?: string;
-  owner: followUserType;
+  owner: RefUser;
   mediaid?: number;
   mediaType?: mediaTypeType;
   title?: string;

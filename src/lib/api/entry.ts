@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { existingEntryType, mediaTypeType } from "../../constants/types";
+import { mediaTypeType } from "../../constants/types";
 import { backendUrl } from "../../constants";
+import { UpdateEntryFields } from "../../constants/types/entry";
 
 export const updateEntry = async ({
   status,
@@ -11,7 +12,7 @@ export const updateEntry = async ({
   score,
   notes,
   id,
-}: existingEntryType) => {
+}: UpdateEntryFields) => {
   try {
     const body = {
       status,

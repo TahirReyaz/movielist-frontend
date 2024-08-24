@@ -12,6 +12,8 @@ import { updateEntry } from "../../../lib/api/entry";
 import { useAppSelector } from "../../../hooks/redux";
 import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
+import { Entry } from "../../../constants/types/entry";
+import { StatusType } from "../../../constants/types";
 
 interface EntryEditorModalParams {
   open: boolean;
@@ -32,30 +34,30 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
     data: entry,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<Entry>({
     queryKey: ["entry", id],
     queryFn: () => getEntryDetail(id),
     enabled: !!id && open,
   });
 
-  const [status, setStatus] = useState(undefined);
+  const [status, setStatus] = useState<StatusType | undefined>(undefined);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
-  const [score, setScore] = useState("");
-  const [rewatches, setRewatches] = useState("");
-  const [progress, setProgress] = useState("");
-  const [notes, setNotes] = useState("");
+  const [score, setScore] = useState<number | undefined>();
+  const [rewatches, setRewatches] = useState<number>(0);
+  const [progress, setProgress] = useState<number | undefined>(0);
+  const [notes, setNotes] = useState<string | undefined>("");
   const [maxProgress, setMaxProgress] = useState(0);
 
   useEffect(() => {
     if (entry) {
-      setStatus(entry.status);
-      setStartDate(entry.startDate);
-      setFinishDate(entry.endDate);
-      setScore(entry.score);
-      setRewatches(entry.rewatches);
-      setProgress(entry.progress);
-      setNotes(entry.notes);
+      if (entry.status) setStatus(entry.status);
+      if (entry.startDate) setStartDate(entry.startDate);
+      if (entry.endDate) setFinishDate(entry.endDate);
+      if (entry.score) setScore(entry.score);
+      if (entry.rewatches) setRewatches(entry.rewatches);
+      if (entry.progress) setProgress(entry.progress);
+      if (entry.notes) setNotes(entry.notes);
       if (entry.data) {
         if (entry.mediaType == "movie") {
           setMaxProgress(1);
@@ -76,7 +78,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
     enabled: !!mediaid,
   });
 
-  const [fav, setFav] = useState<boolean>(entry ? entry.fav : false);
+  const [fav, setFav] = useState<boolean>(false);
 
   const statusOptions = [
     { value: "watching", label: "Watching" },
@@ -130,7 +132,6 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
           notes,
           rewatches,
           score,
-          fav,
         });
         if (res.error) {
           showErrorToast(res.message);
@@ -235,8 +236,8 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
                   <TextInput
                     {...{
                       type: "number",
-                      value: score,
-                      onChange: (e) => setScore(e.target.value),
+                      value: score ?? 0,
+                      onChange: (e) => setScore(parseInt(e.target.value)),
                       name: "score",
                       classes: "!bg-bgFooter text-white",
                       min: 0,
@@ -266,8 +267,8 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
                   <TextInput
                     {...{
                       type: "number",
-                      value: progress,
-                      onChange: (e) => setProgress(e.target.value),
+                      value: progress ?? 0,
+                      onChange: (e) => setProgress(parseInt(e.target.value)),
                       name: "score",
                       max: maxProgress,
                       classes: "!bg-bgFooter text-white",
@@ -281,8 +282,8 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
                   <TextInput
                     {...{
                       type: "number",
-                      value: rewatches,
-                      onChange: (e) => setRewatches(e.target.value),
+                      value: rewatches ?? 0,
+                      onChange: (e) => setRewatches(parseInt(e.target.value)),
                       name: "score",
                       classes: "!bg-bgFooter text-white",
                     }}
@@ -297,7 +298,7 @@ const EntryEditorModal = ({ open, setOpen, id }: EntryEditorModalParams) => {
                 <TextInput
                   {...{
                     type: "text",
-                    value: notes,
+                    value: notes ?? "",
                     onChange: (e) => setNotes(e.target.value),
                     name: "notes",
                     classes: "!bg-bgFooter text-white",

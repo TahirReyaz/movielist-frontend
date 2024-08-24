@@ -1,27 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import {
   bulkMediaType,
-  listtypetype,
   mediaTypeType,
   userSettingsType,
 } from "../constants/types";
 import { backendUrl } from "../constants";
-
-export type newEntryType = {
-  mediaid?: string;
-  status: listtypetype;
-  mediaType: string;
-  title: string;
-  poster: string;
-  backdrop: string;
-  startDate?: string;
-  endDate?: string;
-  fav?: boolean;
-  progress?: string;
-  rewatches?: string;
-  score?: string;
-  notes?: string;
-};
+import { newEntryType } from "../constants/types/entry";
 
 export async function getBulkMedia(
   mediatype: mediaTypeType,

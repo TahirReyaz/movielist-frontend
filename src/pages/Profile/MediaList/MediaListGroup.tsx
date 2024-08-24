@@ -1,11 +1,13 @@
 import React from "react";
 
 import MediaListItem from "./MediaListItem";
+import { Entry } from "../../../constants/types/entry";
+import { mediaTypeType } from "../../../constants/types";
 
 interface MediaListGroupParams {
   listType: string;
-  entries: any[];
-  mediaType: string;
+  entries: Entry[];
+  mediaType: mediaTypeType;
 }
 
 const MediaListGroup = ({
@@ -32,7 +34,7 @@ const MediaListGroup = ({
           </div>
           {entries.length > 0 ? (
             entries.map((entry) => (
-              <MediaListItem {...{ entry, key: entry.id, mediaType }} />
+              <MediaListItem {...{ entry, key: entry._id, mediaType }} />
             ))
           ) : (
             <span className="text-2xl p-8">No items in list</span>

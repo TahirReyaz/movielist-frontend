@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getUserDetail } from "../../lib/api";
-import { entryType, listtypetype, mediaTypeType } from "../../constants/types";
+import { StatusType, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Loading from "../../components/UI/Loading";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,7 @@ export type ProfileParams = {
 };
 
 export type listItemType = {
-  listtype: listtypetype;
+  listtype: StatusType;
   mediaType: mediaTypeType;
   id: string;
   _id: string;
@@ -22,7 +22,6 @@ export type listItemType = {
 
 export type profileType = {
   avatar: string;
-  entries: entryType[] | [];
   backdrop: string;
   _id: string;
   followers: string[] | [];

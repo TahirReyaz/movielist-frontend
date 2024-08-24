@@ -9,7 +9,7 @@ import { IconType } from "react-icons";
 import "tippy.js/animations/shift-away.css";
 
 import { addEntry } from "../../lib/api";
-import { listtypetype } from "../../constants/types";
+import { StatusType, mediaTypeType } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api/entry";
@@ -20,17 +20,17 @@ const iconClass = "rounded-full bg-bgPrimary mb-2 me-2 p-1.5 opacity-90";
 interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   mediaid: string;
-  mediaType: string;
+  mediaType: mediaTypeType;
   entry?: any;
 }
 
 interface MenuButtonProps {
   setTo: string;
   Icon: IconType;
-  status: listtypetype;
+  status: StatusType;
   onClick: (
     e: React.MouseEvent<HTMLDivElement>,
-    status: listtypetype
+    status: StatusType
   ) => Promise<void>;
 }
 
@@ -63,7 +63,7 @@ const MediaCardButtons = ({
 
   const clickHandler = async (
     e: React.MouseEvent<HTMLDivElement>,
-    status: listtypetype
+    status: StatusType
   ) => {
     e.preventDefault();
     const title =

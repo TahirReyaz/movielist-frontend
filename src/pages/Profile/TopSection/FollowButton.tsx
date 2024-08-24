@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { followUserType } from "../../../constants/types";
+import { RefUser } from "../../../constants/types";
 import { followUser } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import Button from "../../../components/UI/Button";
@@ -24,7 +24,7 @@ const FollowButton = () => {
   const queryClient = useQueryClient();
 
   const followingThisUser = profileData?.following?.some(
-    (user: followUserType) => user.username == profileUsername
+    (user: RefUser) => user.username == profileUsername
   );
 
   let followButtonTitle = followingThisUser ? "Following" : "Follow";

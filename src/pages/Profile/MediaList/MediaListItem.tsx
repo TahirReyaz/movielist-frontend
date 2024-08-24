@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import { listtypetype, mediaTypeType } from "../../../constants/types";
+import { StatusType, mediaTypeType } from "../../../constants/types";
 import { posterSizes, tmdbImgBaseUrl } from "../../../constants/tmdb";
 import StatusDot from "../../../components/UI/StatusDot";
 import { increaseProgess } from "../../../lib/api/entry";
@@ -11,10 +11,11 @@ import EntryEditorModal from "../../../components/UI/EntryEditorModal";
 import { useAppSelector } from "../../../hooks/redux";
 import { showErrorToast } from "../../../utils/toastUtils";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
+import { Entry } from "../../../constants/types/entry";
 
 interface MediaListItemProps {
-  entry: any;
-  mediaType: string;
+  entry: Entry;
+  mediaType: mediaTypeType;
 }
 
 export type EntryDetailType = {
@@ -26,7 +27,7 @@ export type EntryDetailType = {
   userid: string;
   listid: string;
   mediaid: string;
-  status: listtypetype;
+  status: StatusType;
   startDate?: string;
   endDate?: string;
   fav?: boolean;

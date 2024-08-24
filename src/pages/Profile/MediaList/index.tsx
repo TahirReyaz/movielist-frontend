@@ -9,6 +9,7 @@ import { mediaTypeType } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
 import { getUserMediaEntries } from "../../../lib/api/entry.ts";
+import { Entry, EntryGroup } from "../../../constants/types/entry.ts";
 
 const MediaList = () => {
   const { username } = useParams();
@@ -19,7 +20,7 @@ const MediaList = () => {
     pathArray[3].split("#")[0] === "movielist" ? "movie" : "tv";
   const allowedList = pathArray[4] ? pathArray[4] : "all";
 
-  const { data: entries, isError } = useQuery({
+  const { data: entries, isError } = useQuery<Entry[]>({
     queryKey: ["entries", username, mediaType],
     queryFn: () => getUserMediaEntries(username!, mediaType),
     enabled: username && mediaType ? true : false,
@@ -43,7 +44,7 @@ const MediaList = () => {
     [entries]
   );
 
-  const filteredEntries = useMemo(() => {
+  const filteredEntries = useMemo<Entry[]>(() => {
     if (!entries) return [];
 
     let filtered = entries;
@@ -116,9 +117,9 @@ const MediaList = () => {
     return filtered;
   }, [entries, filters, fuse]);
 
-  const groupedEntries = useMemo(() => {
+  const groupedEntries = useMemo<EntryGroup>(() => {
     return filteredEntries.reduce(
-      (acc: any, entry: any) => {
+      (acc: EntryGroup, entry: Entry) => {
         if (entry.status === "planning") {
           acc.planning.push(entry);
         } else if (entry.status === "watching") {

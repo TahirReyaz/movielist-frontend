@@ -1,4 +1,4 @@
-import { newEntryType } from "../lib/api";
+import { newEntryType } from "./types/entry";
 
 export type mediaTypeType = "movie" | "tv" | "person";
 export type multiSearchResultType = mediaTypeType | "user";
@@ -11,20 +11,12 @@ export type bulkMediaType =
   | "airing_today"
   | "on_the_air";
 
-export type listtypetype =
+export type StatusType =
   | "planning"
   | "watching"
   | "dropped"
   | "completed"
   | "paused";
-
-export type entryType = {
-  id: string;
-  mediaType: mediaTypeType;
-  status: listtypetype;
-  userid: string;
-  mediaid: string;
-};
 
 export type userSettingsType = {
   profileColor: string | undefined;
@@ -54,7 +46,8 @@ export type genreStatListItem = {
   id: number;
 };
 
-export type followUserType = {
+export type RefUser = {
   username: string;
   avatar?: string;
+  _id: string;
 };

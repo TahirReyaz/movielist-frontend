@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { addEntry } from "../../../../lib/api";
-import { listtypetype } from "../../../../constants/types";
+import { StatusType } from "../../../../constants/types";
 import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
@@ -11,7 +11,7 @@ import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 type listItemType = {
   title: string;
-  status: listtypetype;
+  status: StatusType;
 };
 const menuItems: listItemType[] = [
   {
@@ -53,7 +53,7 @@ const MediaActionMenu = ({
     ];
   }
 
-  const listHandler = async (listtype: listtypetype) => {
+  const listHandler = async (listtype: StatusType) => {
     let response;
     if (existingEntry) {
       response = await updateEntry({
