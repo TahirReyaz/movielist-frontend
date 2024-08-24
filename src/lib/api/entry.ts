@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { existingEntryType } from "../../constants/types";
+import { existingEntryType, mediaTypeType } from "../../constants/types";
 import { backendUrl } from "../../constants";
 
 export const updateEntry = async ({
@@ -50,6 +50,21 @@ export const deleteEntry = async (id: string) => {
   try {
     await axios.delete(`${backendUrl}/entry/${id}`, { withCredentials: true });
     return { message: "List Entry Deleted" };
+  } catch (error: any) {
+    const error_msg = error?.response?.data?.message;
+    throw new Error(error_msg);
+  }
+};
+
+export const getUserMediaEntries = async (
+  username: string,
+  mediaType: mediaTypeType
+) => {
+  try {
+    const response = await axios.get(
+      `${backendUrl}/entries/${username}/${mediaType}`
+    );
+    return response.data;
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
     throw new Error(error_msg);

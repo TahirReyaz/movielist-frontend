@@ -7,8 +7,8 @@ import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
 import { mediaTypeType } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
-import { getUserMediaEntries } from "../../../lib/api/user.ts";
 import Error from "../../../components/UI/Error.tsx";
+import { getUserMediaEntries } from "../../../lib/api/entry.ts";
 
 const MediaList = () => {
   const { username } = useParams();
@@ -21,8 +21,8 @@ const MediaList = () => {
 
   const { data: entries, isError } = useQuery({
     queryKey: ["entries", username, mediaType],
-    queryFn: () => getUserMediaEntries(username, mediaType),
-    enabled: !!username,
+    queryFn: () => getUserMediaEntries(username!, mediaType),
+    enabled: username && mediaType ? true : false,
   });
 
   const [filters, setFilters] = useState({

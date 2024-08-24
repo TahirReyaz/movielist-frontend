@@ -43,26 +43,6 @@ export const searchUsers = async (query: string) => {
   }
 };
 
-export const getUserMediaEntries = async (
-  username: string | undefined,
-  mediaType: string
-) => {
-  try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/user/${username}/entries`
-    );
-
-    const entries = response.data?.filter(
-      (entry: any) => entry.mediaType === mediaType
-    );
-
-    return entries;
-  } catch (error) {
-    console.error(error);
-    return { error: true };
-  }
-};
-
 export const unfollowUser = async (targetUsername: string) => {
   try {
     const response: AxiosResponse = await axios.delete(
