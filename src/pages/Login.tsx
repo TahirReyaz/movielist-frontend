@@ -44,6 +44,7 @@ const Login = () => {
     if (validE) {
       const response = await login(values.email, values.password);
       if (!response.error) {
+        showSuccessToast(response.message);
         setTimeout(() => {
           dispatch(
             loginAction({
@@ -53,7 +54,6 @@ const Login = () => {
             })
           );
         }, 3000);
-        showSuccessToast(response.message);
         setTimeout(() => navigate("/"), 1000);
       } else {
         showErrorToast(response.message);
