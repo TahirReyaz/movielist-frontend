@@ -15,7 +15,7 @@ export const mediaSlice = createSlice({
       }
     },
     removeDetails: (state) => {
-      console.log({ state });
+      if (false) console.log({ state });
       state = initialState;
     },
   },

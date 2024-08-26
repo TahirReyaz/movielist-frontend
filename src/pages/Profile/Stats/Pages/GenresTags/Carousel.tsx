@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import ListItem from "./ListItem";
-import { genreStatListItem } from "../../../../../constants/types";
+import { StatListItem } from "../../../../../constants/types";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface CarouselProps {
-  list: genreStatListItem[];
+  list: StatListItem[];
 }
 
 const Carousel: React.FC<CarouselProps> = ({ list }) => {
@@ -22,7 +22,7 @@ const Carousel: React.FC<CarouselProps> = ({ list }) => {
     );
   };
 
-  const visibleItems: genreStatListItem[] = list.slice(
+  const visibleItems: StatListItem[] = list.slice(
     currentIndex,
     currentIndex + 4
   );

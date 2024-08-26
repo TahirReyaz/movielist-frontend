@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "./Carousel";
-import { genreStatListItem } from "../../../../../constants/types";
+import { StatListItem } from "../../../../../constants/types";
 import { formatTimeWatched } from "../../../../../lib/helpers";
 
 interface GenreItemProps {
@@ -8,12 +8,12 @@ interface GenreItemProps {
   statTypeId: number;
   count: number;
   meanScore: number;
-  list: genreStatListItem[];
+  list: StatListItem[];
   index: number;
   timeWatched: number;
 }
 
-const GenreItem = ({
+const StatItem = ({
   title,
   statTypeId,
   count,
@@ -24,7 +24,7 @@ const GenreItem = ({
 }: GenreItemProps) => {
   const { days, hours } = formatTimeWatched(timeWatched);
 
-  console.log({ statTypeId });
+  if (false) console.log({ statTypeId });
 
   return (
     <div className="rounded-lg overflow-hidden">
@@ -61,4 +61,4 @@ const GenreItem = ({
   );
 };
 
-export default GenreItem;
+export default StatItem;

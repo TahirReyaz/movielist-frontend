@@ -5,6 +5,7 @@ import Social from "./pages/Profile/Social";
 import Favourites from "./pages/Profile/Favourites";
 import Overview from "./pages/Profile/Stats/Pages/Overview";
 import Staff from "./pages/MediaDetail/Pages/Staff";
+import Tags from "./pages/Profile/Stats/Pages/Tags";
 
 export const mediaSubRoutes = [
   { path: "watch", element: <ComingSoon /> },
@@ -38,7 +39,7 @@ export const settingsSubRoutes = [
 export const statsSubRoutes = [
   { path: "overview", element: <Overview /> },
   { path: "genres", element: <Genres /> },
-  { path: "tags", element: <ComingSoon /> },
+  { path: "tags", element: <Tags /> },
   { path: "actors", element: <ComingSoon /> },
   { path: "studios", element: <ComingSoon /> },
   { path: "staff", element: <ComingSoon /> },

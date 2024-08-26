@@ -40,7 +40,7 @@ export type existingEntryType = Omit<
   backdrop?: string;
 };
 
-export type genreStatListItem = {
+export type StatListItem = {
   title: string;
   posterPath: string;
   id: number;
