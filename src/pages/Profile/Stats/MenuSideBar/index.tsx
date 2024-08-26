@@ -41,7 +41,7 @@ const MenuSideBar = () => {
   return (
     <div className="col-span-1">
       {options.map((opt) => (
-        <ul className="flex flex-col" key={opt.type}>
+        <ul className="flex flex-col mb-4" key={opt.type}>
           <span className="text-xl font-medium mb-2">{opt.group} Stats</span>
           {opt.list.map((item) => (
             <Link
