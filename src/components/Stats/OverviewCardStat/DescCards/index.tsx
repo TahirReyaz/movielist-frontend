@@ -9,19 +9,17 @@ interface Props {
 
 const DescCards = ({ data }: Props) => {
   const sortedData = data
-    .sort((a, b) => b.count - a.count) // Sort in descending order based on `count`
+    .slice()
+    .sort((a, b) => b.count - a.count)
     .map((item, index, array) => {
-      // Calculate total count
       const totalCount = array.reduce((acc, curr) => acc + curr.count, 0);
 
-      // Calculate percentage
       const percentage = totalCount > 0 ? (item.count / totalCount) * 100 : 0;
 
-      // Return new item with additional fields
       return {
         ...item,
         color: distributionColors[index],
-        percentage: Math.round(percentage), // Fixed to 2 decimal places
+        percentage: Math.round(percentage),
       };
     });
 
