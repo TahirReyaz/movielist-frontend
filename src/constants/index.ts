@@ -15,6 +15,30 @@ export const statusColors: {
   planning: "#E74C3C",
 };
 
+export const distributionColors = [
+  "#7C899A",
+  "#2C3E50",
+  "#E74C3C",
+  "#FF6736",
+  "#F5579B",
+  "#752A4B",
+  "#F5579B",
+  "#FF6736",
+  "#E74C3C",
+  "#2C3E50",
+  "#7C899A",
+  "#2C3E50",
+  "#E74C3C",
+  "#FF6736",
+  "#F5579B",
+  "#752A4B",
+  "#F5579B",
+  "#FF6736",
+  "#E74C3C",
+  "#2C3E50",
+  "#7C899A",
+];
+
 export const searchTypes = [
   { label: "Movie", to: "movie" },
   { label: "TV", to: "tv" },
