@@ -25,7 +25,7 @@ const StatItem = ({
   const { days, hours } = formatTimeWatched(timeWatched);
 
   return (
-    <div className="rounded-lg overflow-hidden">
+    <div className="rounded-lg overflow-hidden shadow-xl">
       {/* Text */}
       <div className="bg-anilist-mirage/80 p-12">
         {/* Genre and index */}
