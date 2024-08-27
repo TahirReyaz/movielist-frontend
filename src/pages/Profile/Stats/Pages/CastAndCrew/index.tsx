@@ -6,7 +6,9 @@ import SortButton from "../GenresTags/SortButton";
 import StaffCard from "./StaffCard";
 
 const CastAndCrew = ({ isCast }: { isCast: boolean }) => {
-  const [sortBy, setSortBy] = useState<"count" | "timeWatched">("count");
+  const [sortBy, setSortBy] = useState<"count" | "timeWatched" | "meanScore">(
+    "count"
+  );
   const { mediaType } = useParams();
   const statKey = isCast ? "cast" : "crew";
   const stats: StaffStatItem[] = useAppSelector(
@@ -19,6 +21,8 @@ const CastAndCrew = ({ isCast }: { isCast: boolean }) => {
     sortedStats.sort((a, b) => b.count - a.count);
   } else if (sortBy === "timeWatched") {
     sortedStats.sort((a, b) => b.timeWatched - a.timeWatched);
+  } else if (sortBy === "meanScore") {
+    sortedStats.sort((a, b) => b.meanScore - a.meanScore);
   }
 
   return (
@@ -27,6 +31,7 @@ const CastAndCrew = ({ isCast }: { isCast: boolean }) => {
         <h1 className="text-4xl font-semibold hidden md:block">
           {isCast ? "Acting Staff" : "Crew"}
         </h1>
+        {/* Sorting */}
         <div className="bg-anilist-mirage/80 rounded-full p-2 flex gap-4">
           <SortButton
             {...{
@@ -40,6 +45,13 @@ const CastAndCrew = ({ isCast }: { isCast: boolean }) => {
               title: "Time Watched",
               onClick: () => setSortBy("timeWatched"),
               active: sortBy === "timeWatched",
+            }}
+          />
+          <SortButton
+            {...{
+              title: "Mean Score",
+              onClick: () => setSortBy("meanScore"),
+              active: sortBy === "meanScore",
             }}
           />
         </div>

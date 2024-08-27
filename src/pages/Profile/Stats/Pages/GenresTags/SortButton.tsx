@@ -14,7 +14,7 @@ const SortButton = ({
       onClick={onClick}
       className={`${active && "bg-anilist-gray-regent"} rounded-full ${
         active ? "text-white/90" : "text-anilist-gray-bermuda"
-      } text-2xl font-medium cursor-pointer py-2 px-4`}
+      } text-2xl font-medium cursor-pointer py-1 px-3`}
     >
       {title}
     </div>
