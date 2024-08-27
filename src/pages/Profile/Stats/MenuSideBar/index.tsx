@@ -11,30 +11,25 @@ const MenuSideBar = () => {
   const match = useMatch("/user/:username/stats/:mediaType/:option");
   const currentOption = match?.params.option;
 
+  const list = [
+    { title: "Overview", path: "overview" },
+    { title: "Genres", path: "genres" },
+    { title: "Tags", path: "tags" },
+    { title: "Cast", path: "cast" },
+    { title: "Studios", path: "studios" },
+    { title: "Crew", path: "crew" },
+  ];
+
   const options = [
     {
       group: "Movie",
       type: "movie",
-      list: [
-        { title: "Overview", path: "overview" },
-        { title: "Genres", path: "genres" },
-        { title: "Tags", path: "tags" },
-        { title: "Actors", path: "actors" },
-        { title: "Studios", path: "studios" },
-        { title: "Staff", path: "staff" },
-      ],
+      list,
     },
     {
       group: "TV",
       type: "tv",
-      list: [
-        { title: "Overview", path: "overview" },
-        { title: "Genres", path: "genres" },
-        { title: "Tags", path: "tags" },
-        { title: "Actors", path: "actors" },
-        { title: "Studios", path: "studios" },
-        { title: "Staff", path: "staff" },
-      ],
+      list,
     },
   ];
 

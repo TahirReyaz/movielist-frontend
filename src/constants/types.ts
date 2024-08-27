@@ -44,6 +44,7 @@ export type StatListItem = {
   title: string;
   posterPath: string;
   id: number;
+  mediaType: mediaTypeType;
 };
 
 export type RefUser = {

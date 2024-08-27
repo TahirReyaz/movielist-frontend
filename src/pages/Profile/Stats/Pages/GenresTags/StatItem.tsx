@@ -24,8 +24,6 @@ const StatItem = ({
 }: GenreItemProps) => {
   const { days, hours } = formatTimeWatched(timeWatched);
 
-  if (false) console.log({ statTypeId });
-
   return (
     <div className="rounded-lg overflow-hidden">
       {/* Text */}

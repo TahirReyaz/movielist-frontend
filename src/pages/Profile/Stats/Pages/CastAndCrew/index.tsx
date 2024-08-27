@@ -1,23 +1,16 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-
-import StatItem from "./StatItem";
-import SortButton from "./SortButton";
 import { useAppSelector } from "../../../../../hooks/redux";
+import { useParams } from "react-router-dom";
+import { StaffStatItem } from "../../../../../constants/types/user";
+import SortButton from "../GenresTags/SortButton";
+import StaffCard from "./StaffCard";
 
-const GenresTags = ({
-  statKey,
-  title,
-}: {
-  statKey: "genres" | "tags";
-  title: "Genres" | "Tags";
-}) => {
+const CastAndCrew = ({ isCast }: { isCast: boolean }) => {
   const [sortBy, setSortBy] = useState<"count" | "timeWatched">("count");
-
-  const { mediaType } = useParams<{ mediaType: string }>();
-
-  const stats = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string]?.[statKey]
+  const { mediaType } = useParams();
+  const statKey = isCast ? "cast" : "crew";
+  const stats: StaffStatItem[] = useAppSelector(
+    (state) => state.profile.stats?.[mediaType as string][statKey]
   );
 
   const sortedStats = stats ? [...stats] : [];
@@ -29,9 +22,11 @@ const GenresTags = ({
   }
 
   return (
-    <div>
+    <section className="md:pe-60">
       <div className="flex justify-between mb-12">
-        <h1 className="text-4xl font-semibold hidden md:block">{title}</h1>
+        <h1 className="text-4xl font-semibold hidden md:block">
+          {isCast ? "Acting Staff" : "Crew"}
+        </h1>
         <div className="bg-anilist-mirage/80 rounded-full p-2 flex gap-4">
           <SortButton
             {...{
@@ -49,13 +44,11 @@ const GenresTags = ({
           />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {sortedStats.slice(0, 30).map((item: any, index: number) => (
-          <StatItem {...{ ...item, index, key: item.statTypeId }} />
-        ))}
-      </div>
-    </div>
+      {sortedStats.slice(0, 30).map((stat, index) => (
+        <StaffCard {...{ ...stat, index }} />
+      ))}
+    </section>
   );
 };
 
-export default GenresTags;
+export default CastAndCrew;
