@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import StatItem from "./StatItem";
 import SortButton from "./SortButton";
@@ -50,7 +50,7 @@ const GenresTags = ({
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {sortedStats.map((item: any, index: number) => (
+        {sortedStats.slice(0, 30).map((item: any, index: number) => (
           <StatItem {...{ ...item, index, key: item.statTypeId }} />
         ))}
       </div>

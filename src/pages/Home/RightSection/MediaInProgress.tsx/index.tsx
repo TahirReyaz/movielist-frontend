@@ -20,7 +20,7 @@ const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["entries", username, mediaType],
+    queryKey: ["entries", username],
     queryFn: () => getWatchingUserMediaEntries(username, mediaType),
     enabled: !!username,
   });
