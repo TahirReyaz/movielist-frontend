@@ -26,11 +26,7 @@ const PieChart = ({ data }: Props) => {
       },
     ],
   };
-  return (
-    <div className="w-full max-w-md mx-auto">
-      <Pie data={pieData} />
-    </div>
-  );
+  return <Pie data={pieData} options={{}} />;
 };
 
 export default PieChart;

@@ -2,6 +2,8 @@ import React from "react";
 import Numbers from "./Numbers";
 import Country from "./Country";
 import Status from "./Status";
+import ReleaseYear from "./ReleaseYear";
+import WatchYear from "./WatchYear";
 
 const Overview = () => {
   return (
@@ -11,6 +13,8 @@ const Overview = () => {
         <Status />
         <Country />
       </div>
+      <ReleaseYear />
+      <WatchYear />
     </div>
   );
 };
