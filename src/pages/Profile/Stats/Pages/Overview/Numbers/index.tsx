@@ -16,7 +16,7 @@ const Numbers = () => {
     (state) => state.profile.stats?.[mediaType as string]?.overview
   );
 
-  const movieStats: { Icon: IconType; value?: number; title: string }[] = [
+  const movieStats: { Icon: IconType; value: number; title: string }[] = [
     {
       Icon: RiMovie2Line,
       value: overview?.count,
@@ -24,9 +24,13 @@ const Numbers = () => {
     },
     { Icon: FaCalendar, value: overview?.daysWatched, title: "Days Watched" },
     { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
-    { Icon: FaPercentage, value: overview?.meanScore, title: "Mean Score" },
+    {
+      Icon: FaPercentage,
+      value: overview?.meanScore ?? 0,
+      title: "Mean Score",
+    },
   ];
-  const tvStats: { Icon: IconType; value?: number; title: string }[] = [
+  const tvStats: { Icon: IconType; value: number; title: string }[] = [
     {
       Icon: RiMovie2Line,
       value: overview?.count,
@@ -39,13 +43,21 @@ const Numbers = () => {
     },
     { Icon: FaCalendar, value: overview?.daysWatched, title: "Days Watched" },
     { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
-    { Icon: FaPercentage, value: overview?.meanScore, title: "Mean Score" },
+    {
+      Icon: FaPercentage,
+      value: overview?.meanScore ?? 0,
+      title: "Mean Score",
+    },
   ];
 
   const stats = mediaType == "tv" ? tvStats : movieStats;
 
   if (!overview) {
-    return <Loading />;
+    return (
+      <div>
+        <h3 className="text-3xl font-medium">No Stats to show</h3>
+      </div>
+    );
   }
   return (
     <div className="grid grid-cols-2 md:grid-cols-3">
