@@ -12,24 +12,23 @@ import { toggleFav } from "../../../../lib/api/user";
 import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { getUserEntryByMediaid } from "../../../../lib/api/entry";
+import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 
 const Controls = () => {
-  const {
-    username,
-    profileData: profile,
-    userid,
-  } = useAppSelector((state) => state.auth);
+  const { username, profileData: profile } = useAppSelector(
+    (state) => state.auth
+  );
   const { mediaType, mediaid } = useAppSelector((state) => state.media);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   const { data: existingEntry } = useQuery({
     queryKey: ["entry", username, mediaid],
     queryFn: () => getUserEntryByMediaid(mediaid),
     enabled: !!mediaid,
   });
-
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  const queryClient = useQueryClient();
 
   const isFav = profile?.fav[mediaType]?.includes(mediaid);
   const status = existingEntry?.status;
@@ -39,8 +38,11 @@ const Controls = () => {
   }
 
   const handleFavToggle = async (toFav: boolean) => {
-    const res = await toggleFav(userid, mediaid, mediaType, toFav);
+    loadingBar.current?.continuousStart();
+    const res = await toggleFav(mediaid, mediaType, toFav);
     if (!res.error) {
+      loadingBar.current?.complete();
+
       showSuccessToast(
         toFav ? "Added to Favourites" : "Removed from Favourites"
       );
@@ -49,6 +51,7 @@ const Controls = () => {
         queryKey: ["user", username],
       });
     } else {
+      loadingBar.current?.complete();
       showErrorToast(res.message);
     }
   };

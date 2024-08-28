@@ -13,6 +13,9 @@ import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { Entry } from "../../../constants/types/entry";
 import { StatusType, mediaTypeType } from "../../../constants/types";
+import { toggleFav } from "../../../lib/api/user";
+import { useAppSelector } from "../../../hooks/redux";
+import { useLoadingBar } from "../LoadingBar";
 
 interface EntryEditorModalParams {
   open: boolean;
@@ -33,7 +36,11 @@ const EntryEditorModal = ({
   mediaid,
   mediaType,
 }: EntryEditorModalParams) => {
+  const { profileData: profile, username } = useAppSelector(
+    (state) => state.auth
+  );
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   const {
     data: entry,
@@ -64,7 +71,7 @@ const EntryEditorModal = ({
     enabled: !!mediaid && open,
   });
 
-  const [fav, setFav] = useState<boolean>(false);
+  const fav = profile?.fav[mediaType]?.includes(mediaid);
 
   const statusOptions = [
     { value: "watching", label: "Watching" },
@@ -78,6 +85,7 @@ const EntryEditorModal = ({
   const handleSave = async () => {
     if (id) {
       if (status) {
+        loadingBar.current?.continuousStart();
         const res = await updateEntry({
           status,
           id,
@@ -89,8 +97,10 @@ const EntryEditorModal = ({
           score,
         });
         if (res.error) {
+          loadingBar.current?.complete();
           showErrorToast(res.message);
         } else {
+          loadingBar.current?.complete();
           showSuccessToast(
             `${mediaType == "tv" ? media.name : media.title} list entry updated`
           );
@@ -105,6 +115,7 @@ const EntryEditorModal = ({
       }
     } else {
       if (status) {
+        loadingBar.current?.continuousStart();
         const res = await addEntry({
           mediaid,
           mediaType,
@@ -120,8 +131,10 @@ const EntryEditorModal = ({
           score,
         });
         if (res.error) {
+          loadingBar.current?.complete();
           showErrorToast(res.message);
         } else {
+          loadingBar.current?.complete();
           showSuccessToast(
             `${mediaType == "tv" ? media.name : media.title} list entry updated`
           );
@@ -134,8 +147,23 @@ const EntryEditorModal = ({
     }
   };
 
-  const handleFav = (val: boolean) => {
-    setFav(val);
+  const handleFavToggle = async (toFav: boolean) => {
+    loadingBar.current?.continuousStart();
+    const res = await toggleFav(mediaid, mediaType, toFav);
+    if (!res.error) {
+      loadingBar.current?.complete();
+
+      showSuccessToast(
+        toFav ? "Added to Favourites" : "Removed from Favourites"
+      );
+
+      queryClient.invalidateQueries({
+        queryKey: ["user", username],
+      });
+    } else {
+      loadingBar.current?.complete();
+      showErrorToast(res.message);
+    }
   };
 
   useEffect(() => {
@@ -183,8 +211,8 @@ const EntryEditorModal = ({
             fav,
             backdrop: media?.backdrop_path,
             poster: media?.poster_path,
-            onFav: () => handleFav(true),
-            onUnFav: () => handleFav(false),
+            onFav: () => handleFavToggle(true),
+            onUnFav: () => handleFavToggle(false),
             onSave: handleSave,
             onClose: () => setOpen(false),
           }}

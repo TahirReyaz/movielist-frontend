@@ -3,14 +3,13 @@ import axios, { AxiosResponse } from "axios";
 import { backendUrl } from "../../constants";
 
 export const toggleFav = async (
-  userid: string,
   entityId: string | number,
   entityType: string,
   fav: boolean
 ) => {
   try {
     const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/${userid}/fav`,
+      `${backendUrl}/user/fav/toggle`,
       {
         entityId,
         entityType,
