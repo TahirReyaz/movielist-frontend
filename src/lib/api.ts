@@ -36,11 +36,10 @@ export async function getMediaDetail(
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/detail/${mediaid}`
     );
-    const media = response.data;
-    return { ...media, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return response.data;
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
   }
 }
 
