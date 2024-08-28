@@ -105,10 +105,7 @@ const EntryEditorModal = ({
             `${mediaType == "tv" ? media.name : media.title} list entry updated`
           );
           queryClient.invalidateQueries({
-            queryKey: ["media", mediaType, mediaid],
-          });
-          queryClient.invalidateQueries({
-            queryKey: [],
+            queryKey: ["entries", username, mediaType],
           });
           setOpen(false);
         }
