@@ -19,13 +19,15 @@ const ReleaseYear = () => {
       <div>
         <h2 className="text-4xl font-medium mb-8">Release Year</h2>
       </div>
-      <LineChart
-        {...{
-          data: data
-            .slice()
-            .sort((a, b) => Number(a.format) - Number(b.format)),
-        }}
-      />
+      <div className="bg-anilist-mirage rounded-xl">
+        <LineChart
+          {...{
+            data: data
+              .slice()
+              .sort((a, b) => Number(a.format) - Number(b.format)),
+          }}
+        />
+      </div>
     </div>
   );
 };

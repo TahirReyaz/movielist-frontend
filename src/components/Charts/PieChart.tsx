@@ -26,7 +26,23 @@ const PieChart = ({ data }: Props) => {
       },
     ],
   };
-  return <Pie data={pieData} options={{}} />;
+  return (
+    <Pie
+      data={pieData}
+      options={{
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            enabled: true,
+            position: "nearest",
+            yAlign: "bottom",
+            xAlign: "center",
+          },
+        },
+      }}
+    />
+  );
 };
 
 export default PieChart;
