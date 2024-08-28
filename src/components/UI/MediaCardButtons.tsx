@@ -1,8 +1,8 @@
 import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
 import { AiOutlinePlus } from "react-icons/ai";
-import { FaCalendar, FaCheck } from "react-icons/fa";
+import { FaCalendar, FaCheck, FaPlus } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { IconType } from "react-icons";
 
@@ -16,7 +16,8 @@ import { updateEntry } from "../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { useLoadingBar } from "./LoadingBar";
 
-const iconClass = "rounded-full bg-bgPrimary mb-2 me-2 p-1.5 opacity-90";
+const iconClass =
+  "rounded-full bg-anilist-mirage/90 mt-4 me-2 p-2 text-2xl text-anilist-aqua_haze";
 
 interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
@@ -41,9 +42,12 @@ const MenuButton = ({ setTo, Icon, onClick, status }: MenuButtonProps) => {
       interactive={false}
       placement="left"
       arrow={false}
-      animation="shift-away"
-      content={`Set to ${setTo}`}
-      className="bg-bgPrimary opacity-90"
+      render={(attrs) => (
+        <span
+          className="bg-anilist-mirage/90 rounded text-xl text-anilist-aqua_haze font-medium py-2 px-4"
+          {...attrs}
+        >{`Set to ${setTo}`}</span>
+      )}
     >
       <div className={iconClass + " z-30 "} onClick={(e) => onClick(e, status)}>
         <Icon />
@@ -98,9 +102,8 @@ const MediaCardButtons = ({
       interactive={true}
       placement="top"
       arrow={false}
-      animation="shift-away"
-      content={
-        <div>
+      render={(attrs) => (
+        <div {...attrs}>
           <MenuButton
             {...{
               setTo: "Watching",
@@ -126,11 +129,10 @@ const MediaCardButtons = ({
             }}
           />
         </div>
-      }
-      className="bg-transparent"
+      )}
     >
-      <div className={iconClass + " absolute bottom-0 right-0 "}>
-        <AiOutlinePlus />
+      <div className={iconClass + " absolute bottom-0 right-0 mt-0 mb-2"}>
+        <FaPlus />
       </div>
     </Tippy>
   );
