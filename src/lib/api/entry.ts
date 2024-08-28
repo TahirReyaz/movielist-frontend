@@ -72,6 +72,19 @@ export const getUserMediaEntries = async (
   }
 };
 
+export const getUserEntryByMediaid = async (mediaid: number) => {
+  try {
+    const response = await axios.get(
+      `${backendUrl}/entry/user/media/${mediaid}`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error: any) {
+    const error_msg = error?.response?.data?.message;
+    throw new Error(error_msg);
+  }
+};
+
 export const getWatchingUserMediaEntries = async (
   username: string,
   mediaType: mediaTypeType

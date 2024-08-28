@@ -7,10 +7,11 @@ import "tippy.js/dist/tippy.css";
 import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toggleFav } from "../../../../lib/api/user";
 import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { getUserEntryByMediaid } from "../../../../lib/api/entry";
 
 const Controls = () => {
   const {
@@ -20,15 +21,18 @@ const Controls = () => {
   } = useAppSelector((state) => state.auth);
   const { mediaType, mediaid } = useAppSelector((state) => state.media);
 
+  const { data: existingEntry } = useQuery({
+    queryKey: ["entry", username, mediaid],
+    queryFn: () => getUserEntryByMediaid(mediaid),
+    enabled: !!mediaid,
+  });
+
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
 
-  const existingEntry = profile?.entries?.find(
-    (entry: any) => entry.mediaid === mediaid
-  );
   const isFav = profile?.fav[mediaType]?.includes(mediaid);
-  let status = existingEntry?.status;
+  const status = existingEntry?.status;
   let title = "Add to list";
   if (status) {
     title = status?.charAt(0).toUpperCase() + status?.slice(1);
@@ -93,7 +97,7 @@ const Controls = () => {
         {...{
           open: showModal,
           setOpen: setShowModal,
-          id: existingEntry?.id,
+          id: existingEntry?._id,
           mediaid,
           mediaType,
         }}
