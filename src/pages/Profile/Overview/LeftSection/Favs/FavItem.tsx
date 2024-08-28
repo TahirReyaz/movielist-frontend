@@ -29,6 +29,8 @@ const FavItem = ({ id, type }: FavItem) => {
     enabled: !!id,
   });
 
+  const title = data?.title ?? data?.name;
+
   if (isLoading || isError) {
     return;
   }
@@ -43,7 +45,8 @@ const FavItem = ({ id, type }: FavItem) => {
               }`
             : posterPlaceholder
         }
-        alt={data.title ? data.title : data.name}
+        alt={title}
+        title={title}
         className="rounded"
       />
     </Link>
