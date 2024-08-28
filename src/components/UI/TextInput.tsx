@@ -1,5 +1,6 @@
 import React from "react";
 import { IconType } from "react-icons";
+import { formatDateForInput } from "../../lib/helpers";
 
 interface TextInputProps {
   name: string;
@@ -28,6 +29,10 @@ const TextInput = ({
   Icon,
   bg = "bg-bgPrimary",
 }: TextInputProps) => {
+  let respectiveValue = value;
+  if (type === "date") {
+    respectiveValue = formatDateForInput(value.toString());
+  }
   return (
     <div
       className={`relative my-2 rounded-md ${Icon && "grid grid-cols-12"} ${
@@ -40,7 +45,7 @@ const TextInput = ({
         </div>
       )}
       <input
-        value={value}
+        value={respectiveValue}
         onChange={onChange}
         type={type}
         name={name}
