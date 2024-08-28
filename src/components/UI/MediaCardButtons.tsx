@@ -14,6 +14,7 @@ import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { useLoadingBar } from "./LoadingBar";
 
 const iconClass = "rounded-full bg-bgPrimary mb-2 me-2 p-1.5 opacity-90";
 
@@ -60,6 +61,7 @@ const MediaCardButtons = ({
   const { username } = useAppSelector((state) => state.auth);
 
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   const clickHandler = async (
     e: React.MouseEvent<HTMLDivElement>,
@@ -68,26 +70,26 @@ const MediaCardButtons = ({
     e.preventDefault();
     const title =
       mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
-    let response;
-    if (entry) {
-      response = await updateEntry({ status, id: entry.id });
-    } else {
-      response = await addEntry({
-        mediaType,
-        mediaid,
-        status,
-        title,
-        poster: mediaDetails.poster_path,
-        backdrop: mediaDetails.backdrop_path,
-      });
-    }
-    if (!response?.error) {
-      // Update entry data in auth redux
+    try {
+      let response;
+      if (entry) {
+        response = await updateEntry({ status, id: entry.id });
+      } else {
+        response = await addEntry({
+          mediaType,
+          mediaid,
+          status,
+          title,
+          poster: mediaDetails.poster_path,
+          backdrop: mediaDetails.backdrop_path,
+        });
+      }
       queryClient.invalidateQueries({ queryKey: ["user", username] });
 
       showSuccessToast(response?.message);
-    } else {
-      showErrorToast(response?.message);
+    } catch (error: any) {
+      loadingBar.current?.complete();
+      showErrorToast(error.message);
     }
   };
 

@@ -89,11 +89,10 @@ export const addEntry = async (body: newEntryType) => {
       body,
       { withCredentials: true }
     );
-    return { data: response, message: "Entry added", error: false };
+    return { data: response, message: "Entry added" };
   } catch (error: any) {
-    console.error(error);
     const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    throw new Error(error_msg);
   }
 };
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { AiFillHeart } from "react-icons/ai";
 
@@ -7,6 +6,8 @@ import { toggleFav } from "../../lib/api/user";
 import { RootState } from "../../store";
 import { favAction } from "../../store/AuthSlice";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useLoadingBar } from "../../components/UI/LoadingBar";
 
 interface TopSectionProps {
   name: string;
@@ -14,32 +15,34 @@ interface TopSectionProps {
 }
 
 const TopSection = ({ name, id }: TopSectionProps) => {
-  const { _id: userid, fav } = useSelector(
-    (state: RootState) => state.auth.profileData
-  );
+  const { profileData } = useAppSelector((state: RootState) => state.auth);
 
-  const isFav = fav?.staff?.includes(id);
+  const isFav = profileData?.fav?.staff?.includes(id);
 
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
+  const loadingBar = useLoadingBar();
+  const dispatch = useAppDispatch();
 
   const handleFavToggle = async (toFav: boolean) => {
-    const res = await toggleFav(userid, id, "staff", toFav);
-    if (!res.error) {
+    try {
+      loadingBar.current?.continuousStart();
+      await toggleFav(id, "staff", toFav);
+      loadingBar.current?.complete();
       showSuccessToast(
         toFav ? "Added to Favourites" : "Removed from Favourites"
       );
 
       dispatch(
         favAction({
-          fav: res.fav,
+          fav: toFav,
         })
       );
       queryClient.invalidateQueries({
         queryKey: ["staff", id],
       });
-    } else {
-      showErrorToast(res.message);
+    } catch (error: any) {
+      loadingBar.current?.complete();
+      showErrorToast(error.message);
     }
   };
 

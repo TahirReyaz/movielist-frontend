@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import userAvatar from "../../assets/userAvatar.png";
@@ -16,6 +16,8 @@ import { PersonDetail } from "../../constants/types/media";
 const Staff = () => {
   const { staffid } = useParams();
 
+  const navigate = useNavigate();
+
   const {
     data: staff,
     isLoading,
@@ -27,11 +29,15 @@ const Staff = () => {
   });
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className="min-h-screen p-20">
+        <Loading />
+      </div>
+    );
   }
 
   if (isError) {
-    return <Error />;
+    navigate("/404");
   }
 
   return (

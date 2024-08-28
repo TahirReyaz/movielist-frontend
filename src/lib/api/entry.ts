@@ -28,11 +28,10 @@ export const updateEntry = async ({
       body,
       { withCredentials: true }
     );
-    return { data: response.data, message: "Entry updated", error: false };
+    return { data: response.data, message: "Entry updated" };
   } catch (error: any) {
-    console.error(error);
     const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    throw new Error(error_msg);
   }
 };
 

@@ -18,9 +18,9 @@ export const toggleFav = async (
       { withCredentials: true }
     );
     return { ...response.data, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true, message: "Error toggling the favourite" };
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
   }
 };
 

@@ -85,21 +85,18 @@ const EntryEditorModal = ({
   const handleSave = async () => {
     if (id) {
       if (status) {
-        loadingBar.current?.continuousStart();
-        const res = await updateEntry({
-          status,
-          id,
-          startDate,
-          endDate: finishDate,
-          progress,
-          notes,
-          rewatches,
-          score,
-        });
-        if (res.error) {
-          loadingBar.current?.complete();
-          showErrorToast(res.message);
-        } else {
+        try {
+          loadingBar.current?.continuousStart();
+          await updateEntry({
+            status,
+            id,
+            startDate,
+            endDate: finishDate,
+            progress,
+            notes,
+            rewatches,
+            score,
+          });
           loadingBar.current?.complete();
           showSuccessToast(
             `${mediaType == "tv" ? media.name : media.title} list entry updated`
@@ -108,29 +105,29 @@ const EntryEditorModal = ({
             queryKey: ["entries", username, mediaType],
           });
           setOpen(false);
+        } catch (error: any) {
+          loadingBar.current?.complete();
+          showErrorToast(error.message);
         }
       }
     } else {
       if (status) {
-        loadingBar.current?.continuousStart();
-        const res = await addEntry({
-          mediaid,
-          mediaType,
-          title: mediaType == "tv" ? media.name : media.title,
-          poster: media.poster_path,
-          backdrop: media.backdrop_path,
-          status,
-          startDate,
-          endDate: finishDate,
-          progress,
-          notes,
-          rewatches,
-          score,
-        });
-        if (res.error) {
-          loadingBar.current?.complete();
-          showErrorToast(res.message);
-        } else {
+        try {
+          loadingBar.current?.continuousStart();
+          await addEntry({
+            mediaid,
+            mediaType,
+            title: mediaType == "tv" ? media.name : media.title,
+            poster: media.poster_path,
+            backdrop: media.backdrop_path,
+            status,
+            startDate,
+            endDate: finishDate,
+            progress,
+            notes,
+            rewatches,
+            score,
+          });
           loadingBar.current?.complete();
           showSuccessToast(
             `${mediaType == "tv" ? media.name : media.title} list entry updated`
@@ -139,15 +136,18 @@ const EntryEditorModal = ({
             queryKey: ["entry", id],
           });
           setOpen(false);
+        } catch (error: any) {
+          loadingBar.current?.complete();
+          showErrorToast(error.message);
         }
       }
     }
   };
 
   const handleFavToggle = async (toFav: boolean) => {
-    loadingBar.current?.continuousStart();
-    const res = await toggleFav(mediaid, mediaType, toFav);
-    if (!res.error) {
+    try {
+      loadingBar.current?.continuousStart();
+      await toggleFav(mediaid, mediaType, toFav);
       loadingBar.current?.complete();
 
       showSuccessToast(
@@ -157,9 +157,9 @@ const EntryEditorModal = ({
       queryClient.invalidateQueries({
         queryKey: ["user", username],
       });
-    } else {
+    } catch (error: any) {
       loadingBar.current?.complete();
-      showErrorToast(res.message);
+      showErrorToast(error.message);
     }
   };
 

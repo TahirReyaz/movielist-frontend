@@ -38,9 +38,9 @@ const Controls = () => {
   }
 
   const handleFavToggle = async (toFav: boolean) => {
-    loadingBar.current?.continuousStart();
-    const res = await toggleFav(mediaid, mediaType, toFav);
-    if (!res.error) {
+    try {
+      loadingBar.current?.continuousStart();
+      await toggleFav(mediaid, mediaType, toFav);
       loadingBar.current?.complete();
 
       showSuccessToast(
@@ -50,9 +50,9 @@ const Controls = () => {
       queryClient.invalidateQueries({
         queryKey: ["user", username],
       });
-    } else {
+    } catch (error: any) {
       loadingBar.current?.complete();
-      showErrorToast(res.message);
+      showErrorToast(error.message);
     }
   };
 

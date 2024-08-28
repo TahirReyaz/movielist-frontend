@@ -8,6 +8,7 @@ import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 
 type listItemType = {
   title: string;
@@ -42,6 +43,7 @@ const MediaActionMenu = ({
   const { mediaid, mediaType } = mediaDetails;
 
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   let list = menuItems;
   if (mediaDetails.status === "Post Production") {
@@ -54,31 +56,35 @@ const MediaActionMenu = ({
   }
 
   const listHandler = async (listtype: StatusType) => {
-    let response;
-    if (existingEntry) {
-      response = await updateEntry({
-        id: existingEntry.id,
-        status: listtype,
-      });
-    } else {
-      response = await addEntry({
-        mediaType,
-        mediaid,
-        status: listtype,
-        title:
-          (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) || "meh",
-        poster: mediaDetails.poster_path,
-        backdrop: mediaDetails.backdrop_path,
-      });
-    }
-    if (!response?.error) {
+    try {
+      let response;
+      loadingBar.current?.continuousStart();
+      if (existingEntry) {
+        response = await updateEntry({
+          id: existingEntry.id,
+          status: listtype,
+        });
+      } else {
+        response = await addEntry({
+          mediaType,
+          mediaid,
+          status: listtype,
+          title:
+            (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) ||
+            "meh",
+          poster: mediaDetails.poster_path,
+          backdrop: mediaDetails.backdrop_path,
+        });
+      }
+      loadingBar.current?.complete();
       queryClient.invalidateQueries({
         queryKey: ["user", username],
       });
 
       showSuccessToast(response?.message);
-    } else {
-      showErrorToast(response?.message);
+    } catch (error: any) {
+      loadingBar.current?.complete();
+      showErrorToast(error.message);
     }
   };
 
