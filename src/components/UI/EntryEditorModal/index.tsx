@@ -201,7 +201,7 @@ const EntryEditorModal = ({
 
   return (
     <Modal open={open} setOpen={setOpen}>
-      <div className="mx-0 md:mx-48 w-full md:w-fit bg-bgSecondary rounded-0 md:rounded-md">
+      <div className="mx-0 w-screen md:w-[800px] bg-bgSecondary rounded-0 md:rounded-md">
         <TopSection
           {...{
             title: media?.title,

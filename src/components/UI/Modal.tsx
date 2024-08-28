@@ -17,7 +17,7 @@ const Modal = ({ open, setOpen, children }: ModalProps) => {
         as="div"
         className="relative z-40"
         initialFocus={cancelButtonRef}
-        onClose={setOpen}
+        onClose={() => setOpen(false)}
       >
         <Transition.Child
           as={Fragment}
@@ -42,7 +42,7 @@ const Modal = ({ open, setOpen, children }: ModalProps) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden bg-transparent transition-all">
+              <Dialog.Panel className="relative transform flex justify-center w-fit overflow-hidden bg-transparent transition-all">
                 {children}
               </Dialog.Panel>
             </Transition.Child>
