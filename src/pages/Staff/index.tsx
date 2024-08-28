@@ -7,7 +7,6 @@ import userAvatar from "../../assets/userAvatar.png";
 
 import { getStaffDetails } from "../../lib/api/staff";
 import Loading from "../../components/UI/Loading";
-import Error from "../../components/UI/Error";
 import { tmdbImgEndPoint, translateGender } from "../../constants/tmdb";
 import TopSection from "./TopSection";
 import Credits from "./Credits";

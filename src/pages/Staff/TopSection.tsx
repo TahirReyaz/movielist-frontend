@@ -4,9 +4,8 @@ import { AiFillHeart } from "react-icons/ai";
 
 import { toggleFav } from "../../lib/api/user";
 import { RootState } from "../../store";
-import { favAction } from "../../store/AuthSlice";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../../components/UI/LoadingBar";
 
 interface TopSectionProps {
@@ -15,13 +14,14 @@ interface TopSectionProps {
 }
 
 const TopSection = ({ name, id }: TopSectionProps) => {
-  const { profileData } = useAppSelector((state: RootState) => state.auth);
+  const { profileData, username } = useAppSelector(
+    (state: RootState) => state.auth
+  );
 
-  const isFav = profileData?.fav?.staff?.includes(id);
+  const isFav = profileData?.fav?.staff?.includes(id.toString());
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
-  const dispatch = useAppDispatch();
 
   const handleFavToggle = async (toFav: boolean) => {
     try {
@@ -32,13 +32,8 @@ const TopSection = ({ name, id }: TopSectionProps) => {
         toFav ? "Added to Favourites" : "Removed from Favourites"
       );
 
-      dispatch(
-        favAction({
-          fav: toFav,
-        })
-      );
       queryClient.invalidateQueries({
-        queryKey: ["staff", id],
+        queryKey: ["user", username],
       });
     } catch (error: any) {
       loadingBar.current?.complete();
