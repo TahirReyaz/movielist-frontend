@@ -1,3 +1,7 @@
+import { Option } from "../constants/types";
+import { Entry } from "../constants/types/entry";
+import { ProductionCountry } from "../constants/types/media";
+
 // Function to format runtime to hours and minutes
 export const formatRuntime = (runtime: any) => {
   const totalMinutes = parseInt(runtime, 10);
@@ -88,4 +92,25 @@ export const formatDateForInput = (dateString: string): string => {
 
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
+};
+
+export const generateFilterCountryOptions = (
+  entries: Entry[] | undefined
+): Option[] => {
+  const options: Option[] = [];
+  if (entries) {
+    entries.forEach((entry: Entry) => {
+      entry.data?.production_countries?.forEach(
+        (country: ProductionCountry, index: number) => {
+          if (!options.some((option) => option.value === country.iso_3166_1)) {
+            options.push({
+              value: country.iso_3166_1,
+              label: country.name,
+            });
+          }
+        }
+      );
+    });
+  }
+  return options;
 };

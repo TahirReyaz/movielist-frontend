@@ -1,17 +1,20 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Fuse from "fuse.js";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
-import { mediaTypeType } from "../../../constants/types";
+import { Option, mediaTypeType } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
 import { getUserMediaEntries } from "../../../lib/api/entry.ts";
 import { Entry, EntryGroup } from "../../../constants/types/entry.ts";
+import { generateFilterCountryOptions } from "../../../lib/helpers.ts";
+import { ProductionCountry } from "../../../constants/types/media.ts";
 
 const MediaList = () => {
+  const [countryOptions, setCountryOptions] = useState<Option[]>([]);
   const { username } = useParams();
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");
@@ -62,11 +65,17 @@ const MediaList = () => {
     }
 
     // Filter by country
-    // if (filters.country) {
-    //   filtered = filtered.filter((entry: any) =>
-    //     entry.data.origin_country.includes(filters.country)
-    //   );
-    // }
+    if (filters.country) {
+      filtered = filtered.filter((entry: Entry) => {
+        if (entry.data?.production_countries) {
+          return entry.data.production_countries.some(
+            (country: ProductionCountry) =>
+              country.iso_3166_1 === filters.country
+          );
+        }
+        return false;
+      });
+    }
 
     // Filter by release year
     if (filters.releaseYear) {
@@ -143,6 +152,13 @@ const MediaList = () => {
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    if (entries) {
+      const options = generateFilterCountryOptions(entries);
+      setCountryOptions(options);
+    }
+  }, [entries]);
+
   if (isError) {
     return <Error />;
   }
@@ -152,7 +168,12 @@ const MediaList = () => {
       {...{
         left: (
           <FilterMenu
-            {...{ filters, onFilterChange: handleFilterChange, mediaType }}
+            {...{
+              filters,
+              onFilterChange: handleFilterChange,
+              mediaType,
+              countryOptions,
+            }}
           />
         ),
         right: (

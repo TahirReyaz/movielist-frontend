@@ -58,3 +58,8 @@ export type RefUser = {
   avatar?: string;
   _id: string;
 };
+
+export type Option = {
+  value: string;
+  label: string;
+};

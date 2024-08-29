@@ -8,7 +8,7 @@ import Lists from "./Lists";
 import YearRangeFilter from "./YearFilter";
 import SortMenu from "./SortMenu";
 import { getGenreList } from "../../../../lib/api/media";
-import { mediaTypeType } from "../../../../constants/types";
+import { Option, mediaTypeType } from "../../../../constants/types";
 
 export interface FilterProps {
   filters: {
@@ -26,7 +26,8 @@ const FilterMenu = ({
   filters,
   onFilterChange,
   mediaType,
-}: FilterProps & { mediaType: mediaTypeType }) => {
+  countryOptions,
+}: FilterProps & { mediaType: mediaTypeType; countryOptions: Option[] }) => {
   const [show, setShow] = useState(false);
 
   const {
@@ -78,9 +79,8 @@ const FilterMenu = ({
         {genreOptions && (
           <Select
             {...{
-              onChange: (
-                option: SingleValue<{ value: string; label: string }>
-              ) => onFilterChange("genre", option?.value ?? ""),
+              onChange: (option: SingleValue<Option>) =>
+                onFilterChange("genre", option?.value ?? ""),
               options: [{ value: "", label: "None" }, ...genreOptions],
               isMulti: false,
               className:
@@ -88,7 +88,7 @@ const FilterMenu = ({
               classNames: {
                 menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
                 option: () =>
-                  "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-2xl text-anilist-aqua_haze rounded-md cursor-pointer",
+                  "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-2xl text-anilist-aqua_haze rounded-md cursor-pointer whitespace-nowrap text-ellipsis overflow-hidden",
               },
               unstyled: true,
               placeholder: "Genre",
@@ -96,14 +96,23 @@ const FilterMenu = ({
           />
         )}
         {/* Country */}
-        <select
-          name="country"
-          value={filters.country}
-          onChange={(e) => onFilterChange(e.target.name, e.target.value)}
-          className="p-2 border rounded"
-        >
-          <option value="">All Countries</option>
-        </select>
+        <Select
+          {...{
+            onChange: (option: SingleValue<Option>) =>
+              onFilterChange("country", option?.value ?? ""),
+            options: [{ value: "", label: "None" }, ...countryOptions],
+            isMulti: false,
+            className:
+              "bg-anilist-mirage rounded-lg text-2xl text-anilist-aqua_haze px-4 mb-2",
+            classNames: {
+              menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
+              option: () =>
+                "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-2xl text-anilist-aqua_haze rounded-md cursor-pointer whitespace-nowrap text-ellipsis overflow-hidden",
+            },
+            unstyled: true,
+            placeholder: "Country",
+          }}
+        />
         {/* Year */}
         <YearRangeFilter {...{ filters, onFilterChange }} />
         <SortMenu {...{ filters, onFilterChange }} />
