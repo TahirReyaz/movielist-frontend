@@ -23,7 +23,7 @@ const Staff = () => {
     isError,
   } = useQuery<PersonDetail>({
     queryKey: ["staff", staffid],
-    queryFn: () => getStaffDetails(staffid),
+    queryFn: () => getStaffDetails(Number(staffid)),
     enabled: !!staffid,
   });
 

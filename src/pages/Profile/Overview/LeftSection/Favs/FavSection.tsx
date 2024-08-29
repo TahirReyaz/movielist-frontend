@@ -22,7 +22,7 @@ const FavSection = ({
         } gap-4`}
       >
         {list.map((item) => (
-          <FavItem {...{ id: item, type, key: item }} />
+          <FavItem {...{ id: Number(item), type, key: item }} />
         ))}
       </ul>
     </div>

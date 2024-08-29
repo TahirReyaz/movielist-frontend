@@ -41,7 +41,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         {isLoggedIn && hover && (
           <MediaCardButtons
             {...{
-              mediaid: mediaDetails.id,
+              mediaid: Number(mediaDetails.id),
               mediaDetails,
               mediaType,
               entry: existingEntry,

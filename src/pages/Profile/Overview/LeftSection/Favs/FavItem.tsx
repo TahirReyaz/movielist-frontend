@@ -5,15 +5,11 @@ import posterPlaceholder from "../../../../../assets/posterPlaceholder.jpg";
 
 import { getMediaDetail } from "../../../../../lib/api";
 import { getStaffDetails } from "../../../../../lib/api/staff";
-import {
-  posterSizes,
-  tmdbImgBaseUrl,
-  tmdbImgEndPoint,
-} from "../../../../../constants/tmdb";
+import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import { Link } from "react-router-dom";
 
 interface FavItem {
-  id: string;
+  id: number;
   type: string;
 }
 
