@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
-import Select, { Options, SingleValue } from "react-select";
+import Select, { SingleValue } from "react-select";
 
 import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
 import YearRangeFilter from "./YearFilter";
 import SortMenu from "./SortMenu";
-import { getGenreList } from "../../../../lib/api/media";
-import { Option, mediaTypeType } from "../../../../constants/types";
+import { Option } from "../../../../constants/types";
 
 export interface FilterProps {
   filters: {
@@ -25,11 +23,9 @@ export interface FilterProps {
 const FilterMenu = ({
   filters,
   onFilterChange,
-  mediaType,
   countryOptions,
   genreOptions,
 }: FilterProps & {
-  mediaType: mediaTypeType;
   countryOptions: Option[];
   genreOptions: Option[];
 }) => {

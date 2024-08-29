@@ -180,7 +180,6 @@ const MediaList = () => {
             {...{
               filters,
               onFilterChange: handleFilterChange,
-              mediaType,
               countryOptions,
               genreOptions,
             }}
