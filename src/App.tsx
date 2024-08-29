@@ -37,13 +37,19 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SubmissionManual from "./pages/SubmissionManual";
 import Error from "./components/UI/Error";
 import { getUserDetail } from "./lib/api";
-import { saveUser } from "./store/AuthSlice";
+import { logoutAction, saveUser } from "./store/AuthSlice";
 import Overview from "./pages/MediaDetail/Pages/Overview";
+import { checkLoggedIn } from "./utils/authUtils";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const token = localStorage.getItem("token");
   const username = localStorage.getItem("username") || "";
+
+  const isLoggedIn = checkLoggedIn();
+
+  if (!isLoggedIn) {
+    dispatch(logoutAction());
+  }
 
   const {
     data: user,
@@ -52,7 +58,7 @@ const App = () => {
   } = useQuery({
     queryKey: ["user", username],
     queryFn: () => getUserDetail(username),
-    enabled: username && token ? true : false,
+    enabled: username && isLoggedIn ? true : false,
   });
 
   useEffect(() => {
