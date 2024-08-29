@@ -6,7 +6,7 @@ import MediaDetailCard from "../MediaDetailCard";
 import Error from "../../../components/UI/Error";
 
 interface TagsProps {
-  mediaid: string | undefined;
+  mediaid: number;
   mediaType: string;
 }
 

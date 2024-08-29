@@ -21,7 +21,7 @@ interface EntryEditorModalParams {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
-  mediaid: string;
+  mediaid: number;
   mediaType: mediaTypeType;
 }
 

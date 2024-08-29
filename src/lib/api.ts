@@ -28,10 +28,7 @@ export async function getBulkMedia(
   }
 }
 
-export async function getMediaDetail(
-  mediatype: string,
-  mediaid: string | undefined
-) {
+export async function getMediaDetail(mediatype: string, mediaid: number) {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/detail/${mediaid}`

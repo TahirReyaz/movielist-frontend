@@ -9,7 +9,7 @@ import CharacterCard from "./CharacterCard";
 import { CastMember, MediaCredits } from "../../../../../constants/types/media";
 
 interface CharactersProps {
-  mediaid: string | undefined;
+  mediaid: number;
   mediaType: string;
 }
 

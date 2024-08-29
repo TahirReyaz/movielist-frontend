@@ -10,10 +10,8 @@ import LeftSection from "./LeftSection";
 import { useAppDispatch } from "../../hooks/redux";
 import { setDetails } from "../../store/MediaSlice";
 import Loading from "../../components/UI/Loading";
-
-type MediaDetailParams = {
-  mediaid: string;
-};
+import { MovieDetail, TvDetail } from "../../constants/types/media";
+import { mediaTypeType } from "../../constants/types";
 
 export type MediaDetailType = {
   id: string;
@@ -37,33 +35,34 @@ export type MediaDetailType = {
 };
 
 const MediaDetail = () => {
-  const { mediaid } = useParams<MediaDetailParams>();
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
-  const mediaType = pathname.split("/")[1];
+  const { mediaid } = useParams<{ mediaid: string }>();
+  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
   const {
     data: mediaDetails,
     isLoading,
     isError,
-  } = useQuery({
-    queryKey: ["mediaDetail", mediaType, mediaid],
-    queryFn: () => getMediaDetail(mediaType, mediaid),
+  } = useQuery<MovieDetail | TvDetail>({
+    queryKey: ["media", mediaType, mediaid],
+    queryFn: () => getMediaDetail(mediaType, Number(mediaid)),
     enabled: mediaid && mediaType ? true : false,
   });
+
+  console.log({ ind: mediaDetails });
 
   if (isError) {
     navigate("/404");
   }
 
   useEffect(() => {
-    if (mediaDetails) {
-      dispatch(setDetails({ ...mediaDetails, mediaType, mediaid }));
+    if (mediaDetails && mediaid) {
+      dispatch(setDetails({ mediaType, mediaid: Number(mediaid) }));
     }
-  }, [mediaDetails, mediaType, mediaid]);
+  }, [mediaType, mediaid]);
 
   if (isLoading) {
     return <Loading />;
@@ -74,7 +73,7 @@ const MediaDetail = () => {
       {mediaDetails && (
         <>
           {/* Image and overview */}
-          {mediaid && <TopSection />}
+          <TopSection />
           {/* Rest of the details */}
           <LowerLayout
             {...{
@@ -84,7 +83,7 @@ const MediaDetail = () => {
           />
 
           <div className="block md:hidden px-12">
-            <Tags {...{ mediaid, mediaType }} />
+            <Tags {...{ mediaid: Number(mediaid), mediaType }} />
           </div>
         </>
       )}

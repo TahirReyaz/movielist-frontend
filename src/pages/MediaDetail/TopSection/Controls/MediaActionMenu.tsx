@@ -1,15 +1,17 @@
 import react from "react";
 import { Dispatch, SetStateAction } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useLocation, useParams } from "react-router-dom";
 
 import { addEntry } from "../../../../lib/api";
-import { StatusType } from "../../../../constants/types";
+import { StatusType, mediaTypeType } from "../../../../constants/types";
 import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { Entry } from "../../../../constants/types/entry";
+import { MovieDetail, TvDetail } from "../../../../constants/types/media";
 
 type listItemType = {
   title: string;
@@ -40,14 +42,19 @@ const MediaActionMenu = ({
   existingEntry,
 }: MediaActionMenuProps) => {
   const { username } = useAppSelector((state) => state.auth);
-  const mediaDetails = useAppSelector((state) => state.media);
-  const { mediaid, mediaType } = mediaDetails;
+  const { pathname } = useLocation();
+  const { mediaid } = useParams<{ mediaid: string }>();
+  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 
+  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
+    queryKey: ["media", mediaType, mediaid],
+  });
+
   let list = menuItems;
-  if (mediaDetails.status === "Post Production") {
+  if (mediaDetails && mediaDetails.status === "Post Production") {
     list = [
       {
         title: "Set as planning",
@@ -56,7 +63,12 @@ const MediaActionMenu = ({
     ];
   }
 
-  const listHandler = async (listtype: StatusType) => {
+  const listHandler = async (
+    listtype: StatusType,
+    title: string,
+    poster: string,
+    backdrop: string
+  ) => {
     try {
       let response;
       loadingBar.current?.continuousStart();
@@ -68,13 +80,11 @@ const MediaActionMenu = ({
       } else {
         response = await addEntry({
           mediaType,
-          mediaid,
+          mediaid: Number(mediaid),
           status: listtype,
-          title:
-            (mediaType == "tv" ? mediaDetails.name : mediaDetails.title) ||
-            "meh",
-          poster: mediaDetails.poster_path,
-          backdrop: mediaDetails.backdrop_path,
+          title,
+          poster,
+          backdrop,
         });
       }
       loadingBar.current?.complete();
@@ -93,17 +103,27 @@ const MediaActionMenu = ({
       className="*:px-4 *:py-2 bg-white text-textLighter text-center text-2xl rounded py-2"
       {...attrs}
     >
-      {list
-        .filter((item) => item.status != currentStatus)
-        .map((item: listItemType) => (
-          <li
-            key={item.title}
-            className="hover:bg-actionPrimary hover:text-white cursor-pointer"
-            onClick={() => listHandler(item.status)}
-          >
-            {item.title}
-          </li>
-        ))}
+      {mediaDetails &&
+        list
+          .filter((item) => item.status != currentStatus)
+          .map((item: listItemType) => (
+            <li
+              key={item.title}
+              className="hover:bg-actionPrimary hover:text-white cursor-pointer"
+              onClick={() =>
+                listHandler(
+                  item.status,
+                  mediaType === "movie"
+                    ? (mediaDetails as MovieDetail).title
+                    : (mediaDetails as TvDetail).name,
+                  mediaDetails?.poster_path,
+                  mediaDetails?.backdrop_path
+                )
+              }
+            >
+              {item.title}
+            </li>
+          ))}
       <hr />
       <li
         className="hover:bg-actionPrimary hover:text-white cursor-pointer"

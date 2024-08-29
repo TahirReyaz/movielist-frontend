@@ -1,24 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { mediaTypeType } from "../constants/types";
 
-export type SliceStateType = any;
+export type MediaState = { mediaType: mediaTypeType; mediaid: number };
 
-let initialState: SliceStateType = {};
+let initialState: MediaState = {
+  mediaid: 0,
+  mediaType: "movie",
+};
 
 export const mediaSlice = createSlice({
   name: "media",
   initialState,
   reducers: {
-    setDetails: (state, action) => {
-      Object.keys(state).forEach((key) => delete state[key]);
-      for (const key in action.payload) {
-        state[key] = action.payload[key];
-      }
+    setDetails: (state, action: PayloadAction<MediaState>) => {
+      state.mediaType = action.payload.mediaType;
+      state.mediaid = action.payload.mediaid;
     },
     removeDetails: (state) => {
-      if (false) console.log({ state });
-      state = initialState;
+      state.mediaid = initialState.mediaid;
+      state.mediaType = initialState.mediaType;
     },
   },
 });
 
 export const { setDetails, removeDetails } = mediaSlice.actions;
+export default mediaSlice.reducer;

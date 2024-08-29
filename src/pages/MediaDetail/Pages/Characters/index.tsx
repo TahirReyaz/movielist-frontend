@@ -5,13 +5,11 @@ import Loading from "../../../../components/UI/Loading";
 import { getMediaMoreDetails } from "../../../../lib/api/media";
 import Error from "../../../../components/UI/Error";
 import CharacterCard from "../Overview/Characters/CharacterCard";
-import { useLocation, useParams } from "react-router-dom";
 import { CastMember, MediaCredits } from "../../../../constants/types/media";
+import { useAppSelector } from "../../../../hooks/redux";
 
 const Characters = () => {
-  const { mediaid } = useParams();
-  const location = useLocation();
-  const mediaType = location.pathname.includes("tv") ? "tv" : "movie";
+  const { mediaid, mediaType } = useAppSelector((state) => state.media);
 
   const {
     data: credits,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
+import { useLocation, useParams } from "react-router-dom";
 
 import "tippy.js/dist/tippy.css";
 
@@ -14,12 +15,16 @@ import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { getUserEntryByMediaid } from "../../../../lib/api/entry";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { Entry } from "../../../../constants/types/entry";
+import { mediaTypeType } from "../../../../constants/types";
 
 const Controls = () => {
   const { username, profileData: profile } = useAppSelector(
     (state) => state.auth
   );
-  const { mediaType, mediaid } = useAppSelector((state) => state.media);
+
+  const { pathname } = useLocation();
+  const { mediaid } = useParams<{ mediaid: string }>();
+  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const queryClient = useQueryClient();
@@ -27,7 +32,7 @@ const Controls = () => {
 
   const { data: existingEntry } = useQuery<Entry>({
     queryKey: ["entry", username, mediaid],
-    queryFn: () => getUserEntryByMediaid(mediaid),
+    queryFn: () => getUserEntryByMediaid(Number(mediaid)),
     enabled: !!mediaid,
   });
 
@@ -41,7 +46,7 @@ const Controls = () => {
   const handleFavToggle = async (toFav: boolean) => {
     try {
       loadingBar.current?.continuousStart();
-      await toggleFav(mediaid, mediaType, toFav);
+      await toggleFav(Number(mediaid), mediaType, toFav);
       loadingBar.current?.complete();
 
       showSuccessToast(
@@ -97,15 +102,17 @@ const Controls = () => {
           className={`text-2xl ${isFav ? "text-favPink" : "text-white"}`}
         />
       </div>
-      <EntryEditorModal
-        {...{
-          open: showModal,
-          setOpen: setShowModal,
-          id: existingEntry?._id,
-          mediaid,
-          mediaType,
-        }}
-      />
+      {mediaid && (
+        <EntryEditorModal
+          {...{
+            open: showModal,
+            setOpen: setShowModal,
+            id: existingEntry?._id,
+            mediaid: Number(mediaid),
+            mediaType,
+          }}
+        />
+      )}
     </div>
   );
 };

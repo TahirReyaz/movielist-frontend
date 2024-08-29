@@ -2,7 +2,7 @@ import { RefUser, StatusType, mediaTypeType } from "../types";
 
 export type Entry = {
   _id: string;
-  mediaid: string;
+  mediaid: number;
   owner: RefUser;
   status: StatusType;
   mediaType: mediaTypeType;

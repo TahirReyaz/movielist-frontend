@@ -7,7 +7,7 @@ import Error from "../../../../../components/UI/Error";
 import RecommendationCard from "./RecommendationCard";
 
 interface RecommendationsProps {
-  mediaid: string | undefined;
+  mediaid: number;
   mediaType: string;
 }
 const Recommendations = ({ mediaid, mediaType }: RecommendationsProps) => {

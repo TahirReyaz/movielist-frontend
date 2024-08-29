@@ -2,10 +2,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { backendUrl } from "../../constants";
 
-export async function getMediaTags(
-  mediatype: string,
-  mediaid: string | undefined
-) {
+export async function getMediaTags(mediatype: string, mediaid: number) {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/tags/${mediaid}`
@@ -20,7 +17,7 @@ export async function getMediaTags(
 
 export async function getMediaMoreDetails(
   mediatype: string,
-  mediaid: string | undefined,
+  mediaid: number,
   detailType: string
 ) {
   try {

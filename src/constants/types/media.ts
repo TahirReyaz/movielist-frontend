@@ -1,4 +1,7 @@
-type MediaDetailBase = {
+import { mediaTypeType } from "../types";
+
+type MediaDetailBase<T extends mediaTypeType> = {
+  type: T;
   adult: boolean;
   backdrop_path: string;
   homepage: string;
@@ -16,7 +19,7 @@ type MediaDetailBase = {
   vote_count: number;
 };
 
-export type MovieDetail = MediaDetailBase & {
+export type MovieDetail = MediaDetailBase<"movie"> & {
   belongs_to_collection: string;
   budget: number;
   genre_ids: MediaDetailGenre[];
@@ -29,7 +32,7 @@ export type MovieDetail = MediaDetailBase & {
   video: boolean;
 };
 
-export type TvDetail = MediaDetailBase & {
+export type TvDetail = MediaDetailBase<"tv"> & {
   created_by: TvCreator[];
   episode_run_time: number[];
   first_air_date: string;

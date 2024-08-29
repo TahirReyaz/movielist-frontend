@@ -1,8 +1,9 @@
 import React from "react";
 import { formatRuntime } from "../../lib/helpers";
+import { MovieDetail, TvDetail } from "../../constants/types/media";
 
 interface MediaDetailFieldProps {
-  fieldName: string;
+  fieldName: keyof (MovieDetail & TvDetail);
   value?: string | number | string[];
   values?: any;
   valkey?: string;
