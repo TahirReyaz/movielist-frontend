@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
+import Select, { Options, SingleValue } from "react-select";
 
 import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
-import { generateYearOptions } from "../../../../lib/helpers";
 import YearRangeFilter from "./YearFilter";
 import SortMenu from "./SortMenu";
+import { getGenreList } from "../../../../lib/api/media";
+import { mediaTypeType } from "../../../../constants/types";
 
 export interface FilterProps {
   filters: {
@@ -19,8 +22,26 @@ export interface FilterProps {
   onFilterChange: (name: string, value: string) => void;
 }
 
-const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
+const FilterMenu = ({
+  filters,
+  onFilterChange,
+  mediaType,
+}: FilterProps & { mediaType: mediaTypeType }) => {
   const [show, setShow] = useState(false);
+
+  const {
+    data: genreOptions,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["genre", "list"],
+    queryFn: () => getGenreList(mediaType ?? "movie"),
+    enabled: !!mediaType && (mediaType == "movie" || mediaType == "tv"),
+  });
+
+  if (isLoading || isError) {
+    return;
+  }
 
   return (
     <div className="mt-12">
@@ -52,16 +73,28 @@ const FilterMenu = ({ filters, onFilterChange }: FilterProps) => {
             onFilterChange,
           }}
         />
-        <div className="text-2xl text-textLight">Filters</div>
+        <div className="text-2xl text-textLight mb-2">Filters</div>
         {/* Genre */}
-        <select
-          name="genre"
-          value={filters.genre}
-          onChange={(e) => onFilterChange(e.target.name, e.target.value)}
-          className="p-2 border rounded"
-        >
-          <option value="">All Genres</option>
-        </select>
+        {genreOptions && (
+          <Select
+            {...{
+              onChange: (
+                option: SingleValue<{ value: string; label: string }>
+              ) => onFilterChange("genre", option?.value ?? ""),
+              options: [{ value: "", label: "None" }, ...genreOptions],
+              isMulti: false,
+              className:
+                "bg-anilist-mirage rounded-lg text-2xl text-anilist-aqua_haze px-4 mb-2",
+              classNames: {
+                menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
+                option: () =>
+                  "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-2xl text-anilist-aqua_haze rounded-md cursor-pointer",
+              },
+              unstyled: true,
+              placeholder: "Genre",
+            }}
+          />
+        )}
         {/* Country */}
         <select
           name="country"

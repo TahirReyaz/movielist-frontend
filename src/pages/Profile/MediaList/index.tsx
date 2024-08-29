@@ -50,14 +50,16 @@ const MediaList = () => {
     let filtered = entries;
 
     // Filter by genre
-    // if (filters.genre) {
-    //   filtered = filtered.filter((entry: any) =>
-    //     entry.data.genres.some(
-    //       (genre: any) =>
-    //         genre.name.toLowerCase() === filters.genre.toLowerCase()
-    //     )
-    //   );
-    // }
+    if (filters.genre) {
+      filtered = filtered.filter((entry: Entry) => {
+        if (entry.data?.genres) {
+          return entry.data.genres.some(
+            (genre: any) => genre.id === filters.genre
+          );
+        }
+        return false;
+      });
+    }
 
     // Filter by country
     // if (filters.country) {
@@ -149,7 +151,9 @@ const MediaList = () => {
     <LowerLayout
       {...{
         left: (
-          <FilterMenu filters={filters} onFilterChange={handleFilterChange} />
+          <FilterMenu
+            {...{ filters, onFilterChange: handleFilterChange, mediaType }}
+          />
         ),
         right: (
           <div className="flex flex-col">

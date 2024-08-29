@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import { backendUrl } from "../../constants";
+import { mediaTypeType } from "../../constants/types";
 
 export async function getMediaTags(mediatype: string, mediaid: number) {
   try {
@@ -32,10 +33,10 @@ export async function getMediaMoreDetails(
   }
 }
 
-export async function getGenreList(mediatype: string) {
+export const getGenreList = async (mediaType: mediaTypeType) => {
   try {
     const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/genre`
+      `${backendUrl}/${mediaType}/genre`
     );
     const genres = response.data.genres;
     const options: any[] = [];
@@ -43,8 +44,7 @@ export async function getGenreList(mediatype: string) {
       options.push({ value: genre.id, label: genre.name })
     );
     return options;
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+  } catch (error: any) {
+    throw new Error(error);
   }
-}
+};

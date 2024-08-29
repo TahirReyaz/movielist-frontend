@@ -43,8 +43,8 @@ const Lists = ({ filters, onFilterChange }: FilterProps) => {
         <div
           key={type.type}
           onClick={() => handleClick(type.type)}
-          className={`text-2xl py-2 px-4 mt-2 cursor-pointer flex justify-between ${
-            filters.status === type.type && "font-semibold bg-bgSecondary"
+          className={`text-2xl py-2 px-4 mt-2 cursor-pointer flex justify-between rounded ${
+            filters.status === type.type && "font-medium bg-anilist-mirage"
           }`}
         >
           <span>{type.label}</span>

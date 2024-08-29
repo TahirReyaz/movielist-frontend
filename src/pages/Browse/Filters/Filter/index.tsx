@@ -23,7 +23,7 @@ const Filter = ({ title, options, onChange, isMulti }: FilterProps) => {
           classNames: {
             menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
             option: () =>
-              "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-[1.4rem] font-semibold rounded-md",
+              "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-[1.4rem] font-semibold rounded-md cursor-pointer",
           },
           unstyled: true,
         }}

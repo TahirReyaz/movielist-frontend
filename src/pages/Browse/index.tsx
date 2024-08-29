@@ -17,13 +17,10 @@ import { searchTypes } from "../../constants";
 import Staff from "./Pages/Staff";
 import Users from "./Pages/Users";
 import Studios from "./Pages/Studios";
+import { mediaTypeType } from "../../constants/types";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
-
-type SearchMediaParams = {
-  mediaType: string;
-};
 
 const Browse = () => {
   const location = useLocation();
@@ -32,7 +29,7 @@ const Browse = () => {
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search") || "";
 
-  const { mediaType } = useParams<SearchMediaParams>();
+  const { mediaType } = useParams<{ mediaType: mediaTypeType }>();
 
   const [query, setQuery] = useState<string>(initialSearchQuery);
   const [genres, setGenres] = useState<string>("");
