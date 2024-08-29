@@ -5,6 +5,8 @@ import { deleteEntry } from "../../../../lib/api/entry";
 import { useAppSelector } from "../../../../hooks/redux";
 import WarningModal from "../../WarningModal";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { useLocation } from "react-router-dom";
+import { mediaTypeType } from "../../../../constants/types";
 
 const CustomLists = ({
   id,
@@ -18,12 +20,18 @@ const CustomLists = ({
   const { username } = useAppSelector((state) => state.auth);
   const queryClient = useQueryClient();
 
+  const { pathname } = useLocation();
+  const pathArray = pathname.split("/");
+  const mediaType: mediaTypeType =
+    pathArray[3].split("#")[0] === "movielist" ? "movie" : "tv";
+
   const handleDelete = async () => {
     try {
       const response = await deleteEntry(id);
       showSuccessToast(response.message);
-      queryClient.invalidateQueries({ queryKey: ["user", username] });
-      queryClient.invalidateQueries({ queryKey: ["profile", username] });
+      queryClient.invalidateQueries({
+        queryKey: ["entries", username, mediaType],
+      });
       setOpen(false);
     } catch (error: any) {
       showErrorToast(error.message);
