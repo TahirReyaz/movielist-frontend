@@ -25,6 +25,7 @@ const UserDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setOpenWarningModal(false);
     dispatch(logoutAction());
     navigate("/");
   };

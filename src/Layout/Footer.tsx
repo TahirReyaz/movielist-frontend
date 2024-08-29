@@ -1,25 +1,31 @@
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { RootState } from "../store";
 import { logoutAction } from "../store/AuthSlice";
-import { Link } from "react-router-dom";
+import WarningModal from "../components/UI/WarningModal";
 
 const Footer = () => {
+  const [openWarningModal, setOpenWarningModal] = useState<boolean>(false);
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setOpenWarningModal(false);
+    dispatch(logoutAction());
+    navigate("/");
+  };
 
   const footerLinks = [
     {
       links: [
         {
           text: "Logout",
-          action: () => {
-            dispatch(logoutAction());
-            navigate("/");
-          },
+          action: () => setOpenWarningModal(true),
         },
         { text: "Donate", url: "/donate" },
         { text: "Imdb.com", url: "www.imdb.com", ext: true },
@@ -95,6 +101,17 @@ const Footer = () => {
           </div>
         ))}
       </div>
+
+      <WarningModal
+        {...{
+          open: openWarningModal,
+          setOpen: setOpenWarningModal,
+          action: handleLogout,
+          title: "Warning",
+          message: "Are you sure you want to Log out?",
+          actionName: "OK",
+        }}
+      />
     </footer>
   );
 };
