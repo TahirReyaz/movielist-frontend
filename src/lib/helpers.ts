@@ -1,6 +1,6 @@
 import { Option } from "../constants/types";
 import { Entry } from "../constants/types/entry";
-import { ProductionCountry } from "../constants/types/media";
+import { MediaDetailGenre, ProductionCountry } from "../constants/types/media";
 
 // Function to format runtime to hours and minutes
 export const formatRuntime = (runtime: any) => {
@@ -101,7 +101,7 @@ export const generateFilterCountryOptions = (
   if (entries) {
     entries.forEach((entry: Entry) => {
       entry.data?.production_countries?.forEach(
-        (country: ProductionCountry, index: number) => {
+        (country: ProductionCountry) => {
           if (!options.some((option) => option.value === country.iso_3166_1)) {
             options.push({
               value: country.iso_3166_1,
@@ -110,6 +110,26 @@ export const generateFilterCountryOptions = (
           }
         }
       );
+    });
+  }
+  return options;
+};
+
+export const generateFilterGenreOptions = (
+  entries: Entry[] | undefined
+): Option[] => {
+  const options: Option[] = [];
+  if (entries) {
+    entries.forEach((entry: Entry) => {
+      const genres: MediaDetailGenre[] = entry.data?.genres;
+      genres?.forEach((genre: MediaDetailGenre) => {
+        if (!options.some((option) => option.value === genre.id.toString())) {
+          options.push({
+            value: genre.id.toString(),
+            label: genre.name,
+          });
+        }
+      });
     });
   }
   return options;

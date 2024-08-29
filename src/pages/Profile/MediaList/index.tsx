@@ -10,11 +10,18 @@ import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
 import { getUserMediaEntries } from "../../../lib/api/entry.ts";
 import { Entry, EntryGroup } from "../../../constants/types/entry.ts";
-import { generateFilterCountryOptions } from "../../../lib/helpers.ts";
-import { ProductionCountry } from "../../../constants/types/media.ts";
+import {
+  generateFilterCountryOptions,
+  generateFilterGenreOptions,
+} from "../../../lib/helpers.ts";
+import {
+  MediaDetailGenre,
+  ProductionCountry,
+} from "../../../constants/types/media.ts";
 
 const MediaList = () => {
   const [countryOptions, setCountryOptions] = useState<Option[]>([]);
+  const [genreOptions, setGenreOptions] = useState<Option[]>([]);
   const { username } = useParams();
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");
@@ -57,7 +64,7 @@ const MediaList = () => {
       filtered = filtered.filter((entry: Entry) => {
         if (entry.data?.genres) {
           return entry.data.genres.some(
-            (genre: any) => genre.id === filters.genre
+            (genre: MediaDetailGenre) => genre.id.toString() === filters.genre
           );
         }
         return false;
@@ -155,7 +162,9 @@ const MediaList = () => {
   useEffect(() => {
     if (entries) {
       const options = generateFilterCountryOptions(entries);
+      const genreOpts = generateFilterGenreOptions(entries);
       setCountryOptions(options);
+      setGenreOptions(genreOpts);
     }
   }, [entries]);
 
@@ -173,6 +182,7 @@ const MediaList = () => {
               onFilterChange: handleFilterChange,
               mediaType,
               countryOptions,
+              genreOptions,
             }}
           />
         ),

@@ -27,22 +27,13 @@ const FilterMenu = ({
   onFilterChange,
   mediaType,
   countryOptions,
-}: FilterProps & { mediaType: mediaTypeType; countryOptions: Option[] }) => {
+  genreOptions,
+}: FilterProps & {
+  mediaType: mediaTypeType;
+  countryOptions: Option[];
+  genreOptions: Option[];
+}) => {
   const [show, setShow] = useState(false);
-
-  const {
-    data: genreOptions,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["genre", "list"],
-    queryFn: () => getGenreList(mediaType ?? "movie"),
-    enabled: !!mediaType && (mediaType == "movie" || mediaType == "tv"),
-  });
-
-  if (isLoading || isError) {
-    return;
-  }
 
   return (
     <div className="mt-12">
@@ -76,25 +67,24 @@ const FilterMenu = ({
         />
         <div className="text-2xl text-textLight mb-2">Filters</div>
         {/* Genre */}
-        {genreOptions && (
-          <Select
-            {...{
-              onChange: (option: SingleValue<Option>) =>
-                onFilterChange("genre", option?.value ?? ""),
-              options: [{ value: "", label: "None" }, ...genreOptions],
-              isMulti: false,
-              className:
-                "bg-anilist-mirage rounded-lg text-2xl text-anilist-aqua_haze px-4 mb-2",
-              classNames: {
-                menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
-                option: () =>
-                  "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-2xl text-anilist-aqua_haze rounded-md cursor-pointer whitespace-nowrap text-ellipsis overflow-hidden",
-              },
-              unstyled: true,
-              placeholder: "Genre",
-            }}
-          />
-        )}
+
+        <Select
+          {...{
+            onChange: (option: SingleValue<Option>) =>
+              onFilterChange("genre", option?.value ?? ""),
+            options: [{ value: "", label: "None" }, ...genreOptions],
+            isMulti: false,
+            className:
+              "bg-anilist-mirage rounded-lg text-2xl text-anilist-aqua_haze px-4 mb-2",
+            classNames: {
+              menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
+              option: () =>
+                "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-2xl text-anilist-aqua_haze rounded-md cursor-pointer whitespace-nowrap text-ellipsis overflow-hidden",
+            },
+            unstyled: true,
+            placeholder: "Genre",
+          }}
+        />
         {/* Country */}
         <Select
           {...{
