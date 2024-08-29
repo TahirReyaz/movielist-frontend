@@ -13,6 +13,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { getUserEntryByMediaid } from "../../../../lib/api/entry";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
+import { Entry } from "../../../../constants/types/entry";
 
 const Controls = () => {
   const { username, profileData: profile } = useAppSelector(
@@ -24,7 +25,7 @@ const Controls = () => {
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 
-  const { data: existingEntry } = useQuery({
+  const { data: existingEntry } = useQuery<Entry>({
     queryKey: ["entry", username, mediaid],
     queryFn: () => getUserEntryByMediaid(mediaid),
     enabled: !!mediaid,

@@ -9,6 +9,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
+import { Entry } from "../../../../constants/types/entry";
 
 type listItemType = {
   title: string;
@@ -29,7 +30,7 @@ interface MediaActionMenuProps {
   currentStatus?: string;
   attrs: attrsType;
   setShowModal: Dispatch<SetStateAction<boolean>>;
-  existingEntry?: any;
+  existingEntry?: Entry;
 }
 
 const MediaActionMenu = ({
@@ -61,7 +62,7 @@ const MediaActionMenu = ({
       loadingBar.current?.continuousStart();
       if (existingEntry) {
         response = await updateEntry({
-          id: existingEntry.id,
+          id: existingEntry._id,
           status: listtype,
         });
       } else {
@@ -78,9 +79,8 @@ const MediaActionMenu = ({
       }
       loadingBar.current?.complete();
       queryClient.invalidateQueries({
-        queryKey: ["user", username],
+        queryKey: ["entry", username, mediaid],
       });
-
       showSuccessToast(response?.message);
     } catch (error: any) {
       loadingBar.current?.complete();

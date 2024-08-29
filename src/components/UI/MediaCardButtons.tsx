@@ -15,6 +15,7 @@ import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { useLoadingBar } from "./LoadingBar";
+import { Entry } from "../../constants/types/entry";
 
 const iconClass =
   "rounded-full bg-anilist-mirage/90 mt-4 me-2 p-2 text-2xl text-anilist-aqua_haze";
@@ -23,7 +24,7 @@ interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   mediaid: string;
   mediaType: mediaTypeType;
-  entry?: any;
+  entry?: Entry;
 }
 
 interface MenuButtonProps {
@@ -77,7 +78,7 @@ const MediaCardButtons = ({
     try {
       let response;
       if (entry) {
-        response = await updateEntry({ status, id: entry.id });
+        response = await updateEntry({ status, id: entry._id });
       } else {
         response = await addEntry({
           mediaType,
