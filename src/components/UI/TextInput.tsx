@@ -8,6 +8,7 @@ interface TextInputProps {
   label?: string;
   value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: () => void;
   classes?: string;
   divClasses?: string;
   min?: number;
@@ -19,6 +20,7 @@ interface TextInputProps {
 const TextInput = ({
   value,
   onChange,
+  onClick,
   label,
   type,
   name,
@@ -38,7 +40,10 @@ const TextInput = ({
       className={`relative my-2 rounded-md ${Icon && "grid grid-cols-12"} ${
         divClasses && divClasses
       } ${bg}`}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (onClick) onClick();
+      }}
     >
       {Icon && (
         <div className="col-span-1 text-2xl text-textPrimary flex self-center justify-center">
