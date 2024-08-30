@@ -44,6 +44,7 @@ const NewComment = ({ activityId }: { activityId: string }) => {
           type: "text",
           onClick: () => (!showInterface ? setShowInterface(true) : {}),
           bg: "bg-anilist-mirage",
+          label: "Write a reply...",
         }}
       />
       {showInterface && (

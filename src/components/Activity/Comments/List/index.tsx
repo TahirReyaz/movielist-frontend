@@ -31,7 +31,7 @@ const List = ({ activityId }: { activityId: string }) => {
   }
 
   return (
-    <div>
+    <div className="mt-16">
       {comments?.map((comment: CommentType) => (
         <Comment {...{ ...comment, key: comment._id }} />
       ))}
