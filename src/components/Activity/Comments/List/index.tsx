@@ -33,7 +33,7 @@ const List = ({ activityId }: { activityId: string }) => {
   return (
     <div>
       {comments?.map((comment: CommentType) => (
-        <Comment {...{ ...comment }} />
+        <Comment {...{ ...comment, key: comment._id }} />
       ))}
     </div>
   );

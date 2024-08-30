@@ -12,6 +12,7 @@ export type Activity = {
   createdAt: string;
   updatedAt: string;
   type: "status" | "media";
+  commentCount: number;
 };
 
 export type Comment = {

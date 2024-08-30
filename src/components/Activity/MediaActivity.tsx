@@ -27,6 +27,7 @@ const MediaActivity = ({
   _id,
   likes,
   location,
+  commentCount,
 }: ActivityProps) => {
   const [showComments, setShowComments] = useState<boolean>(false);
 
@@ -133,7 +134,7 @@ const MediaActivity = ({
               className={iconClass + " text-anilist-blue-cadet "}
               onClick={() => setShowComments((prev) => !prev)}
             >
-              {0} <FaComment />
+              {commentCount} <FaComment />
             </span>
             <span
               className={`${iconClass} ${
