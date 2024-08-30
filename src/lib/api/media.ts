@@ -26,10 +26,9 @@ export async function getMediaMoreDetails(
       `${backendUrl}/${mediatype}/${detailType}/${mediaid}`
     );
     const details = response.data;
-    return { ...details, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return details;
+  } catch (error: any) {
+    throw new Error(error);
   }
 }
 

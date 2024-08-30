@@ -1,22 +1,24 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { CrewMember, MediaCredits } from "../../../../../constants/types/media";
+import { mediaTypeType } from "../../../../../constants/types";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
 import { getMediaMoreDetails } from "../../../../../lib/api/media";
-import { useAppSelector } from "../../../../../hooks/redux";
 import StaffCard from "../../../../../components/Media/StaffCard";
 
 const Staff = () => {
-  const { mediaType, mediaid } = useAppSelector((state) => state.media);
+  const { pathname } = useLocation();
+  const { mediaid } = useParams<{ mediaid: string }>();
+  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
   const location = useLocation();
 
   const { data, isLoading, isError } = useQuery<MediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
-    queryFn: () => getMediaMoreDetails(mediaType, mediaid, "credits"),
+    queryFn: () => getMediaMoreDetails(mediaType, Number(mediaid), "credits"),
     enabled: mediaid && mediaType ? true : false,
   });
 
@@ -26,6 +28,10 @@ const Staff = () => {
 
   if (isError) {
     return <Error />;
+  }
+
+  if (data?.crew?.length === 0) {
+    return;
   }
 
   return (

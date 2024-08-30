@@ -9,14 +9,18 @@ import Trailer from "./Trailer";
 import Recommendations from "./Recommendations";
 import Threads from "./Threads";
 import Reviews from "./Reviews";
-import { useAppSelector } from "../../../../hooks/redux";
 import { MovieDetail, TvDetail } from "../../../../constants/types/media";
+import { useLocation, useParams } from "react-router-dom";
+import { mediaTypeType } from "../../../../constants/types";
 
 const Overview = () => {
-  const { mediaid, mediaType } = useAppSelector((state) => state.media);
+  const { pathname } = useLocation();
+  const { mediaid } = useParams<{ mediaid: string }>();
+  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
-  const { data: mediaDetails, isLoading } = useQuery<MovieDetail | TvDetail>({
+  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],
+    enabled: Number(mediaid) !== 0,
   });
 
   return (
@@ -30,11 +34,11 @@ const Overview = () => {
         </div>
       )}
       <Relations />
-      <Characters {...{ mediaid, mediaType }} />
+      <Characters {...{ mediaid: Number(mediaid), mediaType }} />
       <Staff />
       <StatusDistribution />
       <Trailer />
-      <Recommendations {...{ mediaid, mediaType }} />
+      <Recommendations {...{ mediaid: Number(mediaid), mediaType }} />
       <Threads />
       <Reviews />
     </div>

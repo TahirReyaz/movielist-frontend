@@ -30,6 +30,10 @@ const Characters = ({ mediaid, mediaType }: CharactersProps) => {
     return <Error />;
   }
 
+  if (data?.characters?.length === 0) {
+    return;
+  }
+
   return (
     <div className="mb-20">
       <h2 className="text-[1.4rem] font-medium my-4">
