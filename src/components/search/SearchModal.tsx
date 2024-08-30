@@ -41,7 +41,10 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
 
   return (
     <Modal open={open} setOpen={setOpen}>
-      <div className="w-screen h-screen p-2 pt-12 md:pt-24 md:px-24 overflow-auto">
+      <div
+        className="w-screen h-screen p-2 pt-12 md:pt-24 md:px-24 overflow-auto"
+        onClick={() => setOpen(false)}
+      >
         <div className="w-[600px] mx-auto">
           <TextInput
             label="Search MovieList"

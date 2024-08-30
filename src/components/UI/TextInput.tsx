@@ -38,6 +38,7 @@ const TextInput = ({
       className={`relative my-2 rounded-md ${Icon && "grid grid-cols-12"} ${
         divClasses && divClasses
       } ${bg}`}
+      onClick={(e) => e.stopPropagation()}
     >
       {Icon && (
         <div className="col-span-1 text-2xl text-textPrimary flex self-center justify-center">
