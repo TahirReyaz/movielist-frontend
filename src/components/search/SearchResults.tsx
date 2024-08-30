@@ -16,7 +16,7 @@ interface SearchResultsProps {
 
 const SearchResults = ({ results, setOpen, query }: SearchResultsProps) => {
   return (
-    <div className="flex flex-wrap w-full justify-between">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full justify-between">
       {results.movies && results.movies.length > 0 && (
         <ResultSection
           {...{

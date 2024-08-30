@@ -43,8 +43,8 @@ const ResultSection = ({
   };
 
   return (
-    <div className="w-[48.5%]">
-      <h3 className="my-4 text-white text-left font-semibold text-[1.4rem]">
+    <div>
+      <h3 className="my-4 text-anilist-gray-athens_gray text-left font-medium text-xl">
         {title}
       </h3>
       <div className="bg-bgSecondary rounded overflow-hidden">

@@ -7,6 +7,7 @@ import { getSearchMultiResults } from "../../lib/api";
 import SearchResults from "./SearchResults";
 import Modal from "../UI/Modal";
 import { useDebounce } from "../../hooks/useDebounce";
+import Loading from "../UI/Loading";
 
 interface SearchModalParams {
   open: boolean;
@@ -25,31 +26,33 @@ const SearchModal = ({ open, setOpen }: SearchModalParams) => {
 
   return (
     <Modal open={open} setOpen={setOpen}>
-      <>
-        <TextInput
-          label="Search MovieList"
-          type="text"
-          name="search"
-          value={query}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setQuery(event.target.value)
-          }
-          Icon={FaSearch}
-          classes="bg-bgSecondary text-textPrimary font-medium"
-          divClasses="mb-2 mt-32 w-1/2 mx-auto p-4 bg-bgSecondary rounded-lg"
-        />
-        {isLoading && (
-          <div className="text-3xl text-anilist-gray-regent font-semibold">
-            Loading...
-          </div>
-        )}
+      <div className="w-screen h-screen p-2 pt-12 md:pt-24 md:px-24 overflow-auto">
+        <div className="w-[600px] mx-auto">
+          <TextInput
+            label="Search MovieList"
+            type="text"
+            name="search"
+            value={query}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setQuery(event.target.value)
+            }
+            bg="bg-anilist-mirage"
+            Icon={FaSearch}
+            classes="text-anilist-gray-gull font-medium"
+            divClasses="shadow-lg rounded-lg p-2"
+          />
+          <p className="text-anilist-gray-regent text-xl text-end mb-4">
+            Hint: Want more advanced searching? Try the Browsing page
+          </p>
+        </div>
+        {isLoading && <Loading />}
         {isError && <div>Error fetching data</div>}
         {data && (
           <SearchResults
             {...{ results: data, setOpen: setOpen, query: debouncedQuery }}
           />
         )}
-      </>
+      </div>
     </Modal>
   );
 };
