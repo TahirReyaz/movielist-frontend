@@ -9,10 +9,9 @@ export async function getMediaTags(mediatype: string, mediaid: number) {
       `${backendUrl}/${mediatype}/tags/${mediaid}`
     );
     const media = response.data;
-    return { ...media, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return media;
+  } catch (error: any) {
+    throw new Error(error);
   }
 }
 

@@ -84,7 +84,6 @@ const Controls = () => {
                 }}
               />
             )}
-            className="py-2 bg-white"
           >
             <div className="bg-actionSecondary p-2 h-full rounded-r-lg grid justify-center items-center cursor-pointer">
               <AiOutlineDown className="text-2xl" />

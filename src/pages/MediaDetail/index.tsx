@@ -52,8 +52,6 @@ const MediaDetail = () => {
     enabled: mediaid && mediaType ? true : false,
   });
 
-  console.log({ ind: mediaDetails });
-
   if (isError) {
     navigate("/404");
   }

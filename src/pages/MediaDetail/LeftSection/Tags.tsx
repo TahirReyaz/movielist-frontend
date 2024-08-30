@@ -11,25 +11,31 @@ interface TagsProps {
 }
 
 const Tags = ({ mediaid, mediaType }: TagsProps) => {
-  const tagsQuery = useQuery({
+  const {
+    data: data,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["tags", mediaid],
     queryFn: () => getMediaTags(mediaType, mediaid),
     enabled: mediaid && mediaType ? true : false,
   });
 
-  if (tagsQuery.isLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (tagsQuery.isError) {
+  if (isError) {
     return <Error />;
   }
 
   return (
     <div>
       <h2 className="text-[1.4rem] font-semibold mb-4">Tags</h2>
-      {tagsQuery.data?.tags?.map((tag: any) => (
-        <MediaDetailCard key={tag.id}>{tag.name}</MediaDetailCard>
+      {data?.tags?.map((tag: any) => (
+        <MediaDetailCard key={tag.id}>
+          <p className="text-xl">{tag.name}</p>
+        </MediaDetailCard>
       ))}
     </div>
   );

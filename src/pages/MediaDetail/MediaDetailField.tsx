@@ -25,17 +25,22 @@ const MediaDetailField = ({
     <div className="p-2 md:min-w-0 min-w-fit-content">
       <div className="text-textPrimary text-[1.3rem] font-medium">{label}</div>
       {value && !valkey && (
-        <div className="text-textLight text-[1.2rem]">{processedVal}</div>
+        <div className="text-anilist-gray-regent text-[1.2rem]">
+          {processedVal}
+        </div>
       )}
       {values &&
         valkey &&
         values.map((item: any, index: number) => (
-          <p className="hidden md:block" key={index}>
+          <p
+            className="hidden md:block text-xl text-anilist-gray-regent"
+            key={index}
+          >
             {item[valkey]}
           </p>
         ))}
       {values && valkey && (
-        <div className="block md:hidden">
+        <div className="block md:hidden text-xl text-anilist-gray-regent">
           {values.map((item: any) => item[valkey]).join(", ")}
         </div>
       )}
