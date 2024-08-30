@@ -13,3 +13,13 @@ export type Activity = {
   updatedAt: string;
   type: "status" | "media";
 };
+
+export type Comment = {
+  _id: string;
+  likes: [RefUser];
+  content: string;
+  owner: RefUser;
+  activityId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

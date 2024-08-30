@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import TextInput from "../../UI/TextInput";
 import { Link } from "react-router-dom";
-import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { showErrorToast } from "../../../utils/toastUtils";
 import { commentOnActivity } from "../../../lib/api/comment";
 import { useLoadingBar } from "../../UI/LoadingBar";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAppSelector } from "../../../hooks/redux";
 
 const NewComment = ({ activityId }: { activityId: string }) => {
   const [content, setContent] = useState<string>("");
   const [showInterface, setShowInterface] = useState<boolean>(false);
-  const profile = useAppSelector((state) => state.profile);
 
   const loadingBar = useLoadingBar();
   const queryClient = useQueryClient();
@@ -21,16 +20,8 @@ const NewComment = ({ activityId }: { activityId: string }) => {
         loadingBar.current?.continuousStart();
         await commentOnActivity(activityId, content);
         loadingBar.current?.complete();
-        if (profile.username) {
-          queryClient.invalidateQueries({
-            queryKey: ["activities", "user", profile.username],
-          });
-        }
         queryClient.invalidateQueries({
-          queryKey: ["activities", "global"],
-        });
-        queryClient.invalidateQueries({
-          queryKey: ["activities", "following"],
+          queryKey: ["comments", "activity", activityId],
         });
         setShowInterface(false);
         setContent("");
@@ -44,7 +35,7 @@ const NewComment = ({ activityId }: { activityId: string }) => {
   };
 
   return (
-    <div className="px-8">
+    <div>
       <TextInput
         {...{
           value: content,

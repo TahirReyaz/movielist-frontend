@@ -50,7 +50,7 @@ export const findExistingEntry = (userData: any, mediaid: string) => {
   return existingEntry;
 };
 
-export const calculateElasedTime = (dateString: string): string => {
+export const calculateElapsedTime = (dateString: string): string => {
   const now = new Date();
   const pastDate = new Date(dateString);
   const differenceInMilliseconds = now.getTime() - pastDate.getTime();

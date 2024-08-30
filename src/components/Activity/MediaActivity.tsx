@@ -5,7 +5,7 @@ import { FaComment, FaHeart } from "react-icons/fa";
 
 import userAvatarPlaceholder from "../../assets/userAvatar.png";
 
-import { calculateElasedTime } from "../../lib/helpers";
+import { calculateElapsedTime } from "../../lib/helpers";
 import { ActivityProps } from ".";
 import { likeActivity, unlikeActivity } from "../../lib/api/activity";
 import { showErrorToast } from "../../utils/toastUtils";
@@ -76,7 +76,7 @@ const MediaActivity = ({
     }
   };
 
-  const time = calculateElasedTime(createdAt);
+  const time = calculateElapsedTime(createdAt);
   const atProfile = location === "user";
 
   return (
