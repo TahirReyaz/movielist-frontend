@@ -3,9 +3,9 @@ import {
   bulkMediaType,
   mediaTypeType,
   userSettingsType,
-} from "../constants/types";
-import { backendUrl } from "../constants";
-import { newEntryType } from "../constants/types/entry";
+} from "../../constants/types";
+import { backendUrl } from "../../constants";
+import { newEntryType } from "../../constants/types/entry";
 
 export async function getBulkMedia(
   mediatype: mediaTypeType,
@@ -40,25 +40,24 @@ export async function getMediaDetail(mediatype: string, mediaid: number) {
   }
 }
 
-export async function signup(
+export const signup = async (
   email: string,
   password: string,
   username: string
-) {
+) => {
   try {
     const response: AxiosResponse = await axios.post(
       `${backendUrl}/auth/register`,
       { email, password, username }
     );
-    return { message: response.data.message, error: false };
+    return { message: response.data.message };
   } catch (error: any) {
-    console.error(error);
-    const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    const msg = error?.response?.data?.message;
+    throw new Error(msg);
   }
-}
+};
 
-export async function login(email: string, password: string) {
+export const login = async (email: string, password: string) => {
   try {
     const response: AxiosResponse = await axios.post(
       `${backendUrl}/auth/login`,
@@ -67,16 +66,14 @@ export async function login(email: string, password: string) {
     );
     return {
       message: response.data.message,
-      error: false,
       token: response.data.token,
       profile: response.data._doc,
     };
   } catch (error: any) {
-    console.error(error);
     const error_msg = error?.response?.data?.message;
-    return { message: error_msg, error: true };
+    throw new Error(error_msg);
   }
-}
+};
 
 export const addEntry = async (body: newEntryType) => {
   try {

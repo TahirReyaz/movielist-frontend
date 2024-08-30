@@ -1,14 +1,15 @@
 import React, { SyntheticEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
 import { signup } from "../lib/api";
-import { Link, useNavigate } from "react-router-dom";
 import {
   showErrorToast,
   showSuccessToast,
   showWarningToast,
 } from "../utils/toastUtils";
+import { useLoadingBar } from "../components/UI/LoadingBar";
 
 type Values = {
   username: string;
@@ -26,6 +27,7 @@ const Signup = () => {
   });
 
   const navigate = useNavigate();
+  const loadingBar = useLoadingBar();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -64,16 +66,19 @@ const Signup = () => {
     const validCP = confirmPasswordValidity();
 
     if (validE && validP && validCP && validU) {
-      const response = await signup(
-        values.email,
-        values.password,
-        values.username
-      );
-      if (response.error) {
-        showErrorToast(response.message);
-      } else {
+      try {
+        loadingBar.current?.continuousStart();
+        const response = await signup(
+          values.email,
+          values.password,
+          values.username
+        );
+        loadingBar.current?.complete();
         showSuccessToast(response.message);
         navigate("/login");
+      } catch (error: any) {
+        loadingBar.current?.complete();
+        showErrorToast(error.message);
       }
     } else {
       let msg = "Confirm password must be same as password";

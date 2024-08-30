@@ -12,6 +12,7 @@ import {
   showSuccessToast,
   showWarningToast,
 } from "../utils/toastUtils";
+import { useLoadingBar } from "../components/UI/LoadingBar";
 
 type Values = {
   email: string;
@@ -26,6 +27,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loadingBar = useLoadingBar();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -42,8 +44,12 @@ const Login = () => {
     const validE = emailValidity();
 
     if (validE) {
-      const response = await login(values.email, values.password);
-      if (!response.error) {
+      try {
+        loadingBar.current?.continuousStart();
+
+        const response = await login(values.email, values.password);
+
+        loadingBar.current?.complete();
         showSuccessToast(response.message);
         setTimeout(() => {
           dispatch(
@@ -55,8 +61,9 @@ const Login = () => {
           );
         }, 3000);
         setTimeout(() => navigate("/"), 1000);
-      } else {
-        showErrorToast(response.message);
+      } catch (error: any) {
+        loadingBar.current?.complete();
+        showErrorToast(error.message);
       }
     } else {
       showWarningToast("Email id not valid");
