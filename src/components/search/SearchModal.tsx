@@ -3,11 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
 
 import TextInput from "../UI/TextInput";
-import { getSearchMultiResults } from "../../lib/api";
-import SearchResults from "./SearchResults";
 import Modal from "../UI/Modal";
-import { useDebounce } from "../../hooks/useDebounce";
 import Loading from "../UI/Loading";
+import { useLoadingBar } from "../UI/LoadingBar";
+import SearchResults from "./SearchResults";
+import { getSearchMultiResults } from "../../lib/api";
+import { useDebounce } from "../../hooks/useDebounce";
 
 interface SearchModalParams {
   open: boolean;
@@ -16,13 +17,27 @@ interface SearchModalParams {
 
 const SearchModal = ({ open, setOpen }: SearchModalParams) => {
   const [query, setQuery] = React.useState("");
-  const debouncedQuery = useDebounce(query);
 
-  const { data, isLoading, isError } = useQuery({
+  const debouncedQuery = useDebounce(query);
+  const loadingBar = useLoadingBar();
+
+  const { data, isLoading, isError, isFetched } = useQuery({
     queryKey: ["search", debouncedQuery],
     queryFn: () => getSearchMultiResults(debouncedQuery),
     enabled: debouncedQuery.length > 0,
   });
+
+  if (isLoading) {
+    loadingBar.current?.continuousStart();
+  }
+
+  if (isError) {
+    loadingBar.current?.complete();
+  }
+
+  if (isFetched) {
+    loadingBar.current?.complete();
+  }
 
   return (
     <Modal open={open} setOpen={setOpen}>
