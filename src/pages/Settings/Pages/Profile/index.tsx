@@ -1,7 +1,9 @@
 import React from "react";
+
 import ComingSoon from "../../../ComingSoon";
 import Avatar from "./Avatar";
 import About from "./About";
+import Banner from "./Banner";
 
 const Profile = () => {
   const sections = [
@@ -18,7 +20,7 @@ const Profile = () => {
       title: "Banner",
       label:
         "Allowed Formats: JPEG, PNG. Max size: 6mb. Optimal dimensions: 1700x330",
-      element: <ComingSoon />,
+      element: <Banner />,
     },
     {
       title: "Timezone",
@@ -35,11 +37,11 @@ const Profile = () => {
   ];
 
   return (
-    <div className="bg-bgForeground rounded p-8">
+    <div className="bg-anilist-mirage rounded-lg p-8">
       {sections.map((section) => (
-        <div key={section.title}>
-          <h2 className="text-[1.4rem] font-semibold">{section.title}</h2>
-          {section.label && <div className="text-xl">{section.label}</div>}
+        <div key={section.title} className="mb-8">
+          <h2 className="text-[1.4rem] font-semibold mb-4">{section.title}</h2>
+          {section.label && <div className="text-xl mb-4">{section.label}</div>}
           {section.element}
         </div>
       ))}

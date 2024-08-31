@@ -9,12 +9,12 @@ import FollowButton from "./FollowButton.tsx";
 const TopSection = () => {
   const {
     username: profileUsername,
-    backdrop,
+    banner,
     avatar,
   } = useAppSelector((state) => state.profile);
 
   const backdropStyle = {
-    "--backdrop-url": `url(${backdrop})`,
+    "--banner-url": `url(${banner})`,
   } as React.CSSProperties;
 
   return (
@@ -23,7 +23,7 @@ const TopSection = () => {
       <div
         style={backdropStyle}
         className={`h-[40vh] overflow-hidden flex items-end ${
-          backdrop ? "bg-[image:var(--backdrop-url)]" : "bg-bgBanner"
+          banner ? "bg-[image:var(--banner-url)]" : "bg-bgBanner"
         }`}
       >
         {/* Poster and username */}

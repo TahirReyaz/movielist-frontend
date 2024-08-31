@@ -106,6 +106,7 @@ export async function updateUserDetail(
   userid: string | undefined,
   fields: Partial<userSettingsType>
 ) {
+  console.log({ fields });
   try {
     const updatedUserData: Partial<userSettingsType> = fields;
 
