@@ -37,7 +37,7 @@ const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
       <h2 className="text-[1.4rem] font-medium px-4 py-2 hover:text-actionPrimary cursor-pointer">
         {title}
       </h2>
-      <div className="flex flex-row md:grid md:grid-cols-4 overflow-auto md:overflow-hidden gap-8">
+      <div className="flex flex-row md:grid md:grid-cols-4 overflow-auto md:overflow-hidden gap-8 rounded-lg bg-anilist-mirage p-4 mb-4 shadow-lg">
         {entries.map((entry: Entry) => (
           <EntryCard
             {...{

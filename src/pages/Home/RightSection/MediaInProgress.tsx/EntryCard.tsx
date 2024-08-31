@@ -43,7 +43,7 @@ const EntryCard = ({
 
   return (
     <Link
-      className="rounded relative mb-8 flex md:block z-9 flex-shrink-0"
+      className="rounded relative flex md:block z-9 flex-shrink-0"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       to={`/${mediaType}/${mediaid}`}
