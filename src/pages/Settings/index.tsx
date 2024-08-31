@@ -1,17 +1,17 @@
 import React from "react";
 
-import Options from "./Options";
 import MenuSideBar from "./MenuSideBar";
-import PageContainer from "../../components/UI/PageContainer";
+import { Outlet } from "react-router-dom";
+import LowerLayout from "../../components/UI/LowerLayout";
 
 const Settings = () => {
   return (
-    <PageContainer>
-      <div className="pt-12 grid grid-cols-1 md:grid-cols-4">
-        <MenuSideBar />
-        <Options />
-      </div>
-    </PageContainer>
+    <LowerLayout
+      {...{
+        left: <MenuSideBar />,
+        right: <Outlet />,
+      }}
+    />
   );
 };
 

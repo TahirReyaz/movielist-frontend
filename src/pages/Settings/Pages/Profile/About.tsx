@@ -12,10 +12,9 @@ import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 const About = () => {
   const [about, setAbout] = useState<string>("");
 
-  const { username, profileData } = useSelector(
+  const { username, profileData, userid } = useSelector(
     (state: RootState) => state.auth
   );
-  const userid = profileData?._id;
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
@@ -37,7 +36,7 @@ const About = () => {
   });
 
   useEffect(() => {
-    if (profileData.about) {
+    if (profileData?.about) {
       if (profileData.about !== about) {
         setAbout(profileData.about);
       }
@@ -57,7 +56,7 @@ const About = () => {
           label: "",
         }}
       />
-      {profileData.about !== about && about !== "" && (
+      {profileData && profileData.about !== about && about !== "" && (
         <div>
           <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
             {about}

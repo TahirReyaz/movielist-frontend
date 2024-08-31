@@ -16,6 +16,7 @@ import MediaList from "./pages/Profile/MediaList";
 import ComingSoon from "./pages/ComingSoon";
 import Browse from "./pages/Browse";
 import Settings from "./pages/Settings";
+import ProfileSettings from "./pages/Settings/Pages/Profile";
 import Staff from "./pages/Staff";
 import Notifications from "./pages/Notifications";
 import Stats from "./pages/Profile/Stats";
@@ -144,8 +145,8 @@ const App = () => {
                 />
               ))}
             </Route>
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/settings/:option" element={<Settings />}>
+            <Route path="/settings/*" element={<Settings />}>
+              <Route index element={<ProfileSettings />} />
               {settingsSubRoutes.map((route) => (
                 <Route
                   path={route.path}
