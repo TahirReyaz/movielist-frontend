@@ -15,6 +15,8 @@ const TopSection = () => {
 
   const backdropStyle = {
     "--banner-url": `url(${banner})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   } as React.CSSProperties;
 
   return (
@@ -22,7 +24,7 @@ const TopSection = () => {
       {/* Backdrop, poster, username */}
       <div
         style={backdropStyle}
-        className={`h-[40vh] overflow-hidden flex items-end ${
+        className={`w-full h-[40vh] overflow-hidden flex items-end ${
           banner ? "bg-[image:var(--banner-url)]" : "bg-bgBanner"
         }`}
       >
