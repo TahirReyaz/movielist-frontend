@@ -1,4 +1,4 @@
-import { RefUser, mediaTypeType } from "../types";
+import { NotifType, RefUser, mediaTypeType } from "../types";
 
 export type Activity = {
   _id: string;
@@ -21,6 +21,19 @@ export type Comment = {
   content: string;
   owner: RefUser;
   activityId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Notification = {
+  type: NotifType;
+  read: boolean;
+  content: string;
+  pointingImg: string;
+  pointingId: string;
+  pointingType: mediaTypeType;
+  activityId?: string;
+  owner: RefUser;
   createdAt: Date;
   updatedAt: Date;
 };

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import LowerLayout from "../../components/UI/LowerLayout";
-import ComingSoon from "../ComingSoon";
 import Menu from "./Menu";
 import { NotifType } from "../../constants/types";
+import List from "./List";
 
 const Notifications = () => {
   const [currentOption, setCurrentOption] = useState<NotifType>("all");
@@ -12,7 +12,7 @@ const Notifications = () => {
     <LowerLayout
       {...{
         left: <Menu {...{ currentOption, setCurrentOption }} />,
-        right: <ComingSoon />,
+        right: <List {...{ type: currentOption }} />,
       }}
     />
   );
