@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+
 import { unfollowUser } from "../../../lib/api/user";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAppSelector } from "../../../hooks/redux";
+import { socialFilterType } from ".";
 
-const SocialUser = ({ img, username }: { img: string; username: string }) => {
+const SocialUser = ({
+  img,
+  username,
+  type,
+}: {
+  img: string;
+  username: string;
+  type: socialFilterType;
+}) => {
   const [hover, setHover] = useState<boolean>(false);
 
   const { username: profileUsername } = useAppSelector(
@@ -48,7 +58,7 @@ const SocialUser = ({ img, username }: { img: string; username: string }) => {
           </div>
         )}
       </Link>
-      {showButton && hover && (
+      {showButton && hover && type === "following" && (
         <div
           className="absolute z-10 -top-4 -right-4 cursor-pointer bg-anilist-mandy p-1 text-anilist-aqua_haze text-3xl rounded-lg"
           onClick={handleUnfollow}

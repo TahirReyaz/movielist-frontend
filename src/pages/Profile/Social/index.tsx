@@ -11,7 +11,7 @@ type socialUser = {
   avatar: string;
 };
 
-type socialFilterType =
+export type socialFilterType =
   | "following"
   | "followers"
   | "forumThreads"
@@ -68,6 +68,7 @@ const Social = () => {
                     username: user.username,
                     img: user.avatar ?? userAvatar,
                     key: user.username,
+                    type: currentSocialType,
                   }}
                 />
               ))}
@@ -79,6 +80,7 @@ const Social = () => {
                     username: user.username,
                     img: user.avatar ?? userAvatar,
                     key: user.username,
+                    type: currentSocialType,
                   }}
                 />
               ))}
