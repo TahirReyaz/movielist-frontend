@@ -19,13 +19,13 @@ const Notification = ({
   }
 
   return (
-    <div className="rounded shadow-lg bg-anilist-mirage mb-8 grid grid-cols-12">
+    <div className="rounded shadow-lg bg-anilist-mirage mb-8 grid grid-cols-12 gap-4">
       {/* Image */}
-      <Link to={pointingUrl}>
+      <Link to={pointingUrl} className="max-h-[80px] overflow-hidden">
         <img
           src={pointingImg ?? noImg}
           alt={pointingId}
-          className="rounded-s"
+          className="rounded-s w-fit"
         />
       </Link>
       {/* Content */}
