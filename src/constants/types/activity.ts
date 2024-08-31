@@ -26,6 +26,7 @@ export type Comment = {
 };
 
 export type Notification = {
+  _id: string;
   type: NotifType;
   read: boolean;
   content: string;
