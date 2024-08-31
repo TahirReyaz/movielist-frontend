@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+
 import LowerLayout from "../../components/UI/LowerLayout";
 import ComingSoon from "../ComingSoon";
+import Menu from "./Menu";
+import { NotifType } from "../../constants/types";
 
 const Notifications = () => {
+  const [currentOption, setCurrentOption] = useState<NotifType>("all");
+
   return (
     <LowerLayout
       {...{
-        left: <div>Filter</div>,
+        left: <Menu {...{ currentOption, setCurrentOption }} />,
         right: <ComingSoon />,
       }}
     />
