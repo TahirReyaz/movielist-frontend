@@ -11,7 +11,11 @@ import { useLoadingBar } from "../../UI/LoadingBar";
 import { showErrorToast } from "../../../utils/toastUtils";
 import { createNewActivity } from "../../../lib/api/activity";
 
-const NewActivity = () => {
+const NewActivity = ({
+  location,
+}: {
+  location: "user" | "global" | "following";
+}) => {
   const { username, profileData } = useAppSelector((state) => state.auth);
   const [content, setContent] = useState<string>("");
   const [showEditor, setShowEditor] = useState<boolean>(false);
@@ -25,9 +29,15 @@ const NewActivity = () => {
       await createNewActivity(content);
 
       loadingBar.current?.complete();
-      queryClient.invalidateQueries({
-        queryKey: ["activities", "user", username],
-      });
+      if (location === "user" && username) {
+        queryClient.invalidateQueries({
+          queryKey: ["activities", "user", username],
+        });
+      } else {
+        queryClient.invalidateQueries({
+          queryKey: ["activities", location],
+        });
+      }
       setContent("");
       setShowEditor(false);
     } catch (error: any) {

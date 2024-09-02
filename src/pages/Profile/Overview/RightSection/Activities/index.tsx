@@ -11,7 +11,9 @@ const Activities = () => {
   return (
     <div>
       <h2 className="text-[1.4rem] font-medium px-4 py-2">Activity</h2>
-      {isLoggedIn && username === profUsername && <NewActivity />}
+      {isLoggedIn && username === profUsername && (
+        <NewActivity {...{ location: "user" }} />
+      )}
       <List />
     </div>
   );

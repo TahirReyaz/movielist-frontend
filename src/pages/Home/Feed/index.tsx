@@ -2,12 +2,17 @@ import React, { useState } from "react";
 
 import GlobalActivities from "./GlobalActivities";
 import FollowingActivities from "./FollowingActivities";
-import NewActivity from "./NewActivity";
+import { useAppSelector } from "../../../hooks/redux";
+import NewActivity from "../../../components/Activity/NewActivity";
+
+type actvityTypeType = "global" | "following";
 
 const Feed = () => {
-  const [activityType, setActivityType] = useState<string>("Global");
+  const [activityType, setActivityType] = useState<actvityTypeType>("global");
 
-  const options: string[] = ["Following", "Global"];
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
+
+  const options: actvityTypeType[] = ["following", "global"];
 
   return (
     <section className="md:col-span-7">
@@ -24,13 +29,13 @@ const Feed = () => {
               onClick={() => setActivityType(option)}
               key={option}
             >
-              {option}
+              {option === "global" ? "Global" : "Following"}
             </div>
           ))}
         </div>
       </div>
-      <NewActivity />
-      {activityType === "Global" ? (
+      {isLoggedIn && <NewActivity {...{ location: activityType }} />}
+      {activityType === "global" ? (
         <GlobalActivities />
       ) : (
         <FollowingActivities />
