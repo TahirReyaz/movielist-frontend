@@ -93,7 +93,9 @@ const StatusActivity = ({
           {/* Time */}
           <div className="flex gap-4 items-center">
             {isLoggedIn && hover && (
-              <DotMenu {...{ id: _id, onDel: () => {}, username }} />
+              <DotMenu
+                {...{ id: _id, onDel: () => {}, username, location, queryKey }}
+              />
             )}
             <span className="text-lg font-medium">{time}</span>
           </div>
