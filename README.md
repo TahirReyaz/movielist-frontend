@@ -13,7 +13,8 @@
   
 ##  Technical Features
 
-- Made using react.js, typescript and tailwind 
+- Made using react.js, typescript and tailwind
+- Runs on vite
 - React query for fetching and hashing data
 - Firebase for storing images
 
