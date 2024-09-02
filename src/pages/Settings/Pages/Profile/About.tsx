@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import MDEditor from "@uiw/react-md-editor";
 
-import TextInput from "../../../../components/UI/TextInput";
 import { updateUserDetail } from "../../../../lib/api";
 import { RootState } from "../../../../store";
 import Button from "../../../../components/UI/Button";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
+import MarkdownEditor from "../../../../components/UI/Inputs/MarkdownEditor";
 
 const About = () => {
   const [about, setAbout] = useState<string>("");
@@ -45,31 +46,26 @@ const About = () => {
 
   return (
     <div>
-      <TextInput
+      <MarkdownEditor
         {...{
-          name: "about",
           value: about,
-          onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
-            setAbout(event.target.value);
-          },
-          type: "text",
-          label: "",
+          onChange: (val) => setAbout(val ?? ""),
         }}
       />
       {profileData && profileData.about !== about && about !== "" && (
         <div>
-          <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
-            {about}
-          </div>
-          <Button
+          <MDEditor.Markdown
             {...{
-              type: "button",
-              title: "Save",
-              classes: "px-4 py-4 w-fit",
-              divClasses: "w-fit",
-              onClick: () => profileMutation.mutate(about),
+              source: about,
+              className: "p-4 !bg-anilist-white_firefly my-8",
             }}
           />
+          <div
+            className="px-6 py-3 rounded-lg bg-anilist-blue-picton text-2xl text-anilist-aqua_haze w-fit cursor-pointer"
+            onClick={() => profileMutation.mutate(about)}
+          >
+            Save
+          </div>
         </div>
       )}
     </div>

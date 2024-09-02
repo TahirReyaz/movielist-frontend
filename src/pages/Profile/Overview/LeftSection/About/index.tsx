@@ -1,4 +1,5 @@
 import React from "react";
+import MDEditor from "@uiw/react-md-editor";
 
 interface AboutProps {
   about: string;
@@ -6,7 +7,12 @@ interface AboutProps {
 
 const About = ({ about }: AboutProps) => {
   return (
-    <div className="bg-bgSecondary p-8 rounded text-2xl mb-8">{about}</div>
+    <MDEditor.Markdown
+      {...{
+        source: about,
+        className: "p-4 !bg-anilist-mirage rounded-lg mb-8",
+      }}
+    />
   );
 };
 
