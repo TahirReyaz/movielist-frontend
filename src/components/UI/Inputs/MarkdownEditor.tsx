@@ -57,14 +57,9 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 
   const customCommands = getCommands().filter(
     (command) =>
-      ![
-        "checked-list",
-        "table",
-        "image",
-        "hr",
-        "comment",
-        "codeBlock",
-      ].includes(command.name ?? "")
+      !["checked-list", "table", "image", "comment", "codeBlock"].includes(
+        command.name ?? ""
+      )
   );
 
   return (
