@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -8,9 +8,11 @@ import { RootState } from "../../../../store";
 import Button from "../../../../components/UI/Button";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
+import MarkdownEditor from "../../../../components/UI/Inputs/MarkdownEditor";
 
 const About = () => {
   const [about, setAbout] = useState<string>("");
+  const editor = useRef(null);
 
   const { username, profileData, userid } = useSelector(
     (state: RootState) => state.auth
@@ -45,7 +47,13 @@ const About = () => {
 
   return (
     <div>
-      <TextInput
+      <MarkdownEditor
+        {...{
+          value: about,
+          onChange: (val) => setAbout(val ?? ""),
+        }}
+      />
+      {/* <TextInput
         {...{
           name: "about",
           value: about,
@@ -55,7 +63,7 @@ const About = () => {
           type: "text",
           label: "",
         }}
-      />
+      /> */}
       {profileData && profileData.about !== about && about !== "" && (
         <div>
           <div className="bg-bgPrimary w-full text-[1.4rem] rounded-md border-0 py-4 pl-6 pr-20 my-8 text-gray-900 placeholder:text-gray-400 ">
