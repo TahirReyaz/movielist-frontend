@@ -1,16 +1,38 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
+import { useQueryClient } from "@tanstack/react-query";
 
 import userAvatar from "../../../assets/userAvatar.png";
 
 import MarkdownEditor from "../../UI/Inputs/MarkdownEditor";
 import { useAppSelector } from "../../../hooks/redux";
+import { useLoadingBar } from "../../UI/LoadingBar";
+import { showErrorToast } from "../../../utils/toastUtils";
+import { createNewActivity } from "../../../lib/api/activity";
 
 const NewActivity = () => {
   const { username, profileData } = useAppSelector((state) => state.auth);
-  const [newActivity, setNewActivity] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const [showEditor, setShowEditor] = useState<boolean>(false);
+
+  const loadingBar = useLoadingBar();
+  const queryClient = useQueryClient();
+
+  const handleSubmit = async () => {
+    try {
+      loadingBar.current?.continuousStart();
+      await createNewActivity(content);
+
+      loadingBar.current?.complete();
+      queryClient.invalidateQueries({
+        queryKey: ["activities", "user", username],
+      });
+    } catch (error: any) {
+      loadingBar.current?.complete();
+      showErrorToast(error.message);
+    }
+  };
 
   return (
     <div className="mb-4">
@@ -26,13 +48,13 @@ const NewActivity = () => {
         <>
           <MarkdownEditor
             {...{
-              value: newActivity,
-              onChange: (val) => setNewActivity(val ?? ""),
+              value: content,
+              onChange: (val) => setContent(val ?? ""),
               bgClass: "!bg-anilist-mirage",
             }}
           />
           {/* Preview */}
-          {newActivity.length > 0 && (
+          {content.length > 0 && (
             <>
               <h2 className="text-2xl font-medium mt-8 mb-4 ps-4">Preview:</h2>
               <div className="bg-anilist-mirage rounded-t px-8 pt-8 flex gap-4 items-center">
@@ -48,7 +70,7 @@ const NewActivity = () => {
               </div>
               <MDEditor.Markdown
                 {...{
-                  source: newActivity,
+                  source: content,
                   className: "px-8 pb-8 pt-4 !bg-anilist-mirage rounded-b",
                 }}
               />
@@ -72,11 +94,11 @@ const NewActivity = () => {
             </div>
             <div
               className={`${
-                newActivity.length > 0
+                content.length > 0
                   ? "bg-anilist-gray-gull"
                   : "bg-anilist-mirage"
               } py-4 px-8 text-xl text-anilist-aqua_haze font-medium rounded cursor-pointer`}
-              onClick={() => {}}
+              onClick={handleSubmit}
             >
               Publish
             </div>

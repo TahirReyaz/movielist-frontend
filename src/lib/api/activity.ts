@@ -87,3 +87,21 @@ export const unlikeActivity = async (id: string) => {
     throw new Error(msg);
   }
 };
+
+export const createNewActivity = async (content: string) => {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${backendUrl}/activity`,
+      {
+        content,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  } catch (error: any) {
+    const msg = error?.response?.data?.message;
+    throw new Error(msg);
+  }
+};
