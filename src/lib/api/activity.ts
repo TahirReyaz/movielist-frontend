@@ -56,6 +56,29 @@ export const getFollowingActivities = async (page: number = 1) => {
   }
 };
 
+export const getActivity = async (id: string) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/activity/${id}`
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const delActivity = async (id: string) => {
+  try {
+    const response: AxiosResponse = await axios.delete(
+      `${backendUrl}/activity/${id}`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const likeActivity = async (id: string) => {
   try {
     const response: AxiosResponse = await axios.patch(

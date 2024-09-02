@@ -5,7 +5,6 @@ import MediaActivity from "./MediaActivity";
 import StatusActivity from "./StatusActivity";
 
 export interface ActivityProps extends ActivityType {
-  atProfile: boolean;
   location: string;
 }
 

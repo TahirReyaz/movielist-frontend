@@ -14,8 +14,6 @@ export const profileSlice = createSlice({
       }
     },
     removeProfile: (state) => {
-      // Added log because of ts error
-      if (false) console.log({ state });
       state = initialState;
     },
   },

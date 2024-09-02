@@ -43,7 +43,6 @@ const FollowingActivities = () => {
             {...{
               key: activity._id,
               ...activity,
-              atProfile: false,
               location: "following",
             }}
           />

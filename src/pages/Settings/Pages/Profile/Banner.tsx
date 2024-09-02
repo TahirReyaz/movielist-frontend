@@ -13,8 +13,6 @@ const Banner = () => {
     (state: RootState) => state.auth
   );
 
-  console.log({ profileData });
-
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 

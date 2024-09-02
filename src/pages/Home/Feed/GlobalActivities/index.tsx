@@ -43,7 +43,6 @@ const GlobalActivities = () => {
             {...{
               key: activity._id,
               ...activity,
-              atProfile: false,
               location: "global",
             }}
           />

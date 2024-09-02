@@ -47,7 +47,6 @@ const List = () => {
             {...{
               key: activity._id,
               ...activity,
-              atProfile: true,
               location: "user",
             }}
           />
