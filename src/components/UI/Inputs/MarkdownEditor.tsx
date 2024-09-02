@@ -9,9 +9,14 @@ import ImageUploadModal from "../ImageUploadModal";
 interface MarkdownEditorProps {
   value: string;
   onChange: (val: string | undefined) => void;
+  bgClass?: string;
 }
 
-const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ value, onChange }) => {
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
+  value,
+  onChange,
+  bgClass,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("");
 
@@ -71,10 +76,13 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ value, onChange }) => {
           commands: customCommands,
           extraCommands: [imageCommand],
           preview: "edit",
-          className: "!bg-anilist-white_firefly border-0 !shadow-none !ring-0",
+          className: `${
+            bgClass ?? "!bg-anilist-white_firefly"
+          } border-0 !shadow-none !ring-0`,
           textareaProps: {
-            className:
-              "!bg-anilist-white_firefly focus:ring-0 focus:border-0 border-none !outline-none",
+            className: `${
+              bgClass ?? "!bg-anilist-white_firefly"
+            } focus:ring-0 focus:border-0 border-none !outline-none`,
           },
           visibleDragbar: true,
         }}
