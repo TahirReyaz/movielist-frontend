@@ -38,8 +38,6 @@ const List = () => {
     return <Error />;
   }
 
-  console.log({ activities });
-
   return (
     <div className="pt-4">
       {activities &&
