@@ -17,6 +17,10 @@
 - React query for fetching and hashing data
 - Firebase for storing images
 
+[Backend Repo](https://github.com/TahirReyaz/movielist-backend)
+
+[Hosted Project](https://movielist-tahir.netlify.app)
+
 ## Installation notes
 
 - install npm packages using `npm i`
