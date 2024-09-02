@@ -11,7 +11,7 @@ export interface ActivityProps extends ActivityType {
 
 const Activity = (activity: ActivityProps) => {
   if (activity.type === "status") {
-    return <StatusActivity />;
+    return <StatusActivity {...{ ...activity }} />;
   } else {
     return <MediaActivity {...{ ...activity }} />;
   }

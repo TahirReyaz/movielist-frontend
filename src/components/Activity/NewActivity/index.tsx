@@ -28,6 +28,8 @@ const NewActivity = () => {
       queryClient.invalidateQueries({
         queryKey: ["activities", "user", username],
       });
+      setContent("");
+      setShowEditor(false);
     } catch (error: any) {
       loadingBar.current?.complete();
       showErrorToast(error.message);

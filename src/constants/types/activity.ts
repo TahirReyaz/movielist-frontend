@@ -2,13 +2,14 @@ import { NotifType, RefUser, mediaTypeType } from "../types";
 
 export type Activity = {
   _id: string;
-  image: string;
+  image?: string;
   likes?: [RefUser];
   action?: string;
   owner: RefUser;
   mediaid?: number;
   mediaType?: mediaTypeType;
   title?: string;
+  content?: string;
   createdAt: string;
   updatedAt: string;
   type: "status" | "media";
