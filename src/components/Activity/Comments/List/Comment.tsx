@@ -18,7 +18,8 @@ const Comment = ({
   likes,
   _id,
   activityId,
-}: CommentType & { activityId: string }) => {
+  queryKey,
+}: CommentType & { activityId: string; queryKey: string[] }) => {
   const { isLoggedIn, username } = useAppSelector((state) => state.auth);
 
   const loadingBar = useLoadingBar();
@@ -37,6 +38,9 @@ const Comment = ({
         loadingBar.current?.complete();
         queryClient.invalidateQueries({
           queryKey: ["comments", "activity", activityId],
+        });
+        queryClient.invalidateQueries({
+          queryKey,
         });
       } catch (error: any) {
         loadingBar.current?.complete();

@@ -44,6 +44,7 @@ const FollowingActivities = () => {
               key: activity._id,
               ...activity,
               location: "following",
+              queryKey: ["activities", "following"],
             }}
           />
         ))}

@@ -40,7 +40,8 @@ const List = () => {
 
   return (
     <div className="pt-4">
-      {activities &&
+      {username &&
+        activities &&
         activities.length > 0 &&
         activities.map((activity: ActivityType) => (
           <Activity
@@ -48,6 +49,7 @@ const List = () => {
               key: activity._id,
               ...activity,
               location: "user",
+              queryKey: ["activities", "user", username],
             }}
           />
         ))}

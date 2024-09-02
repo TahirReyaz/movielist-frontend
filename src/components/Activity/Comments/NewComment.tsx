@@ -7,7 +7,13 @@ import { showErrorToast } from "../../../utils/toastUtils";
 import { commentOnActivity } from "../../../lib/api/comment";
 import { useLoadingBar } from "../../UI/LoadingBar";
 
-const NewComment = ({ activityId }: { activityId: string }) => {
+const NewComment = ({
+  activityId,
+  queryKey,
+}: {
+  activityId: string;
+  queryKey: string[];
+}) => {
   const [content, setContent] = useState<string>("");
   const [showInterface, setShowInterface] = useState<boolean>(false);
 
@@ -22,6 +28,9 @@ const NewComment = ({ activityId }: { activityId: string }) => {
         loadingBar.current?.complete();
         queryClient.invalidateQueries({
           queryKey: ["comments", "activity", activityId],
+        });
+        queryClient.invalidateQueries({
+          queryKey,
         });
         setShowInterface(false);
         setContent("");

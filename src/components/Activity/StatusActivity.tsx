@@ -26,6 +26,7 @@ const StatusActivity = ({
   likes,
   commentCount,
   _id,
+  queryKey,
 }: ActivityProps) => {
   const [showComments, setShowComments] = useState<boolean>(false);
   const [hover, setHover] = useState<boolean>(false);
@@ -52,15 +53,9 @@ const StatusActivity = ({
         }
 
         loadingBar.current?.complete();
-        if (location === "user" && username) {
-          queryClient.invalidateQueries({
-            queryKey: ["activities", "user", username],
-          });
-        } else {
-          queryClient.invalidateQueries({
-            queryKey: ["activities", location],
-          });
-        }
+        queryClient.invalidateQueries({
+          queryKey,
+        });
       } catch (error: any) {
         loadingBar.current?.complete();
         showErrorToast(error.message);
@@ -112,7 +107,7 @@ const StatusActivity = ({
         />
 
         {/* Like and Comment */}
-        <div className="flex gap-4 justify-end">
+        <div className="flex gap-4 justify-end pb-4">
           <span
             className={iconClass + " text-anilist-blue-cadet "}
             onClick={() => setShowComments((prev) => !prev)}
@@ -129,7 +124,7 @@ const StatusActivity = ({
           </span>
         </div>
       </div>
-      {showComments && <Comments {...{ activityId: _id }} />}
+      {showComments && <Comments {...{ activityId: _id, queryKey }} />}
     </>
   );
 };

@@ -44,6 +44,7 @@ const GlobalActivities = () => {
               key: activity._id,
               ...activity,
               location: "global",
+              queryKey: ["activities", "global"],
             }}
           />
         ))}

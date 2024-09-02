@@ -7,7 +7,13 @@ import Error from "../../../UI/Error";
 import { Comment as CommentType } from "../../../../constants/types/activity";
 import Comment from "./Comment";
 
-const List = ({ activityId }: { activityId: string }) => {
+const List = ({
+  activityId,
+  queryKey,
+}: {
+  activityId: string;
+  queryKey: string[];
+}) => {
   const {
     data: comments,
     isLoading,
@@ -33,7 +39,7 @@ const List = ({ activityId }: { activityId: string }) => {
   return (
     <div className="mt-16">
       {comments?.map((comment: CommentType) => (
-        <Comment {...{ ...comment, key: comment._id }} />
+        <Comment {...{ ...comment, key: comment._id, queryKey }} />
       ))}
     </div>
   );

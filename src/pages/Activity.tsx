@@ -35,8 +35,12 @@ const Activity = () => {
   }
 
   return (
-    <main>
-      {activity && <ActivityComponent {...{ ...activity, location: "page" }} />}
+    <main className="px-12 md:px-56 pt-12 min-h-[50vh]">
+      {activity && id && (
+        <ActivityComponent
+          {...{ ...activity, location: "page", queryKey: ["activity", id] }}
+        />
+      )}
     </main>
   );
 };

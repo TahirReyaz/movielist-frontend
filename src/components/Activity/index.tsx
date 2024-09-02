@@ -6,6 +6,7 @@ import StatusActivity from "./StatusActivity";
 
 export interface ActivityProps extends ActivityType {
   location: string;
+  queryKey: string[];
 }
 
 const Activity = (activity: ActivityProps) => {
