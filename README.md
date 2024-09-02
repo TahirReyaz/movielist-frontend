@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# movielist-front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is it for?
 
-Currently, two official plugins are available:
+- Users can create different kinds of watchlists.
+- Users can get details of different movies and shows.
+- User can search for movies and shows using just the title or a lot of other filters.
+- Users can share their watchlists and follow each other.
+- Stats are generated based on the data stored in users watchlists such total number of movies and shows watched, total time watched, distribute entries according to country, language, release year, genre, cast and crew, etc.
+- Generation of Activity when a new entry is added or updated.
+- Like and Comment on activities.
+- Generation of Notifications when user's Activities are liked or commented on.
+  
+##  Technical Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Made using react.js, typescript and tailwind 
+- React query for fetching and hashing data
+- Firebase for storing images
 
-## Expanding the ESLint configuration
+## Installation notes
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- install npm packages using `npm i`
+- Add an .env file and provide data according to the .env-example file
+- run the project using `npm run dev`
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
