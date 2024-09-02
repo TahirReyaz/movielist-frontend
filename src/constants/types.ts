@@ -6,6 +6,7 @@ export type mediaTypeType =
   | "person"
   | "staff"
   | "user"
+  | "users"
   | "studios";
 export type multiSearchResultType = mediaTypeType | "user";
 export type bulkMediaType =
