@@ -12,7 +12,6 @@ const SearchLink = ({ title }: { title: string }) => {
       interactive={true}
       placement="bottom"
       arrow
-      //   animation="shift-away"
       render={(attrs) => <BrowseDropdownMenu {...{ attrs }} />}
     >
       <div>

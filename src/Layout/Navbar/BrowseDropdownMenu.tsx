@@ -83,11 +83,14 @@ const BrowseDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
         mainContent: primaryLinks.map((link) => (
           <div
             key={link.title}
-            className="flex mb-2 text-2xl font-bold items-center"
+            className="flex text-2xl font-bold items-center gap-4"
           >
             <Link to={link.url}>{link.icon}</Link>
             <section className="flex flex-col ms-4">
-              <Link to={link.url} className="font-bold hover:text-textBright">
+              <Link
+                to={link.url}
+                className="text-anilist-gray-gull font-medium hover:text-textBright"
+              >
                 {link.title}
               </Link>
               <div>
@@ -108,9 +111,9 @@ const BrowseDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
           <Link
             key={link.title}
             to={link.url}
-            className="w-5/12 hover:text-textBright flex items-center text-lg"
+            className="hover:text-textBright text-anilist-gray-gull text-lg flex gap-2 items-center"
           >
-            {link.icon} <span className="ms-2 font-medium">{link.title}</span>
+            {link.icon} <span className="font-medium">{link.title}</span>
           </Link>
         )),
         attrs,

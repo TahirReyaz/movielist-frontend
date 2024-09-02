@@ -121,7 +121,7 @@ const MediaActivity = ({
             >
               <img
                 src={owner.avatar ?? userAvatarPlaceholder}
-                className="size-16 rounded"
+                className="size-16 rounded object-cover"
               />
             </Link>
           )}

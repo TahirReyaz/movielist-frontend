@@ -15,8 +15,8 @@ const DropdownMenu = ({
 }: DropdownMenuProps) => {
   return (
     <div className="rounded text-textLight shadow-md shadow-black" {...attrs}>
-      <div className="bg-bgSecondary px-12 py-8">{mainContent}</div>
-      <div className="bg-bgPrimary flex flex-wrap justify-between px-12 py-8 gap-1 cursor-pointer">
+      <div className="bg-bgSecondary px-12 py-8 grid gap-8">{mainContent}</div>
+      <div className="bg-bgPrimary grid grid-cols-2 px-12 py-4 gap-8 cursor-pointer">
         {footerContent}
       </div>
     </div>

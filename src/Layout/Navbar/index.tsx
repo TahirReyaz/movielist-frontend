@@ -10,7 +10,8 @@ import "tippy.js/animations/shift-away.css";
 import userAvatar from "../../assets/userAvatar.png";
 import Logo from "../../assets/logo.png";
 
-import { FaAngleDown, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaAngleDown } from "react-icons/fa6";
 import SearchModal from "../../components/search/SearchModal";
 import Button from "../../components/UI/Button";
 import UserDropdownMenu from "./UserDropdownMenu";
@@ -68,7 +69,7 @@ const Navbar = () => {
         </Link>
 
         {/* Links in the middle */}
-        <div className="flex gap-6 ml-7">
+        <div className="flex gap-16 ml-7">
           {/* Auth */}
           {isLoggedIn &&
             username &&
@@ -86,9 +87,9 @@ const Navbar = () => {
             ))}
         </div>
 
-        {/* Right portion */}
+        {/* Search, Avatar and User dropdown */}
         {isLoggedIn && username && (
-          <div className="flex items-center">
+          <div className="flex items-center gap-8">
             <FaSearch
               onClick={() => setShowModal(true)}
               className="cursor-pointer text-3xl hover:text-textBright"
@@ -100,11 +101,11 @@ const Navbar = () => {
               // animation="shift-away"
               render={(attrs) => <UserDropdownMenu {...{ attrs }} />}
             >
-              <div className="flex items-center">
+              <div className="flex items-center gap-4">
                 <img
                   src={profileData?.avatar ? profileData.avatar : userAvatar}
                   alt="Avatar"
-                  className="size-20 ms-4 cursor-pointer rounded object-cover"
+                  className="size-16 cursor-pointer rounded object-cover"
                 />
                 <FaAngleDown className="text-2xl" />
               </div>

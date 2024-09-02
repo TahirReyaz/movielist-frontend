@@ -74,19 +74,21 @@ const UserDropdownMenu = ({ attrs }: { attrs: attrsType }) => {
             <Link
               key={link.title}
               to={link.url}
-              className="flex hover:text-textBright mb-2 text-2xl font-bold items-center"
+              className="flex hover:text-textBright items-center gap-4"
             >
-              {link.icon}
-              <div className="ms-8 font-bold">{link.title}</div>
+              <span className="text-2xl">{link.icon}</span>
+              <div className="font-medium text-xl text-anilist-gray-gull">
+                {link.title}
+              </div>
             </Link>
           )),
           footerContent: footer.map((link) => (
             <div
               key={link.title}
-              className="w-4/12 hover:text-textBright flex items-center text-lg"
+              className="hover:text-textBright text-anilist-gray-gull text-lg flex gap-2 items-center"
               onClick={link.action}
             >
-              {link.icon} <span className="ms-2 font-medium">{link.title}</span>
+              {link.icon} <span className="font-medium">{link.title}</span>
             </div>
           )),
           attrs,

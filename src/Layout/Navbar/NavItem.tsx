@@ -10,7 +10,7 @@ const NavItem = ({ path, text }: NavItemProps) => {
   return (
     <NavLink
       to={path}
-      className="self-center text-2xl font-medium hover:text-textBright"
+      className="self-center text-xl font-medium hover:text-textBright"
     >
       <span>{text}</span>
     </NavLink>
