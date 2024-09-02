@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import MDEditor from "@uiw/react-md-editor";
-import Modal from "../Modal";
-import Button from "../../UI/Button";
-import { showErrorToast } from "../../../utils/toastUtils";
+import MDEditor, { executeCommand, getCommands } from "@uiw/react-md-editor";
 import { FaImage } from "react-icons/fa";
-import { RxCross1 } from "react-icons/rx";
+
+import Modal from "../Modal";
+import { showErrorToast } from "../../../utils/toastUtils";
 import ImageUploadModal from "../ImageUploadModal";
 
 interface MarkdownEditorProps {
@@ -51,13 +50,33 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ value, onChange }) => {
     execute: () => openModal(),
   };
 
+  const customCommands = getCommands().filter(
+    (command) =>
+      ![
+        "checked-list",
+        "table",
+        "image",
+        "hr",
+        "comment",
+        "codeBlock",
+      ].includes(command.name ?? "")
+  );
+
   return (
     <div>
       <MDEditor
         {...{
           value,
           onChange,
+          commands: customCommands,
           extraCommands: [imageCommand],
+          preview: "edit",
+          className: "!bg-anilist-white_firefly border-0 !shadow-none !ring-0",
+          textareaProps: {
+            className:
+              "!bg-anilist-white_firefly focus:ring-0 focus:border-0 border-none !outline-none",
+          },
+          visibleDragbar: true,
         }}
       />
 
