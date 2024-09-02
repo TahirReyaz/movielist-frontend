@@ -41,6 +41,7 @@ import { getUserDetail } from "./lib/api";
 import { logoutAction, saveUser } from "./store/AuthSlice";
 import Overview from "./pages/MediaDetail/Pages/Overview";
 import { checkLoggedIn } from "./utils/authUtils";
+import Activity from "./pages/Activity";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -156,6 +157,7 @@ const App = () => {
               ))}
             </Route>
             <Route path="/staff/:staffid" element={<Staff />} />
+            <Route path="/activity/:id" element={<Activity />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/apps" element={<Apps />} />

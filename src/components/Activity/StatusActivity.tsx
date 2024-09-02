@@ -13,6 +13,7 @@ import { showErrorToast } from "../../utils/toastUtils";
 import { useLoadingBar } from "../UI/LoadingBar";
 import { useQueryClient } from "@tanstack/react-query";
 import { likeActivity, unlikeActivity } from "../../lib/api/activity";
+import DotMenu from "./DotMenu";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -27,6 +28,7 @@ const StatusActivity = ({
   _id,
 }: ActivityProps) => {
   const [showComments, setShowComments] = useState<boolean>(false);
+  const [hover, setHover] = useState<boolean>(false);
 
   const { username, isLoggedIn } = useAppSelector((state) => state.auth);
 
@@ -38,7 +40,7 @@ const StatusActivity = ({
     liked = likes.some((user) => user.username == username);
   }
 
-  const handleClick = async () => {
+  const handleLike = async () => {
     if (isLoggedIn) {
       try {
         loadingBar.current?.continuousStart();
@@ -70,8 +72,14 @@ const StatusActivity = ({
 
   return (
     <>
-      <div className="mb-4 bg-anilist-mirage rounded-t px-8 pt-8">
+      <div
+        className="mb-4 bg-anilist-mirage rounded-t px-8 pt-8"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        {/* Owner and time */}
         <div className="flex justify-between">
+          {/* Owner */}
           {location !== "user" ? (
             <div className="flex gap-4 items-center">
               <Link to={`/user/${owner.username}`} className="text-2xl">
@@ -87,9 +95,15 @@ const StatusActivity = ({
           ) : (
             <div />
           )}
-
-          <h5 className="text-lg font-medium">{time}</h5>
+          {/* Time */}
+          <div className="flex gap-4 items-center">
+            {isLoggedIn && hover && (
+              <DotMenu {...{ id: _id, onDel: () => {}, username }} />
+            )}
+            <span className="text-lg font-medium">{time}</span>
+          </div>
         </div>
+        {/* Content */}
         <MDEditor.Markdown
           {...{
             source: content,
@@ -97,6 +111,7 @@ const StatusActivity = ({
           }}
         />
 
+        {/* Like and Comment */}
         <div className="flex gap-4 justify-end">
           <span
             className={iconClass + " text-anilist-blue-cadet "}
@@ -108,7 +123,7 @@ const StatusActivity = ({
             className={`${iconClass} ${
               liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
             }`}
-            onClick={handleClick}
+            onClick={handleLike}
           >
             {likes?.length} <FaHeart />
           </span>
