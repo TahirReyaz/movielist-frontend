@@ -134,3 +134,22 @@ export const generateFilterGenreOptions = (
   }
   return options;
 };
+
+export const generateProgressScale = (input: number) => {
+  // Define the range scale
+  const rangeScale = [
+    0, 5, 10, 15, 20, 50, 100, 150, 200, 500, 1000, 1500, 2000, 5000, 10000,
+  ];
+
+  // Find the index of the closest number in the range scale that is less than or equal to the input
+  let lowerIndex = rangeScale.findIndex((n) => n >= input) - 1;
+  lowerIndex = lowerIndex < 0 ? 0 : lowerIndex;
+
+  // Calculate the lower, middle, and upper numbers
+  const lowerNumber = rangeScale[lowerIndex];
+  const upperNumber =
+    rangeScale[lowerIndex + 2] || rangeScale[rangeScale.length - 1];
+  const middleNumber = rangeScale[lowerIndex + 1] || rangeScale[lowerIndex];
+
+  return { lowerNumber, middleNumber, upperNumber };
+};

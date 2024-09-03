@@ -1,7 +1,9 @@
 import React from "react";
+
 import { useAppSelector } from "../../../../../hooks/redux";
 import { mediaTypeType } from "../../../../../constants/types";
 import Item from "./Item";
+import ProgressScale from "./ProgressScale";
 
 const Stats = ({ type }: { type: mediaTypeType }) => {
   const stats = useAppSelector(
@@ -13,8 +15,14 @@ const Stats = ({ type }: { type: mediaTypeType }) => {
     totalTitle = "Total Shows";
     daysWatched = Math.round(stats?.daysWatched ?? 0);
   }
+
+  if (!stats) {
+    return;
+  }
+
   return (
     <div className="rounded-lg mb-8">
+      {/* Numbers */}
       <div className="bg-anilist-mirage rounded-lg flex justify-around py-8">
         <Item
           {...{
@@ -35,7 +43,7 @@ const Stats = ({ type }: { type: mediaTypeType }) => {
           }}
         />
       </div>
-      <div></div>
+      <ProgressScale {...{ count: stats?.count }} />
     </div>
   );
 };
