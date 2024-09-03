@@ -1,5 +1,11 @@
 import React, { Dispatch } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+
 import { NotifType } from "../../constants/types";
+import { useAppSelector } from "../../hooks/redux";
+import { useLoadingBar } from "../../components/UI/LoadingBar";
+import { markAllUserNotifsRead } from "../../lib/api/notification";
+import { showErrorToast } from "../../utils/toastUtils";
 
 interface MenuProps {
   currentOption: NotifType;
@@ -7,6 +13,11 @@ interface MenuProps {
 }
 
 const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
+  const { unreadNotifs, username } = useAppSelector((state) => state.auth);
+
+  const loadingBar = useLoadingBar();
+  const queryClient = useQueryClient();
+
   const list: { title: string; type: NotifType }[] = [
     { title: "All", type: "all" },
     { title: "Airing", type: "airing" },
@@ -15,6 +26,21 @@ const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
     { title: "Follows", type: "follows" },
     { title: "Media", type: "media" },
   ];
+
+  const handleMarkRead = async () => {
+    try {
+      loadingBar.current?.continuousStart();
+      await markAllUserNotifsRead();
+
+      loadingBar.current?.complete();
+
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      queryClient.invalidateQueries({ queryKey: ["user", username] });
+    } catch (error: any) {
+      loadingBar.current?.complete();
+      showErrorToast(error.message);
+    }
+  };
 
   return (
     <div className="col-span-1">
@@ -32,6 +58,16 @@ const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
           </li>
         ))}
       </ul>
+      <div
+        onClick={handleMarkRead}
+        className={`${
+          unreadNotifs > 0
+            ? "bg-anilist-blue-picton cursor-pointer"
+            : "bg-anilist-gray-regent cursor-not-allowed"
+        } text-anilist-aqua_haze text-xl text-center py-4 px-8 md:w-full rounded-lg`}
+      >
+        Mark all as read
+      </div>
     </div>
   );
 };

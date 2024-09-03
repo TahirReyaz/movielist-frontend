@@ -10,6 +10,19 @@ export const getUserNotifsByType = async (type: string) => {
     );
     return response.data?.notifs;
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(error.response?.data?.message);
+  }
+};
+
+export const markAllUserNotifsRead = async () => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/notifications/markall`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message);
   }
 };
