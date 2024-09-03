@@ -12,10 +12,11 @@ import {
   FaHome,
   FaFilm,
   FaTv,
-  FaBell,
   FaCog,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { IoMail } from "react-icons/io5";
+
 import { RootState } from "../../../store";
 
 interface MenuOption {
@@ -45,7 +46,7 @@ const MobileNav = () => {
         { label: "TV List", icon: <FaTv />, path: `/user/${username}/tvlist` },
         { label: "Forum", icon: <FaComments />, path: "/forum" },
         { label: "Profile", icon: <FaUser />, path: `/user/${username}` },
-        { label: "Notifications", icon: <FaBell />, path: "/notifications" },
+        { label: "Notifications", icon: <IoMail />, path: "/notifications" },
         { label: "Settings", icon: <FaCog />, path: "/settings" },
         { label: "Search", icon: <FaSearch />, path: "/search" },
       ]
@@ -71,13 +72,13 @@ const MobileNav = () => {
 
       {/* Mobile Nav */}
       {isMenuOpen && (
-        <div className="fixed bottom-12 right-8 bg-bgSecondary p-4 rounded-md shadow-md">
+        <div className="fixed bottom-12 right-8 bg-anilist-mirage p-4 rounded-md shadow-lg shadow-black">
           <div className="grid grid-cols-3 gap-4">
             {menuOptions.map((option, index) => (
               <Link
                 key={index}
                 to={option.path}
-                className="text-white flex flex-col items-center p-2 rounded-md text-xl"
+                className="flex flex-col gap-2 items-center p-2 rounded-md text-xl"
               >
                 <span className="text-4xl">{option.icon}</span>
                 <span>{option.label}</span>
