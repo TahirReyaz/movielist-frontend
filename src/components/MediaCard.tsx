@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { RootState } from "../store";
+import noImg from "../assets/no_img_long.jpg";
+
 import MediaCardButtons from "./UI/MediaCardButtons";
 import { MediaDetailType } from "../pages/MediaDetail";
 import { posterSizes, tmdbImgBaseUrl } from "../constants/tmdb";
 import { findExistingEntry } from "../lib/helpers";
 import { statusColors } from "../constants";
 import StatusDot from "./UI/StatusDot";
+import { useAppSelector } from "../hooks/redux";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -16,9 +17,7 @@ export interface MediaItemProps {
 }
 
 const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
-  const { isLoggedIn, profileData } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isLoggedIn, profileData } = useAppSelector((state) => state.auth);
   const [hover, setHover] = useState<boolean>(false);
 
   const existingEntry = findExistingEntry(profileData, mediaDetails.id);
@@ -34,7 +33,11 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         ref={innerRef}
       >
         <img
-          src={`${tmdbImgBaseUrl}/${posterSizes.md}${mediaDetails.poster_path}`}
+          src={
+            mediaDetails.poster_path
+              ? `${tmdbImgBaseUrl}/${posterSizes.md}${mediaDetails.poster_path}`
+              : noImg
+          }
           alt={mediaDetails.title}
           className="rounded-md mb-4"
         />
