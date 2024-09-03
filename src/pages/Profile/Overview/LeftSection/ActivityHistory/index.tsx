@@ -35,10 +35,7 @@ const ActivityHistory = () => {
           <div className="grid grid-rows-7 gap-2" key={index}>
             {week.map((item) =>
               item.count === 0 ? (
-                <div
-                  className="size-4 bg-anilist-bunker rounded"
-                  key={item.date}
-                />
+                <div className="size-4 bg-black/60 rounded" key={item.date} />
               ) : (
                 <Tippy
                   {...{
