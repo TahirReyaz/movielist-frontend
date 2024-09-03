@@ -18,6 +18,7 @@ import Staff from "./Pages/Staff";
 import Users from "./Pages/Users";
 import Studios from "./Pages/Studios";
 import { mediaTypeType } from "../../constants/types";
+import { useLoadingBar } from "../../components/UI/LoadingBar";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -38,6 +39,7 @@ const Browse = () => {
   const [formats, setFormats] = useState<string>("");
 
   const debouncedQuery = useDebounce(query);
+  const loadingBar = useLoadingBar();
 
   const { data: genreOptions } = useQuery({
     queryKey: ["genre", "list"],
@@ -82,6 +84,7 @@ const Browse = () => {
     data: results,
     isLoading,
     isError,
+    isFetched,
   } = useQuery({
     queryKey: [
       `search`,
@@ -134,6 +137,13 @@ const Browse = () => {
     } else if (mediaType == "studios") {
       return <Studios />;
     }
+  }
+
+  if (isLoading) {
+    loadingBar.current?.continuousStart();
+  }
+  if (isFetched || isError) {
+    loadingBar.current?.complete();
   }
 
   return (
