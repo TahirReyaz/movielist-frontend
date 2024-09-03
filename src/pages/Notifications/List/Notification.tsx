@@ -20,7 +20,7 @@ const Notification = ({
   }
 
   return (
-    <div className="rounded shadow-lg bg-anilist-mirage mb-8 grid grid-cols-12 gap-4">
+    <div className="rounded shadow-lg bg-anilist-mirage mb-8 grid grid-cols-5 md:grid-cols-12 gap-4">
       {/* Image */}
       <Link to={pointingUrl} className="max-h-[80px] overflow-hidden">
         <img
@@ -30,7 +30,7 @@ const Notification = ({
         />
       </Link>
       {/* Content */}
-      <div className="flex items-center col-span-9">
+      <div className="flex items-center col-span-2 md:col-span-9">
         <span className="text-2xl">
           <Link to={pointingUrl} className="text-anilist-blue-picton">
             {pointingId}
