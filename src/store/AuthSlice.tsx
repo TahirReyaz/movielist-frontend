@@ -5,6 +5,7 @@ export type SliceStateType = {
   username: string;
   userid: string;
   profileData: any;
+  unreadNotifs: number;
 };
 
 let initialState: SliceStateType = {
@@ -12,6 +13,7 @@ let initialState: SliceStateType = {
   username: "",
   userid: "",
   profileData: undefined,
+  unreadNotifs: 0,
 };
 
 export const authSlice = createSlice({
@@ -26,12 +28,14 @@ export const authSlice = createSlice({
       state.username = action.payload.username;
       state.userid = action.payload.profile._id;
       state.profileData = action.payload.profile;
+      state.unreadNotifs = action.payload.unreadNotifs;
     },
     logout: (state) => {
       state.isLoggedIn = initialState.isLoggedIn;
       state.username = initialState.username;
       state.userid = initialState.userid;
       state.profileData = initialState.profileData;
+      state.unreadNotifs = initialState.unreadNotifs;
 
       localStorage.removeItem("token");
       localStorage.removeItem("username");
@@ -50,6 +54,7 @@ export const authSlice = createSlice({
       state.username = action.payload.username;
       state.userid = action.payload.profile._id;
       state.profileData = action.payload.profile;
+      state.unreadNotifs = action.payload.unreadNotifs;
     },
   },
 });

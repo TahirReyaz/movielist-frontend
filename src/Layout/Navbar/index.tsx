@@ -25,7 +25,7 @@ type routeItem = {
 };
 
 const Navbar = () => {
-  const { isLoggedIn, username, profileData } = useSelector(
+  const { isLoggedIn, username, profileData, unreadNotifs } = useSelector(
     (state: RootState) => state.auth
   );
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -90,10 +90,12 @@ const Navbar = () => {
         {/* Search, Avatar and User dropdown */}
         {isLoggedIn && username && (
           <div className="flex items-center gap-8">
+            {/* Search */}
             <FaSearch
               onClick={() => setShowModal(true)}
               className="cursor-pointer text-3xl hover:text-textBright"
             />
+            {/* Drop down */}
             <Tippy
               interactive={true}
               placement="bottom"
@@ -110,6 +112,15 @@ const Navbar = () => {
                 <FaAngleDown className="text-2xl" />
               </div>
             </Tippy>
+            {/* Notification badge */}
+            {unreadNotifs > 0 && (
+              <Link
+                to={"/notifications"}
+                className="size-8 flex items-center justify-center bg-anilist-monza text-anilist-aqua_haze font-medium text-lg rounded-full"
+              >
+                {unreadNotifs}
+              </Link>
+            )}
           </div>
         )}
         {/* Routes for auth */}

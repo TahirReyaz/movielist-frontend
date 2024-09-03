@@ -65,7 +65,14 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(saveUser({ username, profile: user }));
+      dispatch(
+        saveUser({
+          username,
+          profile: user,
+          userid: user._id,
+          unreadNotifs: user.unreadNotifs,
+        })
+      );
     }
   }, [user]);
 
