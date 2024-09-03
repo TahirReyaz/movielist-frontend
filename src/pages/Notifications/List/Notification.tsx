@@ -12,6 +12,7 @@ const Notification = ({
   pointingId,
   pointingImg,
   createdAt,
+  activityId,
 }: NotificationType) => {
   let pointingUrl = "/";
   if (pointingType === "user") {
@@ -34,7 +35,11 @@ const Notification = ({
           <Link to={pointingUrl} className="text-anilist-blue-picton">
             {pointingId}
           </Link>{" "}
-          {content}
+          {activityId ? (
+            <Link to={`/activity/${activityId}`}>{content}</Link>
+          ) : (
+            <span>{content}</span>
+          )}
         </span>
       </div>
       {/* Time */}
