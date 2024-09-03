@@ -52,6 +52,7 @@ const GenreOverview = () => {
               trigger: "mouseenter focus",
               interactive: false,
               arrow: true,
+              key: index,
             }}
           >
             <div

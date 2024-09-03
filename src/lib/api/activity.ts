@@ -38,6 +38,17 @@ export const getProfileActivities = async (
   }
 };
 
+export const getActivityHistory = async (username: string) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/activities/history/${username}`
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message);
+  }
+};
+
 export const getFollowingActivities = async (page: number = 1) => {
   try {
     const response: AxiosResponse = await axios.get(
