@@ -7,6 +7,7 @@ import { getMediaDetail } from "../../../../../lib/api";
 import { getStaffDetails } from "../../../../../lib/api/staff";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import { Link } from "react-router-dom";
+import Tippy from "@tippyjs/react";
 
 interface FavItem {
   id: number;
@@ -32,20 +33,28 @@ const FavItem = ({ id, type }: FavItem) => {
   }
 
   return (
-    <Link to={`/${type}/${id}`} className="rounded">
-      <img
-        src={
-          data.profile_path || data.poster_path
-            ? `${tmdbImgBaseUrl}/${posterSizes.sm}${
-                type === "staff" ? data.profile_path : data.poster_path
-              }`
-            : posterPlaceholder
-        }
-        alt={title}
-        title={title}
-        className="rounded"
-      />
-    </Link>
+    <Tippy
+      {...{
+        content: title,
+        trigger: "mouseenter focus",
+        interactive: false,
+        arrow: true,
+      }}
+    >
+      <Link to={`/${type}/${id}`} className="rounded">
+        <img
+          src={
+            data.profile_path || data.poster_path
+              ? `${tmdbImgBaseUrl}/${posterSizes.sm}${
+                  type === "staff" ? data.profile_path : data.poster_path
+                }`
+              : posterPlaceholder
+          }
+          alt={title}
+          className="rounded"
+        />
+      </Link>
+    </Tippy>
   );
 };
 
