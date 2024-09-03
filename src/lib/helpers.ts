@@ -1,6 +1,7 @@
 import { Option } from "../constants/types";
 import { Entry } from "../constants/types/entry";
 import { MediaDetailGenre, ProductionCountry } from "../constants/types/media";
+import { StatType } from "../constants/types/stats";
 
 // Function to format runtime to hours and minutes
 export const formatRuntime = (runtime: any) => {
@@ -152,4 +153,39 @@ export const generateProgressScale = (input: number) => {
   const middleNumber = rangeScale[lowerIndex + 1] || rangeScale[lowerIndex];
 
   return { lowerNumber, middleNumber, upperNumber };
+};
+
+export const combineStats = (
+  movieStats: StatType[],
+  tvStats: StatType[]
+): StatType[] => {
+  const statMap: Map<number, StatType> = new Map();
+
+  const addOrUpdateStat = (stat: StatType) => {
+    const existingStat = statMap.get(stat.statTypeId);
+
+    if (existingStat) {
+      existingStat.count += stat.count;
+      existingStat.meanScore += stat.meanScore;
+      existingStat.timeWatched += stat.timeWatched;
+    } else {
+      statMap.set(stat.statTypeId, {
+        title: stat.title,
+        statTypeId: stat.statTypeId,
+        count: stat.count,
+        meanScore: stat.meanScore,
+        timeWatched: stat.timeWatched,
+        _id: stat._id,
+      });
+    }
+  };
+
+  movieStats.forEach(addOrUpdateStat);
+  tvStats.forEach(addOrUpdateStat);
+
+  const stats = Array.from(statMap.values());
+
+  const sortedStats = stats.sort((a, b) => b.count - a.count);
+
+  return sortedStats;
 };

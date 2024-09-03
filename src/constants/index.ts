@@ -40,6 +40,15 @@ export const distributionColors = [
   "#7C899A",
 ];
 
+export const genreColors = [
+  "#64D22D",
+  "#00AAFF",
+  "#9256F3",
+  "#F779A4",
+  "#EC294B",
+  "#E74C3C",
+];
+
 export const searchTypes = [
   { label: "Movie", to: "movie" },
   { label: "TV", to: "tv" },
