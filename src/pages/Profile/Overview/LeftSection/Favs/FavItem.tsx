@@ -1,13 +1,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import Tippy from "@tippyjs/react/headless";
 
 import posterPlaceholder from "../../../../../assets/posterPlaceholder.jpg";
 
 import { getMediaDetail } from "../../../../../lib/api";
 import { getStaffDetails } from "../../../../../lib/api/staff";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
-import { Link } from "react-router-dom";
-import Tippy from "@tippyjs/react";
 
 interface FavItem {
   id: number;
@@ -27,6 +27,11 @@ const FavItem = ({ id, type }: FavItem) => {
   });
 
   const title = data?.title ?? data?.name;
+  const dateString = data?.release_date ?? data?.first_air_date;
+  let year = "";
+  if ((type === "movie" || type === "tv") && dateString) {
+    year = new Date(dateString).getFullYear().toString();
+  }
 
   if (isLoading || isError) {
     return;
@@ -35,10 +40,19 @@ const FavItem = ({ id, type }: FavItem) => {
   return (
     <Tippy
       {...{
-        content: title,
         trigger: "mouseenter focus",
         interactive: false,
-        arrow: true,
+        render: (attrs) => (
+          <div
+            {...attrs}
+            className="text-xl text-anilist-aqua_haze rounded p-4 bg-anilist-mirage/90"
+          >
+            <h2 className="font-medium">{title}</h2>
+            {(type === "movie" || type === "tv") && (
+              <p className="mt-4">{year}</p>
+            )}
+          </div>
+        ),
       }}
     >
       <Link to={`/${type}/${id}`} className="rounded">
