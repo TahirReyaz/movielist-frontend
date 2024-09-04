@@ -114,7 +114,7 @@ const StatusActivity = ({
             className={iconClass + " text-anilist-blue-cadet "}
             onClick={() => setShowComments((prev) => !prev)}
           >
-            {commentCount} <FaComment />
+            {commentCount > 0 && commentCount} <FaComment />
           </span>
           <span
             className={`${iconClass} ${
@@ -122,7 +122,7 @@ const StatusActivity = ({
             }`}
             onClick={handleLike}
           >
-            {likes?.length} <FaHeart />
+            {likes && likes.length > 0 && likes.length} <FaHeart />
           </span>
         </div>
       </div>

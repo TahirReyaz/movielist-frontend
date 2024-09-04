@@ -28,6 +28,7 @@ const MediaActivity = ({
   likes,
   location,
   commentCount,
+  queryKey,
 }: ActivityProps) => {
   const [showComments, setShowComments] = useState<boolean>(false);
 
@@ -53,13 +54,9 @@ const MediaActivity = ({
     },
     onSuccess: () => {
       loadingBar.current?.complete();
-      if (atProfile && username) {
-        queryClient.invalidateQueries({
-          queryKey: ["activities", "user", username],
-        });
-      } else {
-        queryClient.invalidateQueries({ queryKey: ["activities", location] });
-      }
+      queryClient.invalidateQueries({
+        queryKey,
+      });
     },
     onError: (error: any) => {
       loadingBar.current?.complete();
@@ -130,24 +127,26 @@ const MediaActivity = ({
         <div className="col-span-2 md:col-span-2 py-4 pe-4 flex flex-col justify-between items-end">
           <h5 className="text-lg font-medium">{time}</h5>
           <div className="flex gap-4">
+            {/* Comments */}
             <span
               className={iconClass + " text-anilist-blue-cadet "}
               onClick={() => setShowComments((prev) => !prev)}
             >
-              {commentCount} <FaComment />
+              {commentCount > 0 && commentCount} <FaComment />
             </span>
+            {/* Likes */}
             <span
               className={`${iconClass} ${
                 liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
               }`}
               onClick={handleClick}
             >
-              {likes?.length} <FaHeart />
+              {likes && likes.length > 0 && likes.length} <FaHeart />
             </span>
           </div>
         </div>
       </div>
-      {showComments && <Comments {...{ activityId: _id }} />}
+      {showComments && <Comments {...{ activityId: _id, queryKey }} />}
     </>
   );
 };
