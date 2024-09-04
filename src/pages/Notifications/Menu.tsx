@@ -64,7 +64,7 @@ const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
           unreadNotifs > 0
             ? "bg-anilist-blue-picton cursor-pointer"
             : "bg-anilist-gray-regent cursor-not-allowed"
-        } text-anilist-aqua_haze text-xl text-center py-4 px-8 md:w-full rounded-lg`}
+        } text-anilist-aqua_haze text-xl text-center py-4 px-8 md:w-full rounded-md`}
       >
         Mark all as read
       </div>
