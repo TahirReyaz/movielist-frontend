@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 
@@ -66,36 +66,33 @@ const MediaListItem = ({
 
   return (
     <div
-      className="w-full p-2 flex hover:bg-bgHoverLight hover:text-textBright"
+      className="w-full p-2 md:pe-8 flex hover:bg-bgHoverLight hover:text-textBright"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className="grid grid-cols-12 text-2xl">
+      <div className="grid grid-cols-12 text-2xl w-full gap-2">
         {/* Dot and poster */}
         <div className="col-span-2 md:col-span-1 flex">
           {/* Dot */}
-          <div className="w-3/12">
+          <div className="flex items-center">
             <StatusDot {...{ color: "" }} />
           </div>
           {/* Poster */}
-          <div className="w-7/12">
-            <img
-              src={`${tmdbImgBaseUrl}/${posterSizes.xs}${poster}`}
-              alt={title}
-              className="rounded aspect-square object-cover object-top cursor-pointer"
-              onClick={handleClick}
-            />
-            {/* {!hover ? (
-                <div className="rounded bg-anilist-gray-gull aspect-square p-3">
-                  <HiDotsHorizontal className="text-2xl" />
-                </div>
-              ) : (
-                <img
-                  src={`${tmdbImgBaseUrl}/${posterSizes.xs}${poster}`}
-                  alt={title}
-                  className="rounded aspect-square object-cover object-top"
-                />
-              )} */}
+          <div className="size-16">
+            {hover ? (
+              <div
+                className="rounded bg-anilist-bunker/20 flex items-center justify-center w-full h-full cursor-pointer"
+                onClick={handleClick}
+              >
+                <HiDotsHorizontal className="text-4xl" />
+              </div>
+            ) : (
+              <img
+                src={`${tmdbImgBaseUrl}/${posterSizes.xs}${poster}`}
+                alt={title}
+                className="rounded aspect-square object-cover object-top"
+              />
+            )}
           </div>
         </div>
         {/* Title, score, progress */}
@@ -109,7 +106,7 @@ const MediaListItem = ({
           </div>
 
           {/* Score and progress */}
-          <div className="col-span-10 md:col-span-2 grid-cols-2">
+          <div className="col-span-10 md:col-span-2 grid grid-cols-2">
             {/* Score */}
             <div className="col-span-1 self-center">
               {score ? (
