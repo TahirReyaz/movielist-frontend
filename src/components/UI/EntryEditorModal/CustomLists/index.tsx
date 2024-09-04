@@ -21,9 +21,9 @@ const CustomLists = ({
   const queryClient = useQueryClient();
 
   const { pathname } = useLocation();
-  const pathArray = pathname.split("/");
+  const pathArray = pathname?.split("/");
   const mediaType: mediaTypeType =
-    pathArray[3].split("#")[0] === "movielist" ? "movie" : "tv";
+    pathArray?.[3]?.split("#")[0] === "movielist" ? "movie" : "tv";
 
   const handleDelete = async () => {
     try {

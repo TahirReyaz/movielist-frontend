@@ -192,153 +192,165 @@ const EntryEditorModal = ({
     }
   }, [media]);
 
-  if (isLoading || isMediaLoading) {
-    return <Loading />;
-  }
-  if (isError || isMediaError) {
-    return <Error />;
-  }
+  // if (isLoading || isMediaLoading) {
+  //   return <Loading />;
+  // }
+  // if (isError || isMediaError) {
+  //   return <Error />;
+  // }
 
   return (
     <Modal open={open} setOpen={setOpen}>
       <div className="mx-0 w-screen md:w-[800px] bg-bgSecondary rounded-0 md:rounded-md">
-        <TopSection
-          {...{
-            title: media?.title,
-            fav,
-            backdrop: media?.backdrop_path,
-            poster: media?.poster_path,
-            onFav: () => handleFavToggle(true),
-            onUnFav: () => handleFavToggle(false),
-            onSave: handleSave,
-            onClose: () => setOpen(false),
-          }}
-        />
-        <div className="grid grid-cols-1 md:grid-cols-4">
-          <div className="col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-20 pb-0">
-              {/* Status and start date */}
-              <div>
-                {/* Status */}
-                <div className="my-8">
-                  <Label label="Status" />
-                  <Select
-                    {...{
-                      value: {
-                        value: status,
-                        label: statusOptions.find(
-                          (option) => option.value === status
-                        )?.label,
-                      },
-                      options: statusOptions,
-                      onChange: (opt: any) => setStatus(opt.value),
-                      className:
-                        "bg-bgFooter rounded-lg text-[1.4rem] text-left text-white px-8 py-1",
-                      classNames: {
-                        menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
-                        option: () =>
-                          "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-[1.4rem] font-semibold rounded-md",
-                      },
-                      unstyled: true,
-                      placeholder: "Status",
-                    }}
-                  />
-                </div>
-                {/* Start date */}
-                <div className="my-8">
-                  <Label label="Start Date" />
-                  <TextInput
-                    {...{
-                      type: "date",
-                      value: startDate,
-                      onChange: (e) => setStartDate(e.target.value),
-                      name: "start-date",
-                      classes: "!bg-bgFooter text-white",
-                    }}
-                  />
-                </div>
-              </div>
-              {/* Score and finish date */}
-              <div>
-                {/* Score */}
-                <div className="my-8">
-                  <Label label="Score" />
-                  <TextInput
-                    {...{
-                      type: "number",
-                      value: score ?? 0,
-                      onChange: (e) => setScore(parseInt(e.target.value)),
-                      name: "score",
-                      classes: "!bg-bgFooter text-white",
-                      min: 0,
-                      max: 10,
-                    }}
-                  />
-                </div>
-                {/* Finish date */}
-                <div className="my-8">
-                  <Label label="Finish Date" />
-                  <TextInput
-                    {...{
-                      type: "date",
-                      value: finishDate,
-                      onChange: (e) => setFinishDate(e.target.value),
-                      name: "finish-date",
-                      classes: "!bg-bgFooter text-white",
-                    }}
-                  />
-                </div>
-              </div>
-              {/* Progress and rewatches */}
-              <div>
-                {/* Progress */}
-                <div className="my-8">
-                  <Label label="Episode Progress" />
-                  <TextInput
-                    {...{
-                      type: "number",
-                      value: progress ?? 0,
-                      onChange: (e) => setProgress(parseInt(e.target.value)),
-                      name: "score",
-                      max: maxProgress,
-                      classes: "!bg-bgFooter text-white",
-                      min: 0,
-                    }}
-                  />
-                </div>
-                {/* Rewatches */}
-                <div className="my-8">
-                  <Label label="Total Rewatches" />
-                  <TextInput
-                    {...{
-                      type: "number",
-                      value: rewatches ?? 0,
-                      onChange: (e) => setRewatches(parseInt(e.target.value)),
-                      name: "score",
-                      classes: "!bg-bgFooter text-white",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            {/* Notes */}
-            <div className="p-20 pt-0">
+        {isLoading || isMediaLoading || isError || isMediaError ? (
+          isError || isMediaError ? (
+            <Error />
+          ) : (
+            <Loading />
+          )
+        ) : (
+          <>
+            <TopSection
+              {...{
+                title: media?.title,
+                fav,
+                backdrop: media?.backdrop_path,
+                poster: media?.poster_path,
+                onFav: () => handleFavToggle(true),
+                onUnFav: () => handleFavToggle(false),
+                onSave: handleSave,
+                onClose: () => setOpen(false),
+              }}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-4">
               <div className="col-span-3">
-                <Label label="Notes" />
-                <TextInput
-                  {...{
-                    type: "text",
-                    value: notes ?? "",
-                    onChange: (e) => setNotes(e.target.value),
-                    name: "notes",
-                    classes: "!bg-bgFooter text-white",
-                  }}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-20 pb-0">
+                  {/* Status and start date */}
+                  <div>
+                    {/* Status */}
+                    <div className="my-8">
+                      <Label label="Status" />
+                      <Select
+                        {...{
+                          value: {
+                            value: status,
+                            label: statusOptions.find(
+                              (option) => option.value === status
+                            )?.label,
+                          },
+                          options: statusOptions,
+                          onChange: (opt: any) => setStatus(opt.value),
+                          className:
+                            "bg-bgFooter rounded-lg text-[1.4rem] text-left text-white px-8 py-1",
+                          classNames: {
+                            menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
+                            option: () =>
+                              "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-[1.4rem] font-semibold rounded-md",
+                          },
+                          unstyled: true,
+                          placeholder: "Status",
+                        }}
+                      />
+                    </div>
+                    {/* Start date */}
+                    <div className="my-8">
+                      <Label label="Start Date" />
+                      <TextInput
+                        {...{
+                          type: "date",
+                          value: startDate,
+                          onChange: (e) => setStartDate(e.target.value),
+                          name: "start-date",
+                          classes: "!bg-bgFooter text-white",
+                        }}
+                      />
+                    </div>
+                  </div>
+                  {/* Score and finish date */}
+                  <div>
+                    {/* Score */}
+                    <div className="my-8">
+                      <Label label="Score" />
+                      <TextInput
+                        {...{
+                          type: "number",
+                          value: score ?? 0,
+                          onChange: (e) => setScore(parseInt(e.target.value)),
+                          name: "score",
+                          classes: "!bg-bgFooter text-white",
+                          min: 0,
+                          max: 10,
+                        }}
+                      />
+                    </div>
+                    {/* Finish date */}
+                    <div className="my-8">
+                      <Label label="Finish Date" />
+                      <TextInput
+                        {...{
+                          type: "date",
+                          value: finishDate,
+                          onChange: (e) => setFinishDate(e.target.value),
+                          name: "finish-date",
+                          classes: "!bg-bgFooter text-white",
+                        }}
+                      />
+                    </div>
+                  </div>
+                  {/* Progress and rewatches */}
+                  <div>
+                    {/* Progress */}
+                    <div className="my-8">
+                      <Label label="Episode Progress" />
+                      <TextInput
+                        {...{
+                          type: "number",
+                          value: progress ?? 0,
+                          onChange: (e) =>
+                            setProgress(parseInt(e.target.value)),
+                          name: "score",
+                          max: maxProgress,
+                          classes: "!bg-bgFooter text-white",
+                          min: 0,
+                        }}
+                      />
+                    </div>
+                    {/* Rewatches */}
+                    <div className="my-8">
+                      <Label label="Total Rewatches" />
+                      <TextInput
+                        {...{
+                          type: "number",
+                          value: rewatches ?? 0,
+                          onChange: (e) =>
+                            setRewatches(parseInt(e.target.value)),
+                          name: "score",
+                          classes: "!bg-bgFooter text-white",
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* Notes */}
+                <div className="p-20 pt-0">
+                  <div className="col-span-3">
+                    <Label label="Notes" />
+                    <TextInput
+                      {...{
+                        type: "text",
+                        value: notes ?? "",
+                        onChange: (e) => setNotes(e.target.value),
+                        name: "notes",
+                        classes: "!bg-bgFooter text-white",
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
+              {id && <CustomLists {...{ id, setOpen }} />}
             </div>
-          </div>
-          {id && <CustomLists {...{ id, setOpen }} />}
-        </div>
+          </>
+        )}
       </div>
     </Modal>
   );
