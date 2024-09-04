@@ -18,13 +18,13 @@ const CardList = ({ items, innerRef, maxResults = 5 }: CardListProps) => {
         if (items.length === index + 1) {
           return (
             <MediaCard
-              key={mediaItem.id}
+              key={index}
               mediaDetails={mediaItem}
               innerRef={innerRef}
             />
           );
         }
-        return <MediaCard key={mediaItem.id} mediaDetails={mediaItem} />;
+        return <MediaCard key={index} mediaDetails={mediaItem} />;
       })}
     </div>
   );

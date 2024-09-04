@@ -23,8 +23,8 @@ export async function getBulkMedia(
     );
     const medias = response.data;
     return medias;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 }
 

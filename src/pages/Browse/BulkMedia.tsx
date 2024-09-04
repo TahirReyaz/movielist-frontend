@@ -61,12 +61,8 @@ const BulkMedia = () => {
     hasNextPage,
   } = useInfiniteQuery({
     queryKey: ["bulk", mediaType, bulkType],
-    queryFn: ({ pageParam }) => {
-      if (bulkType) {
-        return getBulkMedia(mediaType, bulkType, pageParam);
-      }
-    },
-    enabled: !!bulkType,
+    queryFn: ({ pageParam }) => getBulkMedia(mediaType, bulkType!, pageParam),
+    enabled: !!bulkType && !!mediaType ? true : false,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = lastPage.length ? allPages.length + 1 : undefined;
