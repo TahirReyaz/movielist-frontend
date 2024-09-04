@@ -45,3 +45,18 @@ export const likeCommentToggle = async (id: string, like: boolean) => {
     throw new Error(msg);
   }
 };
+
+export const deleteComment = async (id: string) => {
+  try {
+    const response: AxiosResponse = await axios.delete(
+      `${backendUrl}/comment/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  } catch (error: any) {
+    const msg = error?.response?.data?.message;
+    throw new Error(msg);
+  }
+};

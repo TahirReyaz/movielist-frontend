@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useQueryClient } from "@tanstack/react-query";
@@ -9,7 +9,8 @@ import { calculateElapsedTime } from "../../../../lib/helpers";
 import { useAppSelector } from "../../../../hooks/redux";
 import { useLoadingBar } from "../../../UI/LoadingBar";
 import { showErrorToast } from "../../../../utils/toastUtils";
-import { likeCommentToggle } from "../../../../lib/api/comment";
+import { deleteComment, likeCommentToggle } from "../../../../lib/api/comment";
+import { RxCross2 } from "react-icons/rx";
 
 const Comment = ({
   content,
@@ -20,6 +21,7 @@ const Comment = ({
   activityId,
   queryKey,
 }: CommentType & { activityId: string; queryKey: string[] }) => {
+  const [hover, setHover] = useState<boolean>(false);
   const { isLoggedIn, username } = useAppSelector((state) => state.auth);
 
   const loadingBar = useLoadingBar();
@@ -49,8 +51,31 @@ const Comment = ({
     }
   };
 
+  const handleDelete = async () => {
+    if (isLoggedIn) {
+      try {
+        loadingBar.current?.continuousStart();
+        await deleteComment(_id);
+        loadingBar.current?.complete();
+        queryClient.invalidateQueries({
+          queryKey: ["comments", "activity", activityId],
+        });
+        queryClient.invalidateQueries({
+          queryKey,
+        });
+      } catch (error: any) {
+        loadingBar.current?.complete();
+        showErrorToast(error.message);
+      }
+    }
+  };
+
   return (
-    <div className="p-4 bg-anilist-mirage mb-4 rounded">
+    <div
+      className="p-4 bg-anilist-mirage mb-4 rounded"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       {/* Owner, likes and time */}
       <div className="flex justify-between">
         {/* Owner */}
@@ -69,19 +94,30 @@ const Comment = ({
             {owner.username}
           </Link>
         </div>
-        {/* likes and time */}
+        {/* controls and time */}
         <div className="flex gap-4 items-center">
-          <span className="text-lg font-medium">
-            {calculateElapsedTime(createdAt.toString())}
-          </span>
-
+          {/* Edit and delete */}
+          {isLoggedIn && username === owner.username && hover && (
+            <div
+              className="text-xl hover:text-anilist-blue-picton cursor-pointer"
+              onClick={handleDelete}
+            >
+              <RxCross2 />
+            </div>
+          )}
+          {/* Likes */}
           <span
-            className={`text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton ${
+            className={`text-xl font-semibold cursor-pointer flex items-center gap-2 hover:text-anilist-blue-picton ${
               liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
             }`}
             onClick={handleClick}
           >
-            {likes.length} <FaHeart />
+            {likes.length > 0 && likes.length} <FaHeart />
+          </span>
+
+          {/* Time */}
+          <span className="text-lg font-medium">
+            {calculateElapsedTime(createdAt.toString())}
           </span>
         </div>
       </div>
