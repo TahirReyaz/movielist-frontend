@@ -28,11 +28,12 @@ const menuItems: listItemType[] = [
   { title: "Set as Completed", status: "completed" },
 ];
 
-interface MediaActionMenuProps {
+interface Props {
   currentStatus?: string;
   attrs: attrsType;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   existingEntry?: Entry;
+  tippyRef: any;
 }
 
 const MediaActionMenu = ({
@@ -40,7 +41,8 @@ const MediaActionMenu = ({
   attrs,
   setShowModal,
   existingEntry,
-}: MediaActionMenuProps) => {
+  tippyRef,
+}: Props) => {
   const { username } = useAppSelector((state) => state.auth);
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
@@ -88,12 +90,16 @@ const MediaActionMenu = ({
         });
       }
       loadingBar.current?.complete();
+
+      tippyRef?.current?._tippy.hide();
       queryClient.invalidateQueries({
         queryKey: ["entry", username, mediaid],
       });
       showSuccessToast(response?.message);
     } catch (error: any) {
       loadingBar.current?.complete();
+
+      tippyRef?.current?._tippy.hide();
       showErrorToast(error.message);
     }
   };
@@ -127,7 +133,10 @@ const MediaActionMenu = ({
       <hr />
       <li
         className="hover:bg-actionPrimary hover:text-white cursor-pointer"
-        onClick={() => setShowModal(true)}
+        onClick={() => {
+          setShowModal(true);
+          tippyRef?.current?._tippy.hide();
+        }}
       >
         Open List Editor
       </li>

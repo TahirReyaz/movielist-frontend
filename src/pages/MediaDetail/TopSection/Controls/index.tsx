@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 import { useLocation, useParams } from "react-router-dom";
@@ -21,6 +21,7 @@ const Controls = () => {
   const { username, profileData: profile } = useAppSelector(
     (state) => state.auth
   );
+  const tippyRef = useRef(null);
 
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
@@ -74,6 +75,7 @@ const Controls = () => {
             placement="bottom-end"
             arrow
             trigger="click"
+            ref={tippyRef}
             render={(attrs) => (
               <MediaActionMenu
                 {...{
@@ -81,6 +83,7 @@ const Controls = () => {
                   attrs,
                   setShowModal,
                   existingEntry,
+                  tippyRef,
                 }}
               />
             )}
