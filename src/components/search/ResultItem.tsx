@@ -53,7 +53,7 @@ const ResultItem = ({
     <Link
       to={url}
       onClick={handleClick}
-      className="flex py-6 px-8 hover:bg-actionPrimary"
+      className="flex py-6 px-8 text-textPrimary hover:text-anilist-aqua_haze hover:bg-actionPrimary"
     >
       <img
         src={image}
@@ -62,7 +62,7 @@ const ResultItem = ({
           type == "person" ? "object-center" : "object-top"
         } w-1/12`}
       />
-      <div className="ms-4 text-textPrimary text-2xl font-medium flex flex-col">
+      <div className="ms-4 text-2xl font-medium flex flex-col">
         {title}
         {time && <span className="text-xl font-normal text-left">{year}</span>}
       </div>
