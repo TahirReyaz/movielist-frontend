@@ -42,7 +42,7 @@ const MediaSection = ({
             <h3 className="text-[1.6rem] hover:text-textBright font-medium">
               {title}
             </h3>
-            <span className="text-xl hover:text-textBright font-bold">
+            <span className="text-xl hover:text-textBright font-semibold">
               View all
             </span>
           </Link>

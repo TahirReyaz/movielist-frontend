@@ -72,11 +72,11 @@ const Footer = () => {
   }
 
   return (
-    <footer className="w-full p-14 font-body bg-bgFooter">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8">
+    <footer className="px-12 md:px-56 pt-12 font-medium bg-bgFooter">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* Desktop view */}
         <div>
-          <h2 className="text-3xl font-bold text-actionPrimary my-6">
+          <h2 className="text-3xl font-medium text-anilist-blue-picton my-6">
             Site theme
           </h2>
         </div>
@@ -86,7 +86,7 @@ const Footer = () => {
               {column.links.map((link, linkIndex) => (
                 <li
                   key={linkIndex}
-                  className="text-2xl font-semibold hover:text-actionPrimary my-6 cursor-pointer"
+                  className="text-2xl font-medium hover:text-anilist-blue-picton my-6 cursor-pointer"
                 >
                   {link.action ? (
                     <div onClick={link.action}>{link.text}</div>
