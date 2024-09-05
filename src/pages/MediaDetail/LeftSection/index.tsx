@@ -14,6 +14,20 @@ type Field = {
   valuesKey?: string;
 };
 
+const extraTvFields: Field[] = [
+  { fieldName: "first_air_date", label: "First Air Date" },
+  { fieldName: "last_air_date", label: "Last Air Date" },
+  { fieldName: "number_of_episodes", label: "Number of Episodes" },
+  { fieldName: "number_of_seasons", label: "Number of Seasons" },
+  { fieldName: "original_name", label: "Original Name" },
+];
+
+const extraMovieFields: Field[] = [
+  { fieldName: "release_date", label: "Release Date" },
+  { fieldName: "runtime", label: "Runtime" },
+  { fieldName: "original_title", label: "Original Title" },
+];
+
 const LeftSection = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
@@ -21,28 +35,21 @@ const LeftSection = () => {
 
   let detailFields: Field[] = [
     { fieldName: "status", label: "Status" },
-    { fieldName: "vote_average", label: "Vote Average" },
-    { fieldName: "vote_count", label: "Vote Count" },
-    { fieldName: "popularity", label: "Popularity" },
+    { fieldName: "tagline", label: "Tagline" },
     {
       fieldName: "production_companies",
       label: "Production Companies",
       valuesKey: "name",
     },
     { fieldName: "genres", label: "Genres", valuesKey: "name" },
+    { fieldName: "vote_average", label: "Mean Score" },
+    { fieldName: "popularity", label: "Popularity" },
   ];
 
   if (mediaType === "tv") {
-    detailFields.push({ fieldName: "first_air_date", label: "First Air Date" });
-    detailFields.push({
-      fieldName: "number_of_episodes",
-      label: "Number of Episodes",
-    });
-    detailFields.push({ fieldName: "original_name", label: "Original Name" });
+    detailFields.push(...extraTvFields);
   } else if (mediaType === "movie") {
-    detailFields.push({ fieldName: "release_date", label: "Release Date" });
-    detailFields.push({ fieldName: "runtime", label: "Runtime" });
-    detailFields.push({ fieldName: "original_title", label: "Original Title" });
+    detailFields.push(...extraMovieFields);
   }
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
