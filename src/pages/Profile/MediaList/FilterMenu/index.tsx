@@ -48,10 +48,12 @@ const FilterMenu = ({
           }}
         />
         {/* Toggle */}
-        <HiDotsHorizontal
-          className="md:hidden col-span-2 md:col-span-0 bg-bgSecondary rounded p-2 text-3xl"
+        <div
+          className="flex justify-center items-center md:hidden col-span-2 md:col-span-0 text-4xl size-16 my-auto bg-anilist-mirage hover:text-anilist-blue-picton p-2 rounded"
           onClick={() => setShow((prev) => !prev)}
-        />
+        >
+          <HiDotsHorizontal />
+        </div>
       </div>
       <div className={`${!show && "hidden"} md:block`}>
         {/* Status */}
