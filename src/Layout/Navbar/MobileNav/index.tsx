@@ -31,10 +31,6 @@ const MobileNav = () => {
     (state: RootState) => state.auth
   );
 
-  const handleToggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const menuOptions: MenuOption[] = isLoggedIn
     ? [
         { label: "Home", icon: <FaHome />, path: "/" },
@@ -63,7 +59,7 @@ const MobileNav = () => {
       {/* Floating hamburger icon or close icon based on isMenuOpen */}
       {!isMenuOpen && (
         <button
-          onClick={handleToggleMenu}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
           className="fixed bottom-16 right-8 text-6xl text-actionPrimary bg-bgSecondary rounded-md p-2"
         >
           <FaBars />
@@ -79,6 +75,7 @@ const MobileNav = () => {
                 key={index}
                 to={option.path}
                 className="flex flex-col gap-2 items-center p-2 rounded-md text-xl"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
               >
                 <span className="text-4xl">{option.icon}</span>
                 <span>{option.label}</span>
@@ -86,7 +83,7 @@ const MobileNav = () => {
             ))}
             <button
               className="text-white text-4xl flex flex-col items-center p-2 rounded-md"
-              onClick={handleToggleMenu}
+              onClick={() => setIsMenuOpen((prev) => !prev)}
             >
               <FaTimes />
             </button>
