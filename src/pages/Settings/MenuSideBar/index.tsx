@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import MobileHeader from "../../../components/Layout/MobileHeader";
 
 const MenuSideBar = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  const { option } = useParams();
+  const { pathname } = useLocation();
+  const urlItems = pathname.split("/");
+
+  let option = urlItems[urlItems.length - 1];
+
+  if (option.length === 0) {
+    option = "/";
+  }
 
   const options = [
     {
@@ -40,7 +47,7 @@ const MenuSideBar = () => {
               {opt.list.map((item) => (
                 <Link
                   className={`px-4 py-1 my-2 cursor:pointer text-[1.4rem] rounded ${
-                    option === item.path ? "font-semibold bg-bgForeground" : ""
+                    option === item.path ? "font-medium bg-anilist-mirage" : ""
                   }`}
                   to={`/settings/${item.path === "/" ? "" : item.path}`}
                   key={item.title}
