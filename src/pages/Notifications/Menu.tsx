@@ -1,11 +1,13 @@
-import React, { Dispatch } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { HiDotsHorizontal } from "react-icons/hi";
 
 import { NotifType } from "../../constants/types";
 import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../../components/UI/LoadingBar";
 import { markAllUserNotifsRead } from "../../lib/api/notification";
 import { showErrorToast } from "../../utils/toastUtils";
+import MobileHeader from "../../components/Layout/MobileHeader";
 
 interface MenuProps {
   currentOption: NotifType;
@@ -13,6 +15,7 @@ interface MenuProps {
 }
 
 const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   const { unreadNotifs, username } = useAppSelector((state) => state.auth);
 
   const loadingBar = useLoadingBar();
@@ -44,20 +47,26 @@ const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
 
   return (
     <div className="col-span-1">
-      <h5 className="text-xl font-normal">Notifications</h5>
-      <ul className="flex flex-col mb-4">
-        {list.map(({ type, title }) => (
-          <li
-            className={`px-4 py-1 my-2 cursor:pointer text-xl rounded font-medium cursor-pointer ${
-              currentOption == type ? "bg-anilist-mirage" : ""
-            }`}
-            key={title}
-            onClick={() => setCurrentOption(type)}
-          >
-            {title}
-          </li>
-        ))}
-      </ul>
+      <MobileHeader {...{ title: "Notifications", setShowMenu }} />
+      {/* Menu */}
+      {showMenu && (
+        <div>
+          <h5 className="text-xl font-normal">Notifications</h5>
+          <ul className="flex flex-col mb-4">
+            {list.map(({ type, title }) => (
+              <li
+                className={`px-4 py-1 my-2 cursor:pointer text-xl rounded font-medium cursor-pointer ${
+                  currentOption == type ? "bg-anilist-mirage" : ""
+                }`}
+                key={title}
+                onClick={() => setCurrentOption(type)}
+              >
+                {title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div
         onClick={handleMarkRead}
         className={`${

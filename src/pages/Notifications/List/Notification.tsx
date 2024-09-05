@@ -42,7 +42,6 @@ const Notification = ({
             ) : (
               <span>{content}</span>
             )}
-            {read ? "true" : "false"}
           </span>
         </div>
         {/* Time */}
