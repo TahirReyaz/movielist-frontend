@@ -1,12 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { RiMovie2Line } from "react-icons/ri";
-import { FiMonitor } from "react-icons/fi";
 import { FaPlay, FaCalendar, FaHourglass, FaPercentage } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { IconType } from "react-icons";
 
-import Loading from "../../../../../../components/UI/Loading";
 import StatItem from "./StatItem";
 import { useAppSelector } from "../../../../../../hooks/redux";
 

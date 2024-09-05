@@ -8,11 +8,11 @@ interface StatItemProps {
 }
 const StatItem = ({ value, title, Icon }: StatItemProps) => {
   return (
-    <div className="grid grid-cols-5 mb-12 items-center">
+    <div className="flex mb-12 items-center gap-4">
       <div className="rounded-full bg-anilist-mirage p-4 w-fit">
         <Icon className="text-3xl text-anilist-gray-bermuda" />
       </div>
-      <div className="col-span-4">
+      <div className="">
         <h1 className="text-4xl font-bold mb-4">
           {Math.round(value * 10) / 10}
         </h1>
