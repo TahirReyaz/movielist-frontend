@@ -40,14 +40,14 @@ import Error from "./components/UI/Error";
 import { getUserDetail } from "./lib/api";
 import { logoutAction, saveUser } from "./store/AuthSlice";
 import Overview from "./pages/MediaDetail/Pages/Overview";
-import { checkLoggedIn } from "./utils/authUtils";
 import Activity from "./pages/Activity";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const username = localStorage.getItem("username") || "";
+  const storedUsername = localStorage.getItem("username");
+  const username = storedUsername ?? "";
 
-  const isLoggedIn = checkLoggedIn();
+  const isLoggedIn = username.length !== 0;
 
   if (!isLoggedIn) {
     dispatch(logoutAction());
