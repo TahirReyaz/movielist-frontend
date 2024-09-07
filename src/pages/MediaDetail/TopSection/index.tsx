@@ -4,7 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 
-import { tmdbImgEndPoint } from "../../../constants/tmdb";
+import {
+  backdropSizes,
+  posterSizes,
+  tmdbImgBaseUrl,
+} from "../../../constants/tmdb";
 import Controls from "./Controls";
 import { useAppSelector } from "../../../hooks/redux";
 import { MovieDetail, TvDetail } from "../../../constants/types/media";
@@ -49,9 +53,9 @@ const TopSection = () => {
           {mediaDetails.backdrop_path && (
             <div className="h-[25vh] md:h-[50vh] overflow-hidden">
               <img
-                src={`${tmdbImgEndPoint}${mediaDetails.backdrop_path}`}
+                src={`${tmdbImgBaseUrl}/${backdropSizes.xxl}${mediaDetails.backdrop_path}`}
                 alt={mediaType === "movie" ? title : name}
-                className="object-top"
+                className="w-full object-top object-fit"
               />
             </div>
           )}
@@ -62,7 +66,7 @@ const TopSection = () => {
               <img
                 src={
                   mediaDetails.poster_path
-                    ? `${tmdbImgEndPoint}${mediaDetails.poster_path}`
+                    ? `${tmdbImgBaseUrl}/${posterSizes.md}${mediaDetails.poster_path}`
                     : posterPlaceholder
                 }
                 alt={title}

@@ -74,6 +74,13 @@ const MediaDetail = () => {
     <>
       <Helmet>
         <title>{mediaType === "movie" ? title : name} · MovieList</title>
+        {mediaDetails?.overview && (
+          <meta
+            name="description"
+            content={mediaDetails?.overview.slice(0, 150)}
+          />
+        )}
+        <link rel="canonical" href={pathname} />
       </Helmet>
       <main>
         {mediaDetails && (

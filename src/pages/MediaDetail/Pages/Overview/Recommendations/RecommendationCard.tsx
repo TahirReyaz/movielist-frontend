@@ -14,7 +14,7 @@ const RecommendationCard = ({ media, mediaType }: RecommendationCardProps) => {
       <Link to={`/${mediaType}/${media.id}`}>
         <img
           src={`${tmdbImgBaseUrl}/${posterSizes.md}${media.poster_path}`}
-          alt={media.name}
+          alt={media.name ?? media.title}
           className="rounded"
         />
       </Link>

@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { tmdbImgEndPoint } from "../../constants/tmdb";
 import noImg from "../../assets/no_img_long.jpg";
+
+import { profileSizes, tmdbImgBaseUrl } from "../../constants/tmdb";
 import { CrewMember } from "../../constants/types/media";
 
 const StaffCard = ({ id, department, name, profile_path }: CrewMember) => {
@@ -10,7 +11,11 @@ const StaffCard = ({ id, department, name, profile_path }: CrewMember) => {
     <div className="grid grid-cols-7 rounded overflow-hidden bg-bgForeground">
       <Link to={`/staff/${id}`}>
         <img
-          src={profile_path ? `${tmdbImgEndPoint}${profile_path}` : noImg}
+          src={
+            profile_path
+              ? `${tmdbImgBaseUrl}/${profileSizes.sm}${profile_path}`
+              : noImg
+          }
           alt={name}
         />
       </Link>

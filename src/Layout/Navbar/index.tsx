@@ -65,7 +65,7 @@ const Navbar = () => {
       <nav className="bg-bgSecondary py-4 px-56 font-body justify-between items-center hidden md:flex">
         {/* Logo */}
         <Link to="/">
-          <img src={Logo} className="size-[50px]" />
+          <img src={Logo} className="size-[50px]" alt="MovieList" />
         </Link>
 
         {/* Links in the middle */}

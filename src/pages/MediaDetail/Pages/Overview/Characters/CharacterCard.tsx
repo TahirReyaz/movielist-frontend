@@ -1,6 +1,10 @@
 import React from "react";
 
-import { tmdbImgEndPoint } from "../../../../../constants/tmdb";
+import {
+  profileSizes,
+  tmdbImgBaseUrl,
+  tmdbImgEndPoint,
+} from "../../../../../constants/tmdb";
 import noImg from "../../../../../assets/no_img_long.jpg";
 import { Link } from "react-router-dom";
 import { CastMember } from "../../../../../constants/types/media";
@@ -10,7 +14,11 @@ const CharacterCard = ({ id, character, name, profile_path }: CastMember) => {
     <div className="grid grid-cols-7 rounded overflow-hidden bg-bgForeground">
       <Link to={`/staff/${id}`}>
         <img
-          src={profile_path ? `${tmdbImgEndPoint}${profile_path}` : noImg}
+          src={
+            profile_path
+              ? `${tmdbImgBaseUrl}/${profileSizes.sm}${profile_path}`
+              : noImg
+          }
           alt={name}
         />
       </Link>

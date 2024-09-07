@@ -18,6 +18,20 @@ export const posterSizes = {
   original: "original",
 };
 
+export const backdropSizes = {
+  lg: "w300",
+  xl: "w780",
+  xxl: "w1280",
+  original: "original",
+};
+
+export const profileSizes = {
+  sm: "w45",
+  md: "w185",
+  lg: "h632",
+  original: "original",
+};
+
 const countryData = [
   {
     iso_3166_1: "AD",

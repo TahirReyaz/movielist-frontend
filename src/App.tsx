@@ -41,6 +41,7 @@ import { getUserDetail } from "./lib/api";
 import { logoutAction, saveUser } from "./store/AuthSlice";
 import Overview from "./pages/MediaDetail/Pages/Overview";
 import Activity from "./pages/Activity";
+import { Helmet } from "react-helmet-async";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -89,23 +90,47 @@ const App = () => {
   }
 
   return (
-    <div className="bg-bgTertiary text-textPrimary font-sans relative">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/search/:mediaType/:bulkType" element={<Browse />} />
-            <Route path="/search/:mediaType" element={<Browse />} />
-            <Route
-              path="/search"
-              element={<Navigate to="/search/movie" replace />}
-            />
-            <Route path="/social" element={<ComingSoon />} />
-            <Route path="/forum" element={<ComingSoon />} />
-            <Route path="/user/:username/*" element={<Profile />}>
-              <Route index element={<ProfileOverview />} />
-              <Route path="stats/:mediaType/*" element={<Stats />}>
-                {statsSubRoutes.map((route) => (
+    <>
+      <Helmet>
+        <title>MovieList</title>
+        <meta name="descriptioin" content="" />
+        <link rel="canonical" href="https://movielist-tahir.netlify.app/" />
+      </Helmet>
+      <div className="bg-bgTertiary text-textPrimary font-sans relative">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="/search/:mediaType/:bulkType" element={<Browse />} />
+              <Route path="/search/:mediaType" element={<Browse />} />
+              <Route
+                path="/search"
+                element={<Navigate to="/search/movie" replace />}
+              />
+              <Route path="/social" element={<ComingSoon />} />
+              <Route path="/forum" element={<ComingSoon />} />
+              <Route path="/user/:username/*" element={<Profile />}>
+                <Route index element={<ProfileOverview />} />
+                <Route path="stats/:mediaType/*" element={<Stats />}>
+                  {statsSubRoutes.map((route) => (
+                    <Route
+                      path={route.path}
+                      element={route.element}
+                      key={route.path}
+                    />
+                  ))}
+                </Route>
+                <Route
+                  path="stats/:mediaType"
+                  element={<Navigate to="overview" replace />}
+                />
+                <Route path="movielist" element={<MediaList />}>
+                  <Route path=":allowedList" element={<MediaList />} />
+                </Route>
+                <Route path="tvlist" element={<MediaList />}>
+                  <Route path=":allowedList" element={<MediaList />} />
+                </Route>
+                {profileSubRoutes.map((route) => (
                   <Route
                     path={route.path}
                     element={route.element}
@@ -113,72 +138,55 @@ const App = () => {
                   />
                 ))}
               </Route>
-              <Route
-                path="stats/:mediaType"
-                element={<Navigate to="overview" replace />}
-              />
-              <Route path="movielist" element={<MediaList />}>
-                <Route path=":allowedList" element={<MediaList />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path={`/movie/:mediaid`} element={<MediaDetail />}>
+                <Route index element={<Overview />} />
+                {mediaSubRoutes.map((route) => (
+                  <Route
+                    path={route.path}
+                    element={route.element}
+                    key={route.path}
+                  />
+                ))}
               </Route>
-              <Route path="tvlist" element={<MediaList />}>
-                <Route path=":allowedList" element={<MediaList />} />
+              <Route path={`/tv/:mediaid`} element={<MediaDetail />}>
+                <Route index element={<Overview />} />
+                {mediaSubRoutes.map((route) => (
+                  <Route
+                    path={route.path}
+                    element={route.element}
+                    key={route.path}
+                  />
+                ))}
               </Route>
-              {profileSubRoutes.map((route) => (
-                <Route
-                  path={route.path}
-                  element={route.element}
-                  key={route.path}
-                />
-              ))}
+              <Route path="/settings/*" element={<Settings />}>
+                <Route index element={<ProfileSettings />} />
+                {settingsSubRoutes.map((route) => (
+                  <Route
+                    path={route.path}
+                    element={route.element}
+                    key={route.path}
+                  />
+                ))}
+              </Route>
+              <Route path="/staff/:staffid" element={<Staff />} />
+              <Route path="/activity/:id" element={<Activity />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/donate" element={<Donate />} />
+              <Route path="/apps" element={<Apps />} />
+              <Route path="/site-stats" element={<SiteStats />} />
+              <Route path="/moderators" element={<Moderators />} />
+              <Route path="/recommendations" element={<Recommendations />} />
+              <Route path="/terms" element={<PrivacyPolicy />} />
+              <Route path="/submission-manual" element={<SubmissionManual />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path={`/movie/:mediaid`} element={<MediaDetail />}>
-              <Route index element={<Overview />} />
-              {mediaSubRoutes.map((route) => (
-                <Route
-                  path={route.path}
-                  element={route.element}
-                  key={route.path}
-                />
-              ))}
-            </Route>
-            <Route path={`/tv/:mediaid`} element={<MediaDetail />}>
-              <Route index element={<Overview />} />
-              {mediaSubRoutes.map((route) => (
-                <Route
-                  path={route.path}
-                  element={route.element}
-                  key={route.path}
-                />
-              ))}
-            </Route>
-            <Route path="/settings/*" element={<Settings />}>
-              <Route index element={<ProfileSettings />} />
-              {settingsSubRoutes.map((route) => (
-                <Route
-                  path={route.path}
-                  element={route.element}
-                  key={route.path}
-                />
-              ))}
-            </Route>
-            <Route path="/staff/:staffid" element={<Staff />} />
-            <Route path="/activity/:id" element={<Activity />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/donate" element={<Donate />} />
-            <Route path="/apps" element={<Apps />} />
-            <Route path="/site-stats" element={<SiteStats />} />
-            <Route path="/moderators" element={<Moderators />} />
-            <Route path="/recommendations" element={<Recommendations />} />
-            <Route path="/terms" element={<PrivacyPolicy />} />
-            <Route path="/submission-manual" element={<SubmissionManual />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      <ToastContainer />
-    </div>
+          </Routes>
+        </BrowserRouter>
+        <ToastContainer />
+      </div>
+    </>
   );
 };
 
