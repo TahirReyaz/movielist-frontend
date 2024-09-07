@@ -25,11 +25,12 @@ const Credits = ({ id }: CreditsProps) => {
   return (
     <section className="px-24">
       {data.credits.length > 0 &&
-        data.credits.map((year: any) => (
+        data.credits.map((year: any, index: number) => (
           <CreditSection
             {...{
               title: year.year,
               items: year.items,
+              key: index,
             }}
           />
         ))}
