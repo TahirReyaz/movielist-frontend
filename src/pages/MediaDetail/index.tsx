@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet-async";
 
 import { getMediaDetail } from "../../lib/api";
 import LowerLayout from "../../components/UI/LowerLayout";
@@ -13,6 +12,7 @@ import { setDetails } from "../../store/MediaSlice";
 import Loading from "../../components/UI/Loading";
 import { MovieDetail, TvDetail } from "../../constants/types/media";
 import { mediaTypeType } from "../../constants/types";
+import MetaTags from "../../components/UI/MetaTags";
 
 export type MediaDetailType = {
   id: string;
@@ -72,16 +72,12 @@ const MediaDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${mediaType === "movie" ? title : name} · MovieList`}</title>
-        {mediaDetails?.overview && (
-          <meta
-            name="description"
-            content={mediaDetails?.overview.slice(0, 150)}
-          />
-        )}
-        <link rel="canonical" href={pathname} />
-      </Helmet>
+      <MetaTags
+        {...{
+          title: `${mediaType === "movie" ? title : name} · MovieList`,
+          description: mediaDetails?.overview ?? "",
+        }}
+      />
       <main>
         {mediaDetails && (
           <>

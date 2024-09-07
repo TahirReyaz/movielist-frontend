@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Fuse from "fuse.js";
-import { Helmet } from "react-helmet-async";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
@@ -19,6 +18,7 @@ import {
   MediaDetailGenre,
   ProductionCountry,
 } from "../../../constants/types/media.ts";
+import MetaTags from "../../../components/UI/MetaTags.tsx";
 
 const MediaList = () => {
   const [countryOptions, setCountryOptions] = useState<Option[]>([]);
@@ -176,11 +176,11 @@ const MediaList = () => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {username}'s {urlMediaType} · MovieList
-        </title>
-      </Helmet>
+      <MetaTags
+        {...{
+          title: `${username}'s ${urlMediaType} · MovieList`,
+        }}
+      />
       <LowerLayout
         {...{
           left: (

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 
 import { getUserDetail } from "../../lib/api";
@@ -9,6 +8,7 @@ import { StatusType, mediaTypeType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Loading from "../../components/UI/Loading";
 import { setProfile } from "../../store/ProfileSlice";
+import MetaTags from "../../components/UI/MetaTags";
 
 export type ProfileParams = {
   username: string;
@@ -61,9 +61,11 @@ const Profile = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${username}'s profile · MovieList`}</title>
-      </Helmet>
+      <MetaTags
+        {...{
+          title: `${username}'s profile · MovieList`,
+        }}
+      />
       <main>
         <TopSection />
         <Outlet />

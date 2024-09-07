@@ -1,5 +1,6 @@
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const AUTH_COOKIE = import.meta.env.VITE_AUTH_COOKIE;
+export const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
 
 export const statusColors: {
   completed?: string;
