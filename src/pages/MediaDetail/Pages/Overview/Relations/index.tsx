@@ -38,9 +38,9 @@ const Relations = ({ mediaid, mediaType, collectionId }: Props) => {
       <Link to="/characters">
         <h2 className="text-2xl font-medium my-4">Relations</h2>
       </Link>
-      <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-        {mediaArray?.map((item) => (
-          <RelationCard {...{ key: item.id, ...item, mediaType }} />
+      <div className="flex flex-row md:grid md:grid-cols-7 overflow-auto gap-8 mb-16">
+        {mediaArray?.map((item, index) => (
+          <RelationCard {...{ key: item.id, ...item, mediaType, index }} />
         ))}
       </div>
     </div>

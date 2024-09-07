@@ -12,7 +12,8 @@ const RelationCard = ({
   id,
   title,
   release_date,
-}: MovieItemDetails & { mediaType: mediaTypeType }) => {
+  index,
+}: MovieItemDetails & { mediaType: mediaTypeType; index: number }) => {
   const [hover, setHover] = useState<boolean>(false);
 
   return (
@@ -27,17 +28,23 @@ const RelationCard = ({
       >
         <img
           {...{
-            src: `${tmdbImgBaseUrl}/${posterSizes.sm}${poster_path}`,
+            src: `${tmdbImgBaseUrl}/${posterSizes.md}${poster_path}`,
             alt: title,
           }}
         />
       </Link>
       {hover && (
-        <div className="hidden md:block absolute right-0 top-0 transform translate-x-full w-96 z-10 h-full">
+        <div
+          className={`hidden md:block absolute w-96 ${
+            index % 7 < 3
+              ? "right-0 translate-x-full"
+              : "left-0 -translate-x-full"
+          } top-0 transform z-10 h-full`}
+        >
           <DetailsCard {...{ title, release_date }} />
         </div>
       )}
-      <div className="block md:hidden">
+      <div className="block md:hidden w-96">
         <DetailsCard {...{ title, release_date }} />
       </div>
     </div>
