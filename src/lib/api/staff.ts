@@ -7,10 +7,9 @@ export async function getStaffDetails(id: number) {
       `${backendUrl}/staff/${id}`
     );
     const media = response.data;
-    return { ...media, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return media;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
 
@@ -19,11 +18,9 @@ export async function getStaffCredits(id: string | undefined) {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/staff/${id}/credits`
     );
-    const media = response.data;
-    return { ...media, error: false };
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
 
@@ -39,8 +36,7 @@ export const searchStaff = async (query: string) => {
     );
 
     return response.data?.results;
-  } catch (error) {
-    console.error(error);
-    return { error: true };
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 };

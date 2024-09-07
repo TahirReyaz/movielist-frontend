@@ -1,10 +1,6 @@
 import React from "react";
 
-import {
-  profileSizes,
-  tmdbImgBaseUrl,
-  tmdbImgEndPoint,
-} from "../../../../../constants/tmdb";
+import { profileSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import noImg from "../../../../../assets/no_img_long.jpg";
 import { Link } from "react-router-dom";
 import { CastMember } from "../../../../../constants/types/media";

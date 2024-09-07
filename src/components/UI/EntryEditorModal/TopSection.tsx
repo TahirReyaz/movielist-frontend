@@ -2,7 +2,11 @@ import React from "react";
 
 import posterPlaceholder from "../../../assets/posterPlaceholder.jpg";
 
-import { tmdbImgEndPoint } from "../../../constants/tmdb";
+import {
+  backdropSizes,
+  posterSizes,
+  tmdbImgBaseUrl,
+} from "../../../constants/tmdb";
 import { AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import Button from "../Button";
 
@@ -28,7 +32,7 @@ const TopSection = ({
   onClose,
 }: TopSectionProps) => {
   const backdropStyle = {
-    "--backdrop-url": `url(${tmdbImgEndPoint}${backdrop})`,
+    "--backdrop-url": `url(${tmdbImgBaseUrl}/${backdropSizes.xxl}${backdrop})`,
   } as React.CSSProperties;
 
   return (
@@ -51,7 +55,11 @@ const TopSection = ({
           {/* Poster and title */}
           <div className="col-span-3 md:col-span-5 grid grid-cols-3 md:grid-cols-8">
             <img
-              src={poster ? `${tmdbImgEndPoint}${poster}` : posterPlaceholder}
+              src={
+                poster
+                  ? `${tmdbImgBaseUrl}/${posterSizes.sm}${poster}`
+                  : posterPlaceholder
+              }
               alt={title}
               className="rounded col-span-1"
             />

@@ -1,14 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { multiSearchResultType } from "../../constants/types";
-import { Link } from "react-router-dom";
 
 import posterPlaceholder from "../../assets/posterPlaceholder.jpg";
-import personPlaceholder from "../../assets/userAvatar.png";
-import {
-  posterSizes,
-  tmdbImgBaseUrl,
-  tmdbImgEndPoint,
-} from "../../constants/tmdb";
+
+import { Link } from "react-router-dom";
+import { posterSizes, tmdbImgBaseUrl } from "../../constants/tmdb";
 
 interface ResultItemProps {
   type: multiSearchResultType;

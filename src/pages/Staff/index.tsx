@@ -7,7 +7,11 @@ import userAvatar from "../../assets/userAvatar.png";
 
 import { getStaffDetails } from "../../lib/api/staff";
 import Loading from "../../components/UI/Loading";
-import { tmdbImgEndPoint, translateGender } from "../../constants/tmdb";
+import {
+  profileSizes,
+  tmdbImgBaseUrl,
+  translateGender,
+} from "../../constants/tmdb";
 import TopSection from "./TopSection";
 import Credits from "./Credits";
 import { PersonDetail } from "../../constants/types/media";
@@ -46,7 +50,9 @@ const Staff = () => {
         <title>{staff?.name} · MovieList</title>
       </Helmet>
       <main>
-        {staff && <TopSection {...{ name: staff.name, id: staff.id }} />}
+        {staff && staff.id && (
+          <TopSection {...{ name: staff.name, id: staff.id }} />
+        )}
         {staff && (
           <div className="px-12 md:px-24">
             <div className="px:0 md:px-8 grid grid-cols-1 md:grid-cols-5">
@@ -54,7 +60,7 @@ const Staff = () => {
                 <img
                   src={
                     staff.profile_path
-                      ? `${tmdbImgEndPoint}${staff.profile_path}`
+                      ? `${tmdbImgBaseUrl}/${profileSizes.md}${staff.profile_path}`
                       : userAvatar
                   }
                   alt={staff.name}
