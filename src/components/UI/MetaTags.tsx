@@ -22,7 +22,7 @@ const MetaTags = ({ title, description }: Props) => {
       )}
       <link rel="canonical" href={`${frontendUrl}${pathname}`} />
       <meta property="og:image" content={`${frontendUrl}${logo}`} />
-      <meta property="og:title" content={`${title}`} />
+      <meta property="og:title" content={`${title.slice(0, 50)}`} />
       <meta property="og:url" content={`${frontendUrl}${pathname}`} />
       <meta
         property="og:description"
