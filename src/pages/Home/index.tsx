@@ -1,15 +1,21 @@
 import React from "react";
-import HomeAuth from "./HomeAuth";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet-async";
+
+import HomeAuth from "./HomeAuth";
 import { RootState } from "../../store";
 import HomeNoAuth from "./HomeNoAuth";
 
 const Home = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
-  if (isLoggedIn) {
-    return <HomeAuth />;
-  }
-  return <HomeNoAuth />;
+  return (
+    <>
+      <Helmet>
+        <title>Home · MovieList</title>
+      </Helmet>
+      {isLoggedIn ? <HomeAuth /> : <HomeNoAuth />}
+    </>
+  );
 };
 
 export default Home;

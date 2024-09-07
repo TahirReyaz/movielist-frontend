@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 import LowerLayout from "../../components/UI/LowerLayout";
 import Menu from "./Menu";
@@ -9,12 +10,17 @@ const Notifications = () => {
   const [currentOption, setCurrentOption] = useState<NotifType>("all");
 
   return (
-    <LowerLayout
-      {...{
-        left: <Menu {...{ currentOption, setCurrentOption }} />,
-        right: <List {...{ type: currentOption }} />,
-      }}
-    />
+    <>
+      <Helmet>
+        <title>Notifications · MovieList</title>
+      </Helmet>
+      <LowerLayout
+        {...{
+          left: <Menu {...{ currentOption, setCurrentOption }} />,
+          right: <List {...{ type: currentOption }} />,
+        }}
+      />
+    </>
   );
 };
 

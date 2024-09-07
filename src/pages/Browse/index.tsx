@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
-import TextInput from "../../components/UI/TextInput";
-import { useDebounce } from "../../hooks/useDebounce";
-import { getSearchResults } from "../../lib/api";
+import { useLoadingBar } from "../../components/UI/LoadingBar";
 import CardList from "../../components/UI/Media/CardList";
-import Filters from "./Filters";
-import BulkMedia from "./BulkMedia";
+import TextInput from "../../components/UI/TextInput";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
+import { mediaTypeType } from "../../constants/types";
+import { searchTypes } from "../../constants";
+import { useDebounce } from "../../hooks/useDebounce";
 import { generateYearOptions } from "../../lib/helpers";
 import { getGenreList } from "../../lib/api/media";
+import { getSearchResults } from "../../lib/api";
+import Filters from "./Filters";
+import BulkMedia from "./BulkMedia";
 import MobileHeader from "./MobileHeader";
-import { searchTypes } from "../../constants";
 import Staff from "./Pages/Staff";
 import Users from "./Pages/Users";
 import Studios from "./Pages/Studios";
-import { mediaTypeType } from "../../constants/types";
-import { useLoadingBar } from "../../components/UI/LoadingBar";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -147,42 +148,47 @@ const Browse = () => {
   }
 
   return (
-    <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
-      <MobileHeader />
+    <>
+      <Helmet>
+        <title>Search {mediaType} · MovieList</title>
+      </Helmet>
+      <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
+        <MobileHeader />
 
-      {/* Filters */}
-      <div className="grid-cols-5 gap-4 grid px-4 md:px-0">
-        <div className="w-full col-span-4 md:col-span-1">
-          <div className={filterHeadingClasses}>Search</div>
-          <TextInput
-            {...{
-              value: query,
-              onChange: (e) => setQuery(e.target.value),
-              label: "",
-              name: "search",
-              type: "text",
-              classes: "bg-bgSecondary h-full py-4",
-            }}
-          />
+        {/* Filters */}
+        <div className="grid-cols-5 gap-4 grid px-4 md:px-0">
+          <div className="w-full col-span-4 md:col-span-1">
+            <div className={filterHeadingClasses}>Search</div>
+            <TextInput
+              {...{
+                value: query,
+                onChange: (e) => setQuery(e.target.value),
+                label: "",
+                name: "search",
+                type: "text",
+                classes: "bg-bgSecondary h-full py-4",
+              }}
+            />
+          </div>
+          <Filters {...{ filters }} />
         </div>
-        <Filters {...{ filters }} />
-      </div>
 
-      {(!results || !results.results) && <BulkMedia />}
+        {(!results || !results.results) && <BulkMedia />}
 
-      {isLoading && <Loading />}
-      {isError && <Error />}
+        {isLoading && <Loading />}
+        {isError && <Error />}
 
-      {results?.results?.length === 0 && (
-        <div className="px-60 text-center my-20">
-          <h2 className="text-4xl font-semibold">No Results</h2>
-        </div>
-      )}
+        {results?.results?.length === 0 && (
+          <div className="px-60 text-center my-20">
+            <h2 className="text-4xl font-semibold">No Results</h2>
+          </div>
+        )}
 
-      {results?.results?.length > 0 && (
-        <CardList {...{ items: results.results }} />
-      )}
-    </main>
+        {results?.results?.length > 0 && (
+          <CardList {...{ items: results.results }} />
+        )}
+      </main>
+    </>
   );
 };
 

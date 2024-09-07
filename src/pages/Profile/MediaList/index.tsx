@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Fuse from "fuse.js";
+import { Helmet } from "react-helmet-async";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
@@ -26,8 +27,9 @@ const MediaList = () => {
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");
 
+  const urlMediaType = pathArray[3].split("#")[0];
   const mediaType: mediaTypeType =
-    pathArray[3].split("#")[0] === "movielist" ? "movie" : "tv";
+    urlMediaType === "movielist" ? "movie" : "tv";
   const allowedList = pathArray[4] ? pathArray[4] : "all";
 
   const { data: entries, isError } = useQuery<Entry[]>({
@@ -173,61 +175,68 @@ const MediaList = () => {
   }
 
   return (
-    <LowerLayout
-      {...{
-        left: (
-          <FilterMenu
-            {...{
-              filters,
-              onFilterChange: handleFilterChange,
-              countryOptions,
-              genreOptions,
-            }}
-          />
-        ),
-        right: (
-          <div className="flex flex-col">
-            {filteredEntries && filteredEntries.length > 0 ? (
-              <>
-                <div className="self-end">Buttons</div>
-                <MediaListGroup
-                  {...{
-                    entries: groupedEntries.watching,
-                    listType: "Watching",
-                  }}
-                />
-                <MediaListGroup
-                  {...{
-                    entries: groupedEntries.planning,
-                    listType: "Planning",
-                  }}
-                />
-                <MediaListGroup
-                  {...{
-                    entries: groupedEntries.completed,
-                    listType: "Completed",
-                  }}
-                />
-                <MediaListGroup
-                  {...{
-                    entries: groupedEntries.paused,
-                    listType: "Paused",
-                  }}
-                />
-                <MediaListGroup
-                  {...{
-                    entries: groupedEntries.dropped,
-                    listType: "Dropped",
-                  }}
-                />
-              </>
-            ) : (
-              <h3 className="text-2xl">No entries found</h3>
-            )}
-          </div>
-        ),
-      }}
-    />
+    <>
+      <Helmet>
+        <title>
+          {username}'s {urlMediaType} · MovieList
+        </title>
+      </Helmet>
+      <LowerLayout
+        {...{
+          left: (
+            <FilterMenu
+              {...{
+                filters,
+                onFilterChange: handleFilterChange,
+                countryOptions,
+                genreOptions,
+              }}
+            />
+          ),
+          right: (
+            <div className="flex flex-col">
+              {filteredEntries && filteredEntries.length > 0 ? (
+                <>
+                  <div className="self-end">Buttons</div>
+                  <MediaListGroup
+                    {...{
+                      entries: groupedEntries.watching,
+                      listType: "Watching",
+                    }}
+                  />
+                  <MediaListGroup
+                    {...{
+                      entries: groupedEntries.planning,
+                      listType: "Planning",
+                    }}
+                  />
+                  <MediaListGroup
+                    {...{
+                      entries: groupedEntries.completed,
+                      listType: "Completed",
+                    }}
+                  />
+                  <MediaListGroup
+                    {...{
+                      entries: groupedEntries.paused,
+                      listType: "Paused",
+                    }}
+                  />
+                  <MediaListGroup
+                    {...{
+                      entries: groupedEntries.dropped,
+                      listType: "Dropped",
+                    }}
+                  />
+                </>
+              ) : (
+                <h3 className="text-2xl">No entries found</h3>
+              )}
+            </div>
+          ),
+        }}
+      />
+    </>
   );
 };
 

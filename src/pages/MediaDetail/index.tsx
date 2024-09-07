@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 import { getMediaDetail } from "../../lib/api";
 import LowerLayout from "../../components/UI/LowerLayout";
@@ -52,6 +53,9 @@ const MediaDetail = () => {
     enabled: mediaid && mediaType ? true : false,
   });
 
+  const title = (mediaDetails as MovieDetail)?.title;
+  const name = (mediaDetails as TvDetail)?.name;
+
   if (isError) {
     navigate("/404");
   }
@@ -67,25 +71,30 @@ const MediaDetail = () => {
   }
 
   return (
-    <main>
-      {mediaDetails && (
-        <>
-          {/* Image and overview */}
-          <TopSection />
-          {/* Rest of the details */}
-          <LowerLayout
-            {...{
-              left: <LeftSection />,
-              right: <Outlet />,
-            }}
-          />
+    <>
+      <Helmet>
+        <title>{mediaType === "movie" ? title : name} · MovieList</title>
+      </Helmet>
+      <main>
+        {mediaDetails && (
+          <>
+            {/* Image and overview */}
+            <TopSection />
+            {/* Rest of the details */}
+            <LowerLayout
+              {...{
+                left: <LeftSection />,
+                right: <Outlet />,
+              }}
+            />
 
-          <div className="block md:hidden px-12">
-            <Tags {...{ mediaid: Number(mediaid), mediaType }} />
-          </div>
-        </>
-      )}
-    </main>
+            <div className="block md:hidden px-12">
+              <Tags {...{ mediaid: Number(mediaid), mediaType }} />
+            </div>
+          </>
+        )}
+      </main>
+    </>
   );
 };
 

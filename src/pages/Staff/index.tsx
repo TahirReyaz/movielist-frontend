@@ -11,6 +11,7 @@ import { tmdbImgEndPoint, translateGender } from "../../constants/tmdb";
 import TopSection from "./TopSection";
 import Credits from "./Credits";
 import { PersonDetail } from "../../constants/types/media";
+import { Helmet } from "react-helmet-async";
 
 const Staff = () => {
   const { staffid } = useParams();
@@ -40,62 +41,69 @@ const Staff = () => {
   }
 
   return (
-    <main>
-      {staff && <TopSection {...{ name: staff.name, id: staff.id }} />}
-      {staff && (
-        <div className="px-12 md:px-24">
-          <div className="px:0 md:px-8 grid grid-cols-1 md:grid-cols-5">
-            <div className="px-20 md:px-0">
-              <img
-                src={
-                  staff.profile_path
-                    ? `${tmdbImgEndPoint}${staff.profile_path}`
-                    : userAvatar
-                }
-                alt={staff.name}
-                className="rounded -mt-28"
-              />
-            </div>
-            <div className="col-span-4 ps-0 md:ps-20 pt-8">
-              {/* Detail fields */}
-              <div className="mb-8">
-                <DetailSection {...{ title: "Birth", value: staff.birthday }} />
-                <DetailSection {...{ title: "Age", value: "" }} />
-                <DetailSection
-                  {...{
-                    title: "Gender",
-                    value: translateGender[staff.gender],
-                  }}
-                />
-                <DetailSection {...{ title: "Years active", value: "" }} />
-                <DetailSection
-                  {...{
-                    title: "Hometown",
-                    value: staff.place_of_birth,
-                  }}
+    <>
+      <Helmet>
+        <title>{staff?.name} · MovieList</title>
+      </Helmet>
+      <main>
+        {staff && <TopSection {...{ name: staff.name, id: staff.id }} />}
+        {staff && (
+          <div className="px-12 md:px-24">
+            <div className="px:0 md:px-8 grid grid-cols-1 md:grid-cols-5">
+              <div className="px-20 md:px-0">
+                <img
+                  src={
+                    staff.profile_path
+                      ? `${tmdbImgEndPoint}${staff.profile_path}`
+                      : userAvatar
+                  }
+                  alt={staff.name}
+                  className="rounded -mt-28"
                 />
               </div>
-              {/* Links */}
-              {staff.homepage && (
+              <div className="col-span-4 ps-0 md:ps-20 pt-8">
+                {/* Detail fields */}
                 <div className="mb-8">
-                  <Link
-                    to={staff.homepage}
-                    className="text-actionPrimary text-[1.4rem]"
-                  >
-                    Homepage
-                  </Link>
+                  <DetailSection
+                    {...{ title: "Birth", value: staff.birthday }}
+                  />
+                  <DetailSection {...{ title: "Age", value: "" }} />
+                  <DetailSection
+                    {...{
+                      title: "Gender",
+                      value: translateGender[staff.gender],
+                    }}
+                  />
+                  <DetailSection {...{ title: "Years active", value: "" }} />
+                  <DetailSection
+                    {...{
+                      title: "Hometown",
+                      value: staff.place_of_birth,
+                    }}
+                  />
                 </div>
-              )}
-              {/* Bio */}
-              <div className="mb-8 text-[1.4rem]">{staff.biography}</div>
-              {/* Awards */}
-              <div></div>
+                {/* Links */}
+                {staff.homepage && (
+                  <div className="mb-8">
+                    <Link
+                      to={staff.homepage}
+                      className="text-actionPrimary text-[1.4rem]"
+                    >
+                      Homepage
+                    </Link>
+                  </div>
+                )}
+                {/* Bio */}
+                <div className="mb-8 text-[1.4rem]">{staff.biography}</div>
+                {/* Awards */}
+                <div></div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      {staffid && <Credits {...{ id: staffid }} />}
-    </main>
+        )}
+        {staffid && <Credits {...{ id: staffid }} />}
+      </main>
+    </>
   );
 };
 

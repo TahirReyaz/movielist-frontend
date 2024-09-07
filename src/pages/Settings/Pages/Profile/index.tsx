@@ -4,6 +4,7 @@ import ComingSoon from "../../../ComingSoon";
 import Avatar from "./Avatar";
 import About from "./About";
 import Banner from "./Banner";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const sections = [
@@ -37,15 +38,24 @@ const Profile = () => {
   ];
 
   return (
-    <div className="bg-anilist-mirage rounded-lg p-8">
-      {sections.map((section) => (
-        <div key={section.title} className="mb-8">
-          <h2 className="text-[1.4rem] font-semibold mb-4">{section.title}</h2>
-          {section.label && <div className="text-xl mb-4">{section.label}</div>}
-          {section.element}
-        </div>
-      ))}
-    </div>
+    <>
+      <Helmet>
+        <title>User Profile Settings · MovieList</title>
+      </Helmet>
+      <div className="bg-anilist-mirage rounded-lg p-8">
+        {sections.map((section) => (
+          <div key={section.title} className="mb-8">
+            <h2 className="text-[1.4rem] font-semibold mb-4">
+              {section.title}
+            </h2>
+            {section.label && (
+              <div className="text-xl mb-4">{section.label}</div>
+            )}
+            {section.element}
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

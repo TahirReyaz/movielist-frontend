@@ -6,6 +6,7 @@ import { Activity as ActivityType } from "../constants/types/activity";
 import { getActivity } from "../lib/api/activity";
 import Loading from "../components/UI/Loading";
 import ActivityComponent from "../components/Activity";
+import { Helmet } from "react-helmet-async";
 
 const Activity = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,15 +35,20 @@ const Activity = () => {
     navigate("/404");
   }
 
-  return (
-    <main className="px-12 md:px-56 pt-12 min-h-[50vh]">
-      {activity && id && (
-        <ActivityComponent
-          {...{ ...activity, location: "page", queryKey: ["activity", id] }}
-        />
-      )}
-    </main>
-  );
+  if (activity && id) {
+    return (
+      <>
+        <Helmet>
+          <title>{activity.owner.username}'s Activity · MovieList</title>
+        </Helmet>
+        <main className="px-12 md:px-56 pt-12 min-h-[60vh]">
+          <ActivityComponent
+            {...{ ...activity, location: "page", queryKey: ["activity", id] }}
+          />
+        </main>
+      </>
+    );
+  }
 };
 
 export default Activity;

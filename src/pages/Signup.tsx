@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import TextInput from "../components/UI/TextInput";
 import Button from "../components/UI/Button";
@@ -95,83 +96,88 @@ const Signup = () => {
   };
 
   return (
-    <main className="sm:h-auto sm:w-5/12 bg-bgForeground m-0 sm:my-16 sm:m-auto rounded px-20 py-16">
-      <h1 className="text-4xl font-semibold text-center mb-24">
-        Sign up to MovieList
-      </h1>
-      <form
-        className="flex flex-col align-center justify-center"
-        onSubmit={handleSubmit}
-      >
-        <TextInput
-          {...{
-            label: "Email",
-            type: "email",
-            name: "email",
-            value: values.email,
-            onChange: handleChange,
-            divClasses: "my-4",
-          }}
-        />
-        <TextInput
-          {...{
-            label: "Username",
-            type: "text",
-            name: "username",
-            value: values.username,
-            onChange: handleChange,
-            divClasses: "my-4",
-          }}
-        />
-        <TextInput
-          {...{
-            label: "Password",
-            type: "password",
-            name: "password",
-            value: values.password,
-            onChange: handleChange,
-            divClasses: "my-4",
-          }}
-        />
-        <TextInput
-          {...{
-            label: "Confirm Password",
-            type: "password",
-            name: "confirmPassword",
-            value: values.confirmPassword,
-            onChange: handleChange,
-            divClasses: "my-4",
-          }}
-        />
-        <div className="flex items-center justify-center my-12">
-          <input type="checkbox" />
-          <span className="ms-4">
-            You agree to our{" "}
-            <Link to="/terms" className="hover:text-actionPrimary">
-              terms of service
-            </Link>
-          </span>
-        </div>
-        <div className="w-1/4 self-center my-4">
-          <Button
+    <>
+      <Helmet>
+        <title>Signup · MovieList</title>
+      </Helmet>
+      <main className="sm:h-auto sm:w-5/12 bg-bgForeground m-0 sm:my-16 sm:m-auto rounded px-20 py-16">
+        <h1 className="text-4xl font-semibold text-center mb-24">
+          Sign up to MovieList
+        </h1>
+        <form
+          className="flex flex-col align-center justify-center"
+          onSubmit={handleSubmit}
+        >
+          <TextInput
             {...{
-              type: "submit",
-              title: "Sign up",
-              classes: "px-0 py-4",
+              label: "Email",
+              type: "email",
+              name: "email",
+              value: values.email,
+              onChange: handleChange,
+              divClasses: "my-4",
             }}
           />
-        </div>
-      </form>
-      <p className="text-xl text-center mt-24">
-        <Link to="/login" className="hover:text-actionPrimary">
-          Login
-        </Link>{" "}
-        ·{" "}
-        <Link to="#" className="hover:text-actionPrimary">
-          Resend Verification Email
-        </Link>
-      </p>
-    </main>
+          <TextInput
+            {...{
+              label: "Username",
+              type: "text",
+              name: "username",
+              value: values.username,
+              onChange: handleChange,
+              divClasses: "my-4",
+            }}
+          />
+          <TextInput
+            {...{
+              label: "Password",
+              type: "password",
+              name: "password",
+              value: values.password,
+              onChange: handleChange,
+              divClasses: "my-4",
+            }}
+          />
+          <TextInput
+            {...{
+              label: "Confirm Password",
+              type: "password",
+              name: "confirmPassword",
+              value: values.confirmPassword,
+              onChange: handleChange,
+              divClasses: "my-4",
+            }}
+          />
+          <div className="flex items-center justify-center my-12">
+            <input type="checkbox" />
+            <span className="ms-4">
+              You agree to our{" "}
+              <Link to="/terms" className="hover:text-actionPrimary">
+                terms of service
+              </Link>
+            </span>
+          </div>
+          <div className="w-1/4 self-center my-4">
+            <Button
+              {...{
+                type: "submit",
+                title: "Sign up",
+                classes: "px-0 py-4",
+              }}
+            />
+          </div>
+        </form>
+        <p className="text-xl text-center mt-24">
+          <Link to="/login" className="hover:text-actionPrimary">
+            Login
+          </Link>{" "}
+          ·{" "}
+          <Link to="#" className="hover:text-actionPrimary">
+            Resend Verification Email
+          </Link>
+        </p>
+      </main>
+    </>
   );
 };
 

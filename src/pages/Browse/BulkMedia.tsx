@@ -10,6 +10,7 @@ import CardList from "../../components/UI/Media/CardList";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
 import Button from "../../components/UI/Button";
+import { Helmet } from "react-helmet-async";
 
 type SearchMediaParams = {
   mediaType: mediaTypeType;
@@ -86,13 +87,20 @@ const BulkMedia = () => {
   if (bulkType && bulkResults) {
     const content = bulkResults?.pages.flat();
     return (
-      <div>
-        <div className="flex justify-end my-8">
-          <div className="">Layout and sorting</div>
+      <>
+        <Helmet>
+          <title>
+            {bulkType} {mediaType} · MovieList
+          </title>
+        </Helmet>
+        <div>
+          <div className="flex justify-end my-8">
+            <div className="">Layout and sorting</div>
+          </div>
+          <CardList {...{ items: content, innerRef: intersectionRef }} />
+          {isFetchingNextPage && <Loading title="Loading More..." />}
         </div>
-        <CardList {...{ items: content, innerRef: intersectionRef }} />
-        {isFetchingNextPage && <Loading title="Loading More..." />}
-      </div>
+      </>
     );
   }
 
