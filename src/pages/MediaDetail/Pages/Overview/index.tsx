@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation, useParams } from "react-router-dom";
 
 import Characters from "./Characters";
 import Relations from "./Relations";
@@ -10,7 +11,6 @@ import Recommendations from "./Recommendations";
 import Threads from "./Threads";
 import Reviews from "./Reviews";
 import { MovieDetail, TvDetail } from "../../../../constants/types/media";
-import { useLocation, useParams } from "react-router-dom";
 import { mediaTypeType } from "../../../../constants/types";
 
 const Overview = () => {
@@ -33,7 +33,17 @@ const Overview = () => {
           </div>
         </div>
       )}
-      <Relations />
+      {mediaType === "movie" &&
+        (mediaDetails as MovieDetail)?.belongs_to_collection?.id && (
+          <Relations
+            {...{
+              mediaid: Number(mediaid),
+              collectionId: (mediaDetails as MovieDetail)?.belongs_to_collection
+                ?.id,
+              mediaType,
+            }}
+          />
+        )}
       <Characters {...{ mediaid: Number(mediaid), mediaType }} />
       <Staff />
       <StatusDistribution />

@@ -46,3 +46,15 @@ export const getGenreList = async (mediaType: mediaTypeType) => {
     throw new Error(error);
   }
 };
+
+export async function getMediaRelations(mediaid: number, collectionId: number) {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/media/${mediaid}/relations/${collectionId}`
+    );
+    const media = response.data;
+    return media;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
