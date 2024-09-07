@@ -11,7 +11,7 @@ const DetailsCard = ({
   return (
     <div className="flex flex-col justify-between bg-anilist-mirage rounded-e-md p-4 h-full">
       <h2 className="text-2xl">{title}</h2>
-      <p className="text-xl">{releaseYear}</p>
+      <p className="text-xl font-light">{releaseYear}</p>
     </div>
   );
 };
