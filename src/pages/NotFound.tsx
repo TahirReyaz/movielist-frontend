@@ -4,7 +4,7 @@ const NotFound = () => {
   return (
     <>
       <Helmet>
-        <title>MovieList</title>
+        <title>{"MovieList"}</title>
       </Helmet>
       <div className="pt-4 px-60  min-h-[60vh]">
         <h1 className="text-3xl font-semibold text-center my-16">

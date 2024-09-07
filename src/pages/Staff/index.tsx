@@ -47,7 +47,7 @@ const Staff = () => {
   return (
     <>
       <Helmet>
-        <title>{staff?.name} · MovieList</title>
+        <title>{`${staff?.name} · MovieList`}</title>
       </Helmet>
       <main>
         {staff && staff.id && (

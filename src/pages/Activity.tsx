@@ -39,7 +39,7 @@ const Activity = () => {
     return (
       <>
         <Helmet>
-          <title>{activity.owner.username}'s Activity · MovieList</title>
+          <title>{`${activity.owner.username}'s Activity · MovieList`}</title>
         </Helmet>
         <main className="px-12 md:px-56 pt-12 min-h-[60vh]">
           <ActivityComponent

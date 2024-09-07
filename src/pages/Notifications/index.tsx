@@ -12,7 +12,7 @@ const Notifications = () => {
   return (
     <>
       <Helmet>
-        <title>Notifications · MovieList</title>
+        <title>{"Notifications · MovieList"}</title>
       </Helmet>
       <LowerLayout
         {...{

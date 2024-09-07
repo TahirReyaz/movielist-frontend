@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Home · MovieList</title>
+        <title>{"Home · MovieList"}</title>
       </Helmet>
       {isLoggedIn ? <HomeAuth /> : <HomeNoAuth />}
     </>

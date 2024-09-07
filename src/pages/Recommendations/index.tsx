@@ -7,7 +7,7 @@ const Recommendations = () => {
   return (
     <>
       <Helmet>
-        <title>Recommendations · MovieList</title>
+        <title>{"Recommendations · MovieList"}</title>
       </Helmet>
       <div className="pt-12 px-8 md:px-60  min-h-[60vh]">
         <h1 className="text-5xl font-medium text-center mb-16">

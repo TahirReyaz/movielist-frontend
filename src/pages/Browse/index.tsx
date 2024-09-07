@@ -150,7 +150,7 @@ const Browse = () => {
   return (
     <>
       <Helmet>
-        <title>Search {mediaType} · MovieList</title>
+        <title>{`Search ${mediaType} · MovieList`}</title>
       </Helmet>
       <main className="pt-12 md:pt-28 px-4 sm:pt-20 sm:px-56">
         <MobileHeader />

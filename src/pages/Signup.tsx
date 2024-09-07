@@ -98,7 +98,7 @@ const Signup = () => {
   return (
     <>
       <Helmet>
-        <title>Signup · MovieList</title>
+        <title>{"Signup · MovieList"}</title>
       </Helmet>
       <main className="sm:h-auto sm:w-5/12 bg-bgForeground m-0 sm:my-16 sm:m-auto rounded px-20 py-16">
         <h1 className="text-4xl font-semibold text-center mb-24">

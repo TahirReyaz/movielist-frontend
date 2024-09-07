@@ -7,7 +7,7 @@ const SubmissionManual = () => {
   return (
     <>
       <Helmet>
-        <title>Submission Manual · MovieList</title>
+        <title>{"Submission Manual · MovieList"}</title>
       </Helmet>
       <div className="pt-12 px-8 md:px-60  min-h-[60vh]">
         <h1 className="text-5xl font-medium text-center mb-16">

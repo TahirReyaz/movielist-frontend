@@ -73,7 +73,7 @@ const MediaDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{mediaType === "movie" ? title : name} · MovieList</title>
+        <title>{`${mediaType === "movie" ? title : name} · MovieList`}</title>
         {mediaDetails?.overview && (
           <meta
             name="description"

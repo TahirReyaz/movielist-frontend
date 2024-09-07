@@ -62,7 +62,7 @@ const Profile = () => {
   return (
     <>
       <Helmet>
-        <title>{username}'s profile · MovieList</title>
+        <title>{`${username}'s profile · MovieList`}</title>
       </Helmet>
       <main>
         <TopSection />

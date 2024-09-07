@@ -40,7 +40,7 @@ const Profile = () => {
   return (
     <>
       <Helmet>
-        <title>User Profile Settings · MovieList</title>
+        <title>{"User Profile Settings · MovieList"}</title>
       </Helmet>
       <div className="bg-anilist-mirage rounded-lg p-8">
         {sections.map((section) => (

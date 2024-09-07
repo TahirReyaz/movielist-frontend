@@ -92,7 +92,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>MovieList</title>
+        <title>{"MovieList"}</title>
         <meta name="descriptioin" content="" />
         <link rel="canonical" href="https://movielist-tahir.netlify.app/" />
       </Helmet>
