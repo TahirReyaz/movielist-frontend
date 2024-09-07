@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 import "react-toastify/dist/ReactToastify.css";
+import logo from "./assets/logo-bg.png";
 
 import Layout from "./Layout";
 import Home from "./pages/Home";
@@ -41,7 +43,7 @@ import { getUserDetail } from "./lib/api";
 import { logoutAction, saveUser } from "./store/AuthSlice";
 import Overview from "./pages/MediaDetail/Pages/Overview";
 import Activity from "./pages/Activity";
-import { Helmet } from "react-helmet-async";
+import { frontendUrl } from "./constants";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -93,8 +95,18 @@ const App = () => {
     <>
       <Helmet>
         <title>{"MovieList"}</title>
-        <meta name="descriptioin" content="" />
-        <link rel="canonical" href="https://movielist-tahir.netlify.app/" />
+        <meta
+          name="description"
+          content="Track, discover and share movies and shows"
+        />
+        <link rel="canonical" href={frontendUrl} />
+        <meta name="og:image" content={`${frontendUrl}${logo}`} />
+        <meta name="og:title" content={`MovieList`} />
+        <meta name="og:url" content={`${frontendUrl}`} />
+        <meta
+          name="og:description"
+          content={"Track, discover and share movies and shows"}
+        />
       </Helmet>
       <div className="bg-bgTertiary text-textPrimary font-sans relative">
         <BrowserRouter>

@@ -2,6 +2,8 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
+import logo from "../../assets/logo-bg.png";
+
 import { frontendUrl } from "../../constants";
 
 interface Props {
@@ -19,6 +21,13 @@ const MetaTags = ({ title, description }: Props) => {
         <meta name="description" content={description.slice(0, 150)} />
       )}
       <link rel="canonical" href={`${frontendUrl}${pathname}`} />
+      <meta name="og:image" content={`${frontendUrl}${logo}`} />
+      <meta name="og:title" content={`${title}`} />
+      <meta name="og:url" content={`${frontendUrl}${pathname}`} />
+      <meta
+        name="og:description"
+        content={description ? description.slice(0, 150) : "MovieList"}
+      />
     </Helmet>
   );
 };
