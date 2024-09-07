@@ -100,11 +100,12 @@ const App = () => {
           content="Track, discover and share movies and shows"
         />
         <link rel="canonical" href={frontendUrl} />
-        <meta name="og:image" content={`${frontendUrl}${logo}`} />
-        <meta name="og:title" content={`MovieList`} />
-        <meta name="og:url" content={`${frontendUrl}`} />
+        <meta property="og:image" content={`${frontendUrl}${logo}`} />
+        <meta property="og:title" content={`MovieList`} />
+        <meta property="og:url" content={`${frontendUrl}`} />
+        <meta property="og:type" content="website" />
         <meta
-          name="og:description"
+          property="og:description"
           content={"Track, discover and share movies and shows"}
         />
       </Helmet>

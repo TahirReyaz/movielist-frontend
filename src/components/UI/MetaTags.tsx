@@ -21,11 +21,11 @@ const MetaTags = ({ title, description }: Props) => {
         <meta name="description" content={description.slice(0, 150)} />
       )}
       <link rel="canonical" href={`${frontendUrl}${pathname}`} />
-      <meta name="og:image" content={`${frontendUrl}${logo}`} />
-      <meta name="og:title" content={`${title}`} />
-      <meta name="og:url" content={`${frontendUrl}${pathname}`} />
+      <meta property="og:image" content={`${frontendUrl}${logo}`} />
+      <meta property="og:title" content={`${title}`} />
+      <meta property="og:url" content={`${frontendUrl}${pathname}`} />
       <meta
-        name="og:description"
+        property="og:description"
         content={description ? description.slice(0, 150) : "MovieList"}
       />
     </Helmet>
