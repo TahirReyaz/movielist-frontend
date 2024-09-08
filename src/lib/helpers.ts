@@ -1,4 +1,4 @@
-import { Option } from "../constants/types";
+import { Option, mediaTypeType } from "../constants/types";
 import { Entry } from "../constants/types/entry";
 import { MediaDetailGenre, ProductionCountry } from "../constants/types/media";
 import { StatType } from "../constants/types/stats";
@@ -43,9 +43,13 @@ export const updateList = (lists: any, allowedList: string) => {
   return newList;
 };
 
-export const findExistingEntry = (userData: any, mediaid: string) => {
+export const findExistingEntry = (
+  entries: any,
+  mediaid: string,
+  mediaType: mediaTypeType
+) => {
   let existingEntry;
-  existingEntry = userData?.entries?.find(
+  existingEntry = entries?.[mediaType]?.find(
     (entry: any) => entry.mediaid == mediaid
   );
   return existingEntry;

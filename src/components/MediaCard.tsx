@@ -10,6 +10,8 @@ import { findExistingEntry } from "../lib/helpers";
 import { statusColors } from "../constants";
 import StatusDot from "./UI/StatusDot";
 import { useAppSelector } from "../hooks/redux";
+import { mediaTypeType } from "../constants/types";
+import { useQuery } from "@tanstack/react-query";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -17,12 +19,22 @@ export interface MediaItemProps {
 }
 
 const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
-  const { isLoggedIn, profileData } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, username } = useAppSelector((state) => state.auth);
   const [hover, setHover] = useState<boolean>(false);
 
-  const existingEntry = findExistingEntry(profileData, mediaDetails.id);
+  const { data: user } = useQuery<{ entries: any }>({
+    queryKey: ["user", username],
+    enabled: username && username.length > 0 ? true : false,
+  });
 
-  const mediaType = mediaDetails.first_air_date ? "tv" : "movie";
+  const mediaType: mediaTypeType = mediaDetails.first_air_date ? "tv" : "movie";
+
+  // Used determine the colour of the dot
+  const existingEntry = findExistingEntry(
+    user?.entries,
+    mediaDetails.id,
+    mediaType
+  );
 
   return (
     <Link to={`/${mediaType}/${mediaDetails.id}`}>
