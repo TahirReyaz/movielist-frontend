@@ -109,18 +109,19 @@ const Navbar = () => {
                   alt="Avatar"
                   className="size-16 cursor-pointer rounded object-cover"
                 />
-                <FaAngleDown className="text-2xl" />
+                {unreadNotifs > 0 ? (
+                  <Link
+                    to={"/notifications"}
+                    className="size-8 flex items-center justify-center bg-anilist-mandy text-anilist-aqua_haze font-medium text-lg rounded-full"
+                  >
+                    {unreadNotifs}
+                  </Link>
+                ) : (
+                  <FaAngleDown className="text-2xl" />
+                )}
               </div>
             </Tippy>
             {/* Notification badge */}
-            {unreadNotifs > 0 && (
-              <Link
-                to={"/notifications"}
-                className="size-8 flex items-center justify-center bg-anilist-monza text-anilist-aqua_haze font-medium text-lg rounded-full"
-              >
-                {unreadNotifs}
-              </Link>
-            )}
           </div>
         )}
         {/* Routes for auth */}
