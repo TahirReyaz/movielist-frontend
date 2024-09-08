@@ -55,9 +55,9 @@ const Login = () => {
         setTimeout(() => {
           dispatch(
             loginAction({
-              username: response.profile.username,
+              username: response.username,
               token: response.token,
-              profile: response.profile,
+              profile: response,
             })
           );
         }, 3000);

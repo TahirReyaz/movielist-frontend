@@ -48,6 +48,7 @@ import { frontendUrl } from "./constants";
 const App = () => {
   const dispatch = useAppDispatch();
   const storedToken = localStorage.getItem("token");
+  const username = localStorage.getItem("username") || "";
   const token = storedToken ?? "";
 
   const isTokenPresent = token.length !== 0;
@@ -61,7 +62,7 @@ const App = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user", token],
+    queryKey: ["user", username],
     queryFn: () => sessionLogin(token),
     enabled: token && isTokenPresent ? true : false,
   });

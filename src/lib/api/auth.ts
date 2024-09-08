@@ -30,7 +30,6 @@ export const login = async (email: string, password: string) => {
       ...response.data,
       message: response.data.message,
       token: response.data.token,
-      profile: response.data,
     };
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
@@ -49,7 +48,6 @@ export const sessionLogin = async (sessionToken: string) => {
       ...response.data,
       message: response.data.message,
       token: response.data.token,
-      profile: response.data,
     };
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
