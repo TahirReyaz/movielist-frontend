@@ -39,7 +39,7 @@ import Recommendations from "./pages/Recommendations";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SubmissionManual from "./pages/SubmissionManual";
 import Error from "./components/UI/Error";
-import { getUserDetail } from "./lib/api";
+import { sessionLogin } from "./lib/api";
 import { logoutAction, saveUser } from "./store/AuthSlice";
 import Overview from "./pages/MediaDetail/Pages/Overview";
 import Activity from "./pages/Activity";
@@ -47,12 +47,12 @@ import { frontendUrl } from "./constants";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const storedUsername = localStorage.getItem("username");
-  const username = storedUsername ?? "";
+  const storedToken = localStorage.getItem("token");
+  const token = storedToken ?? "";
 
-  const isLoggedIn = username.length !== 0;
+  const isTokenPresent = token.length !== 0;
 
-  if (!isLoggedIn) {
+  if (!isTokenPresent) {
     dispatch(logoutAction());
   }
 
@@ -61,19 +61,20 @@ const App = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user", username],
-    queryFn: () => getUserDetail(username),
-    enabled: username && isLoggedIn ? true : false,
+    queryKey: ["user", token],
+    queryFn: () => sessionLogin(token),
+    enabled: token && isTokenPresent ? true : false,
   });
 
   useEffect(() => {
     if (user) {
       dispatch(
         saveUser({
-          username,
+          username: user.username,
           profile: user,
           userid: user._id,
           unreadNotifs: user.unreadNotifs,
+          ...user,
         })
       );
     }

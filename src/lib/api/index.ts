@@ -6,6 +6,7 @@ import {
 } from "../../constants/types";
 import { backendUrl } from "../../constants";
 import { newEntryType } from "../../constants/types/entry";
+import { sessionLogin, login, signup } from "./auth";
 
 export async function getBulkMedia(
   mediatype: mediaTypeType,
@@ -39,41 +40,6 @@ export async function getMediaDetail(mediatype: string, mediaid: number) {
     throw new Error(msg);
   }
 }
-
-export const signup = async (
-  email: string,
-  password: string,
-  username: string
-) => {
-  try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/auth/register`,
-      { email, password, username }
-    );
-    return { message: response.data.message };
-  } catch (error: any) {
-    const msg = error?.response?.data?.message;
-    throw new Error(msg);
-  }
-};
-
-export const login = async (email: string, password: string) => {
-  try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/auth/login`,
-      { email, password },
-      { withCredentials: true }
-    );
-    return {
-      message: response.data.message,
-      token: response.data.token,
-      profile: response.data._doc,
-    };
-  } catch (error: any) {
-    const error_msg = error?.response?.data?.message;
-    throw new Error(error_msg);
-  }
-};
 
 export const addEntry = async (body: newEntryType) => {
   try {
@@ -212,3 +178,5 @@ export async function followUser(targetUsername: string) {
     return error;
   }
 }
+
+export { sessionLogin, login, signup };
