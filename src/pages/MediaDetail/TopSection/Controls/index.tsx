@@ -12,32 +12,47 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toggleFav } from "../../../../lib/api/user";
 import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
-import { getUserEntryByMediaid } from "../../../../lib/api/entry";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
-import { Entry } from "../../../../constants/types/entry";
+import {
+  UserDocEntry,
+  UserDocEntryGroup,
+} from "../../../../constants/types/entry";
 import { mediaTypeType } from "../../../../constants/types";
+import { findExistingEntry } from "../../../../lib/helpers";
+import { UserFav } from "../../../../constants/types/user";
 
 const Controls = () => {
-  const { username, profileData: profile } = useAppSelector(
-    (state) => state.auth
-  );
+  const { username } = useAppSelector((state) => state.auth);
   const tippyRef = useRef(null);
 
   const { pathname } = useLocation();
-  const { mediaid } = useParams<{ mediaid: string }>();
+  const { mediaid: mediaidString } = useParams<{ mediaid: string }>();
+  let mediaid: number = 0;
+  if (mediaidString) {
+    mediaid = parseInt(mediaidString);
+  }
   const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 
-  const { data: existingEntry } = useQuery<Entry>({
-    queryKey: ["entry", username, mediaid],
-    queryFn: () => getUserEntryByMediaid(Number(mediaid)),
-    enabled: !!mediaid,
+  const { data: profile } = useQuery<{
+    entries: UserDocEntryGroup;
+    fav: UserFav;
+  }>({
+    queryKey: ["user", username],
+    enabled: username && username.length > 0 ? true : false,
   });
 
-  const isFav = profile?.fav[mediaType]?.includes(mediaid);
+  let existingEntry: UserDocEntry | undefined;
+  if (profile?.entries && mediaid) {
+    existingEntry = findExistingEntry(profile.entries, mediaid, mediaType);
+  }
+
+  const isFav = profile?.fav[mediaType as keyof UserFav]?.includes(
+    mediaid.toString()
+  );
   const status = existingEntry?.status;
   let title = "Add to list";
   if (status) {
@@ -82,7 +97,7 @@ const Controls = () => {
                   currentStatus: existingEntry?.status,
                   attrs,
                   setShowModal,
-                  existingEntry,
+                  existingEntryId: existingEntry?._id,
                   tippyRef,
                 }}
               />

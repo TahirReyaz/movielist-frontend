@@ -20,6 +20,17 @@ export type Entry = {
   updatedAt?: Date;
 };
 
+export type UserDocEntry = {
+  _id: string;
+  mediaid: number;
+  status: StatusType;
+};
+
+export type UserDocEntryGroup = {
+  movie: UserDocEntry[];
+  tv: UserDocEntry[];
+};
+
 export type EntryGroup = {
   planning: Entry[];
   watching: Entry[];

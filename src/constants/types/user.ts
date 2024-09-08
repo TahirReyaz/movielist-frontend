@@ -17,3 +17,10 @@ export type StaffStatItem = {
   timeWatched: number;
   list: StatListItem[];
 };
+
+export type UserFav = {
+  movie: string[];
+  tv: string[];
+  staff: string[];
+  prod_companies: string[];
+};

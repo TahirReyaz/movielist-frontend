@@ -32,7 +32,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
   // Used determine the colour of the dot
   const existingEntry = findExistingEntry(
     user?.entries,
-    mediaDetails.id,
+    Number(mediaDetails.id),
     mediaType
   );
 

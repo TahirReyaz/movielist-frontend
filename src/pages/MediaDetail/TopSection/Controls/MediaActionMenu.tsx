@@ -10,7 +10,6 @@ import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
-import { Entry } from "../../../../constants/types/entry";
 import { MovieDetail, TvDetail } from "../../../../constants/types/media";
 
 type listItemType = {
@@ -32,7 +31,7 @@ interface Props {
   currentStatus?: string;
   attrs: attrsType;
   setShowModal: Dispatch<SetStateAction<boolean>>;
-  existingEntry?: Entry;
+  existingEntryId?: string;
   tippyRef: any;
 }
 
@@ -40,7 +39,7 @@ const MediaActionMenu = ({
   currentStatus,
   attrs,
   setShowModal,
-  existingEntry,
+  existingEntryId,
   tippyRef,
 }: Props) => {
   const { username } = useAppSelector((state) => state.auth);
@@ -74,9 +73,9 @@ const MediaActionMenu = ({
     try {
       let response;
       loadingBar.current?.continuousStart();
-      if (existingEntry) {
+      if (existingEntryId) {
         response = await updateEntry({
-          id: existingEntry._id,
+          id: existingEntryId,
           status: listtype,
         });
       } else {
@@ -93,7 +92,7 @@ const MediaActionMenu = ({
 
       tippyRef?.current?._tippy.hide();
       queryClient.invalidateQueries({
-        queryKey: ["entry", username, mediaid],
+        queryKey: ["user", username],
       });
       showSuccessToast(response?.message);
     } catch (error: any) {
