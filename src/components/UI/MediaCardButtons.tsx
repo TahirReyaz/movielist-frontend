@@ -1,7 +1,6 @@
 import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import Tippy from "@tippyjs/react/headless";
-import { AiOutlinePlus } from "react-icons/ai";
 import { FaCalendar, FaCheck, FaPlus } from "react-icons/fa";
 import { IoPlay } from "react-icons/io5";
 import { IconType } from "react-icons";
@@ -24,7 +23,7 @@ interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   mediaid: number;
   mediaType: mediaTypeType;
-  entry?: Entry;
+  entryId?: string;
 }
 
 interface MenuButtonProps {
@@ -61,7 +60,7 @@ const MediaCardButtons = ({
   mediaDetails,
   mediaid,
   mediaType,
-  entry,
+  entryId,
 }: MediaCardButtonsProps) => {
   const { username } = useAppSelector((state) => state.auth);
 
@@ -77,8 +76,8 @@ const MediaCardButtons = ({
       mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
     try {
       let response;
-      if (entry) {
-        response = await updateEntry({ status, id: entry._id });
+      if (entryId) {
+        response = await updateEntry({ status, id: entryId });
       } else {
         response = await addEntry({
           mediaType,

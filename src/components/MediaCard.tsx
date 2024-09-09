@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import noImg from "../assets/no_img_long.jpg";
 
@@ -11,7 +12,7 @@ import { statusColors } from "../constants";
 import StatusDot from "./UI/StatusDot";
 import { useAppSelector } from "../hooks/redux";
 import { mediaTypeType } from "../constants/types";
-import { useQuery } from "@tanstack/react-query";
+import { UserDocEntry } from "../constants/types/entry";
 
 export interface MediaItemProps {
   mediaDetails: MediaDetailType;
@@ -29,8 +30,8 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
 
   const mediaType: mediaTypeType = mediaDetails.first_air_date ? "tv" : "movie";
 
-  // Used determine the colour of the dot
-  const existingEntry = findExistingEntry(
+  // Used determine the colour of the dot and the status of existing entry
+  const existingEntry: UserDocEntry | undefined = findExistingEntry(
     user?.entries,
     Number(mediaDetails.id),
     mediaType
@@ -59,7 +60,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
               mediaid: Number(mediaDetails.id),
               mediaDetails,
               mediaType,
-              entry: existingEntry,
+              entry: existingEntry?._id,
             }}
           />
         )}
