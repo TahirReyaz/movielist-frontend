@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { backendUrl } from "../../constants";
 import { mediaTypeType } from "../../constants/types";
 
-export async function getMediaTags(mediatype: string, mediaid: number) {
+export const getMediaTags = async (mediatype: string, mediaid: number) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/tags/${mediaid}`
@@ -13,13 +13,13 @@ export async function getMediaTags(mediatype: string, mediaid: number) {
   } catch (error: any) {
     throw new Error(error);
   }
-}
+};
 
-export async function getMediaMoreDetails(
+export const getMediaMoreDetails = async (
   mediatype: string,
   mediaid: number,
   detailType: string
-) {
+) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/${detailType}/${mediaid}`
@@ -29,7 +29,7 @@ export async function getMediaMoreDetails(
   } catch (error: any) {
     throw new Error(error);
   }
-}
+};
 
 export const getGenreList = async (mediaType: mediaTypeType) => {
   try {
@@ -47,7 +47,10 @@ export const getGenreList = async (mediaType: mediaTypeType) => {
   }
 };
 
-export async function getMediaRelations(mediaid: number, collectionId: number) {
+export const getMediaRelations = async (
+  mediaid: number,
+  collectionId: number
+) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/media/${mediaid}/relations/${collectionId}`
@@ -57,4 +60,4 @@ export async function getMediaRelations(mediaid: number, collectionId: number) {
   } catch (error: any) {
     throw new Error(error);
   }
-}
+};

@@ -38,6 +38,23 @@ export const getProfileActivities = async (
   }
 };
 
+export const getMediaActivities = async (mediaid: string, page: number = 1) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/activities/media/${mediaid}`,
+      {
+        params: {
+          page,
+        },
+      }
+    );
+    const activities = response.data.activities;
+    return activities;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const getActivityHistory = async (username: string) => {
   try {
     const response: AxiosResponse = await axios.get(

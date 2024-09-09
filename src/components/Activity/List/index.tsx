@@ -1,16 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import Loading from "../../../../../../components/UI/Loading";
-import Error from "../../../../../../components/UI/Error";
-import Activity from "../../../../../../components/Activity";
-import { Activity as ActivityType } from "../../../../../../constants/types/activity";
-import { getProfileActivities } from "../../../../../../lib/api/activity";
+import Loading from "../../UI/Loading";
+import Error from "../../UI/Error";
+import Activity from "../../Activity";
+import { Activity as ActivityType } from "../../../constants/types/activity";
 
-const List = () => {
-  const { username } = useParams();
+interface Props {
+  username: string;
+  queryKey: string[];
+  fetchFn: (pageParam: number) => Promise<any>;
+}
 
+const List = ({ username, queryKey, fetchFn }: Props) => {
   const {
     data: activityData,
     isLoading,
@@ -19,8 +21,8 @@ const List = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["activities", "user", username],
-    queryFn: ({ pageParam }) => getProfileActivities(username!, pageParam),
+    queryKey,
+    queryFn: ({ pageParam }) => fetchFn(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const nextPage = lastPage?.length ? allPages?.length + 1 : undefined;
@@ -49,18 +51,18 @@ const List = () => {
               key: activity._id,
               ...activity,
               location: "user",
-              queryKey: ["activities", "user", username],
+              queryKey,
             }}
           />
         ))}
-      {/* {(!activities || activities.length === 0) && (
-        <div className="bg-bgSecondary p-6">
-          <p className="text-[1.4rem] rounded">No global activity yet</p>
+      {(!activities || (activities && activities.length === 0)) && (
+        <div className="p-6">
+          <p className="text-[1.4rem] rounded">No activity yet</p>
         </div>
-      )} */}
+      )}
       {!isFetchingNextPage && hasNextPage && (
         <div
-          className="w-full text-center py-4 text-2xl font-medium bg-anilist-mirage my-4"
+          className="w-full text-center py-4 text-2xl font-medium bg-anilist-mirage my-4 cursor-pointer"
           onClick={hasNextPage ? () => fetchNextPage() : () => {}}
         >
           Load More

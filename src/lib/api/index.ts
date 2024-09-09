@@ -7,6 +7,7 @@ import {
 import { backendUrl } from "../../constants";
 import { newEntryType } from "../../constants/types/entry";
 import { sessionLogin, login, signup } from "./auth";
+import { getMediaActivities } from "./activity";
 
 export async function getBulkMedia(
   mediatype: mediaTypeType,
@@ -179,4 +180,4 @@ export async function followUser(targetUsername: string) {
   }
 }
 
-export { sessionLogin, login, signup };
+export { sessionLogin, login, signup, getMediaActivities };

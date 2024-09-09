@@ -1,8 +1,9 @@
 import React from "react";
 
 import NewActivity from "../../../../../components/Activity/NewActivity";
-import List from "./List";
 import { useAppSelector } from "../../../../../hooks/redux";
+import List from "../../../../../components/Activity/List";
+import { getProfileActivities } from "../../../../../lib/api/activity";
 
 const Activities = () => {
   const { isLoggedIn, username } = useAppSelector((state) => state.auth);
@@ -14,7 +15,13 @@ const Activities = () => {
       {isLoggedIn && username === profUsername && (
         <NewActivity {...{ location: "user" }} />
       )}
-      <List />
+      <List
+        {...{
+          username,
+          queryKey: ["activities", "user", username],
+          fetchFn: (pageParam) => getProfileActivities(username, pageParam),
+        }}
+      />
     </div>
   );
 };
