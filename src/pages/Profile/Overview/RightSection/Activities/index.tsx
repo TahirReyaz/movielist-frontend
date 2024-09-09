@@ -20,6 +20,7 @@ const Activities = () => {
           {...{
             queryKey: ["activities", "user", username],
             fetchFn: (pageParam) => getProfileActivities(username, pageParam),
+            location: "user",
           }}
         />
       )}

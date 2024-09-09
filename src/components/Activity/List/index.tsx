@@ -9,9 +9,10 @@ import { Activity as ActivityType } from "../../../constants/types/activity";
 interface Props {
   queryKey: string[];
   fetchFn: (pageParam: number) => Promise<any>;
+  location: string;
 }
 
-const List = ({ queryKey, fetchFn }: Props) => {
+const List = ({ queryKey, fetchFn, location }: Props) => {
   const {
     data: activityData,
     isLoading,
@@ -47,7 +48,7 @@ const List = ({ queryKey, fetchFn }: Props) => {
             {...{
               key: activity._id,
               ...activity,
-              location: "user",
+              location,
               queryKey,
             }}
           />

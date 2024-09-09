@@ -9,11 +9,13 @@ const Social = () => {
 
   return (
     <section>
+      <h2 className="text-2xl font-medium">Recent Activity</h2>
       {mediaid && (
         <List
           {...{
             queryKey: ["activities", "media", mediaid],
             fetchFn: (pageParam) => getMediaActivities(mediaid, pageParam),
+            location: "media",
           }}
         />
       )}
