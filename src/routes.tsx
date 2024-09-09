@@ -1,10 +1,11 @@
 import ComingSoon from "./pages/ComingSoon";
 import Genres from "./pages/Profile/Stats/Pages/Genres";
-import Characters from "./pages/MediaDetail/Pages/Characters";
 import Social from "./pages/Profile/Social";
 import Favourites from "./pages/Profile/Favourites";
 import Overview from "./pages/Profile/Stats/Pages/Overview";
+import Characters from "./pages/MediaDetail/Pages/Characters";
 import Staff from "./pages/MediaDetail/Pages/Staff";
+import MediaSocial from "./pages/MediaDetail/Pages/Social";
 import Tags from "./pages/Profile/Stats/Pages/Tags";
 import Cast from "./pages/Profile/Stats/Pages/Cast";
 import Crew from "./pages/Profile/Stats/Pages/Crew";
@@ -14,7 +15,7 @@ export const mediaSubRoutes = [
   { path: "characters", element: <Characters /> },
   { path: "staff", element: <Staff /> },
   { path: "stats", element: <ComingSoon /> },
-  { path: "social", element: <ComingSoon /> },
+  { path: "social", element: <MediaSocial /> },
 ];
 
 export const profileSubRoutes = [

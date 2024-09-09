@@ -7,12 +7,11 @@ import Activity from "../../Activity";
 import { Activity as ActivityType } from "../../../constants/types/activity";
 
 interface Props {
-  username: string;
   queryKey: string[];
   fetchFn: (pageParam: number) => Promise<any>;
 }
 
-const List = ({ username, queryKey, fetchFn }: Props) => {
+const List = ({ queryKey, fetchFn }: Props) => {
   const {
     data: activityData,
     isLoading,
@@ -28,7 +27,6 @@ const List = ({ username, queryKey, fetchFn }: Props) => {
       const nextPage = lastPage?.length ? allPages?.length + 1 : undefined;
       return nextPage;
     },
-    enabled: !!username,
   });
 
   const activities = activityData?.pages.flat();
@@ -42,8 +40,7 @@ const List = ({ username, queryKey, fetchFn }: Props) => {
 
   return (
     <div className="pt-4">
-      {username &&
-        activities &&
+      {activities &&
         activities.length > 0 &&
         activities.map((activity: ActivityType) => (
           <Activity
