@@ -20,6 +20,7 @@ import {
 import { mediaTypeType } from "../../../../constants/types";
 import { findExistingEntry } from "../../../../lib/helpers";
 import { UserFav } from "../../../../constants/types/user";
+import { MovieDetail, TvDetail } from "../../../../constants/types/media";
 
 const Controls = () => {
   const { username } = useAppSelector((state) => state.auth);
@@ -32,6 +33,10 @@ const Controls = () => {
     mediaid = parseInt(mediaidString);
   }
   const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+
+  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
+    queryKey: ["media", mediaType, mediaid],
+  });
 
   const [showModal, setShowModal] = useState<boolean>(false);
   const queryClient = useQueryClient();
@@ -80,37 +85,50 @@ const Controls = () => {
 
   return (
     <div className="grid grid-cols-[auto,35px] items-end col-span-2 w-full gap-4 mb-4">
-      <Button
-        title={title}
-        type="button"
-        onClick={() => setShowModal(true)}
-        endElement={
-          <Tippy
-            interactive={true}
-            placement="bottom-end"
-            arrow
-            trigger="click"
-            ref={tippyRef}
-            render={(attrs) => (
-              <MediaActionMenu
-                {...{
-                  currentStatus: existingEntry?.status,
-                  attrs,
-                  setShowModal,
-                  existingEntryId: existingEntry?._id,
-                  tippyRef,
-                }}
-              />
-            )}
-          >
-            <div className="bg-actionSecondary p-2 h-full rounded-r-lg grid justify-center items-center cursor-pointer">
-              <AiOutlineDown className="text-2xl" />
-            </div>
-          </Tippy>
-        }
-        classes="text-[1.4rem] font-normal"
-        divClasses="h-[max-content] font-normal"
-      />
+      {mediaDetails && (
+        <Button
+          title={title}
+          type="button"
+          onClick={() => setShowModal(true)}
+          endElement={
+            <Tippy
+              interactive={true}
+              placement="bottom-end"
+              arrow
+              trigger="click"
+              ref={tippyRef}
+              render={(attrs) => (
+                <div {...attrs}>
+                  <MediaActionMenu
+                    {...{
+                      currentStatus: existingEntry?.status,
+                      setShowModal,
+                      existingEntryId: existingEntry?._id,
+                      tippyRef,
+                      mediaType,
+                      mediaDetails: {
+                        title:
+                          (mediaDetails as MovieDetail).title ??
+                          (mediaDetails as TvDetail).name,
+                        status: mediaDetails.status ?? "Released",
+                        poster_path: mediaDetails.poster_path ?? "",
+                        backdrop_path: mediaDetails.backdrop_path ?? "",
+                        id: mediaDetails.id,
+                      },
+                    }}
+                  />
+                </div>
+              )}
+            >
+              <div className="bg-actionSecondary p-2 h-full rounded-r-lg grid justify-center items-center cursor-pointer">
+                <AiOutlineDown className="text-2xl" />
+              </div>
+            </Tippy>
+          }
+          classes="text-[1.4rem] font-normal"
+          divClasses="h-[max-content] font-normal"
+        />
+      )}
       <div
         className="p-2 bg-favRed rounded grid items-center justify-center cursor-pointer h-fit md:h-full"
         onClick={() => handleFavToggle(!isFav)}

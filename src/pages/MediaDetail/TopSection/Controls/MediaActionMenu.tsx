@@ -1,26 +1,20 @@
 import react from "react";
 import { Dispatch, SetStateAction } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useLocation, useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { addEntry } from "../../../../lib/api";
 import { StatusType, mediaTypeType } from "../../../../constants/types";
-import { attrsType } from "../../../../Layout/Navbar/BrowseDropdownMenu";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
-import { MovieDetail, TvDetail } from "../../../../constants/types/media";
 
 type listItemType = {
   title: string;
   status: StatusType;
 };
 const menuItems: listItemType[] = [
-  {
-    title: "Set as Planning",
-    status: "planning",
-  },
+  { title: "Set as Planning", status: "planning" },
   { title: "Set as Watching", status: "watching" },
   { title: "Set as Paused", status: "paused" },
   { title: "Set as Dropped", status: "dropped" },
@@ -29,30 +23,31 @@ const menuItems: listItemType[] = [
 
 interface Props {
   currentStatus?: string;
-  attrs: attrsType;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   existingEntryId?: string;
   tippyRef: any;
+  mediaType: mediaTypeType;
+  mediaDetails: {
+    poster_path: string;
+    backdrop_path: string;
+    status: string;
+    title: string;
+    id: number;
+  };
 }
 
 const MediaActionMenu = ({
   currentStatus,
-  attrs,
   setShowModal,
   existingEntryId,
   tippyRef,
+  mediaDetails,
+  mediaType,
 }: Props) => {
   const { username } = useAppSelector((state) => state.auth);
-  const { pathname } = useLocation();
-  const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
-
-  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
-    queryKey: ["media", mediaType, mediaid],
-  });
 
   let list = menuItems;
   if (mediaDetails && mediaDetails.status === "Post Production") {
@@ -81,7 +76,7 @@ const MediaActionMenu = ({
       } else {
         response = await addEntry({
           mediaType,
-          mediaid: Number(mediaid),
+          mediaid: mediaDetails.id,
           status: listtype,
           title,
           poster,
@@ -104,10 +99,7 @@ const MediaActionMenu = ({
   };
 
   return (
-    <ul
-      className="*:px-4 *:py-2 bg-white text-textLighter text-center text-2xl rounded py-2"
-      {...attrs}
-    >
+    <ul className="*:px-4 *:py-2 py-2 bg-white text-textLighter text-center text-2xl rounded w-fit">
       {mediaDetails &&
         list
           .filter((item) => item.status != currentStatus)
@@ -115,16 +107,16 @@ const MediaActionMenu = ({
             <li
               key={item.title}
               className="hover:bg-actionPrimary hover:text-white cursor-pointer"
-              onClick={() =>
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 listHandler(
                   item.status,
-                  mediaType === "movie"
-                    ? (mediaDetails as MovieDetail).title
-                    : (mediaDetails as TvDetail).name,
+                  mediaDetails.title,
                   mediaDetails?.poster_path,
                   mediaDetails?.backdrop_path
-                )
-              }
+                );
+              }}
             >
               {item.title}
             </li>

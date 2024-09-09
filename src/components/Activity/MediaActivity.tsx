@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { FaComment, FaHeart } from "react-icons/fa";
+import { FaCaretDown, FaComment, FaHeart } from "react-icons/fa";
+import Tippy from "@tippyjs/react/headless";
 
 import userAvatarPlaceholder from "../../assets/userAvatar.png";
 
-import { calculateElapsedTime } from "../../lib/helpers";
+import { calculateElapsedTime, findExistingEntry } from "../../lib/helpers";
 import { ActivityProps } from ".";
 import { likeActivity, unlikeActivity } from "../../lib/api/activity";
 import { showErrorToast } from "../../utils/toastUtils";
@@ -13,6 +14,8 @@ import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../UI/LoadingBar";
 import Comments from "./Comments";
 import DotMenu from "./DotMenu";
+import MediaActionMenu from "../../pages/MediaDetail/TopSection/Controls/MediaActionMenu";
+import { UserDocEntry } from "../../constants/types/entry";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -33,9 +36,13 @@ const MediaActivity = ({
 }: ActivityProps) => {
   const [hover, setHover] = useState<boolean>(false);
   const [showComments, setShowComments] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const tippyRef = useRef(null);
 
-  const username = useAppSelector((state) => state.auth?.username);
-  const isLoggedIn = useAppSelector((state) => state.auth?.isLoggedIn);
+  const authStore = useAppSelector((state) => state.auth);
+  const username = authStore?.username;
+  const isLoggedIn = authStore?.isLoggedIn;
+  const profile = authStore?.profileData;
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
@@ -43,6 +50,11 @@ const MediaActivity = ({
   let liked = false;
   if (username && likes) {
     liked = likes.some((user) => user.username == username);
+  }
+
+  let existingEntry: UserDocEntry | undefined;
+  if (profile?.entries && mediaid && mediaType) {
+    existingEntry = findExistingEntry(profile.entries, mediaid, mediaType);
   }
 
   const activityMutation = useMutation({
@@ -82,16 +94,56 @@ const MediaActivity = ({
   return (
     <>
       <div
-        className="grid grid-cols-8 rounded-lg overflow-hidden bg-anilist-mirage mb-4"
+        className="grid grid-cols-8 rounded-lg bg-anilist-mirage mb-4"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
         {/* Poster */}
         <Link
           to={`/${mediaType}/${mediaid}`}
-          className="col-span-2 md:col-span-1"
+          className="col-span-2 md:col-span-1 relative"
         >
           <img src={image} />
+          {isLoggedIn && mediaType && mediaid && (
+            <Tippy
+              {...{
+                interactive: true,
+                trigger: "click",
+                placement: "bottom-end",
+                ref: tippyRef,
+                render: (attrs) => (
+                  <div {...attrs} className="w-96">
+                    <MediaActionMenu
+                      {...{
+                        currentStatus: existingEntry?.status,
+                        setShowModal,
+                        existingEntryId: existingEntry?._id,
+                        tippyRef,
+                        mediaType,
+                        mediaDetails: {
+                          title: title ?? "",
+                          poster_path: image ?? "",
+                          backdrop_path: "",
+                          status: "",
+                          id: mediaid,
+                        },
+                      }}
+                    />
+                  </div>
+                ),
+              }}
+            >
+              <div
+                className="absolute top-4 left-4 text-anilist-aqua_haze text-2xl bg-anilist-bunker/80 rounded p-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
+                <FaCaretDown />
+              </div>
+            </Tippy>
+          )}
         </Link>
         {/* User, title and menu */}
         <div className="col-span-4 md:col-span-5 p-4 flex flex-col justify-between">
