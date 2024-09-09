@@ -12,6 +12,7 @@ import { showErrorToast } from "../../utils/toastUtils";
 import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../UI/LoadingBar";
 import Comments from "./Comments";
+import DotMenu from "./DotMenu";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -30,10 +31,11 @@ const MediaActivity = ({
   commentCount,
   queryKey,
 }: ActivityProps) => {
+  const [hover, setHover] = useState<boolean>(false);
   const [showComments, setShowComments] = useState<boolean>(false);
 
   const username = useAppSelector((state) => state.auth?.username);
-  const isLoggedin = useAppSelector((state) => state.auth?.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth?.isLoggedIn);
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
@@ -65,7 +67,7 @@ const MediaActivity = ({
   });
 
   const handleClick = () => {
-    if (isLoggedin) {
+    if (isLoggedIn) {
       if (liked) {
         activityMutation.mutate("unlike");
       } else {
@@ -79,7 +81,11 @@ const MediaActivity = ({
 
   return (
     <>
-      <div className="grid grid-cols-8 rounded-lg overflow-hidden bg-anilist-mirage mb-4">
+      <div
+        className="grid grid-cols-8 rounded-lg overflow-hidden bg-anilist-mirage mb-4"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
         {/* Poster */}
         <Link
           to={`/${mediaType}/${mediaid}`}
@@ -125,7 +131,14 @@ const MediaActivity = ({
         </div>
         {/* time, comments and like */}
         <div className="col-span-2 md:col-span-2 py-4 pe-4 flex flex-col justify-between items-end">
-          <h5 className="text-lg font-medium">{time}</h5>
+          <div className="flex gap-4 items-center">
+            {isLoggedIn && hover && (
+              <DotMenu
+                {...{ id: _id, username: owner.username, location, queryKey }}
+              />
+            )}
+            <span className="text-lg font-medium">{time}</span>
+          </div>
           <div className="flex gap-4">
             {/* Comments */}
             <span

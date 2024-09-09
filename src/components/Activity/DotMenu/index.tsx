@@ -4,24 +4,27 @@ import { useNavigate } from "react-router";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FaLink } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import { useQueryClient } from "@tanstack/react-query";
+
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../../UI/LoadingBar";
-import { useQueryClient } from "@tanstack/react-query";
 import { delActivity } from "../../../lib/api/activity";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import WarningModal from "../../UI/WarningModal";
+
+interface Props {
+  id: string;
+  username: string;
+  location: string;
+  queryKey: string[];
+}
 
 const DotMenu = ({
   id,
   username: activityUsername,
   location,
   queryKey,
-}: {
-  id: string;
-  username: string;
-  location: string;
-  queryKey: string[];
-}) => {
+}: Props) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const { username } = useAppSelector((state) => state.auth);
