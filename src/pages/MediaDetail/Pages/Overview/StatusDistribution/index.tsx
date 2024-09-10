@@ -33,7 +33,7 @@ const StatusDistribution = ({ mediaid, mediaType }: Props) => {
 
   return (
     <div>
-      <h2 className="text-[1.4rem] font-semibold my-4">
+      <h2 className="text-[1.4rem] font-medium my-4">
         <Link to={`/${mediaType}/${mediaid}/stats`}>Status Distribution</Link>
       </h2>
       <CardNLineDistribution

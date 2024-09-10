@@ -5,6 +5,7 @@ import Favourites from "./pages/Profile/Favourites";
 import Overview from "./pages/Profile/Stats/Pages/Overview";
 import Characters from "./pages/MediaDetail/Pages/Characters";
 import Staff from "./pages/MediaDetail/Pages/Staff";
+import MediaStats from "./pages/MediaDetail/Pages/Stats";
 import MediaSocial from "./pages/MediaDetail/Pages/Social";
 import Tags from "./pages/Profile/Stats/Pages/Tags";
 import Cast from "./pages/Profile/Stats/Pages/Cast";
@@ -14,7 +15,7 @@ export const mediaSubRoutes = [
   { path: "watch", element: <ComingSoon /> },
   { path: "characters", element: <Characters /> },
   { path: "staff", element: <Staff /> },
-  { path: "stats", element: <ComingSoon /> },
+  { path: "stats", element: <MediaStats /> },
   { path: "social", element: <MediaSocial /> },
 ];
 

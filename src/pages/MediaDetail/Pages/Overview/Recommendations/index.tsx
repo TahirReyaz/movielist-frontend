@@ -6,11 +6,11 @@ import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
 import RecommendationCard from "./RecommendationCard";
 
-interface RecommendationsProps {
+interface Props {
   mediaid: number;
   mediaType: string;
 }
-const Recommendations = ({ mediaid, mediaType }: RecommendationsProps) => {
+const Recommendations = ({ mediaid, mediaType }: Props) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["recommendations", mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid, "recommendations"),
@@ -25,8 +25,8 @@ const Recommendations = ({ mediaid, mediaType }: RecommendationsProps) => {
     return <Error />;
   }
   return (
-    <div>
-      <h2 className="text-[1.4rem] font-semibold my-4">Recommendations</h2>
+    <div className="mt-16">
+      <h2 className="text-[1.4rem] font-medium my-4">Recommendations</h2>
       <div className="hidden md:grid grid-cols-5 gap-12">
         {data?.recommendations?.slice(0, 5).map((media: any) => (
           <RecommendationCard {...{ key: media.id, media, mediaType }} />
