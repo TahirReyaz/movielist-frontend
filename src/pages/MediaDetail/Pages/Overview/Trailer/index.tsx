@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { MediaType } from "../../../../../constants/types";
 import { VideoResult } from "../../../../../constants/types/media";
-import { getMediaTrailers } from "../../../../../lib/api/media";
-import TrailerCard from "../../../../../components/Media/TrailerCard";
+import { getMediaTrailers } from "../../../../../lib/api";
+import VideoCard from "../../../../../components/Media/VideoCard";
 import Loading from "../../../../../components/UI/Loading";
 
 interface Props {
@@ -39,7 +39,7 @@ const Trailer = ({ mediaid, mediaType }: Props) => {
       </h2>
       {trailer && (
         <div className="grid grid-cols-1 md:grid-cols-4">
-          <TrailerCard {...{ ...trailer, siteKey: trailer.key }} />
+          <VideoCard {...{ ...trailer, siteKey: trailer.key }} />
         </div>
       )}
     </div>

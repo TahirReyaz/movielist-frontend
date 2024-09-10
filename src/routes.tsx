@@ -7,12 +7,13 @@ import Characters from "./pages/MediaDetail/Pages/Characters";
 import Staff from "./pages/MediaDetail/Pages/Staff";
 import MediaStats from "./pages/MediaDetail/Pages/Stats";
 import MediaSocial from "./pages/MediaDetail/Pages/Social";
+import Watch from "./pages/MediaDetail/Pages/Watch";
 import Tags from "./pages/Profile/Stats/Pages/Tags";
 import Cast from "./pages/Profile/Stats/Pages/Cast";
 import Crew from "./pages/Profile/Stats/Pages/Crew";
 
 export const mediaSubRoutes = [
-  { path: "watch", element: <ComingSoon /> },
+  { path: "watch", element: <Watch /> },
   { path: "characters", element: <Characters /> },
   { path: "staff", element: <Staff /> },
   { path: "stats", element: <MediaStats /> },
