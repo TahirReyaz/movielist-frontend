@@ -6,7 +6,7 @@ interface FavSectionProps {
   title: string;
   type: string;
   list: [string];
-  location?: string;
+  location?: "overview" | "favourites";
 }
 const FavSection = ({
   title,
@@ -20,18 +20,18 @@ const FavSection = ({
     <div className="my-12">
       {location === "overview" ? (
         <Link to={`${pathname}/favorites`}>
-          <h2 className="text-xl font-semibold ms-4 mb-4">{title}</h2>
+          <h2 className="text-xl font-medium ms-4 mb-4">{title}</h2>
         </Link>
       ) : (
-        <h2 className="text-xl font-semibold ms-4 mb-4">{title}</h2>
+        <h2 className="text-xl font-medium ms-4 mb-4">{title}</h2>
       )}
       <ul
-        className={`bg-bgSecondary rounded p-4 grid ${
+        className={`bg-anilist-mirage rounded p-8 grid ${
           location == "overview" ? "grid-cols-4" : "grid-cols-3 md:grid-cols-9"
-        } gap-4`}
+        } gap-8`}
       >
         {list.map((item) => (
-          <FavItem {...{ id: Number(item), type, key: item }} />
+          <FavItem {...{ id: Number(item), type, key: item, location }} />
         ))}
       </ul>
     </div>
