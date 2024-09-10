@@ -1,4 +1,4 @@
-import { MediaType } from "../types";
+import { MediaType, StatusType } from "../types";
 
 type MediaDetailBase<T extends MediaType> = {
   type: T;
@@ -211,4 +211,11 @@ export type Language = {
   english_name: string;
   iso_639_1: string;
   name: string;
+};
+
+export type FollowingUserStat = {
+  username: string;
+  avatar?: string;
+  status: StatusType;
+  score?: number;
 };

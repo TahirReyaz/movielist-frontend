@@ -73,3 +73,16 @@ export const getMediaStatusDist = async (mediaid: string) => {
     throw new Error(error.message);
   }
 };
+
+export const getMediaFollowingStatus = async (mediaid: string) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/media/${mediaid}/followingstatus/`,
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

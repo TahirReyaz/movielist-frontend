@@ -197,3 +197,9 @@ export const combineStats = (
 
   return sortedStats;
 };
+
+export const capitaliseFirst = (s: string): string => {
+  let ans = s[0].toUpperCase();
+  ans += s.slice(1, s.length);
+  return ans;
+};

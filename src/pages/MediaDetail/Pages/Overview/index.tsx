@@ -12,11 +12,15 @@ import Threads from "./Threads";
 import Reviews from "./Reviews";
 import { MovieDetail, TvDetail } from "../../../../constants/types/media";
 import { MediaType } from "../../../../constants/types";
+import FollowingStatus from "./FollowingStatus";
+import { useAppSelector } from "../../../../hooks/redux";
 
 const Overview = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],
@@ -46,13 +50,16 @@ const Overview = () => {
         )}
       <Characters {...{ mediaid: Number(mediaid), mediaType }} />
       <Staff />
-      <div className="grid grid-cols-1 md:grid-cols-2 mt-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 mt-16">
         {mediaid && <StatusDistribution {...{ mediaid, mediaType }} />}
+        {isLoggedIn && mediaid && <FollowingStatus {...{ mediaid }} />}
       </div>
       {mediaid && <Trailer {...{ mediaid, mediaType }} />}
       <Recommendations {...{ mediaid: Number(mediaid), mediaType }} />
-      <Threads />
-      <Reviews />
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 mt-16">
+        <Threads />
+        <Reviews />
+      </div>
     </div>
   );
 };
