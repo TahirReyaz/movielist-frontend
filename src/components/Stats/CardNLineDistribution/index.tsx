@@ -9,9 +9,10 @@ interface Props {
     title: string;
     count: number;
   }[];
+  itemName: string;
 }
 
-const CardNLineDistribution = ({ stats }: Props) => {
+const CardNLineDistribution = ({ stats, itemName }: Props) => {
   const calculateWidth = (count: number) => {
     const total = stats.slice(0, 6).reduce((acc, stat) => acc + stat.count, 0);
 
@@ -33,6 +34,7 @@ const CardNLineDistribution = ({ stats }: Props) => {
                 name: item.title,
                 count: item.count,
                 color: genreColors[index],
+                itemName,
               }}
             />
           ))}

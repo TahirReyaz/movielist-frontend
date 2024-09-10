@@ -39,6 +39,7 @@ const StatusDistribution = ({ mediaid, mediaType }: Props) => {
       <CardNLineDistribution
         {...{
           stats: data,
+          itemName: "Users",
         }}
       />
     </div>

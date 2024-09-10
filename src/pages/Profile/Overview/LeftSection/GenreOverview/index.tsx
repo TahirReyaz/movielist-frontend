@@ -22,6 +22,7 @@ const GenreOverview = () => {
       <CardNLineDistribution
         {...{
           stats: combinedStats,
+          itemName: "Entries",
         }}
       />
     </div>

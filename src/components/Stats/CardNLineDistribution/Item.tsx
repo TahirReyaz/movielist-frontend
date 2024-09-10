@@ -4,9 +4,10 @@ interface Props {
   count: number;
   color: string;
   name: string;
+  itemName: string;
 }
 
-const Item = ({ count, color, name }: Props) => {
+const Item = ({ count, color, name, itemName }: Props) => {
   return (
     <div>
       <div
@@ -19,7 +20,7 @@ const Item = ({ count, color, name }: Props) => {
         <span className="text-2xl" style={{ color }}>
           {count}
         </span>
-        <span className="text-lg text-anilist-gray-regent"> Entries</span>
+        <span className="text-lg text-anilist-gray-regent"> {itemName}</span>
       </div>
     </div>
   );
