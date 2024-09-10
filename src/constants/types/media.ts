@@ -219,3 +219,26 @@ export type FollowingUserStat = {
   status: StatusType;
   score?: number;
 };
+
+export type VideoSite = "YouTube";
+export type VideoSize = 720 | 1080 | 2160;
+export type VideoType =
+  | "Clip"
+  | "Trailer"
+  | "Featurette"
+  | "Teaser"
+  | "Behind the Scenes"
+  | "Opening Credits";
+
+export type VideoResult = {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: VideoSite;
+  size: VideoSize;
+  type: VideoType;
+  official: boolean;
+  published_at: string;
+  id: string;
+};

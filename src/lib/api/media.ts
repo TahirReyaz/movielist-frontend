@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { backendUrl } from "../../constants";
 import { MediaType } from "../../constants/types";
+import { VideoResult, VideoType } from "../../constants/types/media";
 
 export const getMediaTags = async (mediatype: string, mediaid: number) => {
   try {
@@ -84,5 +85,29 @@ export const getMediaFollowingStatus = async (mediaid: string) => {
     return response.data;
   } catch (error: any) {
     throw new Error(error.message);
+  }
+};
+
+export const getMediaTrailers = async (
+  mediatype: MediaType,
+  mediaid: string
+) => {
+  try {
+    const response: AxiosResponse = await axios.get(
+      `${backendUrl}/${mediatype}/videos/${mediaid}`
+    );
+    const videos: VideoResult[] = response.data;
+    const trailers: VideoResult[] = videos.filter(
+      (video) => video.type === "Trailer" && video.site === "YouTube"
+    );
+    if (!trailers || (trailers && trailers.length === 0)) {
+      throw new Error("No trailers available");
+    }
+    let trailer: VideoResult =
+      trailers.find((video) => video.official) ?? trailers[0];
+
+    return trailer;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
