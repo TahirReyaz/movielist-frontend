@@ -46,7 +46,9 @@ const Overview = () => {
         )}
       <Characters {...{ mediaid: Number(mediaid), mediaType }} />
       <Staff />
-      <StatusDistribution />
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-16">
+        {mediaid && <StatusDistribution {...{ mediaid, mediaType }} />}
+      </div>
       <Trailer />
       <Recommendations {...{ mediaid: Number(mediaid), mediaType }} />
       <Threads />

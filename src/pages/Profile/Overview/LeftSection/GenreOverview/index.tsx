@@ -18,10 +18,10 @@ const GenreOverview = () => {
 
   return (
     <div className="hidden md:block">
+      <h3 className="font-semibold text-xl ps-4 mb-4">Genre Overview</h3>
       <CardNLineDistribution
         {...{
           stats: combinedStats,
-          title: "Genre Overview",
         }}
       />
     </div>

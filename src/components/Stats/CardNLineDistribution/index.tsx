@@ -9,10 +9,9 @@ interface Props {
     title: string;
     count: number;
   }[];
-  title: string;
 }
 
-const CardNLineDistribution = ({ stats, title }: Props) => {
+const CardNLineDistribution = ({ stats }: Props) => {
   const calculateWidth = (count: number) => {
     const total = stats.slice(0, 6).reduce((acc, stat) => acc + stat.count, 0);
 
@@ -24,8 +23,7 @@ const CardNLineDistribution = ({ stats, title }: Props) => {
   }
 
   return (
-    <div className="hidden md:block">
-      <h3 className="font-semibold text-xl ps-4 mb-4">{title}</h3>
+    <div>
       <div className="rounded-t-lg overflow-hidden">
         <div className="bg-anilist-mirage flex justify-between px-12 py-8">
           {stats.slice(0, 4).map((item, index) => (
