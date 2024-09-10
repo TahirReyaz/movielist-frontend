@@ -28,6 +28,17 @@ const extraMovieFields: Field[] = [
   { fieldName: "original_title", label: "Original Title" },
 ];
 
+const endDetailFields: Field[] = [
+  { fieldName: "vote_average", label: "Mean Score" },
+  { fieldName: "popularity", label: "Popularity" },
+  {
+    fieldName: "production_companies",
+    label: "Production Companies",
+    valuesKey: "name",
+  },
+  { fieldName: "genres", label: "Genres", valuesKey: "name" },
+];
+
 const LeftSection = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
@@ -36,14 +47,6 @@ const LeftSection = () => {
   let detailFields: Field[] = [
     { fieldName: "status", label: "Status" },
     { fieldName: "tagline", label: "Tagline" },
-    {
-      fieldName: "production_companies",
-      label: "Production Companies",
-      valuesKey: "name",
-    },
-    { fieldName: "genres", label: "Genres", valuesKey: "name" },
-    { fieldName: "vote_average", label: "Mean Score" },
-    { fieldName: "popularity", label: "Popularity" },
   ];
 
   if (mediaType === "tv") {
@@ -51,6 +54,8 @@ const LeftSection = () => {
   } else if (mediaType === "movie") {
     detailFields.push(...extraMovieFields);
   }
+
+  detailFields.push(...endDetailFields);
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],
