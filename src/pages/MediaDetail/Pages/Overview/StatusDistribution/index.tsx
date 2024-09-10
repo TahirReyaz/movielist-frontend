@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { getMediaStatusDist } from "../../../../../lib/api/media";
+import { getMediaStatusDist } from "../../../../../lib/api";
 import CardNLineDistribution from "../../../../../components/Stats/CardNLineDistribution";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
