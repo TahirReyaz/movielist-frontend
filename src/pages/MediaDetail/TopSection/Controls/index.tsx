@@ -17,7 +17,7 @@ import {
   UserDocEntry,
   UserDocEntryGroup,
 } from "../../../../constants/types/entry";
-import { mediaTypeType } from "../../../../constants/types";
+import { MediaType } from "../../../../constants/types";
 import { findExistingEntry } from "../../../../lib/helpers";
 import { UserFav } from "../../../../constants/types/user";
 import { MovieDetail, TvDetail } from "../../../../constants/types/media";
@@ -32,7 +32,7 @@ const Controls = () => {
   if (mediaidString) {
     mediaid = parseInt(mediaidString);
   }
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],

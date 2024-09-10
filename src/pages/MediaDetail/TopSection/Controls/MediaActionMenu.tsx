@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { addEntry } from "../../../../lib/api";
-import { StatusType, mediaTypeType } from "../../../../constants/types";
+import { StatusType, MediaType } from "../../../../constants/types";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api/entry";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
@@ -26,7 +26,7 @@ interface Props {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   existingEntryId?: string;
   tippyRef: any;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
   mediaDetails: {
     poster_path: string;
     backdrop_path: string;

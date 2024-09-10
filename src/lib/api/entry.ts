@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { mediaTypeType } from "../../constants/types";
+import { MediaType } from "../../constants/types";
 import { backendUrl } from "../../constants";
 import { Entry, UpdateEntryFields } from "../../constants/types/entry";
 
@@ -58,7 +58,7 @@ export const deleteEntry = async (id: string) => {
 
 export const getUserMediaEntries = async (
   username: string,
-  mediaType: mediaTypeType
+  mediaType: MediaType
 ) => {
   try {
     const response = await axios.get(
@@ -86,7 +86,7 @@ export const getUserEntryByMediaid = async (mediaid: number) => {
 
 export const getWatchingUserMediaEntries = async (
   username: string,
-  mediaType: mediaTypeType
+  mediaType: MediaType
 ) => {
   try {
     const entries = await getUserMediaEntries(username, mediaType);

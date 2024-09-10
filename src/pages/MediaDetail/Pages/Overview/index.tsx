@@ -11,12 +11,12 @@ import Recommendations from "./Recommendations";
 import Threads from "./Threads";
 import Reviews from "./Reviews";
 import { MovieDetail, TvDetail } from "../../../../constants/types/media";
-import { mediaTypeType } from "../../../../constants/types";
+import { MediaType } from "../../../../constants/types";
 
 const Overview = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],

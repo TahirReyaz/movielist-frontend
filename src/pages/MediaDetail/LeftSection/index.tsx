@@ -6,7 +6,7 @@ import Tags from "./Tags";
 import { MovieDetail, TvDetail } from "../../../constants/types/media";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router-dom";
-import { mediaTypeType } from "../../../constants/types";
+import { MediaType } from "../../../constants/types";
 
 type Field = {
   fieldName: keyof (MovieDetail & TvDetail);
@@ -42,7 +42,7 @@ const endDetailFields: Field[] = [
 const LeftSection = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   let detailFields: Field[] = [
     { fieldName: "status", label: "Status" },

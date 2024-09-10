@@ -8,7 +8,7 @@ import { IconType } from "react-icons";
 import "tippy.js/animations/shift-away.css";
 
 import { addEntry } from "../../lib/api";
-import { StatusType, mediaTypeType } from "../../constants/types";
+import { StatusType, MediaType } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api/entry";
@@ -22,7 +22,7 @@ const iconClass =
 interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   mediaid: number;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
   entryId?: string;
 }
 

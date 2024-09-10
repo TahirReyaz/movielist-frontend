@@ -12,7 +12,7 @@ import { updateEntry } from "../../../lib/api/entry";
 import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { Entry } from "../../../constants/types/entry";
-import { StatusType, mediaTypeType } from "../../../constants/types";
+import { StatusType, MediaType } from "../../../constants/types";
 import { toggleFav } from "../../../lib/api/user";
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../LoadingBar";
@@ -22,7 +22,7 @@ interface EntryEditorModalParams {
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
   mediaid: number;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
 }
 
 const Label = ({ label }: { label: string }) => {

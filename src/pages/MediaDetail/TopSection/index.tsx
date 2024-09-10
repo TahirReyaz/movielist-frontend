@@ -14,14 +14,14 @@ import { useAppSelector } from "../../../hooks/redux";
 import { MovieDetail, TvDetail } from "../../../constants/types/media";
 import Loading from "../../../components/UI/Loading";
 import { getMediaDetail } from "../../../lib/api";
-import { mediaTypeType } from "../../../constants/types";
+import { MediaType } from "../../../constants/types";
 
 const TopSection = () => {
   const { username } = useAppSelector((state) => state.auth);
 
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const { data: mediaDetails, isLoading } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],

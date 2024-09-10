@@ -1,4 +1,4 @@
-import { NotifType, RefUser, mediaTypeType } from "../types";
+import { NotifType, RefUser, MediaType } from "../types";
 
 export type Activity = {
   _id: string;
@@ -7,7 +7,7 @@ export type Activity = {
   action?: string;
   owner: RefUser;
   mediaid?: number;
-  mediaType?: mediaTypeType;
+  mediaType?: MediaType;
   title?: string;
   content?: string;
   createdAt: string;
@@ -33,7 +33,7 @@ export type Notification = {
   content: string;
   pointingImg: string;
   pointingId: string;
-  pointingType: mediaTypeType;
+  pointingType: MediaType;
   activityId?: string;
   owner: RefUser;
   createdAt: Date;

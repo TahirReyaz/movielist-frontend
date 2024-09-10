@@ -11,7 +11,7 @@ import { useAppDispatch } from "../../hooks/redux";
 import { setDetails } from "../../store/MediaSlice";
 import Loading from "../../components/UI/Loading";
 import { MovieDetail, TvDetail } from "../../constants/types/media";
-import { mediaTypeType } from "../../constants/types";
+import { MediaType } from "../../constants/types";
 import MetaTags from "../../components/UI/MetaTags";
 
 export type MediaDetailType = {
@@ -41,7 +41,7 @@ const MediaDetail = () => {
   const dispatch = useAppDispatch();
 
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const {
     data: mediaDetails,

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import {
   bulkMediaType,
-  mediaTypeType,
+  MediaType,
   userSettingsType,
 } from "../../constants/types";
 import { backendUrl } from "../../constants";
@@ -11,7 +11,7 @@ import { getMediaActivities } from "./activity";
 import { getMediaStatusDist } from "./media";
 
 export async function getBulkMedia(
-  mediatype: mediaTypeType,
+  mediatype: MediaType,
   bulktype: bulkMediaType,
   page: number = 1
 ) {

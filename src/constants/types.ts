@@ -1,6 +1,6 @@
 import { newEntryType } from "./types/entry";
 
-export type mediaTypeType =
+export type MediaType =
   | "movie"
   | "tv"
   | "person"
@@ -8,7 +8,7 @@ export type mediaTypeType =
   | "user"
   | "users"
   | "studios";
-export type multiSearchResultType = mediaTypeType | "user";
+export type multiSearchResultType = MediaType | "user";
 export type bulkMediaType =
   | "upcoming"
   | "trending"
@@ -51,7 +51,7 @@ export type StatListItem = {
   title: string;
   posterPath: string;
   id: number;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
 };
 
 export type RefUser = {

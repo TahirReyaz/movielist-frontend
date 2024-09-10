@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 
 import MediaSection, { mediaSectionItem } from "../../components/MediaSection";
 import { getBulkMedia } from "../../lib/api";
-import { bulkMediaType, mediaTypeType } from "../../constants/types";
+import { bulkMediaType, MediaType } from "../../constants/types";
 import CardList from "../../components/UI/Media/CardList";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
@@ -13,7 +13,7 @@ import Button from "../../components/UI/Button";
 import { Helmet } from "react-helmet-async";
 
 type SearchMediaParams = {
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
   bulkType: bulkMediaType;
 };
 

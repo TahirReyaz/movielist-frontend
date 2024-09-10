@@ -8,7 +8,7 @@ import CardList from "../../components/UI/Media/CardList";
 import TextInput from "../../components/UI/TextInput";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
-import { mediaTypeType } from "../../constants/types";
+import { MediaType } from "../../constants/types";
 import { searchTypes } from "../../constants";
 import { useDebounce } from "../../hooks/useDebounce";
 import { generateYearOptions } from "../../lib/helpers";
@@ -31,7 +31,7 @@ const Browse = () => {
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search") || "";
 
-  const { mediaType } = useParams<{ mediaType: mediaTypeType }>();
+  const { mediaType } = useParams<{ mediaType: MediaType }>();
 
   const [query, setQuery] = useState<string>(initialSearchQuery);
   const [genres, setGenres] = useState<string>("");

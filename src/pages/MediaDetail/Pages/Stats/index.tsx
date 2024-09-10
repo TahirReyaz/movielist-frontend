@@ -2,12 +2,12 @@ import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import StatusDistribution from "../Overview/StatusDistribution";
-import { mediaTypeType } from "../../../../constants/types";
+import { MediaType } from "../../../../constants/types";
 
 const Stats = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   return (
     <section>

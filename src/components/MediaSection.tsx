@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getBulkMedia } from "../lib/api";
-import { bulkMediaType, mediaTypeType } from "../constants/types";
+import { bulkMediaType, MediaType } from "../constants/types";
 import CardList from "./UI/Media/CardList";
 
 export interface mediaSectionItem {

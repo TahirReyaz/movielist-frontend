@@ -11,7 +11,7 @@ import { findExistingEntry } from "../lib/helpers";
 import { statusColors } from "../constants";
 import StatusDot from "./UI/StatusDot";
 import { useAppSelector } from "../hooks/redux";
-import { mediaTypeType } from "../constants/types";
+import { MediaType } from "../constants/types";
 import { UserDocEntry } from "../constants/types/entry";
 
 export interface MediaItemProps {
@@ -28,7 +28,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
     enabled: username && username.length > 0 ? true : false,
   });
 
-  const mediaType: mediaTypeType = mediaDetails.first_air_date ? "tv" : "movie";
+  const mediaType: MediaType = mediaDetails.first_air_date ? "tv" : "movie";
 
   // Used determine the colour of the dot and the status of existing entry
   const existingEntry: UserDocEntry | undefined = findExistingEntry(

@@ -1,4 +1,4 @@
-import { Option, mediaTypeType } from "../constants/types";
+import { Option, MediaType } from "../constants/types";
 import {
   Entry,
   UserDocEntry,
@@ -50,7 +50,7 @@ export const updateList = (lists: any, allowedList: string) => {
 export const findExistingEntry = (
   entries: UserDocEntryGroup,
   mediaid: number,
-  mediaType: mediaTypeType
+  mediaType: MediaType
 ) => {
   let existingEntry;
   existingEntry = entries?.[mediaType as keyof UserDocEntryGroup]?.find(

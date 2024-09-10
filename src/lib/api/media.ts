@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import { backendUrl } from "../../constants";
-import { mediaTypeType } from "../../constants/types";
+import { MediaType } from "../../constants/types";
 
 export const getMediaTags = async (mediatype: string, mediaid: number) => {
   try {
@@ -31,7 +31,7 @@ export const getMediaMoreDetails = async (
   }
 };
 
-export const getGenreList = async (mediaType: mediaTypeType) => {
+export const getGenreList = async (mediaType: MediaType) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediaType}/genre`

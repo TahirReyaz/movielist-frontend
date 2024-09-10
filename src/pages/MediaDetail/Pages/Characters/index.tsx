@@ -7,12 +7,12 @@ import { getMediaMoreDetails } from "../../../../lib/api/media";
 import Error from "../../../../components/UI/Error";
 import CharacterCard from "../Overview/Characters/CharacterCard";
 import { CastMember, MediaCredits } from "../../../../constants/types/media";
-import { mediaTypeType } from "../../../../constants/types";
+import { MediaType } from "../../../../constants/types";
 
 const Characters = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: mediaTypeType = pathname.split("/")[1] as mediaTypeType;
+  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const {
     data: credits,

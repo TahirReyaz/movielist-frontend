@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
-import { Option, mediaTypeType } from "../../../constants/types";
+import { Option, MediaType } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
 import { getUserMediaEntries } from "../../../lib/api/entry.ts";
@@ -28,8 +28,7 @@ const MediaList = () => {
   const pathArray = pathname.split("/");
 
   const urlMediaType = pathArray[3].split("#")[0];
-  const mediaType: mediaTypeType =
-    urlMediaType === "movielist" ? "movie" : "tv";
+  const mediaType: MediaType = urlMediaType === "movielist" ? "movie" : "tv";
   const allowedList = pathArray[4] ? pathArray[4] : "all";
 
   const { data: entries, isError } = useQuery<Entry[]>({

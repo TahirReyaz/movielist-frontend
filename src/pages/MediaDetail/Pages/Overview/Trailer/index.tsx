@@ -1,11 +1,11 @@
 import React from "react";
 import ComingSoon from "../../../../ComingSoon";
 import { Link } from "react-router-dom";
-import { mediaTypeType } from "../../../../../constants/types";
+import { MediaType } from "../../../../../constants/types";
 
 interface Props {
   mediaid: string;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
 }
 
 const Trailer = ({ mediaid, mediaType }: Props) => {

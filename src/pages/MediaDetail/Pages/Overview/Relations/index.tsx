@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-import { mediaTypeType } from "../../../../../constants/types";
+import { MediaType } from "../../../../../constants/types";
 import { getMediaRelations } from "../../../../../lib/api/media";
 import Loading from "../../../../../components/UI/Loading";
 import { MovieItemDetails } from "../../../../../constants/types/media";
@@ -10,7 +10,7 @@ import RelationCard from "./RelationCard";
 
 interface Props {
   mediaid: number;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
   collectionId: number;
 }
 

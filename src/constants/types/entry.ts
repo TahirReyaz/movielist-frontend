@@ -1,11 +1,11 @@
-import { RefUser, StatusType, mediaTypeType } from "../types";
+import { RefUser, StatusType, MediaType } from "../types";
 
 export type Entry = {
   _id: string;
   mediaid: number;
   owner: RefUser;
   status: StatusType;
-  mediaType: mediaTypeType;
+  mediaType: MediaType;
   startDate?: string;
   endDate?: string;
   progress?: number;

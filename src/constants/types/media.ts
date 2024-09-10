@@ -1,6 +1,6 @@
-import { mediaTypeType } from "../types";
+import { MediaType } from "../types";
 
-type MediaDetailBase<T extends mediaTypeType> = {
+type MediaDetailBase<T extends MediaType> = {
   type: T;
   adult: boolean;
   backdrop_path: string;
