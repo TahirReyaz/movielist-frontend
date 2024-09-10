@@ -59,14 +59,6 @@ const LeftSection = () => {
   return (
     mediaDetails && (
       <>
-        <div className="hidden md:block">
-          <MediaDetailCard>
-            <span className="text-sm">#75 Highest Rated All Time</span>
-          </MediaDetailCard>
-          <MediaDetailCard>
-            <span className="text-sm">#5 Most Popular All Time</span>
-          </MediaDetailCard>
-        </div>
         <div className="p-2 mb-4 bg-bgSecondary rounded flex flex-row md:flex-col overflow-x-auto">
           {detailFields.map(
             ({ fieldName, label, valuesKey }, index) =>
