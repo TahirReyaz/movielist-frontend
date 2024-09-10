@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { Link } from "react-router-dom";
+import Tippy from "@tippyjs/react/headless";
+import { useQueryClient } from "@tanstack/react-query";
+import { FaComment, FaHeart } from "react-icons/fa";
 
 import userAvatar from "../../assets/userAvatar.png";
 
 import { ActivityProps } from ".";
-import { calculateElapsedTime } from "../../lib/helpers";
-import { FaComment, FaHeart } from "react-icons/fa";
 import Comments from "./Comments";
+import DotMenu from "./DotMenu";
+import LikedUsersTooltip from "./LikedUsersTooltip";
+import { useLoadingBar } from "../UI/LoadingBar";
+import { calculateElapsedTime } from "../../lib/helpers";
 import { useAppSelector } from "../../hooks/redux";
 import { showErrorToast } from "../../utils/toastUtils";
-import { useLoadingBar } from "../UI/LoadingBar";
-import { useQueryClient } from "@tanstack/react-query";
 import { likeActivity, unlikeActivity } from "../../lib/api/activity";
-import DotMenu from "./DotMenu";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -116,14 +118,33 @@ const StatusActivity = ({
           >
             {commentCount > 0 && commentCount} <FaComment />
           </span>
-          <span
-            className={`${iconClass} ${
-              liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
-            }`}
-            onClick={handleLike}
+
+          <Tippy
+            {...{
+              interactive: true,
+              placement: "top-end",
+              render: (attrs) => (
+                <div {...attrs}>
+                  {likes && (
+                    <LikedUsersTooltip
+                      {...{
+                        users: likes.slice(0, 5),
+                      }}
+                    />
+                  )}
+                </div>
+              ),
+            }}
           >
-            {likes && likes.length > 0 && likes.length} <FaHeart />
-          </span>
+            <span
+              className={`${iconClass} ${
+                liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
+              }`}
+              onClick={handleLike}
+            >
+              {likes && likes.length > 0 && likes.length} <FaHeart />
+            </span>
+          </Tippy>
         </div>
       </div>
       {showComments && <Comments {...{ activityId: _id, queryKey }} />}

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import { RxCross2 } from "react-icons/rx";
 import { useQueryClient } from "@tanstack/react-query";
+import Tippy from "@tippyjs/react/headless";
 
 import userAvatar from "../../../../assets/userAvatar.png";
 import { Comment as CommentType } from "../../../../constants/types/activity";
@@ -10,7 +12,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 import { useLoadingBar } from "../../../UI/LoadingBar";
 import { showErrorToast } from "../../../../utils/toastUtils";
 import { deleteComment, likeCommentToggle } from "../../../../lib/api/comment";
-import { RxCross2 } from "react-icons/rx";
+import LikedUsersTooltip from "../../LikedUsersTooltip";
 
 const Comment = ({
   content,
@@ -76,7 +78,7 @@ const Comment = ({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {/* Owner, likes and time */}
+      {/* Owner, controls and time */}
       <div className="flex justify-between">
         {/* Owner */}
         <div className="flex gap-4 items-center">
@@ -106,14 +108,33 @@ const Comment = ({
             </div>
           )}
           {/* Likes */}
-          <span
-            className={`text-xl font-semibold cursor-pointer flex items-center gap-2 hover:text-anilist-blue-picton ${
-              liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
-            }`}
-            onClick={handleClick}
+
+          <Tippy
+            {...{
+              interactive: true,
+              placement: "top-end",
+              render: (attrs) => (
+                <div {...attrs}>
+                  {likes && (
+                    <LikedUsersTooltip
+                      {...{
+                        users: likes.slice(0, 5),
+                      }}
+                    />
+                  )}
+                </div>
+              ),
+            }}
           >
-            {likes.length > 0 && likes.length} <FaHeart />
-          </span>
+            <span
+              className={`text-xl font-semibold cursor-pointer flex items-center gap-2 hover:text-anilist-blue-picton ${
+                liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
+              }`}
+              onClick={handleClick}
+            >
+              {likes.length > 0 && likes.length} <FaHeart />
+            </span>
+          </Tippy>
 
           {/* Time */}
           <span className="text-lg font-medium">

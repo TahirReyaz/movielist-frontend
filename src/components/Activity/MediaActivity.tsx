@@ -16,6 +16,7 @@ import Comments from "./Comments";
 import DotMenu from "./DotMenu";
 import MediaActionMenu from "../../pages/MediaDetail/TopSection/Controls/MediaActionMenu";
 import { UserDocEntry } from "../../constants/types/entry";
+import LikedUsersTooltip from "./LikedUsersTooltip";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -200,14 +201,32 @@ const MediaActivity = ({
               {commentCount > 0 && commentCount} <FaComment />
             </span>
             {/* Likes */}
-            <span
-              className={`${iconClass} ${
-                liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
-              }`}
-              onClick={handleClick}
+            <Tippy
+              {...{
+                interactive: true,
+                placement: "top-end",
+                render: (attrs) => (
+                  <div {...attrs}>
+                    {likes && (
+                      <LikedUsersTooltip
+                        {...{
+                          users: likes.slice(0, 5),
+                        }}
+                      />
+                    )}
+                  </div>
+                ),
+              }}
             >
-              {likes && likes.length > 0 && likes.length} <FaHeart />
-            </span>
+              <span
+                className={`${iconClass} ${
+                  liked ? " text-anilist-mandy " : " text-anilist-blue-cadet "
+                }`}
+                onClick={handleClick}
+              >
+                {likes && likes.length > 0 && likes.length} <FaHeart />
+              </span>
+            </Tippy>
           </div>
         </div>
       </div>
