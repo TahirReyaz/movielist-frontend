@@ -44,8 +44,8 @@ const Staff = () => {
         {data &&
           data.crew
             ?.slice(0, 6)
-            .map((char: CrewMember) => (
-              <StaffCard {...{ key: char.id, ...char }} />
+            .map((char: CrewMember, index) => (
+              <StaffCard {...{ key: index, ...char }} />
             ))}
       </div>
     </div>

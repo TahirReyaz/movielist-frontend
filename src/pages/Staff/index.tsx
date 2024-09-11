@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import userAvatar from "../../assets/userAvatar.png";
+import noImg from "../../assets/no_img_long.jpg";
 
 import { getStaffDetails } from "../../lib/api/staff";
 import Loading from "../../components/UI/Loading";
@@ -61,7 +61,7 @@ const Staff = () => {
                   src={
                     staff.profile_path
                       ? `${tmdbImgBaseUrl}/${profileSizes.md}${staff.profile_path}`
-                      : userAvatar
+                      : noImg
                   }
                   alt={staff.name}
                   className="rounded -mt-28"
@@ -115,10 +115,14 @@ const Staff = () => {
 
 interface DetailSectionProps {
   title: string;
-  value: string;
+  value?: string;
 }
 
 const DetailSection = ({ title, value }: DetailSectionProps) => {
+  if (!value) {
+    return;
+  }
+
   return (
     <div>
       <span className="text-[1.4rem] font-bold">{title}: </span>

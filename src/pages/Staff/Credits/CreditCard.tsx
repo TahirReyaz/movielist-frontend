@@ -9,7 +9,8 @@ interface CreditCardProps {
   original_title: string;
   poster_path: string;
   media_type: string;
-  character: string;
+  character?: string;
+  job?: string;
 }
 const CreditCard = ({
   original_title,
@@ -17,6 +18,7 @@ const CreditCard = ({
   media_type,
   character,
   id,
+  job,
 }: CreditCardProps) => {
   return (
     <div>
@@ -31,7 +33,7 @@ const CreditCard = ({
           className={`rounded-md`}
         />
       </Link>
-      <p className="mt-4 text-[1.4rem] font-semibold">{character}</p>
+      <p className="mt-4 text-[1.4rem] font-medium">{character || job}</p>
       <Link to={`/${media_type}/${id}`} className="text-xl mt-4">
         {original_title}
       </Link>
