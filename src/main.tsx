@@ -10,6 +10,8 @@ import "./index.css";
 import App from "./App.tsx";
 import store from "./store";
 import { LoadingBarProvider } from "./components/UI/LoadingBar.tsx";
+import ErrorBoundary from "./components/Error/ErrorBoundary.tsx";
+import FallBack from "./components/Error/FallBack.tsx";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <LoadingBarProvider>
         <QueryClientProvider client={queryClient}>
           <Provider store={store}>
-            <App />
+            <ErrorBoundary fallback={<FallBack />}>
+              <App />
+            </ErrorBoundary>
             {/* I am cloning Anilist.co and they use fontSize: 10px which I have included in the <html> tag. So that font-size is scaling down tanstack dev tools thats why standard font-size is provided in wrapper div of tanstack dev tools*/}
             <div
               style={{

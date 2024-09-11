@@ -185,7 +185,7 @@ const MediaActivity = ({
         {/* time, comments and like */}
         <div className="col-span-2 md:col-span-2 py-4 pe-4 flex flex-col justify-between items-end">
           <div className="flex gap-4 items-center">
-            {isLoggedIn && hover && (
+            {hover && (
               <DotMenu
                 {...{ id: _id, username: owner.username, location, queryKey }}
               />
