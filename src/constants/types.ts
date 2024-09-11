@@ -1,13 +1,6 @@
 import { newEntryType } from "./types/entry";
 
-export type MediaType =
-  | "movie"
-  | "tv"
-  | "person"
-  | "staff"
-  | "user"
-  | "users"
-  | "studios";
+export type MediaType = "movie" | "tv" | "staff" | "user" | "users" | "studios";
 export type multiSearchResultType = MediaType | "user";
 export type bulkMediaType =
   | "upcoming"

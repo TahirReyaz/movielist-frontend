@@ -25,7 +25,7 @@ const ResultSection = ({
   if (type == "tv") {
     titleField = "name";
     timeField = "first_air_date";
-  } else if (type == "person") {
+  } else if (type == "staff") {
     titleField = "name";
     imgField = "profile_path";
   } else if (type == "user") {

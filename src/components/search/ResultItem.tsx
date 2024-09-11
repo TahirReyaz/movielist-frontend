@@ -55,7 +55,7 @@ const ResultItem = ({
         src={image}
         alt={title}
         className={`rounded-md aspect-square object-cover ${
-          type == "person" ? "object-center" : "object-top"
+          type == "staff" ? "object-center" : "object-top"
         } w-1/12`}
       />
       <div className="ms-4 text-2xl font-medium flex flex-col">

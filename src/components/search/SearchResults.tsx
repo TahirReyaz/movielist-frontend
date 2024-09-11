@@ -40,7 +40,7 @@ const SearchResults = ({ results, setOpen, query }: SearchResultsProps) => {
         <ResultSection
           {...{
             title: "Staff",
-            type: "person",
+            type: "staff",
             list: results.people,
             setOpen,
             query,
