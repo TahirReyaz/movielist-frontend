@@ -76,6 +76,8 @@ const EntryEditorModal = ({
     enabled: !!mediaid && open,
   });
 
+  const today = new Date().getUTCDate();
+
   const fav = profile?.fav[mediaType]?.includes(mediaid);
 
   let statusOptions: Option[] = [
@@ -275,6 +277,7 @@ const EntryEditorModal = ({
                           onChange: (e) => setStartDate(e.target.value),
                           name: "start-date",
                           classes: "!bg-bgFooter text-white",
+                          max: today,
                         }}
                       />
                     </div>
@@ -306,6 +309,7 @@ const EntryEditorModal = ({
                           onChange: (e) => setFinishDate(e.target.value),
                           name: "finish-date",
                           classes: "!bg-bgFooter text-white",
+                          max: today,
                         }}
                       />
                     </div>
