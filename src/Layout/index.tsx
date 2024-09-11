@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
@@ -18,7 +18,18 @@ const Layout = () => {
           />
         }
       >
-        <Outlet />
+        <Suspense
+          fallback={
+            <FallBack
+              {...{
+                title: "Loading...",
+                subtitle: "Hold your horses",
+              }}
+            />
+          }
+        >
+          <Outlet />
+        </Suspense>
       </ErrorBoundary>
       <Footer />
     </React.Fragment>

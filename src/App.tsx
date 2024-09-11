@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
@@ -7,22 +7,35 @@ import { Helmet } from "react-helmet-async";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "./assets/logo-bg.png";
 
+const Home = lazy(() => import("./pages/Home"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Login = lazy(() => import("./pages/Login"));
+const MediaDetail = lazy(() => import("./pages/MediaDetail"));
+const Overview = lazy(() => import("./pages/MediaDetail/Pages/Overview"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ComingSoon = lazy(() => import("./pages/ComingSoon"));
+const Profile = lazy(() => import("./pages/Profile"));
+const MediaList = lazy(() => import("./pages/Profile/MediaList"));
+const Stats = lazy(() => import("./pages/Profile/Stats"));
+const ProfileOverview = lazy(() => import("./pages/Profile/Overview"));
+const Browse = lazy(() => import("./pages/Browse"));
+const Settings = lazy(() => import("./pages/Settings"));
+const ProfileSettings = lazy(() => import("./pages/Settings/Pages/Profile"));
+const Staff = lazy(() => import("./pages/Staff"));
+const Notifications = lazy(() => import("./pages/Notifications"));
+const Donate = lazy(() => import("./pages/Donate"));
+const Apps = lazy(() => import("./pages/Apps"));
+const SiteStats = lazy(() => import("./pages/SiteStats"));
+const Moderators = lazy(() => import("./pages/Moderators"));
+const Recommendations = lazy(() => import("./pages/Recommendations"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const SubmissionManual = lazy(() => import("./pages/SubmissionManual"));
+const Activity = lazy(() => import("./pages/Activity"));
+
+import Loading from "./components/UI/Loading";
+import Error from "./components/UI/Error";
 import Layout from "./Layout";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import MediaDetail from "./pages/MediaDetail";
-import NotFound from "./pages/NotFound";
-import Profile from "./pages/Profile";
-import MediaList from "./pages/Profile/MediaList";
-import ComingSoon from "./pages/ComingSoon";
-import Browse from "./pages/Browse";
-import Settings from "./pages/Settings";
-import ProfileSettings from "./pages/Settings/Pages/Profile";
-import Staff from "./pages/Staff";
-import Notifications from "./pages/Notifications";
-import Stats from "./pages/Profile/Stats";
-import ProfileOverview from "./pages/Profile/Overview";
+
 import {
   mediaSubRoutes,
   profileSubRoutes,
@@ -30,19 +43,8 @@ import {
   statsSubRoutes,
 } from "./routes";
 import { useAppDispatch } from "./hooks/redux";
-import Loading from "./components/UI/Loading";
-import Donate from "./pages/Donate";
-import Apps from "./pages/Apps";
-import SiteStats from "./pages/SiteStats";
-import Moderators from "./pages/Moderators";
-import Recommendations from "./pages/Recommendations";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import SubmissionManual from "./pages/SubmissionManual";
-import Error from "./components/UI/Error";
 import { sessionLogin } from "./lib/api";
 import { logoutAction, saveUser } from "./store/AuthSlice";
-import Overview from "./pages/MediaDetail/Pages/Overview";
-import Activity from "./pages/Activity";
 import { frontendUrl } from "./constants";
 
 const App = () => {
