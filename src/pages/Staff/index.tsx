@@ -16,6 +16,7 @@ import TopSection from "./TopSection";
 import Credits from "./Credits";
 import { PersonDetail } from "../../constants/types/media";
 import { Helmet } from "react-helmet-async";
+import ExternalLinks from "./ExternalLinks";
 
 const Staff = () => {
   const { staffid } = useParams();
@@ -89,16 +90,13 @@ const Staff = () => {
                   />
                 </div>
                 {/* Links */}
-                {staff.homepage && (
-                  <div className="mb-8">
-                    <Link
-                      to={staff.homepage}
-                      className="text-actionPrimary text-[1.4rem]"
-                    >
-                      Homepage
-                    </Link>
-                  </div>
-                )}
+                <ExternalLinks
+                  {...{
+                    homepage: staff.homepage,
+                    ...staff?.external_ids,
+                  }}
+                />
+
                 {/* Bio */}
                 <div className="mb-8 text-[1.4rem]">{staff.biography}</div>
                 {/* Awards */}

@@ -92,6 +92,7 @@ export interface PersonDetail {
   place_of_birth: string;
   popularity: number;
   profile_path: string | null;
+  external_ids?: StaffExternalLinks;
 }
 
 export interface CastMember
@@ -241,4 +242,13 @@ export type VideoResult = {
   official: boolean;
   published_at: string;
   id: string;
+};
+
+export type StaffExternalLinks = {
+  imdb_id?: string | null;
+  wikidata_id?: string | null;
+  facebook_id?: string | null;
+  instagram_id?: string | null;
+  youtube_id?: string | null;
+  twitter_id?: string | null;
 };

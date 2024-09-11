@@ -28,8 +28,8 @@ const Footer = () => {
           action: () => setOpenWarningModal(true),
         },
         { text: "Donate", url: "/donate" },
-        { text: "Imdb.com", url: "www.imdb.com", ext: true },
-        { text: "TheMovieDB.org", url: "www.themoviedb.org", ext: true },
+        { text: "Imdb.com", url: "https://imdb.com", ext: true },
+        { text: "TheMovieDB.org", url: "https://themoviedb.org", ext: true },
       ],
     },
     {
@@ -90,10 +90,12 @@ const Footer = () => {
                 >
                   {link.action ? (
                     <div onClick={link.action}>{link.text}</div>
-                  ) : (
-                    <Link to={link.url} target={link.ext ? "_blank" : "_self"}>
+                  ) : link.ext ? (
+                    <span onClick={() => window.open(link.url, "_blank")}>
                       {link.text}
-                    </Link>
+                    </span>
+                  ) : (
+                    <Link to={link.url}>{link.text}</Link>
                   )}
                 </li>
               ))}
