@@ -47,7 +47,7 @@ const ResultSection = ({
       <h3 className="my-4 text-anilist-gray-athens_gray text-left font-medium text-xl">
         {title}
       </h3>
-      <div className="bg-bgSecondary rounded overflow-hidden">
+      <div className="bg-anilist-mirage rounded overflow-hidden h-full">
         {list &&
           list.length > 0 &&
           list.slice(0, 8).map((item: any) => (
