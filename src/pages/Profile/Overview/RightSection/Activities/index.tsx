@@ -15,11 +15,12 @@ const Activities = () => {
       {isLoggedIn && username === profUsername && (
         <NewActivity {...{ location: "user" }} />
       )}
-      {username && (
+      {profUsername && (
         <List
           {...{
-            queryKey: ["activities", "user", username],
-            fetchFn: (pageParam) => getProfileActivities(username, pageParam),
+            queryKey: ["activities", "user", profUsername],
+            fetchFn: (pageParam) =>
+              getProfileActivities(profUsername, pageParam),
             location: "user",
           }}
         />
