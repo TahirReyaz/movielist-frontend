@@ -23,7 +23,8 @@ export type StatusType =
   | "watching"
   | "dropped"
   | "completed"
-  | "paused";
+  | "paused"
+  | "rewatching";
 
 export type userSettingsType = {
   profileColor: string | undefined;

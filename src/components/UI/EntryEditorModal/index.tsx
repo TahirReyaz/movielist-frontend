@@ -25,6 +25,11 @@ interface EntryEditorModalParams {
   mediaType: MediaType;
 }
 
+type Option = {
+  value: StatusType;
+  label: string;
+};
+
 const Label = ({ label }: { label: string }) => {
   return <p className="text-xl text-left text-textLight my-2">{label}</p>;
 };
@@ -73,7 +78,7 @@ const EntryEditorModal = ({
 
   const fav = profile?.fav[mediaType]?.includes(mediaid);
 
-  const statusOptions = [
+  let statusOptions: Option[] = [
     { value: "watching", label: "Watching" },
     { value: "planning", label: "Plan to watch" },
     { value: "completed", label: "Completed" },
@@ -81,6 +86,16 @@ const EntryEditorModal = ({
     { value: "paused", label: "Paused" },
     { value: "dropped", label: "Dropped" },
   ];
+
+  // Remove options
+  if (entry && entry.data) {
+    if (entry.data.status?.length > 0) {
+      if (entry.data.status !== "Released" || entry.data.status !== "Ended") {
+        const removeOptions: StatusType[] = ["completed", "rewatching"];
+        statusOptions.filter((opt) => !removeOptions.includes(opt.value));
+      }
+    }
+  }
 
   const handleSave = async () => {
     if (id) {
@@ -192,13 +207,6 @@ const EntryEditorModal = ({
     }
   }, [media]);
 
-  // if (isLoading || isMediaLoading) {
-  //   return <Loading />;
-  // }
-  // if (isError || isMediaError) {
-  //   return <Error />;
-  // }
-
   return (
     <Modal open={open} setOpen={setOpen}>
       <div className="mx-0 w-screen md:w-[800px] bg-bgSecondary rounded-0 md:rounded-md">
@@ -241,11 +249,16 @@ const EntryEditorModal = ({
                           options: statusOptions,
                           onChange: (opt: any) => setStatus(opt.value),
                           className:
-                            "bg-bgFooter rounded-lg text-[1.4rem] text-left text-white px-8 py-1",
+                            "bg-anilist-bunker rounded-lg text-[1.4rem] text-left text-anilist-aqua_haze px-8 py-1",
                           classNames: {
-                            menu: () => "mt-3 bg-bgSecondary rounded-lg p-3",
-                            option: () =>
-                              "hover:bg-bgPrimary hover:text-actionPrimary p-3 text-[1.4rem] font-semibold rounded-md",
+                            menu: () =>
+                              "mt-3 text-anilist-gray-gull bg-anilist-gray-athens_gray rounded-lg p-3",
+                            option: (opt) =>
+                              `${
+                                entry &&
+                                entry.status === opt.data.value &&
+                                "text-anilist-blue-picton"
+                              } p-3 text-[1.4rem] rounded-md cursor-pointer`,
                           },
                           unstyled: true,
                           placeholder: "Status",
