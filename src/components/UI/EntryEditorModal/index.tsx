@@ -276,7 +276,7 @@ const EntryEditorModal = ({
                           value: startDate,
                           onChange: (e) => setStartDate(e.target.value),
                           name: "start-date",
-                          classes: "!bg-bgFooter text-white",
+                          classes: "!bg-anilist-bunker text-anilist-aqua_haze",
                           max: today,
                         }}
                       />
@@ -293,7 +293,7 @@ const EntryEditorModal = ({
                           value: score ?? 0,
                           onChange: (e) => setScore(parseInt(e.target.value)),
                           name: "score",
-                          classes: "!bg-bgFooter text-white",
+                          classes: "!bg-anilist-bunker text-anilist-aqua_haze",
                           min: 0,
                           max: 10,
                         }}
@@ -308,7 +308,7 @@ const EntryEditorModal = ({
                           value: finishDate,
                           onChange: (e) => setFinishDate(e.target.value),
                           name: "finish-date",
-                          classes: "!bg-bgFooter text-white",
+                          classes: "!bg-anilist-bunker text-anilist-aqua_haze",
                           max: today,
                         }}
                       />
@@ -327,7 +327,7 @@ const EntryEditorModal = ({
                             setProgress(parseInt(e.target.value)),
                           name: "score",
                           max: maxProgress,
-                          classes: "!bg-bgFooter text-white",
+                          classes: "!bg-anilist-bunker text-anilist-aqua_haze",
                           min: 0,
                         }}
                       />
@@ -342,7 +342,7 @@ const EntryEditorModal = ({
                           onChange: (e) =>
                             setRewatches(parseInt(e.target.value)),
                           name: "score",
-                          classes: "!bg-bgFooter text-white",
+                          classes: "!bg-anilist-bunker text-anilist-aqua_haze",
                         }}
                       />
                     </div>
@@ -352,13 +352,13 @@ const EntryEditorModal = ({
                 <div className="p-20 pt-0">
                   <div className="col-span-3">
                     <Label label="Notes" />
-                    <TextInput
+                    <textarea
                       {...{
-                        type: "text",
                         value: notes ?? "",
                         onChange: (e) => setNotes(e.target.value),
                         name: "notes",
-                        classes: "!bg-bgFooter text-white",
+                        className:
+                          "bg-anilist-bunker text-anilist-aqua_haze text-2xl w-full rounded focus:outline-none p-4 min-h-16",
                       }}
                     />
                   </div>
