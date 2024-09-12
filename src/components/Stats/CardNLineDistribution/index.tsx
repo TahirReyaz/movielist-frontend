@@ -1,5 +1,5 @@
 import React from "react";
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
 
 import { genreColors } from "../../../constants";
 import Item from "./Item";
@@ -44,11 +44,17 @@ const CardNLineDistribution = ({ stats, itemName }: Props) => {
         {stats.slice(0, 6).map((item, index) => (
           <Tippy
             {...{
-              content: item.title,
               trigger: "mouseenter focus",
               interactive: false,
-              arrow: true,
               key: index,
+              render: (attrs) => (
+                <div
+                  className="p-2 bg-anilist-blue-oxford text-xl text-anilist-aqua_haze rounded"
+                  {...attrs}
+                >
+                  {item.title}
+                </div>
+              ),
             }}
           >
             <div
