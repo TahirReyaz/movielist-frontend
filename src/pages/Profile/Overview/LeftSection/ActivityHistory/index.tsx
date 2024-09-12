@@ -5,6 +5,7 @@ import { useAppSelector } from "../../../../../hooks/redux";
 import { getActivityHistory } from "../../../../../lib/api/activity";
 import Loading from "../../../../../components/UI/Loading";
 import Tippy from "@tippyjs/react/headless";
+import { activityHistoryColours } from "../../../../../constants";
 
 const ActivityHistory = () => {
   const { username } = useAppSelector((state) => state.profile);
@@ -57,7 +58,15 @@ const ActivityHistory = () => {
                     key: item.date,
                   }}
                 >
-                  <div className="size-4 bg-anilist-gray-gull rounded" />
+                  <div
+                    className="size-4 rounded"
+                    style={{
+                      backgroundColor:
+                        item.count < 4
+                          ? activityHistoryColours[item.count]
+                          : "#9FADBD",
+                    }}
+                  />
                 </Tippy>
               )
             )}

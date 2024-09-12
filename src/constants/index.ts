@@ -50,6 +50,13 @@ export const genreColors = [
   "#E74C3C",
 ];
 
+export const activityHistoryColours = [
+  "#252C35",
+  "#434C57",
+  "#626D79",
+  "#808D9B",
+];
+
 export const searchTypes = [
   { label: "Movie", to: "movie" },
   { label: "TV", to: "tv" },
