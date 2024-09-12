@@ -14,12 +14,14 @@ interface Props {
 }
 
 const PieChart = ({ data }: Props) => {
+  const sortedData = [...data].sort((a, b) => b.count - a.count);
+
   const pieData = {
-    labels: data.map((item) => item.format),
+    labels: sortedData.map((item) => item.format),
     datasets: [
       {
         label: "Count",
-        data: data.map((item) => item.count),
+        data: sortedData.map((item) => item.count),
         backgroundColor: distributionColors,
         borderColor: "#00000033",
         borderWidth: 1,
