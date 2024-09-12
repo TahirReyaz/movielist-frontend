@@ -48,7 +48,16 @@ const ActivityHistory = () => {
                         <h4 className="mb-8 text-2xl font-medium text-anilist-aqua_haze">
                           {item.date}
                         </h4>
-                        <p className="text-xl text-anilist-blue_haze">
+                        <p className="text-xl text-anilist-blue_haze flex items-center">
+                          <div
+                            className="me-2 rounded-full size-4"
+                            style={{
+                              backgroundColor:
+                                item.count < 4
+                                  ? activityHistoryColours[item.count]
+                                  : "#9FADBD",
+                            }}
+                          />
                           Amount: {item.count}
                         </p>
                       </div>
