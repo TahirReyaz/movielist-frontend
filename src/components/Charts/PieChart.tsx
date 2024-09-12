@@ -40,7 +40,28 @@ const PieChart = ({ data }: Props) => {
             position: "nearest",
             yAlign: "bottom",
             xAlign: "center",
+            callbacks: {
+              // Customize the tooltip content
+              label: function (tooltipItem) {
+                const { dataIndex } = tooltipItem;
+                const item = sortedData[dataIndex];
+
+                // Create custom label with count, hoursWatched, and meanScore
+                const countLabel = `Count: ${item.count}`;
+                const hoursWatchedLabel = `Hours Watched: ${Math.round(
+                  item.hoursWatched
+                )}`;
+                const meanScoreLabel = `Mean Score: ${item.meanScore.toFixed(
+                  2
+                )}`;
+
+                return [countLabel, hoursWatchedLabel, meanScoreLabel];
+              },
+            },
           },
+        },
+        layout: {
+          padding: 30,
         },
       }}
     />
