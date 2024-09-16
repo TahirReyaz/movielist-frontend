@@ -85,14 +85,14 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <div className="h-screen p-20 bg-anilist-mirage text-white">
+      <div className="h-screen p-20 bg-anilist-mirage text-white text-center">
         <Loading title="Fetching user details..." />
       </div>
     );
   }
 
   if (isError) {
-    return <Error />;
+    dispatch(logoutAction());
   }
 
   return (
