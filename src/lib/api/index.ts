@@ -8,6 +8,7 @@ import { backendUrl } from "../../constants";
 import { newEntryType } from "../../constants/types/entry";
 import { sessionLogin, login, signup } from "./auth";
 import { getMediaActivities } from "./activity";
+import { followUser } from "./user";
 import {
   getMediaStatusDist,
   getMediaFollowingStatus,
@@ -171,22 +172,8 @@ export const getSearchResults = async ({
   return results;
 };
 
-export async function followUser(targetUsername: string) {
-  try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/follow/${targetUsername}`,
-      undefined,
-      { withCredentials: true }
-    );
-
-    return response.data;
-  } catch (error: any) {
-    console.error(error);
-    return error;
-  }
-}
-
 export { sessionLogin, login, signup };
+export { followUser };
 export { getMediaActivities };
 export {
   getMediaStatusDist,

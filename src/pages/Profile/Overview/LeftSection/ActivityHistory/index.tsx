@@ -48,7 +48,7 @@ const ActivityHistory = () => {
                         <h4 className="mb-8 text-2xl font-medium text-anilist-aqua_haze">
                           {item.date}
                         </h4>
-                        <p className="text-xl text-anilist-blue_haze flex items-center">
+                        <div className="text-xl text-anilist-blue_haze flex items-center">
                           <div
                             className="me-2 rounded-full size-4"
                             style={{
@@ -59,7 +59,7 @@ const ActivityHistory = () => {
                             }}
                           />
                           Amount: {item.count}
-                        </p>
+                        </div>
                       </div>
                     ),
                     trigger: "mouseenter focus",

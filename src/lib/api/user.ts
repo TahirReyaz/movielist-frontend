@@ -51,6 +51,20 @@ export const unfollowUser = async (targetUsername: string) => {
 
     return response.data;
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(error.message);
+  }
+};
+
+export const followUser = async (targetUsername: string) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/user/follow/${targetUsername}`,
+      undefined,
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 };

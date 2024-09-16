@@ -7,6 +7,7 @@ import { useAppSelector } from "../../../hooks/redux";
 import Button from "../../../components/UI/Button";
 import { unfollowUser } from "../../../lib/api/user";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
+import { useLoadingBar } from "../../../components/UI/LoadingBar";
 
 const FollowButton = () => {
   const [hover, setHover] = useState<boolean>(false);
@@ -22,6 +23,7 @@ const FollowButton = () => {
   );
 
   const queryClient = useQueryClient();
+  const loadingBar = useLoadingBar();
 
   const followingThisUser = profileData?.following?.some(
     (user: RefUser) => user.username == profileUsername
@@ -32,11 +34,20 @@ const FollowButton = () => {
     followButtonTitle = "Unfollow";
   }
 
-  const handleFollow = async () => {
+  const toggleFollow = async () => {
     try {
-      await followUser(profileUsername);
+      let msg = "";
+      loadingBar.current?.continuousStart();
 
-      showSuccessToast(`You started following ${profileUsername}`);
+      if (followingThisUser) {
+        await unfollowUser(profileUsername);
+        msg = `You unfollowed ${profileUsername}`;
+      } else {
+        await followUser(profileUsername);
+        msg = `You started following ${profileUsername}`;
+      }
+
+      loadingBar.current?.complete();
 
       queryClient.invalidateQueries({
         queryKey: ["user", loggedUsername],
@@ -44,24 +55,9 @@ const FollowButton = () => {
       queryClient.invalidateQueries({
         queryKey: ["profile", profileUsername],
       });
+      showSuccessToast(msg);
     } catch (error: any) {
-      showErrorToast(error.message);
-    }
-  };
-
-  const handleUnfollow = async () => {
-    try {
-      await unfollowUser(profileUsername);
-
-      showSuccessToast(`You unfollowed ${profileUsername}`);
-
-      queryClient.invalidateQueries({
-        queryKey: ["user", loggedUsername],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["profile", profileUsername],
-      });
-    } catch (error: any) {
+      loadingBar.current?.complete();
       showErrorToast(error.message);
     }
   };
@@ -72,7 +68,7 @@ const FollowButton = () => {
         <Button
           {...{
             title: followButtonTitle,
-            onClick: followingThisUser ? handleUnfollow : handleFollow,
+            onClick: toggleFollow,
             onMouseEnter: () => setHover(true),
             onMouseLeave: () => setHover(false),
           }}
