@@ -14,40 +14,9 @@ import {
   getMediaFollowingStatus,
   getMediaTrailers,
   getMediaVideos,
+  getBulkMedia,
+  getMediaDetail,
 } from "./media";
-
-export async function getBulkMedia(
-  mediatype: MediaType,
-  bulktype: bulkMediaType,
-  page: number = 1
-) {
-  try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/bulk/${bulktype}`,
-      {
-        params: {
-          page,
-        },
-      }
-    );
-    const medias = response.data;
-    return medias;
-  } catch (error: any) {
-    throw new Error(error);
-  }
-}
-
-export async function getMediaDetail(mediatype: string, mediaid: number) {
-  try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/detail/${mediaid}`
-    );
-    return response.data;
-  } catch (error: any) {
-    const msg = error.response?.data?.message;
-    throw new Error(msg);
-  }
-}
 
 export const addEntry = async (body: newEntryType) => {
   try {
@@ -180,4 +149,6 @@ export {
   getMediaFollowingStatus,
   getMediaTrailers,
   getMediaVideos,
+  getBulkMedia,
+  getMediaDetail,
 };

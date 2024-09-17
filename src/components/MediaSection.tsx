@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getBulkMedia } from "../lib/api";
-import { bulkMediaType, MediaType } from "../constants/types";
+import { bulkMediaType } from "../constants/types";
 import CardList from "./UI/Media/CardList";
+import Error from "./UI/Error";
 
 export interface mediaSectionItem {
   type: bulkMediaType;
@@ -19,16 +20,16 @@ const MediaSection = ({
   title,
   maxResults,
 }: mediaSectionItem) => {
-  const mediaQuery = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: [`${type}_${mediaType}`],
     queryFn: () => getBulkMedia(mediaType, type),
   });
 
-  if (mediaQuery.isLoading) {
+  if (isLoading) {
     return <h3 className="text-3xl font-semibold">Loading...</h3>;
   }
-  if (mediaQuery.isError) {
-    return <h3>Error</h3>;
+  if (isError) {
+    return <Error />;
   }
 
   return (
@@ -49,14 +50,14 @@ const MediaSection = ({
         </div>
       )}
 
-      <CardList
-        {...{
-          items: maxResults
-            ? mediaQuery.data.slice(0, maxResults)
-            : mediaQuery.data.slice(0, 5),
-          maxResults,
-        }}
-      />
+      {data && (
+        <CardList
+          {...{
+            items: maxResults ? data.slice(0, maxResults) : data.slice(0, 5),
+            maxResults,
+          }}
+        />
+      )}
     </section>
   );
 };
