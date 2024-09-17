@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 import MobileHeader from "../../../components/Layout/MobileHeader";
 
@@ -11,7 +10,7 @@ const MenuSideBar = () => {
 
   let option = urlItems[urlItems.length - 1];
 
-  if (option.length === 0) {
+  if (option === "settings") {
     option = "/";
   }
 
