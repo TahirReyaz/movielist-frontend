@@ -15,7 +15,6 @@ interface TopSectionProps {
   poster?: string;
   backdrop?: string;
   fav?: boolean;
-  onSave: () => void;
   onFav: () => void;
   onUnFav: () => void;
   onClose: () => void;
@@ -26,7 +25,6 @@ const TopSection = ({
   poster,
   backdrop,
   fav,
-  onSave,
   onFav,
   onUnFav,
   onClose,
@@ -76,7 +74,7 @@ const TopSection = ({
               onClick={fav ? onUnFav : onFav}
             />
             <Button
-              {...{ title: "Save", onClick: onSave, classes: "font-normal" }}
+              {...{ title: "Save", classes: "font-normal", type: "submit" }}
             />
           </div>
         </div>

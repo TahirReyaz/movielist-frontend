@@ -17,7 +17,7 @@ import { toggleFav } from "../../../lib/api/user";
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../LoadingBar";
 
-interface EntryEditorModalParams {
+interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
@@ -34,13 +34,7 @@ const Label = ({ label }: { label: string }) => {
   return <p className="text-xl text-left text-textLight my-2">{label}</p>;
 };
 
-const EntryEditorModal = ({
-  open,
-  setOpen,
-  id,
-  mediaid,
-  mediaType,
-}: EntryEditorModalParams) => {
+const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
   const { profileData: profile, username } = useAppSelector(
     (state) => state.auth
   );
@@ -99,7 +93,8 @@ const EntryEditorModal = ({
     }
   }
 
-  const handleSave = async () => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (id) {
       if (status) {
         try {
@@ -211,7 +206,10 @@ const EntryEditorModal = ({
 
   return (
     <Modal open={open} setOpen={setOpen}>
-      <div className="mx-0 w-screen md:w-[800px] bg-bgSecondary rounded-0 md:rounded-md">
+      <form
+        onSubmit={handleSave}
+        className="mx-0 w-screen md:w-[800px] bg-bgSecondary rounded-0 md:rounded-md"
+      >
         {isLoading || isMediaLoading || isError || isMediaError ? (
           isError || isMediaError ? (
             <Error />
@@ -228,7 +226,6 @@ const EntryEditorModal = ({
                 poster: media?.poster_path,
                 onFav: () => handleFavToggle(true),
                 onUnFav: () => handleFavToggle(false),
-                onSave: handleSave,
                 onClose: () => setOpen(false),
               }}
             />
@@ -368,7 +365,7 @@ const EntryEditorModal = ({
             </div>
           </>
         )}
-      </div>
+      </form>
     </Modal>
   );
 };
