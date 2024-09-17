@@ -68,3 +68,20 @@ export const followUser = async (targetUsername: string) => {
     throw new Error(error.message);
   }
 };
+
+export const flagUserForDeletion = async (password: string) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/user/flag/delete`,
+      { password },
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    const message = error.response?.data?.message;
+    throw new Error(message);
+  }
+};
