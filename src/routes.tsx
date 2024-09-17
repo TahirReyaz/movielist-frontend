@@ -12,6 +12,7 @@ import Tags from "./pages/Profile/Stats/Pages/Tags";
 import Cast from "./pages/Profile/Stats/Pages/Cast";
 import Crew from "./pages/Profile/Stats/Pages/Crew";
 import Account from "./pages/Settings/Pages/Account";
+import Lists from "./pages/Settings/Pages/Lists";
 
 export const mediaSubRoutes = [
   { path: "watch", element: <Watch /> },
@@ -31,7 +32,7 @@ export const profileSubRoutes = [
 export const settingsSubRoutes = [
   { path: "account", element: <Account />, title: "Account" },
   { path: "media", element: <ComingSoon />, title: "Movie & Shows" },
-  { path: "lists", element: <ComingSoon />, title: "Lists" },
+  { path: "lists", element: <Lists />, title: "Lists" },
   {
     path: "notifications",
     element: <ComingSoon />,

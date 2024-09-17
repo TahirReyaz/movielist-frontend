@@ -85,3 +85,20 @@ export const flagUserForDeletion = async (password: string) => {
     throw new Error(message);
   }
 };
+
+export const updateStats = async (password: string) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/user/stats/update`,
+      undefined,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    const message = error.response?.data?.message;
+    throw new Error(message);
+  }
+};

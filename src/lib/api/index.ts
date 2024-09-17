@@ -8,7 +8,7 @@ import { backendUrl } from "../../constants";
 import { newEntryType } from "../../constants/types/entry";
 import { sessionLogin, login, signup } from "./auth";
 import { getMediaActivities } from "./activity";
-import { followUser, flagUserForDeletion } from "./user";
+import { followUser, flagUserForDeletion, updateStats } from "./user";
 import {
   getMediaStatusDist,
   getMediaFollowingStatus,
@@ -142,7 +142,7 @@ export const getSearchResults = async ({
 };
 
 export { sessionLogin, login, signup };
-export { followUser, flagUserForDeletion };
+export { followUser, flagUserForDeletion, updateStats };
 export { getMediaActivities };
 export {
   getMediaStatusDist,
