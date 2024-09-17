@@ -86,7 +86,7 @@ export const flagUserForDeletion = async (password: string) => {
   }
 };
 
-export const updateStats = async (password: string) => {
+export const updateStats = async () => {
   try {
     const response: AxiosResponse = await axios.patch(
       `${backendUrl}/user/stats/update`,

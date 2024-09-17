@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 
 import ComingSoon from "../../../ComingSoon";
+import UpdateStats from "./UpdateStats";
 
 const Lists = () => {
   const sections = [
@@ -14,7 +15,7 @@ const Lists = () => {
     },
     {
       title: "Stats",
-      element: <ComingSoon />,
+      element: <UpdateStats />,
       label:
         "Your stats automatically update every 48 hours but you can force an update below",
     },
