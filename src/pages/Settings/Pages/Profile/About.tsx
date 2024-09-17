@@ -5,7 +5,6 @@ import MDEditor from "@uiw/react-md-editor";
 
 import { updateUserDetail } from "../../../../lib/api";
 import { RootState } from "../../../../store";
-import Button from "../../../../components/UI/Button";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import MarkdownEditor from "../../../../components/UI/Inputs/MarkdownEditor";
