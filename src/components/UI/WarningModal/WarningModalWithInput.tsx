@@ -34,7 +34,13 @@ const WarningModalWithInput = ({
 }: Props) => {
   return (
     <Modal open={open} setOpen={setOpen}>
-      <div className="bg-anilist-ebony_clay text-anilist-gray-gull w-screen md:w-[400px] p-8 align-center">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          action();
+        }}
+        className="bg-anilist-ebony_clay text-anilist-gray-gull w-screen md:w-[400px] p-8 align-center"
+      >
         <div className="flex justify-between">
           <h2 className="text-3xl">{title}</h2>
           <RxCross1
@@ -61,14 +67,14 @@ const WarningModalWithInput = ({
           >
             Cancel
           </div>
-          <div
+          <button
             className="px-6 py-3 bg-anilist-blue-picton text-anilist-gray-athens_gray w-fit rounded text-xl cursor-pointer"
-            onClick={value === "" ? () => {} : action}
+            type="submit"
           >
             {actionName}
-          </div>
+          </button>
         </div>
-      </div>
+      </form>
     </Modal>
   );
 };
