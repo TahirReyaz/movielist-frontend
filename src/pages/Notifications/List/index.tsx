@@ -36,7 +36,18 @@ const List = ({ type }: Props) => {
     <div>
       {notifs &&
         notifs.map((notif: NotificationType) => (
-          <Notification {...{ key: notif._id, ...notif }} />
+          <Notification
+            {...{
+              key: notif._id,
+              ...notif,
+              pointingId: notif.pointingUser
+                ? notif.pointingUser.username
+                : notif.pointingId,
+              pointingImg: notif.pointingUser
+                ? notif.pointingUser.avatar
+                : notif.pointingImg,
+            }}
+          />
         ))}
     </div>
   );

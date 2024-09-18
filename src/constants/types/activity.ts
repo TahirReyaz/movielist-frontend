@@ -31,9 +31,10 @@ export type Notification = {
   type: NotifType;
   read: boolean;
   content: string;
-  pointingImg: string;
+  pointingImg?: string;
   pointingId: string;
   pointingType: MediaType;
+  pointingUser?: RefUser;
   activityId?: string;
   owner: RefUser;
   createdAt: Date;

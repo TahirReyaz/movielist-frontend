@@ -20,6 +20,8 @@ const Notification = ({
     pointingUrl = `/user/${pointingId}`;
   }
 
+  const elapsedTime = calculateElapsedTime(createdAt.toString());
+
   return (
     <div className="rounded shadow-lg bg-anilist-mirage mb-8 flex overflow-hidden">
       <div className="grid grid-cols-5 md:grid-cols-12 gap-4">
@@ -46,9 +48,7 @@ const Notification = ({
         </div>
         {/* Time */}
         <div className="p-4 col-span-2 flex justify-end">
-          <span className="text-lg">
-            {calculateElapsedTime(createdAt.toString())}
-          </span>
+          <span className="text-lg">{elapsedTime}</span>
         </div>
       </div>
       <div

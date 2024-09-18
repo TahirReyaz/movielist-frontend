@@ -102,7 +102,7 @@ const MediaActivity = ({
         {/* Poster */}
         <Link
           to={`/${mediaType}/${mediaid}`}
-          className="col-span-2 md:col-span-1 relative"
+          className="col-span-2 md:col-span-1 relative rounded-s-lg overflow-hidden"
         >
           <img src={image} />
           {isLoggedIn && mediaType && mediaid && (
