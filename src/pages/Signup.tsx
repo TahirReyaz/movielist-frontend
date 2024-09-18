@@ -11,6 +11,7 @@ import {
   showWarningToast,
 } from "../utils/toastUtils";
 import { useLoadingBar } from "../components/UI/LoadingBar";
+import { passwordValidity } from "../lib/helpers";
 
 type Values = {
   username: string;
@@ -46,14 +47,6 @@ const Signup = () => {
     return !result;
   };
 
-  const passwordValidity = () => {
-    // regex for password validation (at least 1 uppercase, 1 lowercase, 1 number, 1 special character,  min 8 characters long)
-    const re =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    const result = re.test(values.password);
-    return result;
-  };
-
   const confirmPasswordValidity = () => {
     const result = values.password === values.confirmPassword;
     return result;
@@ -63,7 +56,7 @@ const Signup = () => {
     event.preventDefault();
     const validU = usernameValidity();
     const validE = emailValidity();
-    const validP = passwordValidity();
+    const validP = passwordValidity(values.password);
     const validCP = confirmPasswordValidity();
 
     if (validE && validP && validCP && validU) {

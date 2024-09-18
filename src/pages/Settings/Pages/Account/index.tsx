@@ -5,6 +5,7 @@ import ComingSoon from "../../../ComingSoon";
 import DeleteAccount from "./DeleteAccount";
 import BlockedUsers from "./BlockedUsers";
 import ChangeUsername from "./ChangeUsername";
+import ChangePassword from "./ChangePassword";
 
 const Account = () => {
   const sections = [
@@ -12,7 +13,7 @@ const Account = () => {
     { title: "Email", element: <ComingSoon /> },
     {
       title: "Change Password",
-      element: <ComingSoon />,
+      element: <ChangePassword />,
     },
     { title: "Privacy", element: <ComingSoon /> },
     {

@@ -203,3 +203,11 @@ export const capitaliseFirst = (s: string): string => {
   ans += s.slice(1, s.length);
   return ans;
 };
+
+export const passwordValidity = (password: string) => {
+  // regex for password validation (at least 1 uppercase, 1 lowercase, 1 number, 1 special character,  min 8 characters long)
+  const re =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const result = re.test(password);
+  return result;
+};

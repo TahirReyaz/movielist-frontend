@@ -70,10 +70,13 @@ const ChangeUsername = () => {
       </Link>
       <br />
       {validateUsername(newUsername) && (
-        <button className="py-4 px-6 mt-4 text-xl bg-anilist-blue-picton cursor-pointer rounded-md text-anilist-aqua_haze">
+        <button
+          type="submit"
+          className="py-4 px-6 mt-4 text-xl bg-anilist-blue-picton cursor-pointer rounded-md text-anilist-aqua_haze"
+        >
           Save Username
         </button>
-      )}{" "}
+      )}
     </form>
   );
 };

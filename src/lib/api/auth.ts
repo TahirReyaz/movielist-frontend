@@ -54,3 +54,21 @@ export const sessionLogin = async (sessionToken: string) => {
     throw new Error(error_msg);
   }
 };
+
+export const changePassword = async (
+  newPassword: string,
+  oldPassword: string
+) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/auth/update/password`,
+      { newPassword, oldPassword },
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    const error_msg = error?.response?.data?.message;
+    throw new Error(error_msg ?? error.message);
+  }
+};

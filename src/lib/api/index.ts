@@ -6,7 +6,7 @@ import {
 } from "../../constants/types";
 import { backendUrl } from "../../constants";
 import { newEntryType } from "../../constants/types/entry";
-import { sessionLogin, login, signup } from "./auth";
+import { sessionLogin, login, signup, changePassword } from "./auth";
 import { getMediaActivities } from "./activity";
 import {
   followUser,
@@ -146,7 +146,7 @@ export const getSearchResults = async ({
   return results;
 };
 
-export { sessionLogin, login, signup };
+export { sessionLogin, login, signup, changePassword };
 export { followUser, flagUserForDeletion, updateStats, changeUsername };
 export { getMediaActivities };
 export {
