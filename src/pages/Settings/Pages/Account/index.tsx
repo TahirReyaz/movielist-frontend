@@ -4,10 +4,11 @@ import { Helmet } from "react-helmet-async";
 import ComingSoon from "../../../ComingSoon";
 import DeleteAccount from "./DeleteAccount";
 import BlockedUsers from "./BlockedUsers";
+import ChangeUsername from "./ChangeUsername";
 
 const Account = () => {
   const sections = [
-    { title: "User Name", element: <ComingSoon /> },
+    { title: "User Name", element: <ChangeUsername /> },
     { title: "Email", element: <ComingSoon /> },
     {
       title: "Change Password",

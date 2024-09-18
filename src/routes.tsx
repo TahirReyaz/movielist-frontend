@@ -30,17 +30,17 @@ export const profileSubRoutes = [
 ];
 
 export const settingsSubRoutes = [
-  { path: "account", element: <Account />, title: "Account" },
-  { path: "media", element: <ComingSoon />, title: "Movie & Shows" },
-  { path: "lists", element: <Lists />, title: "Lists" },
+  { path: "account", element: <Account /> },
+  { path: "media", element: <ComingSoon /> },
+  { path: "lists", element: <Lists /> },
   {
     path: "notifications",
     element: <ComingSoon />,
-    title: "Notifications",
   },
-  { path: "import", element: <ComingSoon />, title: "Import Lists" },
-  { path: "apps", element: <ComingSoon />, title: "Apps" },
-  { path: "developer", element: <ComingSoon />, title: "Developer" },
+  { path: "import", element: <ComingSoon /> },
+  { path: "apps", element: <ComingSoon /> },
+  { path: "developer", element: <ComingSoon /> },
+  { path: "name-clear", element: <ComingSoon /> },
 ];
 
 export const statsSubRoutes = [

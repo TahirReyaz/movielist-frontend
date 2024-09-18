@@ -102,3 +102,20 @@ export const updateStats = async () => {
     throw new Error(message);
   }
 };
+
+export const changeUsername = async (newUsername: string) => {
+  try {
+    const response: AxiosResponse = await axios.patch(
+      `${backendUrl}/user/update/username`,
+      { username: newUsername },
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
+  } catch (error: any) {
+    const message = error.response?.data?.message;
+    throw new Error(message);
+  }
+};

@@ -56,6 +56,9 @@ export const authSlice = createSlice({
       state.profileData = action.payload.profile;
       state.unreadNotifs = action.payload.unreadNotifs;
     },
+    changeUsername: (state, action) => {
+      state.username = action.payload;
+    },
   },
 });
 
@@ -66,4 +69,5 @@ export const {
   toggleFav: favAction,
   changeDp: changeDpAction,
   saveUser,
+  changeUsername: changeUsernameAction,
 } = authSlice.actions;
