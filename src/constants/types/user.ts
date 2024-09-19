@@ -24,3 +24,21 @@ export type UserFav = {
   staff: string[];
   prod_companies: string[];
 };
+
+export type RoleType =
+  | "admin"
+  | "community mod"
+  | "developer"
+  | "social media mod";
+
+export type Role = {
+  role: RoleType;
+  lead: boolean;
+  retired: boolean;
+};
+
+export type Mod = {
+  roles: Role[];
+  username: string;
+  avatar?: string;
+};

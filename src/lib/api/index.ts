@@ -13,6 +13,7 @@ import {
   flagUserForDeletion,
   updateStats,
   changeUsername,
+  getMods,
 } from "./user";
 import {
   getMediaStatusDist,
@@ -148,7 +149,13 @@ export const getSearchResults = async ({
 };
 
 export { sessionLogin, login, signup, changePassword };
-export { followUser, flagUserForDeletion, updateStats, changeUsername };
+export {
+  followUser,
+  flagUserForDeletion,
+  updateStats,
+  changeUsername,
+  getMods,
+};
 export { getMediaActivities };
 export {
   getMediaStatusDist,

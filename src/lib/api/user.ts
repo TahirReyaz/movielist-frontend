@@ -119,3 +119,14 @@ export const changeUsername = async (newUsername: string) => {
     throw new Error(message);
   }
 };
+
+export const getMods = async () => {
+  try {
+    const response: AxiosResponse = await axios.get(`${backendUrl}/users/mods`);
+
+    return response.data;
+  } catch (error: any) {
+    const msg = error.response?.data?.message ?? error.message;
+    throw new Error(msg);
+  }
+};

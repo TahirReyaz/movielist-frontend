@@ -54,7 +54,7 @@ const SocialUser = ({
         <img src={img} />
         {hover && (
           <div className="bg-shadow/60 py-4 text-center flex items-end justify-center h-full w-full absolute top-0 left-0 rounded">
-            <h1 className="text-xl font-bold text-white">{username}</h1>
+            <h1 className="text-xl font-medium text-white">{username}</h1>
           </div>
         )}
       </Link>

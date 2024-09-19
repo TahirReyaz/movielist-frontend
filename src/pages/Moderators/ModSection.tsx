@@ -1,5 +1,7 @@
 import React from "react";
+
 import ModItem from "./ModItem";
+import { Mod } from "../../constants/types/user";
 
 const ModSection = ({
   label,
@@ -7,12 +9,16 @@ const ModSection = ({
 }: {
   label: string;
   type: string;
-  list: any[];
+  list: Mod[];
 }) => {
+  if (list.length === 0) {
+    return;
+  }
+
   return (
     <div>
-      <h2 className="text-3xl font-medium">{label}</h2>
-      <ul className="grid grid-cols-3 md:grid-cols-9">
+      <h2 className="text-3xl font-medium mb-8">{label}</h2>
+      <ul className="grid grid-cols-4 md:grid-cols-12 ps-4">
         {list.map((item: any) => (
           <ModItem {...{ key: item.username, ...item }} />
         ))}
