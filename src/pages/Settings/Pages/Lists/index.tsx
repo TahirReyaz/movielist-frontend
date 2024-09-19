@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 
 import ComingSoon from "../../../ComingSoon";
 import UpdateStats from "./UpdateStats";
+import DeleteLists from "./DeleteLists";
 
 const Lists = () => {
   const sections = [
@@ -36,6 +37,7 @@ const Lists = () => {
             {section.element}
           </div>
         ))}
+        <DeleteLists />
       </div>
     </>
   );

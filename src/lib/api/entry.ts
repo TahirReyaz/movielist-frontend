@@ -100,3 +100,22 @@ export const getWatchingUserMediaEntries = async (
     throw new Error(error_msg);
   }
 };
+
+export const delUserMediaEntries = async (
+  password: string,
+  mediaType: MediaType
+) => {
+  try {
+    const response = await axios.patch(
+      `${backendUrl}/entries/${mediaType}/delete-all`,
+      { password },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    const error_msg = error.response?.data?.message ?? error.message;
+    throw new Error(error_msg);
+  }
+};

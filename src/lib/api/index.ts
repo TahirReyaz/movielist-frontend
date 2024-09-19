@@ -22,6 +22,7 @@ import {
   getBulkMedia,
   getMediaDetail,
 } from "./media";
+import { delUserMediaEntries } from "./entry";
 
 export const addEntry = async (body: newEntryType) => {
   try {
@@ -157,3 +158,4 @@ export {
   getBulkMedia,
   getMediaDetail,
 };
+export { delUserMediaEntries };
