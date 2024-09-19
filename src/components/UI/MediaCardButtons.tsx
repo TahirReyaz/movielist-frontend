@@ -75,6 +75,7 @@ const MediaCardButtons = ({
     const title =
       mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
     try {
+      loadingBar.current?.continuousStart();
       let response;
       if (entryId) {
         response = await updateEntry({ status, id: entryId });
@@ -88,6 +89,8 @@ const MediaCardButtons = ({
           backdrop: mediaDetails.backdrop_path,
         });
       }
+
+      loadingBar.current?.complete();
       queryClient.invalidateQueries({ queryKey: ["user", username] });
 
       showSuccessToast(response?.message);
