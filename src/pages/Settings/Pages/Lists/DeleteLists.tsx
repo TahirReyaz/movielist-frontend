@@ -54,7 +54,7 @@ const DeleteLists = () => {
       <p className="text-2xl text-anilist-gray-regent mb-4">
         Warning! This will permanently delete all your Movie or TV list entries
       </p>
-      <div className="flex gap-4">
+      <div className="flex gap-6">
         <div
           className="rounded-md text-xl text-anilist-aqua_haze bg-anilist-mandy/80 my-8 p-4 px-6 w-fit cursor-pointer"
           onClick={() => handleClick("movie")}
