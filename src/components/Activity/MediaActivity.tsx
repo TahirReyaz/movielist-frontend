@@ -102,9 +102,9 @@ const MediaActivity = ({
         {/* Poster */}
         <Link
           to={`/${mediaType}/${mediaid}`}
-          className="col-span-2 md:col-span-1 relative rounded-s-lg overflow-hidden"
+          className="col-span-2 md:col-span-1 relative rounded-s-lg"
         >
-          <img src={image} />
+          <img src={image} className="rounded-s-lg" />
           {isLoggedIn && mediaType && mediaid && (
             <Tippy
               {...{
@@ -113,7 +113,7 @@ const MediaActivity = ({
                 placement: "bottom-end",
                 ref: tippyRef,
                 render: (attrs) => (
-                  <div {...attrs} className="w-96">
+                  <div {...attrs} className="w-96 z-10">
                     <MediaActionMenu
                       {...{
                         currentStatus: existingEntry?.status,
