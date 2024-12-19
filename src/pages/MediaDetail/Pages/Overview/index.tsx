@@ -14,6 +14,7 @@ import { MovieDetail, TvDetail } from "../../../../constants/types/media";
 import { MediaType } from "../../../../constants/types";
 import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
+import Seasons from "./Seasons";
 
 const Overview = () => {
   const { pathname } = useLocation();
@@ -49,6 +50,14 @@ const Overview = () => {
             }}
           />
         )}
+      {mediaType === "tv" && mediaid && (mediaDetails as TvDetail)?.seasons && (
+        <Seasons
+          {...{
+            seasons: (mediaDetails as TvDetail).seasons,
+            showId: mediaid,
+          }}
+        />
+      )}
       {mediaid && (
         <>
           <Characters {...{ mediaid, mediaType }} />

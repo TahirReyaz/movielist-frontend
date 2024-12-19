@@ -66,7 +66,7 @@ export type TvDetail = MediaDetailBase<"tv"> & {
   number_of_seasons: number;
   origin_country: string[];
   original_name: string;
-  seasons: Season[];
+  seasons: ITVSeason[];
   type: string;
 };
 
@@ -181,7 +181,7 @@ export type Network = {
   origin_country: string;
 };
 
-export type Season = {
+export type ITVSeason = {
   air_date: string;
   episode_count: number;
   id: number;
