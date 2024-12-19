@@ -49,7 +49,7 @@ const MediaDetail = () => {
     isError,
   } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],
-    queryFn: () => getMediaDetail(mediaType, Number(mediaid)),
+    queryFn: () => getMediaDetail(mediaType, mediaid!),
     enabled: mediaid && mediaType ? true : false,
   });
 
@@ -62,7 +62,7 @@ const MediaDetail = () => {
 
   useEffect(() => {
     if (mediaDetails && mediaid) {
-      dispatch(setDetails({ mediaType, mediaid: Number(mediaid) }));
+      dispatch(setDetails({ mediaType, mediaid: mediaid }));
     }
   }, [mediaType, mediaid]);
 
@@ -79,7 +79,7 @@ const MediaDetail = () => {
         }}
       />
       <main>
-        {mediaDetails && (
+        {mediaDetails && mediaid && (
           <>
             {/* Image and overview */}
             <TopSection />
@@ -92,7 +92,7 @@ const MediaDetail = () => {
             />
 
             <div className="block md:hidden px-12">
-              <Tags {...{ mediaid: Number(mediaid), mediaType }} />
+              <Tags {...{ mediaid, mediaType }} />
             </div>
           </>
         )}

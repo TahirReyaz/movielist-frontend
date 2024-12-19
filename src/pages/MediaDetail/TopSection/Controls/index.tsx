@@ -27,11 +27,8 @@ const Controls = () => {
   const tippyRef = useRef(null);
 
   const { pathname } = useLocation();
-  const { mediaid: mediaidString } = useParams<{ mediaid: string }>();
-  let mediaid: number = 0;
-  if (mediaidString) {
-    mediaid = parseInt(mediaidString);
-  }
+  const { mediaid } = useParams<{ mediaid: string }>();
+
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
@@ -56,7 +53,7 @@ const Controls = () => {
   }
 
   const isFav = profile?.fav[mediaType as keyof UserFav]?.includes(
-    mediaid.toString()
+    mediaid || ""
   );
   const status = existingEntry?.status;
   let title = "Add to list";
@@ -67,7 +64,9 @@ const Controls = () => {
   const handleFavToggle = async (toFav: boolean) => {
     try {
       loadingBar.current?.continuousStart();
-      await toggleFav(Number(mediaid), mediaType, toFav);
+      if (mediaid) {
+        await toggleFav(mediaid, mediaType, toFav);
+      }
       loadingBar.current?.complete();
 
       showSuccessToast(
@@ -143,7 +142,7 @@ const Controls = () => {
             open: showModal,
             setOpen: setShowModal,
             id: existingEntry?._id,
-            mediaid: Number(mediaid),
+            mediaid,
             mediaType,
           }}
         />

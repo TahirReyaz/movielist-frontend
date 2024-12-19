@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendUrl } from "../../constants";
 
-export async function getStaffDetails(id: number) {
+export async function getStaffDetails(id: string) {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/staff/${id}`

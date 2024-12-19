@@ -32,7 +32,7 @@ interface Props {
     backdrop_path: string;
     status: string;
     title: string;
-    id: number;
+    id: string;
   };
 }
 

@@ -24,7 +24,7 @@ const Overview = () => {
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],
-    enabled: Number(mediaid) !== 0,
+    enabled: !!mediaid,
   });
 
   return (
@@ -38,24 +38,29 @@ const Overview = () => {
         </div>
       )}
       {mediaType === "movie" &&
+        mediaid &&
         (mediaDetails as MovieDetail)?.belongs_to_collection?.id && (
           <Relations
             {...{
-              mediaid: Number(mediaid),
+              mediaid,
               collectionId: (mediaDetails as MovieDetail)?.belongs_to_collection
                 ?.id,
               mediaType,
             }}
           />
         )}
-      <Characters {...{ mediaid: Number(mediaid), mediaType }} />
-      <Staff />
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 mt-16">
-        {mediaid && <StatusDistribution {...{ mediaid, mediaType }} />}
-        {isLoggedIn && mediaid && <FollowingStatus {...{ mediaid }} />}
-      </div>
-      {mediaid && <Trailer {...{ mediaid, mediaType }} />}
-      <Recommendations {...{ mediaid: Number(mediaid), mediaType }} />
+      {mediaid && (
+        <>
+          <Characters {...{ mediaid, mediaType }} />
+          <Staff />
+          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 mt-16">
+            {mediaid && <StatusDistribution {...{ mediaid, mediaType }} />}
+            {isLoggedIn && mediaid && <FollowingStatus {...{ mediaid }} />}
+          </div>
+          <Trailer {...{ mediaid, mediaType }} />
+          <Recommendations {...{ mediaid: mediaid, mediaType }} />
+        </>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8 mt-16">
         <Threads />
         <Reviews />

@@ -20,7 +20,7 @@ const Characters = () => {
     isError,
   } = useQuery<MediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
-    queryFn: () => getMediaMoreDetails(mediaType, Number(mediaid), "credits"),
+    queryFn: () => getMediaMoreDetails(mediaType, mediaid!, "credits"),
     enabled: mediaid && mediaType ? true : false,
   });
 

@@ -33,7 +33,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
   // Used determine the colour of the dot and the status of existing entry
   const existingEntry: UserDocEntry | undefined = findExistingEntry(
     user?.entries,
-    Number(mediaDetails.id),
+    mediaDetails.id,
     mediaType
   );
 
@@ -57,7 +57,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         {isLoggedIn && hover && (
           <MediaCardButtons
             {...{
-              mediaid: Number(mediaDetails.id),
+              mediaid: mediaDetails.id,
               mediaDetails,
               mediaType,
               entry: existingEntry?._id,

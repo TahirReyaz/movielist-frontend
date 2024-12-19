@@ -6,7 +6,7 @@ import MediaDetailCard from "../MediaDetailCard";
 import Error from "../../../components/UI/Error";
 
 interface TagsProps {
-  mediaid: number;
+  mediaid: string;
   mediaType: string;
 }
 

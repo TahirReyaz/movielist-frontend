@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MediaType } from "../constants/types";
 
-export type MediaState = { mediaType: MediaType; mediaid: number };
+export type MediaState = { mediaType: MediaType; mediaid: string };
 
 let initialState: MediaState = {
-  mediaid: 0,
+  mediaid: "",
   mediaType: "movie",
 };
 

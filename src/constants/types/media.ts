@@ -5,7 +5,7 @@ type MediaDetailBase<T extends MediaType> = {
   adult: boolean;
   backdrop_path: string;
   homepage: string;
-  id: number;
+  id: string;
   original_language: string;
   overview: string;
   popularity: number;

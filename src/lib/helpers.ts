@@ -49,7 +49,7 @@ export const updateList = (lists: any, allowedList: string) => {
 
 export const findExistingEntry = (
   entries: UserDocEntryGroup,
-  mediaid: number,
+  mediaid: string,
   mediaType: MediaType
 ) => {
   let existingEntry;

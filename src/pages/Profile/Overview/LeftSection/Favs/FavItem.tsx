@@ -18,7 +18,7 @@ import {
 } from "../../../../../utils/toastUtils";
 
 interface FavItem {
-  id: number;
+  id: string;
   type: string;
   location: "overview" | "favourites";
 }
@@ -34,7 +34,7 @@ const FavItem = ({ id, type, location }: FavItem) => {
 
   let queryFn = () => getMediaDetail(type, id);
   if (type === "staff") {
-    queryFn = () => getStaffDetails(id);
+    queryFn = () => getStaffDetails(id!);
   } else if (type === "character") {
   }
   const { data, isLoading, isError } = useQuery({

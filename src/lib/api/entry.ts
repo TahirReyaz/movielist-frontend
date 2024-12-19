@@ -71,7 +71,7 @@ export const getUserMediaEntries = async (
   }
 };
 
-export const getUserEntryByMediaid = async (mediaid: number) => {
+export const getUserEntryByMediaid = async (mediaid: string) => {
   try {
     const response = await axios.get(
       `${backendUrl}/entry/user/media/${mediaid}`,

@@ -85,7 +85,7 @@ const LeftSection = () => {
           )}
         </div>
         <div className="hidden md:block">
-          <Tags {...{ mediaid: Number(mediaid), mediaType }} />
+          {mediaid && <Tags {...{ mediaid: mediaid, mediaType }} />}
         </div>
       </>
     )

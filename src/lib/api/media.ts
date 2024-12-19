@@ -4,7 +4,7 @@ import { backendUrl } from "../../constants";
 import { MediaType, bulkMediaType } from "../../constants/types";
 import { VideoResult } from "../../constants/types/media";
 
-export const getMediaTags = async (mediatype: string, mediaid: number) => {
+export const getMediaTags = async (mediatype: string, mediaid: string) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/tags/${mediaid}`
@@ -18,7 +18,7 @@ export const getMediaTags = async (mediatype: string, mediaid: number) => {
 
 export const getMediaMoreDetails = async (
   mediatype: string,
-  mediaid: number,
+  mediaid: string,
   detailType: string
 ) => {
   try {
@@ -49,7 +49,7 @@ export const getGenreList = async (mediaType: MediaType) => {
 };
 
 export const getMediaRelations = async (
-  mediaid: number,
+  mediaid: string,
   collectionId: number
 ) => {
   try {
@@ -149,7 +149,7 @@ export const getBulkMedia = async (
   }
 };
 
-export const getMediaDetail = async (mediatype: string, mediaid: number) => {
+export const getMediaDetail = async (mediatype: string, mediaid: string) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/detail/${mediaid}`

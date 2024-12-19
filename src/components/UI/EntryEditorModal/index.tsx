@@ -21,7 +21,7 @@ interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
-  mediaid: number;
+  mediaid: string;
   mediaType: MediaType;
 }
 

@@ -7,7 +7,7 @@ import Error from "../../../../../components/UI/Error";
 import RecommendationCard from "./RecommendationCard";
 
 interface Props {
-  mediaid: number;
+  mediaid: string;
   mediaType: string;
 }
 const Recommendations = ({ mediaid, mediaType }: Props) => {

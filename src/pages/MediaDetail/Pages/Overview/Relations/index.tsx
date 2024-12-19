@@ -9,7 +9,7 @@ import { MovieItemDetails } from "../../../../../constants/types/media";
 import RelationCard from "./RelationCard";
 
 interface Props {
-  mediaid: number;
+  mediaid: string;
   mediaType: MediaType;
   collectionId: number;
 }

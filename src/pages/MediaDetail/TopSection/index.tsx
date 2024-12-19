@@ -25,7 +25,7 @@ const TopSection = () => {
 
   const { data: mediaDetails, isLoading } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid],
-    queryFn: () => getMediaDetail(mediaType, Number(mediaid)),
+    queryFn: () => getMediaDetail(mediaType, mediaid!),
     enabled: mediaid && mediaType ? true : false,
   });
 

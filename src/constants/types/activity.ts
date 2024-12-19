@@ -6,7 +6,7 @@ export type Activity = {
   likes?: [RefUser];
   action?: string;
   owner: RefUser;
-  mediaid?: number;
+  mediaid?: string;
   mediaType?: MediaType;
   title?: string;
   content?: string;

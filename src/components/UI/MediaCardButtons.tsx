@@ -21,7 +21,7 @@ const iconClass =
 
 interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
-  mediaid: number;
+  mediaid: string;
   mediaType: MediaType;
   entryId?: string;
 }
