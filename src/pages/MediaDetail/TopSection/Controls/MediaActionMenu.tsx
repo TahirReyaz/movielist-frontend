@@ -33,6 +33,7 @@ interface Props {
     status: string;
     title: string;
     id: string;
+    seasonNumber?: number;
   };
 }
 
@@ -81,6 +82,7 @@ const MediaActionMenu = ({
           title,
           poster,
           backdrop,
+          season: mediaDetails.seasonNumber,
         });
       }
       loadingBar.current?.complete();

@@ -10,9 +10,10 @@ import LeftSection from "./LeftSection";
 import { useAppDispatch } from "../../hooks/redux";
 import { setDetails } from "../../store/MediaSlice";
 import Loading from "../../components/UI/Loading";
-import { MovieDetail, TvDetail } from "../../constants/types/media";
+import { ISeason, MovieDetail, TvDetail } from "../../constants/types/media";
 import { MediaType } from "../../constants/types";
 import MetaTags from "../../components/UI/MetaTags";
+import { getSeasonDetails } from "../../lib/api/media";
 
 export type MediaDetailType = {
   id: string;
@@ -40,16 +41,29 @@ const MediaDetail = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
 
-  const { mediaid } = useParams<{ mediaid: string }>();
+  const { mediaid: mediaidParam } = useParams<{ mediaid: string }>();
+  let mediaid: string | undefined,
+    seasonNumber: undefined | number,
+    isSeason = false;
+  if (mediaidParam) {
+    const idArray = mediaidParam.split("-");
+    mediaid = idArray[0];
+    seasonNumber = parseInt(idArray[1]);
+    isSeason = !isNaN(seasonNumber);
+  }
+
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   const {
     data: mediaDetails,
     isLoading,
     isError,
-  } = useQuery<MovieDetail | TvDetail>({
-    queryKey: ["media", mediaType, mediaid],
-    queryFn: () => getMediaDetail(mediaType, mediaid!),
+  } = useQuery<MovieDetail | TvDetail | ISeason>({
+    queryKey: ["media", mediaType, mediaid, seasonNumber],
+    queryFn: () =>
+      isSeason
+        ? getSeasonDetails(mediaType, mediaid!, seasonNumber!)
+        : getMediaDetail(mediaType, mediaid!),
     enabled: mediaid && mediaType ? true : false,
   });
 
@@ -78,7 +92,7 @@ const MediaDetail = () => {
           description: mediaDetails?.overview ?? "",
         }}
       />
-      <main>
+      <main className="min-h-[70vh]">
         {mediaDetails && mediaid && (
           <>
             {/* Image and overview */}

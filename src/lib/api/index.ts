@@ -26,6 +26,9 @@ import {
 import { delUserMediaEntries } from "./entry";
 
 export const addEntry = async (body: newEntryType) => {
+  if (body.season) {
+    body.mediaid = `${body.mediaid}-${body.season}`;
+  }
   try {
     const response: AxiosResponse = await axios.post(
       `${backendUrl}/entry`,
@@ -147,6 +150,12 @@ export const getSearchResults = async ({
 
   return results;
 };
+
+const apiClient = axios.create({
+  baseURL: backendUrl,
+});
+
+export default apiClient;
 
 export { sessionLogin, login, signup, changePassword };
 export {

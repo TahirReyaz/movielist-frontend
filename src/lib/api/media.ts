@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { backendUrl } from "../../constants";
 import { MediaType, bulkMediaType } from "../../constants/types";
 import { VideoResult } from "../../constants/types/media";
+import apiClient from ".";
 
 export const getMediaTags = async (mediatype: string, mediaid: string) => {
   try {
@@ -153,6 +154,22 @@ export const getMediaDetail = async (mediatype: string, mediaid: string) => {
   try {
     const response: AxiosResponse = await axios.get(
       `${backendUrl}/${mediatype}/detail/${mediaid}`
+    );
+    return response.data;
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
+  }
+};
+
+export const getSeasonDetails = async (
+  mediatype: string,
+  mediaid: string,
+  seasonNumber: number
+) => {
+  try {
+    const response: AxiosResponse = await apiClient.get(
+      `/${mediatype}/${mediaid}/season/${seasonNumber}`
     );
     return response.data;
   } catch (error: any) {

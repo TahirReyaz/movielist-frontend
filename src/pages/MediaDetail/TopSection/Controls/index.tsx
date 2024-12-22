@@ -20,19 +20,30 @@ import {
 import { MediaType } from "../../../../constants/types";
 import { findExistingEntry } from "../../../../lib/helpers";
 import { UserFav } from "../../../../constants/types/user";
-import { MovieDetail, TvDetail } from "../../../../constants/types/media";
+import {
+  ISeason,
+  MovieDetail,
+  TvDetail,
+} from "../../../../constants/types/media";
 
 const Controls = () => {
   const { username } = useAppSelector((state) => state.auth);
   const tippyRef = useRef(null);
 
   const { pathname } = useLocation();
-  const { mediaid } = useParams<{ mediaid: string }>();
+  const { mediaid: mediaidParam } = useParams<{ mediaid: string }>();
+
+  let mediaid: string | undefined, seasonNumber: undefined | number;
+  if (mediaidParam) {
+    const idArray = mediaidParam.split("-");
+    mediaid = idArray[0];
+    seasonNumber = parseInt(idArray[1]);
+  }
 
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
-  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
-    queryKey: ["media", mediaType, mediaid],
+  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
+    queryKey: ["media", mediaType, mediaid, seasonNumber],
   });
 
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -49,7 +60,11 @@ const Controls = () => {
 
   let existingEntry: UserDocEntry | undefined;
   if (profile?.entries && mediaid) {
-    existingEntry = findExistingEntry(profile.entries, mediaid, mediaType);
+    existingEntry = findExistingEntry(
+      profile.entries,
+      `${mediaid}-${seasonNumber}`,
+      mediaType
+    );
   }
 
   const isFav = profile?.fav[mediaType as keyof UserFav]?.includes(
@@ -84,7 +99,7 @@ const Controls = () => {
 
   return (
     <div className="grid grid-cols-[auto,35px] items-end col-span-2 w-full gap-4 mb-4">
-      {mediaDetails && (
+      {mediaDetails && mediaid && (
         <Button
           title={title}
           type="button"
@@ -109,10 +124,11 @@ const Controls = () => {
                         title:
                           (mediaDetails as MovieDetail).title ??
                           (mediaDetails as TvDetail).name,
-                        status: mediaDetails.status ?? "Released",
+                        status: (mediaDetails as TvDetail).status ?? "Released",
                         poster_path: mediaDetails.poster_path ?? "",
                         backdrop_path: mediaDetails.backdrop_path ?? "",
-                        id: mediaDetails.id,
+                        id: mediaid ?? mediaDetails.id,
+                        seasonNumber,
                       },
                     }}
                   />

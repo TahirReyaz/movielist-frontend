@@ -252,3 +252,16 @@ export type StaffExternalLinks = {
   youtube_id?: string | null;
   twitter_id?: string | null;
 };
+
+export type ISeason = {
+  air_date: string;
+  episodes: Episode[];
+  id: string;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+  vote_average: number;
+  showId: string;
+  backdrop_path: string;
+};

@@ -41,7 +41,17 @@ const endDetailFields: Field[] = [
 
 const LeftSection = () => {
   const { pathname } = useLocation();
-  const { mediaid } = useParams<{ mediaid: string }>();
+
+  const { mediaid: mediaidParam } = useParams<{ mediaid: string }>();
+  let mediaid: string | undefined,
+    seasonNumber: undefined | number,
+    isSeason = false;
+  if (mediaidParam) {
+    const idArray = mediaidParam.split("-");
+    mediaid = idArray[0];
+    seasonNumber = parseInt(idArray[1]);
+    isSeason = !isNaN(seasonNumber);
+  }
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
   let detailFields: Field[] = [
@@ -58,7 +68,7 @@ const LeftSection = () => {
   detailFields.push(...endDetailFields);
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
-    queryKey: ["media", mediaType, mediaid],
+    queryKey: ["media", mediaType, mediaid, seasonNumber],
   });
 
   return (

@@ -11,21 +11,29 @@ import {
 } from "../../../constants/tmdb";
 import Controls from "./Controls";
 import { useAppSelector } from "../../../hooks/redux";
-import { MovieDetail, TvDetail } from "../../../constants/types/media";
+import { ISeason, MovieDetail, TvDetail } from "../../../constants/types/media";
 import Loading from "../../../components/UI/Loading";
-import { getMediaDetail } from "../../../lib/api";
 import { MediaType } from "../../../constants/types";
 
 const TopSection = () => {
   const { username } = useAppSelector((state) => state.auth);
 
   const { pathname } = useLocation();
-  const { mediaid } = useParams<{ mediaid: string }>();
+
+  const { mediaid: mediaidParam } = useParams<{ mediaid: string }>();
+  let mediaid: string | undefined, seasonNumber: undefined | number;
+  if (mediaidParam) {
+    const idArray = mediaidParam.split("-");
+    mediaid = idArray[0];
+    seasonNumber = parseInt(idArray[1]);
+  }
+
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
-  const { data: mediaDetails, isLoading } = useQuery<MovieDetail | TvDetail>({
-    queryKey: ["media", mediaType, mediaid],
-    queryFn: () => getMediaDetail(mediaType, mediaid!),
+  const { data: mediaDetails, isLoading } = useQuery<
+    MovieDetail | TvDetail | ISeason
+  >({
+    queryKey: ["media", mediaType, mediaid, seasonNumber],
     enabled: mediaid && mediaType ? true : false,
   });
 
@@ -74,7 +82,7 @@ const TopSection = () => {
                   mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
                 } mb-4 rounded`}
               />
-              {username && <Controls />}
+              {username && seasonNumber && <Controls />}
             </div>
             {/* title and overview and links */}
             <div className="col-span-12 md:col-span-9 ms-0 md:ms-4 p-0 md:p-8 flex flex-col justify-between">
