@@ -10,11 +10,16 @@ import Trailer from "./Trailer";
 import Recommendations from "./Recommendations";
 import Threads from "./Threads";
 import Reviews from "./Reviews";
-import { MovieDetail, TvDetail } from "../../../../constants/types/media";
+import {
+  ISeason,
+  MovieDetail,
+  TvDetail,
+} from "../../../../constants/types/media";
 import { MediaType } from "../../../../constants/types";
 import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
 import Seasons from "./Seasons";
+import { getMediaDetail } from "../../../../lib/api";
 
 const Overview = () => {
   const { pathname } = useLocation();
@@ -33,10 +38,20 @@ const Overview = () => {
 
   const { isLoggedIn } = useAppSelector((state) => state.auth);
 
-  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
+  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     enabled: !!mediaid,
   });
+
+  const { data: parentShow } = useQuery<TvDetail>({
+    queryKey: ["media", "tv", mediaid, null],
+    queryFn: () => getMediaDetail("tv", mediaid!),
+    enabled: !!(isSeason && mediaid),
+  });
+
+  const otherSeasons = parentShow?.seasons.filter(
+    (season) => season.season_number !== seasonNumber
+  );
 
   return (
     <div>
@@ -60,14 +75,16 @@ const Overview = () => {
             }}
           />
         )}
-      {mediaType === "tv" && mediaid && (mediaDetails as TvDetail)?.seasons && (
-        <Seasons
-          {...{
-            seasons: (mediaDetails as TvDetail).seasons,
-            showId: mediaid,
-          }}
-        />
-      )}
+      {mediaid &&
+        ((mediaType === "tv" && (mediaDetails as TvDetail)?.seasons) ||
+          otherSeasons) && (
+          <Seasons
+            {...{
+              seasons: otherSeasons ?? (mediaDetails as TvDetail).seasons,
+              showId: mediaid,
+            }}
+          />
+        )}
       {mediaid && (
         <>
           <Characters {...{ mediaid, mediaType }} />
