@@ -16,6 +16,7 @@ type Field = {
 
 const extraTvFields: Field[] = [
   { fieldName: "first_air_date", label: "First Air Date" },
+  { fieldName: "air_date", label: "Release Date" },
   { fieldName: "last_air_date", label: "Last Air Date" },
   { fieldName: "number_of_episodes", label: "Number of Episodes" },
   { fieldName: "number_of_seasons", label: "Number of Seasons" },
