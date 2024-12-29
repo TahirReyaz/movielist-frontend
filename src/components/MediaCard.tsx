@@ -54,7 +54,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
           alt={mediaDetails.title}
           className="rounded-md mb-4"
         />
-        {isLoggedIn && hover && (
+        {isLoggedIn && mediaType === "movie" && hover && (
           <MediaCardButtons
             {...{
               mediaid: mediaDetails.id,
