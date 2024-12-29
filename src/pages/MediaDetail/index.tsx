@@ -14,6 +14,7 @@ import { ISeason, MovieDetail, TvDetail } from "../../constants/types/media";
 import { MediaType } from "../../constants/types";
 import MetaTags from "../../components/UI/MetaTags";
 import { getSeasonDetails } from "../../lib/api/media";
+import LoadingPage from "../../components/UI/Loading/LoadingPage";
 
 export type MediaDetailType = {
   id: string;
@@ -81,7 +82,7 @@ const MediaDetail = () => {
   }, [mediaType, mediaid]);
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingPage title={`Loading ${mediaType} details...`} />;
   }
 
   return (

@@ -1,11 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import {
-  bulkMediaType,
-  MediaType,
-  userSettingsType,
-} from "../../constants/types";
+import { userSettingsType } from "../../constants/types";
 import { backendUrl } from "../../constants";
-import { newEntryType } from "../../constants/types/entry";
 import { sessionLogin, login, signup, changePassword } from "./auth";
 import { getMediaActivities } from "./activity";
 import {
@@ -23,24 +18,7 @@ import {
   getBulkMedia,
   getMediaDetail,
 } from "./media";
-import { delUserMediaEntries } from "./entry";
-
-export const addEntry = async (body: newEntryType) => {
-  if (body.season) {
-    body.mediaid = `${body.mediaid}-${body.season}`;
-  }
-  try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/entry`,
-      body,
-      { withCredentials: true }
-    );
-    return { data: response, message: "Entry added" };
-  } catch (error: any) {
-    const error_msg = error?.response?.data?.message;
-    throw new Error(error_msg);
-  }
-};
+import { delUserMediaEntries, addEntry } from "./entry";
 
 export const getUserDetail = async (username: string | undefined) => {
   try {
@@ -153,6 +131,7 @@ export const getSearchResults = async ({
 
 const apiClient = axios.create({
   baseURL: backendUrl,
+  withCredentials: true,
 });
 
 export default apiClient;
@@ -174,4 +153,4 @@ export {
   getBulkMedia,
   getMediaDetail,
 };
-export { delUserMediaEntries };
+export { delUserMediaEntries, addEntry };

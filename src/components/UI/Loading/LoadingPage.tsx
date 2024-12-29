@@ -3,7 +3,7 @@ import Loading from ".";
 
 const LoadingPage = ({ title = "Loading..." }: { title?: string }) => {
   return (
-    <main className="text-center min-h-[60vh]">
+    <main className="text-center min-h-[60vh] pt-4">
       <Loading {...{ title }} />
     </main>
   );

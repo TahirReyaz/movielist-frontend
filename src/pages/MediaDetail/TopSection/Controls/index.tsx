@@ -126,7 +126,7 @@ const Controls = () => {
                           (mediaDetails as TvDetail).name,
                         status: (mediaDetails as TvDetail).status ?? "Released",
                         poster_path: mediaDetails.poster_path ?? "",
-                        backdrop_path: mediaDetails.backdrop_path ?? "",
+                        backdrop_path: mediaDetails.backdrop_path,
                         id: mediaid ?? mediaDetails.id,
                         seasonNumber,
                       },

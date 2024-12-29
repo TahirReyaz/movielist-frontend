@@ -12,7 +12,6 @@ import {
 import Controls from "./Controls";
 import { useAppSelector } from "../../../hooks/redux";
 import { ISeason, MovieDetail, TvDetail } from "../../../constants/types/media";
-import Loading from "../../../components/UI/Loading";
 import { MediaType } from "../../../constants/types";
 
 const TopSection = () => {
@@ -25,14 +24,14 @@ const TopSection = () => {
   if (mediaidParam) {
     const idArray = mediaidParam.split("-");
     mediaid = idArray[0];
-    seasonNumber = parseInt(idArray[1]);
+    if (!isNaN(parseInt(idArray[1]))) {
+      seasonNumber = parseInt(idArray[1]);
+    }
   }
 
   const mediaType: MediaType = pathname.split("/")[1] as MediaType;
 
-  const { data: mediaDetails, isLoading } = useQuery<
-    MovieDetail | TvDetail | ISeason
-  >({
+  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     enabled: mediaid && mediaType ? true : false,
   });
@@ -48,10 +47,6 @@ const TopSection = () => {
     { path: "stats", title: "Stats" },
     { path: "social", title: "Social" },
   ];
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <>

@@ -29,7 +29,7 @@ interface Props {
   mediaType: MediaType;
   mediaDetails: {
     poster_path: string;
-    backdrop_path: string;
+    backdrop_path?: string;
     status: string;
     title: string;
     id: string;
@@ -51,7 +51,7 @@ const MediaActionMenu = ({
   const loadingBar = useLoadingBar();
 
   let list = menuItems;
-  if (mediaDetails && mediaDetails.status === "Post Production") {
+  if (mediaDetails && mediaDetails?.status === "Post Production") {
     list = [
       {
         title: "Set as planning",
@@ -64,7 +64,7 @@ const MediaActionMenu = ({
     listtype: StatusType,
     title: string,
     poster: string,
-    backdrop: string
+    backdrop?: string
   ) => {
     try {
       let response;

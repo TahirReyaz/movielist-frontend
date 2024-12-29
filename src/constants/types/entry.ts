@@ -41,8 +41,8 @@ export type EntryGroup = {
 
 export type newEntryType = Omit<
   Entry,
-  "_id" | "owner" | "data" | "createdAt" | "updatedAt"
-> & { season?: number };
+  "_id" | "owner" | "data" | "createdAt" | "updatedAt" | "backdrop"
+> & { season?: number; backdrop?: string };
 
 export type UpdateEntryFields = Omit<
   newEntryType,

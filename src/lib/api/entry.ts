@@ -1,7 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { MediaType } from "../../constants/types";
 import { backendUrl } from "../../constants";
-import { Entry, UpdateEntryFields } from "../../constants/types/entry";
+import {
+  Entry,
+  UpdateEntryFields,
+  newEntryType,
+} from "../../constants/types/entry";
+import apiClient from ".";
 
 export const updateEntry = async ({
   status,
@@ -116,6 +121,20 @@ export const delUserMediaEntries = async (
     return response.data;
   } catch (error: any) {
     const error_msg = error.response?.data?.message ?? error.message;
+    throw new Error(error_msg);
+  }
+};
+
+export const addEntry = async (body: newEntryType) => {
+  if (body.season) {
+    body.mediaid = `${body.mediaid}-${body.season}`;
+  }
+  try {
+    const response = await apiClient.post("/entry", body);
+
+    return { data: response, message: "Entry added" };
+  } catch (error: any) {
+    const error_msg = error?.response?.data?.message;
     throw new Error(error_msg);
   }
 };
