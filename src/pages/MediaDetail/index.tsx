@@ -15,6 +15,7 @@ import { MediaType } from "../../constants/types";
 import MetaTags from "../../components/UI/MetaTags";
 import { getSeasonDetails } from "../../lib/api/media";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
+import { showErrorToast } from "../../utils/toastUtils";
 
 export type MediaDetailType = {
   id: string;
@@ -59,6 +60,7 @@ const MediaDetail = () => {
     data: mediaDetails,
     isLoading,
     isError,
+    error,
   } = useQuery<MovieDetail | TvDetail | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     queryFn: () =>
@@ -72,6 +74,8 @@ const MediaDetail = () => {
   const name = (mediaDetails as TvDetail)?.name;
 
   if (isError) {
+    showErrorToast("Error while fetching details");
+    console.error(error);
     navigate("/404");
   }
 

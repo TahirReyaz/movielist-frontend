@@ -96,7 +96,7 @@ const TopSection = () => {
                 {routes.map((route) => (
                   <Link
                     className="hover:text-actionPrimary"
-                    to={`/${mediaType}/${mediaid}/${
+                    to={`/${mediaType}/${mediaidParam}/${
                       route.path === "/" ? "" : route.path
                     }`}
                     key={route.title}

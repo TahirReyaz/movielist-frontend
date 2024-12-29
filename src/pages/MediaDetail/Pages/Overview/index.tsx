@@ -20,6 +20,7 @@ import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
 import Seasons from "./Seasons";
 import { getMediaDetail } from "../../../../lib/api";
+import { getSeasonDetails } from "../../../../lib/api/media";
 
 const Overview = () => {
   const { pathname } = useLocation();
@@ -40,6 +41,10 @@ const Overview = () => {
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
+    queryFn: () =>
+      isSeason
+        ? getSeasonDetails(mediaType, mediaid!, seasonNumber!)
+        : getMediaDetail(mediaType, mediaid!),
     enabled: !!mediaid,
   });
 

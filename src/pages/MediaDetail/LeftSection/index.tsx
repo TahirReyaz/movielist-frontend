@@ -70,6 +70,7 @@ const LeftSection = () => {
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
+    enabled: !!mediaid,
   });
 
   return (

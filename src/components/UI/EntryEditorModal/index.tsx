@@ -65,7 +65,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
     isLoading: isMediaLoading,
     isError: isMediaError,
   } = useQuery({
-    queryKey: ["media", mediaType, mediaid],
+    queryKey: ["media", mediaType, mediaid, null],
     queryFn: () => getMediaDetail(mediaType, mediaid),
     enabled: !!mediaid && open,
   });
