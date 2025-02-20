@@ -5,7 +5,7 @@ import { NotifType } from "../../../constants/types";
 import Loading from "../../../components/UI/Loading";
 import Error from "../../../components/UI/Error";
 import { Notification as NotificationType } from "../../../constants/types/activity";
-import { getUserNotifsByType } from "../../../lib/api/notification";
+import { getUserNotifsByType } from "../../../lib/api";
 import Notification from "./Notification";
 
 interface Props {

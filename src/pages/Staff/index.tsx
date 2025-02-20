@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import noImg from "../../assets/no_img_long.jpg";
 
-import { getStaffDetails } from "../../lib/api/staff";
+import { getStaffDetails } from "../../lib/api";
 import Loading from "../../components/UI/Loading";
 import {
   profileSizes,

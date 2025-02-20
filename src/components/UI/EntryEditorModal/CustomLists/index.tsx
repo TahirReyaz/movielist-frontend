@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { deleteEntry } from "../../../../lib/api/entry";
+import { deleteEntry } from "../../../../lib/api";
 import { useAppSelector } from "../../../../hooks/redux";
 import WarningModal from "../../WarningModal";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";

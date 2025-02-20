@@ -6,7 +6,7 @@ import { CrewMember, MediaCredits } from "../../../../../constants/types/media";
 import { MediaType } from "../../../../../constants/types";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
-import { getMediaMoreDetails } from "../../../../../lib/api/media";
+import { getMediaMoreDetails } from "../../../../../lib/api";
 import StaffCard from "../../../../../components/Media/StaffCard";
 
 const Staff = () => {

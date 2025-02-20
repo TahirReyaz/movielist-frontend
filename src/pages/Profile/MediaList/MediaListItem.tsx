@@ -5,7 +5,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 
 import { posterSizes, tmdbImgBaseUrl } from "../../../constants/tmdb";
 import StatusDot from "../../../components/UI/StatusDot";
-import { increaseProgess } from "../../../lib/api/entry";
+import { increaseProgess } from "../../../lib/api";
 import EntryEditorModal from "../../../components/UI/EntryEditorModal";
 import { useAppSelector } from "../../../hooks/redux";
 import { showErrorToast } from "../../../utils/toastUtils";

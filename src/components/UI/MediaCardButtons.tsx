@@ -11,7 +11,7 @@ import { addEntry } from "../../lib/api";
 import { StatusType, MediaType } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
-import { updateEntry } from "../../lib/api/entry";
+import { updateEntry } from "../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { useLoadingBar } from "./LoadingBar";
 import { Entry } from "../../constants/types/entry";

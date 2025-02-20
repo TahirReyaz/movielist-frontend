@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import EntryCard from "./EntryCard";
 import { useAppSelector } from "../../../../hooks/redux";
-import { getWatchingUserMediaEntries } from "../../../../lib/api/entry";
+import { getWatchingUserMediaEntries } from "../../../../lib/api";
 import { MediaType } from "../../../../constants/types";
 import Loading from "../../../../components/UI/Loading";
 import { Entry } from "../../../../constants/types/entry";

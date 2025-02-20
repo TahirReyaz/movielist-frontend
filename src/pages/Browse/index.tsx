@@ -12,7 +12,7 @@ import { MediaType } from "../../constants/types";
 import { searchTypes } from "../../constants";
 import { useDebounce } from "../../hooks/useDebounce";
 import { generateYearOptions } from "../../lib/helpers";
-import { getGenreList } from "../../lib/api/media";
+import { getGenreList } from "../../lib/api";
 import { getSearchResults } from "../../lib/api";
 import Filters from "./Filters";
 import BulkMedia from "./BulkMedia";

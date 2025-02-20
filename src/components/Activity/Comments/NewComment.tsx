@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { showErrorToast } from "../../../utils/toastUtils";
-import { commentOnActivity } from "../../../lib/api/comment";
+import { commentOnActivity } from "../../../lib/api";
 import { useLoadingBar } from "../../UI/LoadingBar";
 
 const NewComment = ({

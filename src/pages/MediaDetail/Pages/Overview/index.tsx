@@ -20,7 +20,7 @@ import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
 import Seasons from "./Seasons";
 import { getMediaDetail } from "../../../../lib/api";
-import { getSeasonDetails } from "../../../../lib/api/media";
+import { getSeasonDetails } from "../../../../lib/api";
 
 const Overview = () => {
   const { pathname } = useLocation();

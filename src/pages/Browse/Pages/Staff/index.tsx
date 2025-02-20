@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../../../hooks/useDebounce";
 import { FaSearch } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import { searchStaff } from "../../../../lib/api/staff";
+import { searchStaff } from "../../../../lib/api";
 import Loading from "../../../../components/UI/Loading";
 import Error from "../../../../components/UI/Error";
 import SearchResults from "../SearchResults.tsx/index.tsx";

@@ -3,7 +3,7 @@ import React from "react";
 import NewActivity from "../../../../../components/Activity/NewActivity";
 import { useAppSelector } from "../../../../../hooks/redux";
 import List from "../../../../../components/Activity/List";
-import { getProfileActivities } from "../../../../../lib/api/activity";
+import { getProfileActivities } from "../../../../../lib/api";
 
 const Activities = () => {
   const { isLoggedIn, username } = useAppSelector((state) => state.auth);

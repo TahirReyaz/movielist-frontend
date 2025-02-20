@@ -8,7 +8,7 @@ import TopSection from "./TopSection";
 import Loading from "../Loading";
 import Error from "../Error";
 import TextInput from "../TextInput";
-import { updateEntry } from "../../../lib/api/entry";
+import { updateEntry } from "../../../lib/api";
 import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { Entry } from "../../../constants/types/entry";

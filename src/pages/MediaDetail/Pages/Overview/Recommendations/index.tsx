@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { getMediaMoreDetails } from "../../../../../lib/api/media";
+import { getMediaMoreDetails } from "../../../../../lib/api";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
 import RecommendationCard from "./RecommendationCard";

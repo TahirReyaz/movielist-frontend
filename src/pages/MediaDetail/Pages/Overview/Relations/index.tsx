@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 import { MediaType } from "../../../../../constants/types";
-import { getMediaRelations } from "../../../../../lib/api/media";
+import { getMediaRelations } from "../../../../../lib/api";
 import Loading from "../../../../../components/UI/Loading";
 import { MovieItemDetails } from "../../../../../constants/types/media";
 import RelationCard from "./RelationCard";

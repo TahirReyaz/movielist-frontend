@@ -8,7 +8,7 @@ import MediaListGroup from "./MediaListGroup.tsx";
 import { Option, MediaType } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
-import { getUserMediaEntries } from "../../../lib/api/entry.ts";
+import { getUserMediaEntries } from "../../../lib/api.ts";
 import { Entry, EntryGroup } from "../../../constants/types/entry.ts";
 import {
   generateFilterCountryOptions,

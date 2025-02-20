@@ -8,7 +8,7 @@ import userAvatarPlaceholder from "../../assets/userAvatar.png";
 
 import { calculateElapsedTime, findExistingEntry } from "../../lib/helpers";
 import { ActivityProps } from ".";
-import { likeActivity, unlikeActivity } from "../../lib/api/activity";
+import { likeActivity, unlikeActivity } from "../../lib/api";
 import { showErrorToast } from "../../utils/toastUtils";
 import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../UI/LoadingBar";

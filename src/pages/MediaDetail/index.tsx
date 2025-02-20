@@ -13,7 +13,7 @@ import Loading from "../../components/UI/Loading";
 import { ISeason, MovieDetail, TvDetail } from "../../constants/types/media";
 import { MediaType } from "../../constants/types";
 import MetaTags from "../../components/UI/MetaTags";
-import { getSeasonDetails } from "../../lib/api/media";
+import { getSeasonDetails } from "../../lib/api";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
 import { showErrorToast } from "../../utils/toastUtils";
 

@@ -5,7 +5,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { NotifType } from "../../constants/types";
 import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../../components/UI/LoadingBar";
-import { markAllUserNotifsRead } from "../../lib/api/notification";
+import { markAllUserNotifsRead } from "../../lib/api";
 import { showErrorToast } from "../../utils/toastUtils";
 import MobileHeader from "../../components/Layout/MobileHeader";
 

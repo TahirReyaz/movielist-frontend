@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../../UI/LoadingBar";
-import { delActivity } from "../../../lib/api/activity";
+import { delActivity } from "../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import WarningModal from "../../UI/WarningModal";
 

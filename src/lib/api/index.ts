@@ -2,7 +2,18 @@ import axios from "axios";
 
 import { backendUrl } from "../../constants";
 import { sessionLogin, login, signup, changePassword } from "./auth";
-import { getMediaActivities } from "./activity";
+import {
+  getMediaActivities,
+  getGlobalActivities,
+  getProfileActivities,
+  getActivityHistory,
+  getFollowingActivities,
+  getActivity,
+  delActivity,
+  likeActivity,
+  unlikeActivity,
+  createNewActivity,
+} from "./activity";
 import {
   followUser,
   unfollowUser,
@@ -24,8 +35,31 @@ import {
   getMediaDetail,
   getSearchResults,
   getSearchMultiResults,
+  getMediaTags,
+  getMediaMoreDetails,
+  getMediaRelations,
+  getGenreList,
+  getSeasonDetails,
 } from "./media";
-import { delUserMediaEntries, addEntry, getEntryDetails } from "./entry";
+import {
+  delUserMediaEntries,
+  addEntry,
+  getEntryDetails,
+  updateEntry,
+  increaseProgess,
+  deleteEntry,
+  getUserMediaEntries,
+  getUserEntryByMediaid,
+  getWatchingUserMediaEntries,
+} from "./entry";
+import {
+  commentOnActivity,
+  getActivityComments,
+  likeCommentToggle,
+  deleteComment,
+} from "./comment";
+import { getStaffDetails, getStaffCredits, searchStaff } from "./staff";
+import { getUserNotifsByType, markAllUserNotifsRead } from "./notification";
 
 const apiClient = axios.create({
   baseURL: backendUrl,
@@ -47,7 +81,18 @@ export {
   toggleFav,
   searchUsers,
 };
-export { getMediaActivities };
+export {
+  getMediaActivities,
+  getGlobalActivities,
+  getProfileActivities,
+  getActivityHistory,
+  getFollowingActivities,
+  getActivity,
+  delActivity,
+  likeActivity,
+  unlikeActivity,
+  createNewActivity,
+};
 export {
   getMediaStatusDist,
   getMediaFollowingStatus,
@@ -57,5 +102,28 @@ export {
   getMediaDetail,
   getSearchResults,
   getSearchMultiResults,
+  getMediaTags,
+  getMediaMoreDetails,
+  getMediaRelations,
+  getGenreList,
+  getSeasonDetails,
 };
-export { delUserMediaEntries, addEntry, getEntryDetails };
+export {
+  delUserMediaEntries,
+  addEntry,
+  getEntryDetails,
+  updateEntry,
+  increaseProgess,
+  deleteEntry,
+  getUserMediaEntries,
+  getUserEntryByMediaid,
+  getWatchingUserMediaEntries,
+};
+export {
+  commentOnActivity,
+  getActivityComments,
+  likeCommentToggle,
+  deleteComment,
+};
+export { getStaffDetails, getStaffCredits, searchStaff };
+export { getUserNotifsByType, markAllUserNotifsRead };

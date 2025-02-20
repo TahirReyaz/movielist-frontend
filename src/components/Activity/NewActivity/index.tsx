@@ -9,7 +9,7 @@ import MarkdownEditor from "../../UI/Inputs/MarkdownEditor";
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../../UI/LoadingBar";
 import { showErrorToast } from "../../../utils/toastUtils";
-import { createNewActivity } from "../../../lib/api/activity";
+import { createNewActivity } from "../../../lib/api";
 
 const NewActivity = ({
   location,

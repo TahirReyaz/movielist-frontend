@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router-dom";
 
 import Loading from "../../../../components/UI/Loading";
-import { getMediaMoreDetails } from "../../../../lib/api/media";
+import { getMediaMoreDetails } from "../../../../lib/api";
 import Error from "../../../../components/UI/Error";
 import CharacterCard from "../Overview/Characters/CharacterCard";
 import { CastMember, MediaCredits } from "../../../../constants/types/media";

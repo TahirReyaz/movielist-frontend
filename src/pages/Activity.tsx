@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
 import { Activity as ActivityType } from "../constants/types/activity";
-import { getActivity } from "../lib/api/activity";
+import { getActivity } from "../lib/api";
 import Loading from "../components/UI/Loading";
 import ActivityComponent from "../components/Activity";
 import { Helmet } from "react-helmet-async";

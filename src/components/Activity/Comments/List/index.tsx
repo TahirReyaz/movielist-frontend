@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { getActivityComments } from "../../../../lib/api/comment";
+import { getActivityComments } from "../../../../lib/api";
 import Loading from "../../../UI/Loading";
 import Error from "../../../UI/Error";
 import { Comment as CommentType } from "../../../../constants/types/activity";

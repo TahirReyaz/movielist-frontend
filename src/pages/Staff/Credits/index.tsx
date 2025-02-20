@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getStaffCredits } from "../../../lib/api/staff";
+import { getStaffCredits } from "../../../lib/api";
 import Loading from "../../../components/UI/Loading";
 import CreditSection from "./CreditSection";
 

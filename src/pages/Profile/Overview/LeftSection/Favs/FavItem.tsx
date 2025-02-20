@@ -7,7 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import posterPlaceholder from "../../../../../assets/posterPlaceholder.jpg";
 
 import { getMediaDetail } from "../../../../../lib/api";
-import { getStaffDetails } from "../../../../../lib/api/staff";
+import { getStaffDetails } from "../../../../../lib/api";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import { useAppSelector } from "../../../../../hooks/redux";
 import { useLoadingBar } from "../../../../../components/UI/LoadingBar";

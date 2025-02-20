@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
-import { increaseProgess } from "../../../../lib/api/entry";
+import { increaseProgess } from "../../../../lib/api";
 import { showErrorToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { Entry } from "../../../../constants/types/entry";

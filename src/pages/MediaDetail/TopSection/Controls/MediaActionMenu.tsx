@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { addEntry } from "../../../../lib/api";
 import { StatusType, MediaType } from "../../../../constants/types";
 import { useAppSelector } from "../../../../hooks/redux";
-import { updateEntry } from "../../../../lib/api/entry";
+import { updateEntry } from "../../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 

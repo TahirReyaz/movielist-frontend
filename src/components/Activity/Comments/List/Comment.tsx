@@ -11,7 +11,7 @@ import { calculateElapsedTime } from "../../../../lib/helpers";
 import { useAppSelector } from "../../../../hooks/redux";
 import { useLoadingBar } from "../../../UI/LoadingBar";
 import { showErrorToast } from "../../../../utils/toastUtils";
-import { deleteComment, likeCommentToggle } from "../../../../lib/api/comment";
+import { deleteComment, likeCommentToggle } from "../../../../lib/api";
 import LikedUsersTooltip from "../../LikedUsersTooltip";
 
 const Comment = ({

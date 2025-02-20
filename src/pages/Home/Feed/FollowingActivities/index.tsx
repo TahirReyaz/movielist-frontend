@@ -1,7 +1,7 @@
 import React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { getFollowingActivities } from "../../../../lib/api/activity";
+import { getFollowingActivities } from "../../../../lib/api";
 import Loading from "../../../../components/UI/Loading";
 import Error from "../../../../components/UI/Error";
 import Activity from "../../../../components/Activity";

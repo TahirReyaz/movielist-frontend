@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getMediaTags } from "../../../lib/api/media";
+import { getMediaTags } from "../../../lib/api";
 import Loading from "../../../components/UI/Loading";
 import MediaDetailCard from "../MediaDetailCard";
 import Error from "../../../components/UI/Error";

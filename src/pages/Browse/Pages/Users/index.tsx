@@ -9,7 +9,7 @@ import TextInput from "../../../../components/UI/TextInput";
 import SearchResults from "../SearchResults.tsx";
 import Loading from "../../../../components/UI/Loading";
 import Error from "../../../../components/UI/Error.tsx";
-import { searchUsers } from "../../../../lib/api.ts";
+import { searchUsers } from "../../../../lib/api";
 
 const Users = () => {
   const navigate = useNavigate();

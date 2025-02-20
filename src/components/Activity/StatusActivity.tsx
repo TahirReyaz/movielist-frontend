@@ -15,7 +15,7 @@ import { useLoadingBar } from "../UI/LoadingBar";
 import { calculateElapsedTime } from "../../lib/helpers";
 import { useAppSelector } from "../../hooks/redux";
 import { showErrorToast } from "../../utils/toastUtils";
-import { likeActivity, unlikeActivity } from "../../lib/api/activity";
+import { likeActivity, unlikeActivity } from "../../lib/api";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";

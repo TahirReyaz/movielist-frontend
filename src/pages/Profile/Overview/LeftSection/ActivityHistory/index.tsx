@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAppSelector } from "../../../../../hooks/redux";
-import { getActivityHistory } from "../../../../../lib/api/activity";
+import { getActivityHistory } from "../../../../../lib/api";
 import Loading from "../../../../../components/UI/Loading";
 import Tippy from "@tippyjs/react/headless";
 import { activityHistoryColours } from "../../../../../constants";
