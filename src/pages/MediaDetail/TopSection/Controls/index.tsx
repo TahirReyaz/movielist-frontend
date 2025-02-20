@@ -9,7 +9,7 @@ import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { toggleFav } from "../../../../lib/api/user";
+import { toggleFav } from "../../../../lib/api";
 import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";

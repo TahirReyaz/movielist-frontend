@@ -11,7 +11,7 @@ import { getStaffDetails } from "../../../../../lib/api/staff";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import { useAppSelector } from "../../../../../hooks/redux";
 import { useLoadingBar } from "../../../../../components/UI/LoadingBar";
-import { toggleFav } from "../../../../../lib/api/user";
+import { toggleFav } from "../../../../../lib/api";
 import {
   showErrorToast,
   showSuccessToast,

@@ -1,17 +1,12 @@
-import axios, { AxiosResponse } from "axios";
-
-import { backendUrl } from "../../constants";
 import { MediaType, bulkMediaType } from "../../constants/types";
 import { VideoResult } from "../../constants/types/media";
 import apiClient from ".";
 
 export const getMediaTags = async (mediatype: string, mediaid: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/tags/${mediaid}`
-    );
-    const media = response.data;
-    return media;
+    const response = await apiClient.get(`/${mediatype}/tags/${mediaid}`);
+
+    return response.data;
   } catch (error: any) {
     throw new Error(error);
   }
@@ -23,11 +18,11 @@ export const getMediaMoreDetails = async (
   detailType: string
 ) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/${detailType}/${mediaid}`
+    const response = await apiClient.get(
+      `/${mediatype}/${detailType}/${mediaid}`
     );
-    const details = response.data;
-    return details;
+
+    return response.data;
   } catch (error: any) {
     throw new Error(error);
   }
@@ -35,9 +30,7 @@ export const getMediaMoreDetails = async (
 
 export const getGenreList = async (mediaType: MediaType) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediaType}/genre`
-    );
+    const response = await apiClient.get(`/${mediaType}/genre`);
     const genres = response.data.genres;
     const options: any[] = [];
     genres.forEach((genre: any) =>
@@ -54,11 +47,11 @@ export const getMediaRelations = async (
   collectionId: number
 ) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/media/${mediaid}/relations/${collectionId}`
+    const response = await apiClient.get(
+      `/media/${mediaid}/relations/${collectionId}`
     );
-    const media = response.data;
-    return media;
+
+    return response.data;
   } catch (error: any) {
     throw new Error(error);
   }
@@ -66,8 +59,8 @@ export const getMediaRelations = async (
 
 export const getMediaStatusDist = async (mediaid: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/media/${mediaid}/statusdistribution/`
+    const response = await apiClient.get(
+      `/media/${mediaid}/statusdistribution/`
     );
 
     return response.data;
@@ -78,10 +71,7 @@ export const getMediaStatusDist = async (mediaid: string) => {
 
 export const getMediaFollowingStatus = async (mediaid: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/media/${mediaid}/followingstatus/`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.get(`/media/${mediaid}/followingstatus/`);
 
     return response.data;
   } catch (error: any) {
@@ -94,9 +84,7 @@ export const getMediaTrailers = async (
   mediaid: string
 ) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/videos/${mediaid}`
-    );
+    const response = await apiClient.get(`/${mediatype}/videos/${mediaid}`);
     const videos: VideoResult[] = response.data;
     const trailers: VideoResult[] = videos.filter(
       (video) => video.type === "Trailer" && video.site === "YouTube"
@@ -115,9 +103,7 @@ export const getMediaTrailers = async (
 
 export const getMediaVideos = async (mediatype: MediaType, mediaid: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/videos/${mediaid}`
-    );
+    const response = await apiClient.get(`/${mediatype}/videos/${mediaid}`);
     const videos: VideoResult[] = response.data;
     const youtubeVideos: VideoResult[] = videos.filter(
       (video) => video.site === "YouTube"
@@ -135,16 +121,13 @@ export const getBulkMedia = async (
   page: number = 1
 ) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/bulk/${bulktype}`,
-      {
-        params: {
-          page,
-        },
-      }
-    );
-    const medias = response.data;
-    return medias;
+    const response = await apiClient.get(`/${mediatype}/bulk/${bulktype}`, {
+      params: {
+        page,
+      },
+    });
+
+    return response.data;
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -152,9 +135,7 @@ export const getBulkMedia = async (
 
 export const getMediaDetail = async (mediatype: string, mediaid: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/${mediatype}/detail/${mediaid}`
-    );
+    const response = await apiClient.get(`/${mediatype}/detail/${mediaid}`);
     return response.data;
   } catch (error: any) {
     const msg = error.response?.data?.message;
@@ -168,12 +149,58 @@ export const getSeasonDetails = async (
   seasonNumber: number
 ) => {
   try {
-    const response: AxiosResponse = await apiClient.get(
+    const response = await apiClient.get(
       `/${mediatype}/${mediaid}/season/${seasonNumber}`
     );
     return response.data;
   } catch (error: any) {
     const msg = error.response?.data?.message;
     throw new Error(msg);
+  }
+};
+
+export const getSearchResults = async ({
+  query,
+  genres,
+  year,
+  season,
+  formats,
+  mediaType,
+}: {
+  query?: string;
+  genres?: string;
+  year?: string;
+  season?: string;
+  formats?: string;
+  mediaType?: string;
+}) => {
+  const response = await apiClient.get(`/search/${mediaType}`, {
+    params: {
+      query,
+      genres,
+      year,
+      season,
+      formats,
+    },
+  });
+
+  return response.data;
+};
+
+export const getSearchMultiResults = async (query: string) => {
+  try {
+    const response = await apiClient.get(`/search/multi/${query}`);
+
+    const results = response.data;
+    return {
+      results,
+      movies: results.movies,
+      tv: results.tv,
+      people: results.people,
+      users: results.users,
+    };
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };

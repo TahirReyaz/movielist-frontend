@@ -1,6 +1,4 @@
-import axios, { AxiosResponse } from "axios";
-
-import { backendUrl } from "../../constants";
+import apiClient from ".";
 
 export const signup = async (
   email: string,
@@ -8,11 +6,13 @@ export const signup = async (
   username: string
 ) => {
   try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/auth/register`,
-      { email, password, username }
-    );
-    return { message: response.data.message };
+    const response = await apiClient.post(`/auth/register`, {
+      email,
+      password,
+      username,
+    });
+
+    return response.data;
   } catch (error: any) {
     const msg = error?.response?.data?.message;
     throw new Error(msg);
@@ -21,16 +21,8 @@ export const signup = async (
 
 export const login = async (email: string, password: string) => {
   try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/auth/login`,
-      { email, password },
-      { withCredentials: true }
-    );
-    return {
-      ...response.data,
-      message: response.data.message,
-      token: response.data.token,
-    };
+    const response = await apiClient.post(`/auth/login`, { email, password });
+    return response.data;
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
     throw new Error(error_msg);
@@ -39,16 +31,10 @@ export const login = async (email: string, password: string) => {
 
 export const sessionLogin = async (sessionToken: string) => {
   try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/auth/sessionlogin`,
-      { sessionToken },
-      { withCredentials: true }
-    );
-    return {
-      ...response.data,
-      message: response.data.message,
-      token: response.data.token,
-    };
+    const response = await apiClient.post(`/auth/sessionlogin`, {
+      sessionToken,
+    });
+    return response.data;
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
     throw new Error(error_msg);
@@ -60,11 +46,10 @@ export const changePassword = async (
   oldPassword: string
 ) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/auth/update/password`,
-      { newPassword, oldPassword },
-      { withCredentials: true }
-    );
+    const response = await apiClient.patch(`/auth/update/password`, {
+      newPassword,
+      oldPassword,
+    });
 
     return response.data;
   } catch (error: any) {

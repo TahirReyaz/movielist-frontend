@@ -2,7 +2,7 @@ import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AiFillHeart } from "react-icons/ai";
 
-import { toggleFav } from "../../lib/api/user";
+import { toggleFav } from "../../lib/api";
 import { RootState } from "../../store";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { useAppSelector } from "../../hooks/redux";

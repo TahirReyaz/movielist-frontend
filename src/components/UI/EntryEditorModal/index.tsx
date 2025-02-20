@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import Modal from "../../UI/Modal";
-import { addEntry, getEntryDetail, getMediaDetail } from "../../../lib/api";
+import { addEntry, getEntryDetails, getMediaDetail } from "../../../lib/api";
 import TopSection from "./TopSection";
 import Loading from "../Loading";
 import Error from "../Error";
@@ -13,7 +13,7 @@ import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { Entry } from "../../../constants/types/entry";
 import { StatusType, MediaType } from "../../../constants/types";
-import { toggleFav } from "../../../lib/api/user";
+import { toggleFav } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../LoadingBar";
 
@@ -47,7 +47,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
     isError,
   } = useQuery<Entry>({
     queryKey: ["entry", id],
-    queryFn: () => getEntryDetail(id!),
+    queryFn: () => getEntryDetails(id!),
     enabled: !!id && open,
   });
 

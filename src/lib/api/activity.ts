@@ -1,16 +1,12 @@
-import axios, { AxiosResponse } from "axios";
-import { backendUrl } from "../../constants";
+import apiClient from ".";
 
 export const getGlobalActivities = async (page: number = 1) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activities`,
-      {
-        params: {
-          page,
-        },
-      }
-    );
+    const response = await apiClient.get(`/activities`, {
+      params: {
+        page,
+      },
+    });
     const activities = response.data.activities;
     return activities;
   } catch (error: any) {
@@ -23,14 +19,11 @@ export const getProfileActivities = async (
   page: number = 1
 ) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activities/user/${username}`,
-      {
-        params: {
-          page,
-        },
-      }
-    );
+    const response = await apiClient.get(`/activities/user/${username}`, {
+      params: {
+        page,
+      },
+    });
     const activities = response.data.activities;
     return activities;
   } catch (error: any) {
@@ -40,14 +33,11 @@ export const getProfileActivities = async (
 
 export const getMediaActivities = async (mediaid: string, page: number = 1) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activities/media/${mediaid}`,
-      {
-        params: {
-          page,
-        },
-      }
-    );
+    const response = await apiClient.get(`/activities/media/${mediaid}`, {
+      params: {
+        page,
+      },
+    });
     const activities = response.data.activities;
     return activities;
   } catch (error: any) {
@@ -57,9 +47,7 @@ export const getMediaActivities = async (mediaid: string, page: number = 1) => {
 
 export const getActivityHistory = async (username: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activities/history/${username}`
-    );
+    const response = await apiClient.get(`/activities/history/${username}`);
     return response.data;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message);
@@ -68,15 +56,11 @@ export const getActivityHistory = async (username: string) => {
 
 export const getFollowingActivities = async (page: number = 1) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activities/following`,
-      {
-        params: {
-          page,
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.get(`/activities/following`, {
+      params: {
+        page,
+      },
+    });
     const activities = response.data.activities;
     return activities;
   } catch (error: any) {
@@ -86,9 +70,7 @@ export const getFollowingActivities = async (page: number = 1) => {
 
 export const getActivity = async (id: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activity/${id}`
-    );
+    const response = await apiClient.get(`/activity/${id}`);
     return response.data;
   } catch (error: any) {
     throw new Error(error);
@@ -97,10 +79,7 @@ export const getActivity = async (id: string) => {
 
 export const delActivity = async (id: string) => {
   try {
-    const response: AxiosResponse = await axios.delete(
-      `${backendUrl}/activity/${id}`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.delete(`/activity/${id}`);
     return response.data;
   } catch (error: any) {
     throw new Error(error);
@@ -109,13 +88,7 @@ export const delActivity = async (id: string) => {
 
 export const likeActivity = async (id: string) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/activity/like/${id}`,
-      {},
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/activity/like/${id}`, {});
     return response;
   } catch (error: any) {
     const msg = error?.response?.data?.message;
@@ -125,13 +98,7 @@ export const likeActivity = async (id: string) => {
 
 export const unlikeActivity = async (id: string) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/activity/unlike/${id}`,
-      {},
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/activity/unlike/${id}`, {});
     return response;
   } catch (error: any) {
     const msg = error?.response?.data?.message;
@@ -141,15 +108,9 @@ export const unlikeActivity = async (id: string) => {
 
 export const createNewActivity = async (content: string) => {
   try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/activity`,
-      {
-        content,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.post(`/activity`, {
+      content,
+    });
     return response;
   } catch (error: any) {
     const msg = error?.response?.data?.message;

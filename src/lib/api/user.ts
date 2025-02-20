@@ -1,6 +1,40 @@
-import axios, { AxiosResponse } from "axios";
+import apiClient from ".";
+import { userSettingsType } from "../../constants/types";
 
-import { backendUrl } from "../../constants";
+export const getUserDetails = async (username: string | undefined) => {
+  try {
+    const response = await apiClient.get(`/user/${username}`);
+
+    return response.data;
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
+  }
+};
+
+export const updateUserDetail = async (
+  userid: string | undefined,
+  fields: Partial<userSettingsType>
+) => {
+  try {
+    const updatedUserData: Partial<userSettingsType> = fields;
+
+    // Filter out undefined fields
+    const filteredData = Object.fromEntries(
+      Object.entries(updatedUserData).filter(
+        ([_, value]) => value !== undefined
+      )
+    );
+
+    const response = await apiClient.patch(`/user/${userid}`, filteredData);
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error);
+    const error_msg = error?.response?.data?.message;
+    throw new Error(error_msg);
+  }
+};
 
 export const toggleFav = async (
   entityId: string | number,
@@ -8,15 +42,11 @@ export const toggleFav = async (
   fav: boolean
 ) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/fav/toggle`,
-      {
-        entityId,
-        entityType,
-        fav,
-      },
-      { withCredentials: true }
-    );
+    const response = await apiClient.patch(`/user/fav/toggle`, {
+      entityId,
+      entityType,
+      fav,
+    });
     return { ...response.data, error: false };
   } catch (error: any) {
     const msg = error.response?.data?.message;
@@ -26,28 +56,22 @@ export const toggleFav = async (
 
 export const searchUsers = async (query: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/search/user`,
-      {
-        params: {
-          query,
-        },
-      }
-    );
+    const response = await apiClient.get(`/search/user`, {
+      params: {
+        query,
+      },
+    });
 
     return response.data;
   } catch (error) {
     console.error(error);
-    return { error: true };
+    throw error;
   }
 };
 
 export const unfollowUser = async (targetUsername: string) => {
   try {
-    const response: AxiosResponse = await axios.delete(
-      `${backendUrl}/user/unfollow/${targetUsername}`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.delete(`/user/unfollow/${targetUsername}`);
 
     return response.data;
   } catch (error: any) {
@@ -57,11 +81,7 @@ export const unfollowUser = async (targetUsername: string) => {
 
 export const followUser = async (targetUsername: string) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/follow/${targetUsername}`,
-      undefined,
-      { withCredentials: true }
-    );
+    const response = await apiClient.patch(`/user/follow/${targetUsername}`);
 
     return response.data;
   } catch (error: any) {
@@ -71,13 +91,7 @@ export const followUser = async (targetUsername: string) => {
 
 export const flagUserForDeletion = async (password: string) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/flag/delete`,
-      { password },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/user/flag/delete`, { password });
 
     return response.data;
   } catch (error: any) {
@@ -88,13 +102,7 @@ export const flagUserForDeletion = async (password: string) => {
 
 export const updateStats = async () => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/stats/update`,
-      undefined,
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/user/stats/update`, undefined);
 
     return response.data;
   } catch (error: any) {
@@ -105,13 +113,9 @@ export const updateStats = async () => {
 
 export const changeUsername = async (newUsername: string) => {
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/user/update/username`,
-      { username: newUsername },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/user/update/username`, {
+      username: newUsername,
+    });
 
     return response.data;
   } catch (error: any) {
@@ -122,7 +126,7 @@ export const changeUsername = async (newUsername: string) => {
 
 export const getMods = async () => {
   try {
-    const response: AxiosResponse = await axios.get(`${backendUrl}/users/mods`);
+    const response = await apiClient.get(`/users/mods`);
 
     return response.data;
   } catch (error: any) {

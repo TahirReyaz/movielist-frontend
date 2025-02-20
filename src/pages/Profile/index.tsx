@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 
-import { getUserDetail } from "../../lib/api";
+import { getUserDetails } from "../../lib/api";
 import { StatusType, MediaType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Loading from "../../components/UI/Loading";
@@ -41,7 +41,7 @@ const Profile = () => {
     isError,
   } = useQuery({
     queryKey: ["profile", username],
-    queryFn: () => getUserDetail(username),
+    queryFn: () => getUserDetails(username),
     enabled: !!username,
   });
 

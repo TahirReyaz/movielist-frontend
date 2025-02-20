@@ -5,7 +5,7 @@ import { RefUser } from "../../../constants/types";
 import { followUser } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import Button from "../../../components/UI/Button";
-import { unfollowUser } from "../../../lib/api/user";
+import { unfollowUser } from "../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
 

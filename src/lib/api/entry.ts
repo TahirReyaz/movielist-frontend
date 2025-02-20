@@ -1,12 +1,21 @@
-import axios, { AxiosResponse } from "axios";
 import { MediaType } from "../../constants/types";
-import { backendUrl } from "../../constants";
 import {
   Entry,
   UpdateEntryFields,
   newEntryType,
 } from "../../constants/types/entry";
 import apiClient from ".";
+
+export const getEntryDetails = async (id: string) => {
+  try {
+    const response = await apiClient.get(`/entry/${id}`);
+
+    return response.data;
+  } catch (error: any) {
+    const msg = error.response?.data?.message;
+    throw new Error(msg);
+  }
+};
 
 export const updateEntry = async ({
   status,
@@ -28,11 +37,7 @@ export const updateEntry = async ({
       score,
       notes,
     };
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/entry/${id}`,
-      body,
-      { withCredentials: true }
-    );
+    const response = await apiClient.patch(`/entry/${id}`, body);
     return { data: response.data, message: "Entry updated" };
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
@@ -42,9 +47,7 @@ export const updateEntry = async ({
 
 export const increaseProgess = async (id: string) => {
   try {
-    await axios.patch(`${backendUrl}/entry/${id}/increaseprogress`, undefined, {
-      withCredentials: true,
-    });
+    await apiClient.patch(`/entry/${id}/increaseprogress`);
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
     throw new Error(error_msg);
@@ -53,7 +56,7 @@ export const increaseProgess = async (id: string) => {
 
 export const deleteEntry = async (id: string) => {
   try {
-    await axios.delete(`${backendUrl}/entry/${id}`, { withCredentials: true });
+    await apiClient.delete(`/entry/${id}`);
     return { message: "List Entry Deleted" };
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
@@ -66,8 +69,8 @@ export const getUserMediaEntries = async (
   mediaType: MediaType
 ) => {
   try {
-    const response = await axios.get(
-      `${backendUrl}/entries/user/${username}/${mediaType}`
+    const response = await apiClient.get(
+      `/entries/user/${username}/${mediaType}`
     );
     return response.data;
   } catch (error: any) {
@@ -78,10 +81,7 @@ export const getUserMediaEntries = async (
 
 export const getUserEntryByMediaid = async (mediaid: string) => {
   try {
-    const response = await axios.get(
-      `${backendUrl}/entry/user/media/${mediaid}`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.get(`/entry/user/media/${mediaid}`);
     return response.data;
   } catch (error: any) {
     const error_msg = error?.response?.data?.message;
@@ -111,13 +111,9 @@ export const delUserMediaEntries = async (
   mediaType: MediaType
 ) => {
   try {
-    const response = await axios.patch(
-      `${backendUrl}/entries/${mediaType}/delete-all`,
-      { password },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/entries/${mediaType}/delete-all`, {
+      password,
+    });
     return response.data;
   } catch (error: any) {
     const error_msg = error.response?.data?.message ?? error.message;

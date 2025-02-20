@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { unfollowUser } from "../../../lib/api/user";
+import { unfollowUser } from "../../../lib/api";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { useAppSelector } from "../../../hooks/redux";

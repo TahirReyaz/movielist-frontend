@@ -1,17 +1,13 @@
-import axios, { AxiosResponse } from "axios";
-
-import { backendUrl } from "../../constants";
+import apiClient from ".";
 
 export const commentOnActivity = async (
   activityId: string,
   content: string
 ) => {
   try {
-    const response: AxiosResponse = await axios.post(
-      `${backendUrl}/activity/comment/${activityId}`,
-      { content },
-      { withCredentials: true }
-    );
+    const response = await apiClient.post(`/activity/comment/${activityId}`, {
+      content,
+    });
     return response.data;
   } catch (error: any) {
     throw new Error(error);
@@ -20,9 +16,7 @@ export const commentOnActivity = async (
 
 export const getActivityComments = async (activityId: string) => {
   try {
-    const response: AxiosResponse = await axios.get(
-      `${backendUrl}/activity/comments/${activityId}`
-    );
+    const response = await apiClient.get(`/activity/comments/${activityId}`);
     return response.data.comments;
   } catch (error: any) {
     throw new Error(error);
@@ -32,13 +26,7 @@ export const getActivityComments = async (activityId: string) => {
 export const likeCommentToggle = async (id: string, like: boolean) => {
   const path = like ? "like" : "unlike";
   try {
-    const response: AxiosResponse = await axios.patch(
-      `${backendUrl}/comment/${path}/${id}`,
-      {},
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.patch(`/comment/${path}/${id}`, {});
     return response;
   } catch (error: any) {
     const msg = error?.response?.data?.message;
@@ -48,12 +36,7 @@ export const likeCommentToggle = async (id: string, like: boolean) => {
 
 export const deleteComment = async (id: string) => {
   try {
-    const response: AxiosResponse = await axios.delete(
-      `${backendUrl}/comment/${id}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.delete(`/comment/${id}`);
     return response;
   } catch (error: any) {
     const msg = error?.response?.data?.message;
