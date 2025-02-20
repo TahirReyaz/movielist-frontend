@@ -2,16 +2,16 @@ import React, { Dispatch, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { HiDotsHorizontal } from "react-icons/hi";
 
-import { NotifType } from "../../constants/types";
 import { useAppSelector } from "../../hooks/redux";
 import { useLoadingBar } from "../../components/UI/LoadingBar";
 import { markAllUserNotifsRead } from "../../lib/api";
 import { showErrorToast } from "../../utils/toastUtils";
 import MobileHeader from "../../components/Layout/MobileHeader";
+import { TNotifType } from "../../constants/Interfaces/notifications";
 
 interface MenuProps {
-  currentOption: NotifType;
-  setCurrentOption: Dispatch<React.SetStateAction<NotifType>>;
+  currentOption: TNotifType;
+  setCurrentOption: Dispatch<React.SetStateAction<TNotifType>>;
 }
 
 const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
@@ -21,7 +21,7 @@ const Menu = ({ currentOption, setCurrentOption }: MenuProps) => {
   const loadingBar = useLoadingBar();
   const queryClient = useQueryClient();
 
-  const list: { title: string; type: NotifType }[] = [
+  const list: { title: string; type: TNotifType }[] = [
     { title: "All", type: "all" },
     { title: "Airing", type: "airing" },
     { title: "Activity", type: "activity" },

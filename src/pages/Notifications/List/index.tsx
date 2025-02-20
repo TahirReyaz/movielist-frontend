@@ -1,15 +1,17 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { NotifType } from "../../../constants/types";
 import Loading from "../../../components/UI/Loading";
 import Error from "../../../components/UI/Error";
-import { Notification as NotificationType } from "../../../constants/types/activity";
 import { getUserNotifsByType } from "../../../lib/api";
 import Notification from "./Notification";
+import {
+  INotification,
+  TNotifType,
+} from "../../../constants/Interfaces/notifications";
 
 interface Props {
-  type: NotifType;
+  type: TNotifType;
 }
 
 const List = ({ type }: Props) => {
@@ -17,7 +19,7 @@ const List = ({ type }: Props) => {
     data: notifs,
     isLoading,
     isError,
-  } = useQuery<NotificationType[]>({
+  } = useQuery<INotification[]>({
     queryKey: ["notifications", type],
     queryFn: () => getUserNotifsByType(type),
   });
@@ -35,7 +37,7 @@ const List = ({ type }: Props) => {
   return (
     <div>
       {notifs &&
-        notifs.map((notif: NotificationType) => (
+        notifs.map((notif: INotification) => (
           <Notification
             {...{
               key: notif._id,

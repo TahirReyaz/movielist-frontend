@@ -58,11 +58,3 @@ export type Option = {
   value: string;
   label: string;
 };
-
-export type NotifType =
-  | "all"
-  | "airing"
-  | "activity"
-  | "forum"
-  | "follows"
-  | "media";

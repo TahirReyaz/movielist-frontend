@@ -3,11 +3,11 @@ import { Helmet } from "react-helmet-async";
 
 import LowerLayout from "../../components/UI/LowerLayout";
 import Menu from "./Menu";
-import { NotifType } from "../../constants/types";
 import List from "./List";
+import { TNotifType } from "../../constants/Interfaces/notifications";
 
 const Notifications = () => {
-  const [currentOption, setCurrentOption] = useState<NotifType>("all");
+  const [currentOption, setCurrentOption] = useState<TNotifType>("all");
 
   return (
     <>

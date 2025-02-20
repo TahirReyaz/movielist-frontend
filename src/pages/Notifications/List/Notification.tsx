@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import noImg from "../../../assets/no_img_long.jpg";
 
-import { Notification as NotificationType } from "../../../constants/types/activity";
 import { calculateElapsedTime } from "../../../lib/helpers";
+import { INotification } from "../../../constants/Interfaces/notifications";
 
 const Notification = ({
   content,
@@ -14,7 +14,7 @@ const Notification = ({
   createdAt,
   activityId,
   read,
-}: NotificationType) => {
+}: INotification) => {
   let pointingUrl = "/";
   if (pointingType === "user") {
     pointingUrl = `/user/${pointingId}`;
