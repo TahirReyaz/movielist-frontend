@@ -5,14 +5,14 @@ import WarningModalWithInput from "../../../../components/UI/WarningModal/Warnin
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { delUserMediaEntries } from "../../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
-import { MediaType } from "../../../../constants/types";
 import { useAppSelector } from "../../../../hooks/redux";
+import { TMediaType } from "../../../../constants/Interfaces/media";
 
 const DeleteLists = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [currentMediaType, setCurrentMediaType] = useState<
-    MediaType | undefined
+    TMediaType | undefined
   >();
 
   const { username } = useAppSelector((state) => state.auth);
@@ -40,7 +40,7 @@ const DeleteLists = () => {
     setShowModal(false);
   };
 
-  const handleClick = (mediaType: MediaType) => {
+  const handleClick = (mediaType: TMediaType) => {
     setCurrentMediaType(mediaType);
     setShowModal(true);
   };

@@ -1,10 +1,10 @@
-import { MediaType } from "../../constants/types";
-import {
-  Entry,
-  UpdateEntryFields,
-  newEntryType,
-} from "../../constants/types/entry";
 import apiClient from ".";
+import { TMediaType } from "../../constants/Interfaces/media";
+import {
+  IEntry,
+  TNewEntry,
+  TUpdateEntryFields,
+} from "../../constants/Interfaces/entry";
 
 export const getEntryDetails = async (id: string) => {
   try {
@@ -26,7 +26,7 @@ export const updateEntry = async ({
   score,
   notes,
   id,
-}: UpdateEntryFields) => {
+}: TUpdateEntryFields) => {
   try {
     const body = {
       status,
@@ -66,7 +66,7 @@ export const deleteEntry = async (id: string) => {
 
 export const getUserMediaEntries = async (
   username: string,
-  mediaType: MediaType
+  mediaType: TMediaType
 ) => {
   try {
     const response = await apiClient.get(
@@ -91,12 +91,12 @@ export const getUserEntryByMediaid = async (mediaid: string) => {
 
 export const getWatchingUserMediaEntries = async (
   username: string,
-  mediaType: MediaType
+  mediaType: TMediaType
 ) => {
   try {
     const entries = await getUserMediaEntries(username, mediaType);
-    const watchingEntries: Entry[] = entries?.filter(
-      (entry: Entry) =>
+    const watchingEntries: IEntry[] = entries?.filter(
+      (entry: IEntry) =>
         entry.status === "watching" && entry.mediaType === mediaType
     );
     return watchingEntries;
@@ -108,7 +108,7 @@ export const getWatchingUserMediaEntries = async (
 
 export const delUserMediaEntries = async (
   password: string,
-  mediaType: MediaType
+  mediaType: TMediaType
 ) => {
   try {
     const response = await apiClient.patch(`/entries/${mediaType}/delete-all`, {
@@ -121,7 +121,7 @@ export const delUserMediaEntries = async (
   }
 };
 
-export const addEntry = async (body: newEntryType) => {
+export const addEntry = async (body: TNewEntry) => {
   if (body.season) {
     body.mediaid = `${body.mediaid}-${body.season}`;
   }

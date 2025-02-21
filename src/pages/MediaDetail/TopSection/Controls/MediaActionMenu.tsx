@@ -3,15 +3,16 @@ import { Dispatch, SetStateAction } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { addEntry } from "../../../../lib/api";
-import { StatusType, MediaType } from "../../../../constants/types";
 import { useAppSelector } from "../../../../hooks/redux";
 import { updateEntry } from "../../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
+import { TMediaType } from "../../../../constants/Interfaces/media";
+import { TStatus } from "../../../../constants/Interfaces/entry";
 
 type listItemType = {
   title: string;
-  status: StatusType;
+  status: TStatus;
 };
 const menuItems: listItemType[] = [
   { title: "Set as Planning", status: "planning" },
@@ -26,7 +27,7 @@ interface Props {
   setShowModal: Dispatch<SetStateAction<boolean>>;
   existingEntryId?: string;
   tippyRef: any;
-  mediaType: MediaType;
+  mediaType: TMediaType;
   mediaDetails: {
     poster_path: string;
     backdrop_path?: string;
@@ -61,7 +62,7 @@ const MediaActionMenu = ({
   }
 
   const listHandler = async (
-    listtype: StatusType,
+    listtype: TStatus,
     title: string,
     poster: string,
     backdrop?: string

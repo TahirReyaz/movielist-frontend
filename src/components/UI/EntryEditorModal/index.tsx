@@ -11,22 +11,22 @@ import TextInput from "../TextInput";
 import { updateEntry } from "../../../lib/api";
 import CustomLists from "./CustomLists";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
-import { Entry } from "../../../constants/types/entry";
-import { StatusType, MediaType } from "../../../constants/types";
 import { toggleFav } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../LoadingBar";
+import { IEntry, TStatus } from "../../../constants/Interfaces/entry";
+import { TMediaType } from "../../../constants/Interfaces/media";
 
 interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   id?: string;
   mediaid: string;
-  mediaType: MediaType;
+  mediaType: TMediaType;
 }
 
 type Option = {
-  value: StatusType;
+  value: TStatus;
   label: string;
 };
 
@@ -45,13 +45,13 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
     data: entry,
     isLoading,
     isError,
-  } = useQuery<Entry>({
+  } = useQuery<IEntry>({
     queryKey: ["entry", id],
     queryFn: () => getEntryDetails(id!),
     enabled: !!id && open,
   });
 
-  const [status, setStatus] = useState<StatusType | undefined>(undefined);
+  const [status, setStatus] = useState<TStatus | undefined>(undefined);
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
   const [score, setScore] = useState<number | undefined>();
@@ -87,7 +87,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
   if (entry && entry.data) {
     if (entry.data.status?.length > 0) {
       if (entry.data.status !== "Released" || entry.data.status !== "Ended") {
-        const removeOptions: StatusType[] = ["completed", "rewatching"];
+        const removeOptions: TStatus[] = ["completed", "rewatching"];
         statusOptions.filter((opt) => !removeOptions.includes(opt.value));
       }
     }

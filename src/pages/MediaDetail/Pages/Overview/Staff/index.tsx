@@ -3,16 +3,16 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { CrewMember, MediaCredits } from "../../../../../constants/types/media";
-import { MediaType } from "../../../../../constants/types";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
 import { getMediaMoreDetails } from "../../../../../lib/api";
 import StaffCard from "../../../../../components/Media/StaffCard";
+import { TMediaType } from "../../../../../constants/Interfaces/media";
 
 const Staff = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const location = useLocation();
 

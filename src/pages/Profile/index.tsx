@@ -4,19 +4,20 @@ import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 
 import { getUserDetails } from "../../lib/api";
-import { StatusType, MediaType } from "../../constants/types";
 import TopSection from "./TopSection";
 import Loading from "../../components/UI/Loading";
 import { setProfile } from "../../store/ProfileSlice";
 import MetaTags from "../../components/UI/MetaTags";
+import { TMediaType } from "../../constants/Interfaces/media";
+import { TStatus } from "../../constants/Interfaces/entry";
 
 export type ProfileParams = {
   username: string;
 };
 
 export type listItemType = {
-  listtype: StatusType;
-  mediaType: MediaType;
+  listtype: TStatus;
+  mediaType: TMediaType;
   id: string;
   _id: string;
 };

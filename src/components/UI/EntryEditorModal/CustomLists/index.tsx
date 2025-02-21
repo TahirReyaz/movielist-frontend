@@ -6,7 +6,7 @@ import { useAppSelector } from "../../../../hooks/redux";
 import WarningModal from "../../WarningModal";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLocation } from "react-router-dom";
-import { MediaType } from "../../../../constants/types";
+import { TMediaType } from "../../../../constants/Interfaces/media";
 
 const CustomLists = ({
   id,
@@ -22,7 +22,7 @@ const CustomLists = ({
 
   const { pathname } = useLocation();
   const pathArray = pathname?.split("/");
-  const mediaType: MediaType =
+  const mediaType: TMediaType =
     pathArray?.[3]?.split("#")[0] === "movielist" ? "movie" : "tv";
 
   const handleDelete = async () => {

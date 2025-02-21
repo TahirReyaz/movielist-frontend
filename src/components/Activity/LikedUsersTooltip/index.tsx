@@ -2,11 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import avatarPlaceholder from "../../../assets/userAvatar.png";
-
-import { RefUser } from "../../../constants/types";
+import { TRefUser } from "../../../constants/Interfaces/user";
 
 interface Props {
-  users: RefUser[];
+  users: TRefUser[];
 }
 
 const LikedUsersTooltip = ({ users }: Props) => {

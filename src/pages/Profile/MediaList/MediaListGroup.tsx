@@ -2,12 +2,12 @@ import React from "react";
 import Tippy from "@tippyjs/react/headless";
 
 import MediaListItem from "./MediaListItem";
-import { Entry } from "../../../constants/types/entry";
 import { posterSizes, tmdbImgBaseUrl } from "../../../constants/tmdb";
+import { IEntry } from "../../../constants/Interfaces/entry";
 
 interface MediaListGroupParams {
   listType: string;
-  entries: Entry[];
+  entries: IEntry[];
 }
 
 const MediaListGroup = ({ listType, entries }: MediaListGroupParams) => {

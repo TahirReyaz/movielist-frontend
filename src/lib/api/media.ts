@@ -1,6 +1,7 @@
-import { MediaType, bulkMediaType } from "../../constants/types";
+import { bulkMediaType } from "../../constants/types";
 import { VideoResult } from "../../constants/types/media";
 import apiClient from ".";
+import { TMediaType } from "../../constants/Interfaces/media";
 
 export const getMediaTags = async (mediatype: string, mediaid: string) => {
   try {
@@ -28,7 +29,7 @@ export const getMediaMoreDetails = async (
   }
 };
 
-export const getGenreList = async (mediaType: MediaType) => {
+export const getGenreList = async (mediaType: TMediaType) => {
   try {
     const response = await apiClient.get(`/${mediaType}/genre`);
     const genres = response.data.genres;
@@ -80,7 +81,7 @@ export const getMediaFollowingStatus = async (mediaid: string) => {
 };
 
 export const getMediaTrailers = async (
-  mediatype: MediaType,
+  mediatype: TMediaType,
   mediaid: string
 ) => {
   try {
@@ -101,7 +102,10 @@ export const getMediaTrailers = async (
   }
 };
 
-export const getMediaVideos = async (mediatype: MediaType, mediaid: string) => {
+export const getMediaVideos = async (
+  mediatype: TMediaType,
+  mediaid: string
+) => {
   try {
     const response = await apiClient.get(`/${mediatype}/videos/${mediaid}`);
     const videos: VideoResult[] = response.data;
@@ -116,7 +120,7 @@ export const getMediaVideos = async (mediatype: MediaType, mediaid: string) => {
 };
 
 export const getBulkMedia = async (
-  mediatype: MediaType,
+  mediatype: TMediaType,
   bulktype: bulkMediaType,
   page: number = 1
 ) => {

@@ -8,7 +8,6 @@ import CardList from "../../components/UI/Media/CardList";
 import TextInput from "../../components/UI/TextInput";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
-import { MediaType } from "../../constants/types";
 import { searchTypes } from "../../constants";
 import { useDebounce } from "../../hooks/useDebounce";
 import { generateYearOptions } from "../../lib/helpers";
@@ -20,6 +19,7 @@ import MobileHeader from "./MobileHeader";
 import Staff from "./Pages/Staff";
 import Users from "./Pages/Users";
 import Studios from "./Pages/Studios";
+import { TMediaType } from "../../constants/Interfaces/media";
 
 export const filterHeadingClasses =
   "text-textBright text-2xl font-semibold mb-3";
@@ -31,7 +31,7 @@ const Browse = () => {
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search") || "";
 
-  const { mediaType } = useParams<{ mediaType: MediaType }>();
+  const { mediaType } = useParams<{ mediaType: TMediaType }>();
 
   const [query, setQuery] = useState<string>(initialSearchQuery);
   const [genres, setGenres] = useState<string>("");

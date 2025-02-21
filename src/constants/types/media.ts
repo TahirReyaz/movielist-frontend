@@ -1,6 +1,7 @@
-import { MediaType, StatusType } from "../types";
+import { TStatus } from "../Interfaces/entry";
+import { TMediaType } from "../Interfaces/media";
 
-type MediaDetailBase<T extends MediaType> = {
+type MediaDetailBase<T extends TMediaType> = {
   type: T;
   adult: boolean;
   backdrop_path: string;
@@ -217,7 +218,7 @@ export type Language = {
 export type FollowingUserStat = {
   username: string;
   avatar?: string;
-  status: StatusType;
+  status: TStatus;
   score?: number;
 };
 

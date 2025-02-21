@@ -2,15 +2,15 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-import { MediaType } from "../../../../../constants/types";
 import { getMediaRelations } from "../../../../../lib/api";
 import Loading from "../../../../../components/UI/Loading";
 import { MovieItemDetails } from "../../../../../constants/types/media";
 import RelationCard from "./RelationCard";
+import { TMediaType } from "../../../../../constants/Interfaces/media";
 
 interface Props {
   mediaid: string;
-  mediaType: MediaType;
+  mediaType: TMediaType;
   collectionId: number;
 }
 

@@ -6,11 +6,11 @@ import { getMediaStatusDist } from "../../../../../lib/api";
 import CardNLineDistribution from "../../../../../components/Stats/CardNLineDistribution";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
-import { MediaType } from "../../../../../constants/types";
+import { TMediaType } from "../../../../../constants/Interfaces/media";
 
 interface Props {
   mediaid: string;
-  mediaType: MediaType;
+  mediaType: TMediaType;
 }
 
 const StatusDistribution = ({ mediaid, mediaType }: Props) => {

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { MovieItemDetails } from "../../../../../constants/types/media";
-import { MediaType } from "../../../../../constants/types";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import DetailsCard from "./DetailsCard";
+import { TMediaType } from "../../../../../constants/Interfaces/media";
 
 const RelationCard = ({
   poster_path,
@@ -13,7 +13,7 @@ const RelationCard = ({
   title,
   release_date,
   index,
-}: MovieItemDetails & { mediaType: MediaType; index: number }) => {
+}: MovieItemDetails & { mediaType: TMediaType; index: number }) => {
   const [hover, setHover] = useState<boolean>(false);
 
   return (

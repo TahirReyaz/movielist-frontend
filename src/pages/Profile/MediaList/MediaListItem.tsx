@@ -10,7 +10,7 @@ import EntryEditorModal from "../../../components/UI/EntryEditorModal";
 import { useAppSelector } from "../../../hooks/redux";
 import { showErrorToast } from "../../../utils/toastUtils";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
-import { Entry } from "../../../constants/types/entry";
+import { IEntry } from "../../../constants/Interfaces/entry";
 
 const MediaListItem = ({
   _id,
@@ -23,7 +23,7 @@ const MediaListItem = ({
   progress,
   status,
   data,
-}: Entry) => {
+}: IEntry) => {
   const [hover, setHover] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
 

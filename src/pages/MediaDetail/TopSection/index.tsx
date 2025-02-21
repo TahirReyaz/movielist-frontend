@@ -12,7 +12,7 @@ import {
 import Controls from "./Controls";
 import { useAppSelector } from "../../../hooks/redux";
 import { ISeason, MovieDetail, TvDetail } from "../../../constants/types/media";
-import { MediaType } from "../../../constants/types";
+import { TMediaType } from "../../../constants/Interfaces/media";
 
 const TopSection = () => {
   const { username } = useAppSelector((state) => state.auth);
@@ -29,7 +29,7 @@ const TopSection = () => {
     }
   }
 
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],

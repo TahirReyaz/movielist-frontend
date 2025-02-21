@@ -13,11 +13,6 @@ import { toggleFav } from "../../../../lib/api";
 import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
-import {
-  UserDocEntry,
-  UserDocEntryGroup,
-} from "../../../../constants/types/entry";
-import { MediaType } from "../../../../constants/types";
 import { findExistingEntry } from "../../../../lib/helpers";
 import { UserFav } from "../../../../constants/types/user";
 import {
@@ -25,6 +20,11 @@ import {
   MovieDetail,
   TvDetail,
 } from "../../../../constants/types/media";
+import { TMediaType } from "../../../../constants/Interfaces/media";
+import {
+  IUserDocEntryGroup,
+  TUserDocEntry,
+} from "../../../../constants/Interfaces/entry";
 
 const Controls = () => {
   const { username } = useAppSelector((state) => state.auth);
@@ -40,7 +40,7 @@ const Controls = () => {
     seasonNumber = parseInt(idArray[1]);
   }
 
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
@@ -51,14 +51,14 @@ const Controls = () => {
   const loadingBar = useLoadingBar();
 
   const { data: profile } = useQuery<{
-    entries: UserDocEntryGroup;
+    entries: IUserDocEntryGroup;
     fav: UserFav;
   }>({
     queryKey: ["user", username],
     enabled: username && username.length > 0 ? true : false,
   });
 
-  let existingEntry: UserDocEntry | undefined;
+  let existingEntry: TUserDocEntry | undefined;
   if (profile?.entries && mediaid) {
     existingEntry = findExistingEntry(
       profile.entries,

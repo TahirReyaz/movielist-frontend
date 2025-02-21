@@ -1,4 +1,5 @@
-import { MediaType, RefUser } from "../types";
+import { TMediaType } from "./media";
+import { TRefUser } from "./user";
 
 export type TNotifType =
   | "all"
@@ -15,10 +16,10 @@ export interface INotification {
   content: string;
   pointingImg?: string;
   pointingId: string;
-  pointingType: MediaType;
-  pointingUser?: RefUser;
+  pointingType: TMediaType;
+  pointingUser?: TRefUser;
   activityId?: string;
-  owner: RefUser;
+  owner: TRefUser;
   createdAt: Date;
   updatedAt: Date;
 }

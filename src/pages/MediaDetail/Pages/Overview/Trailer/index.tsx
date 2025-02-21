@@ -2,15 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { MediaType } from "../../../../../constants/types";
 import { VideoResult } from "../../../../../constants/types/media";
 import { getMediaTrailers } from "../../../../../lib/api";
 import VideoCard from "../../../../../components/Media/VideoCard";
 import Loading from "../../../../../components/UI/Loading";
+import { TMediaType } from "../../../../../constants/Interfaces/media";
 
 interface Props {
   mediaid: string;
-  mediaType: MediaType;
+  mediaType: TMediaType;
 }
 
 const Trailer = ({ mediaid, mediaType }: Props) => {

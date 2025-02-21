@@ -5,11 +5,10 @@ import Fuse from "fuse.js";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
-import { Option, MediaType } from "../../../constants/types";
+import { Option } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
 import { getUserMediaEntries } from "../../../lib/api";
-import { Entry, EntryGroup } from "../../../constants/types/entry.ts";
 import {
   generateFilterCountryOptions,
   generateFilterGenreOptions,
@@ -19,6 +18,8 @@ import {
   ProductionCountry,
 } from "../../../constants/types/media.ts";
 import MetaTags from "../../../components/UI/MetaTags.tsx";
+import { TMediaType } from "../../../constants/Interfaces/media.ts";
+import { IEntry, IEntryGroup } from "../../../constants/Interfaces/entry.ts";
 
 const MediaList = () => {
   const [countryOptions, setCountryOptions] = useState<Option[]>([]);
@@ -28,10 +29,10 @@ const MediaList = () => {
   const pathArray = pathname.split("/");
 
   const urlMediaType = pathArray[3].split("#")[0];
-  const mediaType: MediaType = urlMediaType === "movielist" ? "movie" : "tv";
+  const mediaType: TMediaType = urlMediaType === "movielist" ? "movie" : "tv";
   const allowedList = pathArray[4] ? pathArray[4] : "all";
 
-  const { data: entries, isError } = useQuery<Entry[]>({
+  const { data: entries, isError } = useQuery<IEntry[]>({
     queryKey: ["entries", username, mediaType],
     queryFn: () => getUserMediaEntries(username!, mediaType),
     enabled: username && mediaType ? true : false,
@@ -55,14 +56,14 @@ const MediaList = () => {
     [entries]
   );
 
-  const filteredEntries = useMemo<Entry[]>(() => {
+  const filteredEntries = useMemo<IEntry[]>(() => {
     if (!entries) return [];
 
     let filtered = entries;
 
     // Filter by genre
     if (filters.genre) {
-      filtered = filtered.filter((entry: Entry) => {
+      filtered = filtered.filter((entry: IEntry) => {
         if (entry.data?.genres) {
           return entry.data.genres.some(
             (genre: MediaDetailGenre) => genre.id.toString() === filters.genre
@@ -74,7 +75,7 @@ const MediaList = () => {
 
     // Filter by country
     if (filters.country) {
-      filtered = filtered.filter((entry: Entry) => {
+      filtered = filtered.filter((entry: IEntry) => {
         if (entry.data?.production_countries) {
           return entry.data.production_countries.some(
             (country: ProductionCountry) =>
@@ -136,9 +137,9 @@ const MediaList = () => {
     return filtered;
   }, [entries, filters, fuse]);
 
-  const groupedEntries = useMemo<EntryGroup>(() => {
+  const groupedEntries = useMemo<IEntryGroup>(() => {
     return filteredEntries.reduce(
-      (acc: EntryGroup, entry: Entry) => {
+      (acc: IEntryGroup, entry: IEntry) => {
         if (entry.status === "planning") {
           acc.planning.push(entry);
         } else if (entry.status === "watching") {

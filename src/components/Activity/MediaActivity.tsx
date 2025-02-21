@@ -15,8 +15,8 @@ import { useLoadingBar } from "../UI/LoadingBar";
 import Comments from "./Comments";
 import DotMenu from "./DotMenu";
 import MediaActionMenu from "../../pages/MediaDetail/TopSection/Controls/MediaActionMenu";
-import { UserDocEntry } from "../../constants/types/entry";
 import LikedUsersTooltip from "./LikedUsersTooltip";
+import { TUserDocEntry } from "../../constants/Interfaces/entry";
 
 const iconClass =
   "text-xl font-semibold cursor-pointer flex gap-2 hover:text-anilist-blue-picton";
@@ -53,7 +53,7 @@ const MediaActivity = ({
     liked = likes.some((user) => user.username == username);
   }
 
-  let existingEntry: UserDocEntry | undefined;
+  let existingEntry: TUserDocEntry | undefined;
   if (profile?.entries && mediaid && mediaType) {
     existingEntry = findExistingEntry(profile.entries, mediaid, mediaType);
   }

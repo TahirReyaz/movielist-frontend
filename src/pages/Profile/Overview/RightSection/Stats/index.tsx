@@ -1,11 +1,11 @@
 import React from "react";
 
 import { useAppSelector } from "../../../../../hooks/redux";
-import { MediaType } from "../../../../../constants/types";
 import Item from "./Item";
 import ProgressScale from "./ProgressScale";
+import { TMediaType } from "../../../../../constants/Interfaces/media";
 
-const Stats = ({ type }: { type: MediaType }) => {
+const Stats = ({ type }: { type: TMediaType }) => {
   const stats = useAppSelector(
     (state) => state.profile?.stats?.[type]?.overview
   );

@@ -15,12 +15,12 @@ import {
   MovieDetail,
   TvDetail,
 } from "../../../../constants/types/media";
-import { MediaType } from "../../../../constants/types";
 import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
 import Seasons from "./Seasons";
 import { getMediaDetail } from "../../../../lib/api";
 import { getSeasonDetails } from "../../../../lib/api";
+import { TMediaType } from "../../../../constants/Interfaces/media";
 
 const Overview = () => {
   const { pathname } = useLocation();
@@ -35,7 +35,7 @@ const Overview = () => {
     seasonNumber = parseInt(idArray[1]);
     isSeason = !isNaN(seasonNumber);
   }
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const { isLoggedIn } = useAppSelector((state) => state.auth);
 

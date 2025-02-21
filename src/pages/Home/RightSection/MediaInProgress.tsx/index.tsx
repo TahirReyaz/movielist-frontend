@@ -4,13 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import EntryCard from "./EntryCard";
 import { useAppSelector } from "../../../../hooks/redux";
 import { getWatchingUserMediaEntries } from "../../../../lib/api";
-import { MediaType } from "../../../../constants/types";
 import Loading from "../../../../components/UI/Loading";
-import { Entry } from "../../../../constants/types/entry";
+import { TMediaType } from "../../../../constants/Interfaces/media";
+import { IEntry } from "../../../../constants/Interfaces/entry";
 
 interface MediaInProgressProps {
   title: string;
-  mediaType: MediaType;
+  mediaType: TMediaType;
 }
 
 const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
@@ -38,7 +38,7 @@ const MediaInProgress = ({ title, mediaType }: MediaInProgressProps) => {
         {title}
       </h2>
       <div className="flex flex-row md:grid md:grid-cols-4 overflow-auto md:overflow-hidden gap-8 rounded-lg bg-anilist-mirage p-4 mb-4 shadow-lg">
-        {entries.map((entry: Entry) => (
+        {entries.map((entry: IEntry) => (
           <EntryCard
             {...{
               key: entry._id,

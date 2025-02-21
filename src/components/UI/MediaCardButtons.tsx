@@ -8,13 +8,13 @@ import { IconType } from "react-icons";
 import "tippy.js/animations/shift-away.css";
 
 import { addEntry } from "../../lib/api";
-import { StatusType, MediaType } from "../../constants/types";
 import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { useLoadingBar } from "./LoadingBar";
-import { Entry } from "../../constants/types/entry";
+import { TStatus } from "../../constants/Interfaces/entry";
+import { TMediaType } from "../../constants/Interfaces/media";
 
 const iconClass =
   "rounded-full bg-anilist-mirage/90 mt-4 me-2 p-2 text-2xl text-anilist-aqua_haze";
@@ -22,17 +22,17 @@ const iconClass =
 interface MediaCardButtonsProps {
   mediaDetails: MediaDetailType;
   mediaid: string;
-  mediaType: MediaType;
+  mediaType: TMediaType;
   entryId?: string;
 }
 
 interface MenuButtonProps {
   setTo: string;
   Icon: IconType;
-  status: StatusType;
+  status: TStatus;
   onClick: (
     e: React.MouseEvent<HTMLDivElement>,
-    status: StatusType
+    status: TStatus
   ) => Promise<void>;
 }
 
@@ -69,7 +69,7 @@ const MediaCardButtons = ({
 
   const clickHandler = async (
     e: React.MouseEvent<HTMLDivElement>,
-    status: StatusType
+    status: TStatus
   ) => {
     e.preventDefault();
     const title =

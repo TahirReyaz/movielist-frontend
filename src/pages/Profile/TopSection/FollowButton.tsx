@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { RefUser } from "../../../constants/types";
 import { followUser } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import Button from "../../../components/UI/Button";
 import { unfollowUser } from "../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
+import { TRefUser } from "../../../constants/Interfaces/user";
 
 const FollowButton = () => {
   const [hover, setHover] = useState<boolean>(false);
@@ -26,7 +26,7 @@ const FollowButton = () => {
   const loadingBar = useLoadingBar();
 
   const followingThisUser = profileData?.following?.some(
-    (user: RefUser) => user.username == profileUsername
+    (user: TRefUser) => user.username == profileUsername
   );
 
   let followButtonTitle = followingThisUser ? "Following" : "Follow";

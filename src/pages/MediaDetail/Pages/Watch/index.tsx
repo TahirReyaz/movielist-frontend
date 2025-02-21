@@ -1,18 +1,18 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-import { MediaType } from "../../../../constants/types";
 import { useQuery } from "@tanstack/react-query";
 import { VideoResult } from "../../../../constants/types/media";
 import { getMediaVideos } from "../../../../lib/api";
 import Loading from "../../../../components/UI/Loading";
 import Error from "../../../../components/UI/Error";
 import VideoCard from "../../../../components/Media/VideoCard";
+import { TMediaType } from "../../../../constants/Interfaces/media";
 
 const Watch = () => {
   const { pathname } = useLocation();
   const { mediaid } = useParams<{ mediaid: string }>();
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const {
     data: videos,

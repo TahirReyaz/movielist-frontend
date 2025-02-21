@@ -1,7 +1,6 @@
-import { newEntryType } from "./types/entry";
+import { TMediaType } from "./Interfaces/media";
 
-export type MediaType = "movie" | "tv" | "staff" | "user" | "users" | "studios";
-export type multiSearchResultType = MediaType | "user";
+export type multiSearchResultType = TMediaType | "user";
 export type bulkMediaType =
   | "upcoming"
   | "trending"
@@ -10,14 +9,6 @@ export type bulkMediaType =
   | "top_rated"
   | "airing_today"
   | "on_the_air";
-
-export type StatusType =
-  | "planning"
-  | "watching"
-  | "dropped"
-  | "completed"
-  | "paused"
-  | "rewatching";
 
 export type userSettingsType = {
   profileColor: string | undefined;
@@ -30,28 +21,11 @@ export type userSettingsType = {
   dataCacheEnable: boolean | undefined;
 };
 
-export type existingEntryType = Omit<
-  newEntryType,
-  "title" | "mediaType" | "poster" | "backdrop"
-> & {
-  id: string;
-  title?: string;
-  mediaType?: string;
-  poster?: string;
-  backdrop?: string;
-};
-
 export type StatListItem = {
   title: string;
   posterPath: string;
   id: number;
-  mediaType: MediaType;
-};
-
-export type RefUser = {
-  username: string;
-  avatar?: string;
-  _id: string;
+  mediaType: TMediaType;
 };
 
 export type Option = {

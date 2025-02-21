@@ -6,8 +6,8 @@ import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
 import { increaseProgess } from "../../../../lib/api";
 import { showErrorToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
-import { Entry } from "../../../../constants/types/entry";
 import { useAppSelector } from "../../../../hooks/redux";
+import { IEntry } from "../../../../constants/Interfaces/entry";
 
 const EntryCard = ({
   _id,
@@ -17,7 +17,7 @@ const EntryCard = ({
   title,
   poster,
   data,
-}: Entry) => {
+}: IEntry) => {
   const [hover, setHover] = useState<boolean>(false);
   const { username } = useAppSelector((state) => state.auth);
 

@@ -1,12 +1,11 @@
 import React from "react";
 
-import MediaDetailCard from "../MediaDetailCard";
 import MediaDetailField from "../MediaDetailField";
 import Tags from "./Tags";
 import { MovieDetail, TvDetail } from "../../../constants/types/media";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router-dom";
-import { MediaType } from "../../../constants/types";
+import { TMediaType } from "../../../constants/Interfaces/media";
 
 type Field = {
   fieldName: keyof (MovieDetail & TvDetail);
@@ -53,7 +52,7 @@ const LeftSection = () => {
     seasonNumber = parseInt(idArray[1]);
     isSeason = !isNaN(seasonNumber);
   }
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   let detailFields: Field[] = [
     { fieldName: "status", label: "Status" },

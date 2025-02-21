@@ -9,13 +9,12 @@ import Tags from "./LeftSection/Tags";
 import LeftSection from "./LeftSection";
 import { useAppDispatch } from "../../hooks/redux";
 import { setDetails } from "../../store/MediaSlice";
-import Loading from "../../components/UI/Loading";
 import { ISeason, MovieDetail, TvDetail } from "../../constants/types/media";
-import { MediaType } from "../../constants/types";
 import MetaTags from "../../components/UI/MetaTags";
 import { getSeasonDetails } from "../../lib/api";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
 import { showErrorToast } from "../../utils/toastUtils";
+import { TMediaType } from "../../constants/Interfaces/media";
 
 export type MediaDetailType = {
   id: string;
@@ -54,7 +53,7 @@ const MediaDetail = () => {
     isSeason = !isNaN(seasonNumber);
   }
 
-  const mediaType: MediaType = pathname.split("/")[1] as MediaType;
+  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const {
     data: mediaDetails,

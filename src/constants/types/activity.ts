@@ -1,13 +1,14 @@
-import { RefUser, MediaType } from "../types";
+import { TMediaType } from "../Interfaces/media";
+import { TRefUser } from "../Interfaces/user";
 
 export type Activity = {
   _id: string;
   image?: string;
-  likes?: [RefUser];
+  likes?: [TRefUser];
   action?: string;
-  owner: RefUser;
+  owner: TRefUser;
   mediaid?: string;
-  mediaType?: MediaType;
+  mediaType?: TMediaType;
   title?: string;
   content?: string;
   createdAt: string;
@@ -18,9 +19,9 @@ export type Activity = {
 
 export type Comment = {
   _id: string;
-  likes: [RefUser];
+  likes: [TRefUser];
   content: string;
-  owner: RefUser;
+  owner: TRefUser;
   activityId: string;
   createdAt: Date;
   updatedAt: Date;

@@ -1,9 +1,10 @@
-import { Option, MediaType } from "../constants/types";
 import {
-  Entry,
-  UserDocEntry,
-  UserDocEntryGroup,
-} from "../constants/types/entry";
+  IEntry,
+  IUserDocEntryGroup,
+  TUserDocEntry,
+} from "../constants/Interfaces/entry";
+import { TMediaType } from "../constants/Interfaces/media";
+import { Option } from "../constants/types";
 import { MediaDetailGenre, ProductionCountry } from "../constants/types/media";
 import { StatType } from "../constants/types/stats";
 
@@ -48,13 +49,13 @@ export const updateList = (lists: any, allowedList: string) => {
 };
 
 export const findExistingEntry = (
-  entries: UserDocEntryGroup,
+  entries: IUserDocEntryGroup,
   mediaid: string,
-  mediaType: MediaType
+  mediaType: TMediaType
 ) => {
   let existingEntry;
-  existingEntry = entries?.[mediaType as keyof UserDocEntryGroup]?.find(
-    (entry: UserDocEntry) => entry.mediaid == mediaid
+  existingEntry = entries?.[mediaType as keyof IUserDocEntryGroup]?.find(
+    (entry: TUserDocEntry) => entry.mediaid == mediaid
   );
   return existingEntry;
 };
@@ -104,11 +105,11 @@ export const formatDateForInput = (dateString: string): string => {
 };
 
 export const generateFilterCountryOptions = (
-  entries: Entry[] | undefined
+  entries: IEntry[] | undefined
 ): Option[] => {
   const options: Option[] = [];
   if (entries) {
-    entries.forEach((entry: Entry) => {
+    entries.forEach((entry: IEntry) => {
       entry.data?.production_countries?.forEach(
         (country: ProductionCountry) => {
           if (!options.some((option) => option.value === country.iso_3166_1)) {
@@ -125,11 +126,11 @@ export const generateFilterCountryOptions = (
 };
 
 export const generateFilterGenreOptions = (
-  entries: Entry[] | undefined
+  entries: IEntry[] | undefined
 ): Option[] => {
   const options: Option[] = [];
   if (entries) {
-    entries.forEach((entry: Entry) => {
+    entries.forEach((entry: IEntry) => {
       const genres: MediaDetailGenre[] = entry.data?.genres;
       genres?.forEach((genre: MediaDetailGenre) => {
         if (!options.some((option) => option.value === genre.id.toString())) {
