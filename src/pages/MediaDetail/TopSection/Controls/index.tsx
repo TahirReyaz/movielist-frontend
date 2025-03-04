@@ -2,19 +2,18 @@ import React, { useRef, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { AiFillHeart, AiOutlineDown } from "react-icons/ai";
 import { useLocation, useParams } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import "tippy.js/dist/tippy.css";
 
 import Button from "../../../../components/UI/Button";
 import MediaActionMenu from "./MediaActionMenu";
 import EntryEditorModal from "../../../../components/UI/EntryEditorModal";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toggleFav } from "../../../../lib/api";
 import { useAppSelector } from "../../../../hooks/redux";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { findExistingEntry } from "../../../../lib/helpers";
-import { UserFav } from "../../../../constants/types/user";
 import {
   ISeason,
   TMediaType,
@@ -25,6 +24,7 @@ import {
   IUserDocEntryGroup,
   TUserDocEntry,
 } from "../../../../constants/Interfaces/entry";
+import { TUserFav } from "../../../../constants/Interfaces/user";
 
 const Controls = () => {
   const { username } = useAppSelector((state) => state.auth);
@@ -52,7 +52,7 @@ const Controls = () => {
 
   const { data: profile } = useQuery<{
     entries: IUserDocEntryGroup;
-    fav: UserFav;
+    fav: TUserFav;
   }>({
     queryKey: ["user", username],
     enabled: username && username.length > 0 ? true : false,
@@ -67,7 +67,7 @@ const Controls = () => {
     );
   }
 
-  const isFav = profile?.fav[mediaType as keyof UserFav]?.includes(
+  const isFav = profile?.fav[mediaType as keyof TUserFav]?.includes(
     mediaid || ""
   );
   const status = existingEntry?.status;

@@ -23,3 +23,10 @@ export type TUserSettings = {
   restricMessage: boolean | undefined;
   dataCacheEnable: boolean | undefined;
 };
+
+export type TUserFav = {
+  movie: string[];
+  tv: string[];
+  staff: string[];
+  prod_companies: string[];
+};

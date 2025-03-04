@@ -1,7 +1,7 @@
 import React from "react";
 
 import ModItem from "./ModItem";
-import { TMod } from "../../constants/types/user";
+import { TMod } from "../../constants/Interfaces/mods";
 
 const ModSection = ({
   label,

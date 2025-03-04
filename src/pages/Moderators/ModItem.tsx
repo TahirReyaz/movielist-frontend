@@ -5,7 +5,7 @@ import { FaWrench } from "react-icons/fa";
 
 import userAvatarPlaceholder from "../../assets/userAvatar.png";
 
-import { TMod } from "../../constants/types/user";
+import { TMod } from "../../constants/Interfaces/mods";
 
 const Icons: any = {
   admin: <FaWrench />,

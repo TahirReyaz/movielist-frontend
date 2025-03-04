@@ -6,7 +6,7 @@ import ModSection from "./ModSection";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
 import Error from "../../components/UI/Error";
 import { getMods } from "../../lib/api";
-import { TMod } from "../../constants/types/user";
+import { TMod } from "../../constants/Interfaces/mods";
 
 const Moderators = () => {
   const {
