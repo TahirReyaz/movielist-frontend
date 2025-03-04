@@ -1,10 +1,11 @@
 import React from "react";
-import { Distribution } from "../../../../constants/types/user";
+
+import { TDistribution } from "../../../../constants/Interfaces/stats";
 import DescCard from "./DescCard";
 import { distributionColors } from "../../../../constants";
 
 interface Props {
-  data: Distribution[];
+  data: TDistribution[];
 }
 
 const DescCards = ({ data }: Props) => {

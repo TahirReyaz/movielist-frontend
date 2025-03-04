@@ -1,6 +1,7 @@
 import React from "react";
+
 import Carousel from "./Carousel";
-import { StatListItem } from "../../../../../constants/types";
+import { TStatListItem } from "../../../../../constants/Interfaces/stats";
 import { formatTimeWatched } from "../../../../../lib/helpers";
 
 interface GenreItemProps {
@@ -8,7 +9,7 @@ interface GenreItemProps {
   statTypeId: number;
   count: number;
   meanScore: number;
-  list: StatListItem[];
+  list: TStatListItem[];
   index: number;
   timeWatched: number;
 }

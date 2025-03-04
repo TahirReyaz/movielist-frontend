@@ -1,23 +1,3 @@
-import { StatListItem } from "../types";
-
-export type Distribution = {
-  format: string;
-  count: number;
-  hoursWatched: number;
-  meanScore: number;
-  _id: string;
-};
-
-export type StaffStatItem = {
-  title: string;
-  staffId: number;
-  profilePath: string;
-  count: number;
-  meanScore: number;
-  timeWatched: number;
-  list: StatListItem[];
-};
-
 export type UserFav = {
   movie: string[];
   tv: string[];
@@ -25,20 +5,20 @@ export type UserFav = {
   prod_companies: string[];
 };
 
-export type RoleType =
+export type TRoleType =
   | "admin"
   | "community mod"
   | "developer"
   | "social media mod";
 
-export type Role = {
-  role: RoleType;
+export type TRole = {
+  role: TRoleType;
   lead: boolean;
   retired: boolean;
 };
 
-export type Mod = {
-  roles: Role[];
+export type TMod = {
+  roles: TRole[];
   username: string;
   avatar?: string;
 };

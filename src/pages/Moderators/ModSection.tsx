@@ -1,7 +1,7 @@
 import React from "react";
 
 import ModItem from "./ModItem";
-import { Mod } from "../../constants/types/user";
+import { TMod } from "../../constants/types/user";
 
 const ModSection = ({
   label,
@@ -9,7 +9,7 @@ const ModSection = ({
 }: {
   label: string;
   type: string;
-  list: Mod[];
+  list: TMod[];
 }) => {
   if (list.length === 0) {
     return;

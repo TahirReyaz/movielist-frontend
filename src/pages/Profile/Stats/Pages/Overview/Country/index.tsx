@@ -3,17 +3,17 @@ import { useParams } from "react-router-dom";
 
 import OverviewCardStat from "../../../../../../components/Stats/OverviewCardStat";
 import { useAppSelector } from "../../../../../../hooks/redux";
-import { Distribution } from "../../../../../../constants/types/user";
+import { TDistribution } from "../../../../../../constants/Interfaces/stats";
 import { countryNameFromISO } from "../../../../../../constants/tmdb";
 
 const Country = () => {
   const { mediaType } = useParams();
-  let data: Distribution[] = useAppSelector(
+  let data: TDistribution[] = useAppSelector(
     (state) => state.profile.stats?.[mediaType as string]?.overview?.countryDist
   );
 
   if (data) {
-    data = data.map((item: Distribution) => ({
+    data = data.map((item: TDistribution) => ({
       ...item,
       format: countryNameFromISO(item.format),
     }));

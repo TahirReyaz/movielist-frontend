@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import noImage from "../../../../../../assets/no_img_long.jpg";
 
-import { StaffStatItem } from "../../../../../../constants/types/user";
+import { TStaffStatItem } from "../../../../../../constants/Interfaces/stats";
 import { formatTimeWatched } from "../../../../../../lib/helpers";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../../constants/tmdb";
 import Carousel from "../../GenresTags/Carousel";
@@ -17,7 +17,7 @@ const StaffCard = ({
   staffId,
   profilePath,
   list,
-}: StaffStatItem & { index: number }) => {
+}: TStaffStatItem & { index: number }) => {
   const { days, hours } = formatTimeWatched(timeWatched);
 
   return (

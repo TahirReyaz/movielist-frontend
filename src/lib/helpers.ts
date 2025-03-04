@@ -8,8 +8,8 @@ import {
   TMediaType,
   TProductionCountry,
 } from "../constants/Interfaces/media";
+import { IStat } from "../constants/Interfaces/stats";
 import { Option } from "../constants/types";
-import { StatType } from "../constants/types/stats";
 
 // Function to format runtime to hours and minutes
 export const formatRuntime = (runtime: any) => {
@@ -168,12 +168,12 @@ export const generateProgressScale = (input: number) => {
 };
 
 export const combineStats = (
-  movieStats: StatType[],
-  tvStats: StatType[]
-): StatType[] => {
-  const statMap: Map<number, StatType> = new Map();
+  movieStats: IStat[],
+  tvStats: IStat[]
+): IStat[] => {
+  const statMap: Map<number, IStat> = new Map();
 
-  const addOrUpdateStat = (stat: StatType) => {
+  const addOrUpdateStat = (stat: IStat) => {
     const existingStat = statMap.get(stat.statTypeId);
 
     if (existingStat) {

@@ -3,14 +3,14 @@ import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 
-import { Distribution } from "../../constants/types/user";
+import { TDistribution } from "../../constants/Interfaces/stats";
 import { distributionColors } from "../../constants";
 
 // Register the components for Chart.js
 ChartJS.register(ArcElement, Tooltip);
 
 interface Props {
-  data: Distribution[];
+  data: TDistribution[];
 }
 
 const PieChart = ({ data }: Props) => {

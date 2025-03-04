@@ -5,13 +5,13 @@ import { FaWrench } from "react-icons/fa";
 
 import userAvatarPlaceholder from "../../assets/userAvatar.png";
 
-import { Mod } from "../../constants/types/user";
+import { TMod } from "../../constants/types/user";
 
 const Icons: any = {
   admin: <FaWrench />,
 };
 
-const ModItem = ({ username, avatar, roles }: Mod) => {
+const ModItem = ({ username, avatar, roles }: TMod) => {
   const [hover, setHover] = useState<boolean>(false);
 
   return (

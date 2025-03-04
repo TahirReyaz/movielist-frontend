@@ -21,13 +21,6 @@ export type userSettingsType = {
   dataCacheEnable: boolean | undefined;
 };
 
-export type StatListItem = {
-  title: string;
-  posterPath: string;
-  id: number;
-  mediaType: TMediaType;
-};
-
 export type Option = {
   value: string;
   label: string;

@@ -1,12 +1,13 @@
 import React from "react";
-import { Distribution } from "../../../../../../constants/types/user";
-import { useAppSelector } from "../../../../../../hooks/redux";
 import { useParams } from "react-router-dom";
+
+import { useAppSelector } from "../../../../../../hooks/redux";
+import { TDistribution } from "../../../../../../constants/Interfaces/stats";
 import LineChart from "../../../../../../components/Charts/LineChart";
 
 const ReleaseYear = () => {
   const { mediaType } = useParams();
-  let data: Distribution[] = useAppSelector(
+  let data: TDistribution[] = useAppSelector(
     (state) => state.profile.stats?.[mediaType as string]?.overview?.releaseYear
   );
 

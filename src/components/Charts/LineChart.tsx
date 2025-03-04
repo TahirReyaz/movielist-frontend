@@ -11,8 +11,7 @@ import {
   ChartOptions,
   Filler,
 } from "chart.js";
-
-import { Distribution } from "../../constants/types/user";
+import { TDistribution } from "../../constants/Interfaces/stats";
 
 ChartJS.register(
   LineElement,
@@ -24,7 +23,7 @@ ChartJS.register(
 );
 
 interface Props {
-  data: Distribution[];
+  data: TDistribution[];
 }
 
 const LineChart = ({ data }: Props) => {

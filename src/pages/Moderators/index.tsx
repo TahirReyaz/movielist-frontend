@@ -6,14 +6,14 @@ import ModSection from "./ModSection";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
 import Error from "../../components/UI/Error";
 import { getMods } from "../../lib/api";
-import { Mod } from "../../constants/types/user";
+import { TMod } from "../../constants/types/user";
 
 const Moderators = () => {
   const {
     data: mods,
     isLoading,
     isError,
-  } = useQuery<{ admins: Mod[] }>({
+  } = useQuery<{ admins: TMod[] }>({
     queryKey: ["mods"],
     queryFn: () => getMods(),
   });

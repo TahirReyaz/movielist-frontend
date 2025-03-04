@@ -1,11 +1,12 @@
 import React from "react";
+
 import PieChart from "../../Charts/PieChart";
-import { Distribution } from "../../../constants/types/user";
+import { TDistribution } from "../../../constants/Interfaces/stats";
 import DescCards from "./DescCards";
 
 interface Props {
   title: string;
-  data: Distribution[];
+  data: TDistribution[];
 }
 
 const OverviewCardStat = ({ title, data }: Props) => {
