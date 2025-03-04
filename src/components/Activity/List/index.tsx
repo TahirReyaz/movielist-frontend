@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import Loading from "../../UI/Loading";
 import Error from "../../UI/Error";
 import Activity from "../../Activity";
-import { Activity as ActivityType } from "../../../constants/types/activity";
+import { IActivity } from "../../../constants/Interfaces/activity";
 
 interface Props {
   queryKey: string[];
@@ -43,7 +43,7 @@ const List = ({ queryKey, fetchFn, location }: Props) => {
     <div className="pt-4">
       {activities &&
         activities.length > 0 &&
-        activities.map((activity: ActivityType) => (
+        activities.map((activity: IActivity) => (
           <Activity
             {...{
               key: activity._id,

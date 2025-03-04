@@ -1,7 +1,7 @@
-import { TMediaType } from "../Interfaces/media";
-import { TRefUser } from "../Interfaces/user";
+import { TMediaType } from "./media";
+import { TRefUser } from "./user";
 
-export type Activity = {
+export interface IActivity {
   _id: string;
   image?: string;
   likes?: [TRefUser];
@@ -15,9 +15,9 @@ export type Activity = {
   updatedAt: string;
   type: "status" | "media";
   commentCount: number;
-};
+}
 
-export type Comment = {
+export interface IComment {
   _id: string;
   likes: [TRefUser];
   content: string;
@@ -25,4 +25,4 @@ export type Comment = {
   activityId: string;
   createdAt: Date;
   updatedAt: Date;
-};
+}

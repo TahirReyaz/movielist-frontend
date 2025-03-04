@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getActivityComments } from "../../../../lib/api";
 import Loading from "../../../UI/Loading";
 import Error from "../../../UI/Error";
-import { Comment as CommentType } from "../../../../constants/types/activity";
+import { IComment } from "../../../../constants/Interfaces/activity";
 import Comment from "./Comment";
 
 const List = ({
@@ -18,7 +18,7 @@ const List = ({
     data: comments,
     isLoading,
     isError,
-  } = useQuery<CommentType[]>({
+  } = useQuery<IComment[]>({
     queryKey: ["comments", "activity", activityId],
     queryFn: () => getActivityComments(activityId),
     enabled: !!activityId,
@@ -38,7 +38,7 @@ const List = ({
 
   return (
     <div className="mt-16">
-      {comments?.map((comment: CommentType) => (
+      {comments?.map((comment: IComment) => (
         <Comment {...{ ...comment, key: comment._id, queryKey }} />
       ))}
     </div>

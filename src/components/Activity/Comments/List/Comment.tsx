@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Tippy from "@tippyjs/react/headless";
 
 import userAvatar from "../../../../assets/userAvatar.png";
-import { Comment as CommentType } from "../../../../constants/types/activity";
+import { IComment } from "../../../../constants/Interfaces/activity";
 import { calculateElapsedTime } from "../../../../lib/helpers";
 import { useAppSelector } from "../../../../hooks/redux";
 import { useLoadingBar } from "../../../UI/LoadingBar";
@@ -22,7 +22,7 @@ const Comment = ({
   _id,
   activityId,
   queryKey,
-}: CommentType & { activityId: string; queryKey: string[] }) => {
+}: IComment & { activityId: string; queryKey: string[] }) => {
   const [hover, setHover] = useState<boolean>(false);
   const { isLoggedIn, username } = useAppSelector((state) => state.auth);
 

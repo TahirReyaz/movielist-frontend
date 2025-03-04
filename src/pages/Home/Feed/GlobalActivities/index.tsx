@@ -5,7 +5,7 @@ import { getGlobalActivities } from "../../../../lib/api";
 import Loading from "../../../../components/UI/Loading";
 import Error from "../../../../components/UI/Error";
 import Activity from "../../../../components/Activity";
-import { Activity as ActivityType } from "../../../../constants/types/activity";
+import { IActivity } from "../../../../constants/Interfaces/activity";
 
 const GlobalActivities = () => {
   const {
@@ -38,7 +38,7 @@ const GlobalActivities = () => {
     <div className="pt-4">
       {activities &&
         activities.length > 0 &&
-        activities.map((activity: ActivityType) => (
+        activities.map((activity: IActivity) => (
           <Activity
             {...{
               key: activity._id,

@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { Activity as ActivityType } from "../constants/types/activity";
 import { getActivity } from "../lib/api";
 import Loading from "../components/UI/Loading";
 import ActivityComponent from "../components/Activity";
 import { Helmet } from "react-helmet-async";
+import { IActivity } from "../constants/Interfaces/activity";
 
 const Activity = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +17,7 @@ const Activity = () => {
     data: activity,
     isLoading,
     isError,
-  } = useQuery<ActivityType>({
+  } = useQuery<IActivity>({
     queryKey: ["activity", id],
     queryFn: () => getActivity(id!),
     enabled: !!id,

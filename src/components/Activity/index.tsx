@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Activity as ActivityType } from "../../constants/types/activity";
 import MediaActivity from "./MediaActivity";
 import StatusActivity from "./StatusActivity";
+import { IActivity } from "../../constants/Interfaces/activity";
 
-export interface ActivityProps extends ActivityType {
+export interface ActivityProps extends IActivity {
   location: string;
   queryKey: string[];
 }
