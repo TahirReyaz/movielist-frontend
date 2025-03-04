@@ -5,9 +5,12 @@ import { useLocation, useParams } from "react-router-dom";
 import Loading from "../../../../components/UI/Loading";
 import { getMediaMoreDetails } from "../../../../lib/api";
 import Error from "../../../../components/UI/Error";
-import { CrewMember, MediaCredits } from "../../../../constants/types/media";
 import StaffCard from "../../../../components/Media/StaffCard";
-import { TMediaType } from "../../../../constants/Interfaces/media";
+import {
+  ICrewMember,
+  IMediaCredits,
+  TMediaType,
+} from "../../../../constants/Interfaces/media";
 
 const Staff = () => {
   const { pathname } = useLocation();
@@ -18,7 +21,7 @@ const Staff = () => {
     data: credits,
     isLoading,
     isError,
-  } = useQuery<MediaCredits>({
+  } = useQuery<IMediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid!, "credits"),
     enabled: mediaid && mediaType ? true : false,
@@ -35,7 +38,7 @@ const Staff = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
       {credits?.crew && credits.crew.length > 0 ? (
-        credits?.crew?.map((char: CrewMember, index: number) => (
+        credits?.crew?.map((char: ICrewMember, index: number) => (
           <StaffCard {...{ key: index, ...char }} />
         ))
       ) : (

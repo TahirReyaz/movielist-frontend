@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ITVSeason } from "../../../../../constants/types/media";
+import { ITVSeason } from "../../../../../constants/Interfaces/media";
 import SeasonCard from "./SeasonCard";
 
 interface Props {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { ITVSeason } from "../../../../../constants/types/media";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import DetailsCard from "./DetailsCard";
+import { ITVSeason } from "../../../../../constants/Interfaces/media";
 
 interface Props {
   season: ITVSeason;

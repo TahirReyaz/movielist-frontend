@@ -11,8 +11,12 @@ import {
 } from "../../../constants/tmdb";
 import Controls from "./Controls";
 import { useAppSelector } from "../../../hooks/redux";
-import { ISeason, MovieDetail, TvDetail } from "../../../constants/types/media";
-import { TMediaType } from "../../../constants/Interfaces/media";
+import {
+  ISeason,
+  TMediaType,
+  TMovie,
+  TTV,
+} from "../../../constants/Interfaces/media";
 
 const TopSection = () => {
   const { username } = useAppSelector((state) => state.auth);
@@ -31,13 +35,13 @@ const TopSection = () => {
 
   const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
-  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
+  const { data: mediaDetails } = useQuery<TMovie | TTV | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     enabled: mediaid && mediaType ? true : false,
   });
 
-  const title = (mediaDetails as MovieDetail)?.title;
-  const name = (mediaDetails as TvDetail)?.name;
+  const title = (mediaDetails as TMovie)?.title;
+  const name = (mediaDetails as TTV)?.name;
 
   const routes = [
     { path: "/", title: "Overview" },

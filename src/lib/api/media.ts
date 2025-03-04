@@ -1,7 +1,6 @@
 import { bulkMediaType } from "../../constants/types";
-import { VideoResult } from "../../constants/types/media";
 import apiClient from ".";
-import { TMediaType } from "../../constants/Interfaces/media";
+import { TMediaType, TVideoResult } from "../../constants/Interfaces/media";
 
 export const getMediaTags = async (mediatype: string, mediaid: string) => {
   try {
@@ -86,14 +85,14 @@ export const getMediaTrailers = async (
 ) => {
   try {
     const response = await apiClient.get(`/${mediatype}/videos/${mediaid}`);
-    const videos: VideoResult[] = response.data;
-    const trailers: VideoResult[] = videos.filter(
+    const videos: TVideoResult[] = response.data;
+    const trailers: TVideoResult[] = videos.filter(
       (video) => video.type === "Trailer" && video.site === "YouTube"
     );
     if (!trailers || (trailers && trailers.length === 0)) {
       throw new Error("No trailers available");
     }
-    let trailer: VideoResult =
+    let trailer: TVideoResult =
       trailers.find((video) => video.official) ?? trailers[0];
 
     return trailer;
@@ -108,8 +107,8 @@ export const getMediaVideos = async (
 ) => {
   try {
     const response = await apiClient.get(`/${mediatype}/videos/${mediaid}`);
-    const videos: VideoResult[] = response.data;
-    const youtubeVideos: VideoResult[] = videos.filter(
+    const videos: TVideoResult[] = response.data;
+    const youtubeVideos: TVideoResult[] = videos.filter(
       (video) => video.site === "YouTube"
     );
 

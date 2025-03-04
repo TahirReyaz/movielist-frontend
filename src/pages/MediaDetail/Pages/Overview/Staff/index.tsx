@@ -2,12 +2,15 @@ import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { CrewMember, MediaCredits } from "../../../../../constants/types/media";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
 import { getMediaMoreDetails } from "../../../../../lib/api";
 import StaffCard from "../../../../../components/Media/StaffCard";
-import { TMediaType } from "../../../../../constants/Interfaces/media";
+import {
+  ICrewMember,
+  IMediaCredits,
+  TMediaType,
+} from "../../../../../constants/Interfaces/media";
 
 const Staff = () => {
   const { pathname } = useLocation();
@@ -16,7 +19,7 @@ const Staff = () => {
 
   const location = useLocation();
 
-  const { data, isLoading, isError } = useQuery<MediaCredits>({
+  const { data, isLoading, isError } = useQuery<IMediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid!, "credits"),
     enabled: mediaid && mediaType ? true : false,
@@ -44,7 +47,7 @@ const Staff = () => {
         {data &&
           data.crew
             ?.slice(0, 6)
-            .map((char: CrewMember, index) => (
+            .map((char: ICrewMember, index) => (
               <StaffCard {...{ key: index, ...char }} />
             ))}
       </div>

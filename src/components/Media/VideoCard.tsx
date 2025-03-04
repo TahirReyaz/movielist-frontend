@@ -2,14 +2,14 @@ import React from "react";
 
 import thumbnailPlaceholder from "../../assets/posterPlaceholder.jpg";
 
-import { VideoResult } from "../../constants/types/media";
 import { Link } from "react-router-dom";
+import { TVideoResult } from "../../constants/Interfaces/media";
 
 const VideoCard = ({
   siteKey,
   name,
   type,
-}: VideoResult & { siteKey: string }) => {
+}: TVideoResult & { siteKey: string }) => {
   return (
     <Link
       target="_blank"

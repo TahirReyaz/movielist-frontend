@@ -12,15 +12,15 @@ import Threads from "./Threads";
 import Reviews from "./Reviews";
 import {
   ISeason,
-  MovieDetail,
-  TvDetail,
-} from "../../../../constants/types/media";
+  TMediaType,
+  TMovie,
+  TTV,
+} from "../../../../constants/Interfaces/media";
 import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
 import Seasons from "./Seasons";
 import { getMediaDetail } from "../../../../lib/api";
 import { getSeasonDetails } from "../../../../lib/api";
-import { TMediaType } from "../../../../constants/Interfaces/media";
 
 const Overview = () => {
   const { pathname } = useLocation();
@@ -39,7 +39,7 @@ const Overview = () => {
 
   const { isLoggedIn } = useAppSelector((state) => state.auth);
 
-  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
+  const { data: mediaDetails } = useQuery<TMovie | TTV | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     queryFn: () =>
       isSeason
@@ -48,7 +48,7 @@ const Overview = () => {
     enabled: !!mediaid,
   });
 
-  const { data: parentShow } = useQuery<TvDetail>({
+  const { data: parentShow } = useQuery<TTV>({
     queryKey: ["media", "tv", mediaid, null],
     queryFn: () => getMediaDetail("tv", mediaid!),
     enabled: !!(isSeason && mediaid),
@@ -70,22 +70,21 @@ const Overview = () => {
       )}
       {mediaType === "movie" &&
         mediaid &&
-        (mediaDetails as MovieDetail)?.belongs_to_collection?.id && (
+        (mediaDetails as TMovie)?.belongs_to_collection?.id && (
           <Relations
             {...{
               mediaid,
-              collectionId: (mediaDetails as MovieDetail)?.belongs_to_collection
-                ?.id,
+              collectionId: (mediaDetails as TMovie)?.belongs_to_collection?.id,
               mediaType,
             }}
           />
         )}
       {mediaid &&
-        ((mediaType === "tv" && (mediaDetails as TvDetail)?.seasons) ||
+        ((mediaType === "tv" && (mediaDetails as TTV)?.seasons) ||
           otherSeasons) && (
           <Seasons
             {...{
-              seasons: otherSeasons ?? (mediaDetails as TvDetail).seasons,
+              seasons: otherSeasons ?? (mediaDetails as TTV).seasons,
               showId: mediaid,
             }}
           />

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { MovieDetail } from "../../constants/types/media";
 import { Link } from "react-router-dom";
 import { posterSizes, tmdbImgBaseUrl } from "../../constants/tmdb";
+import { TMovie } from "../../constants/Interfaces/media";
 
-const TrendingMediaCard = ({ poster_path, title, id }: MovieDetail) => {
+const TrendingMediaCard = ({ poster_path, title, id }: TMovie) => {
   return (
     <div className="rounded">
       <Link to={`/movie/${id}`}>

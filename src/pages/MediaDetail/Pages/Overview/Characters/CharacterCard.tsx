@@ -3,9 +3,9 @@ import React from "react";
 import { profileSizes, tmdbImgBaseUrl } from "../../../../../constants/tmdb";
 import noImg from "../../../../../assets/no_img_long.jpg";
 import { Link } from "react-router-dom";
-import { CastMember } from "../../../../../constants/types/media";
+import { ICastMember } from "../../../../../constants/Interfaces/media";
 
-const CharacterCard = ({ id, character, name, profile_path }: CastMember) => {
+const CharacterCard = ({ id, character, name, profile_path }: ICastMember) => {
   return (
     <div className="grid grid-cols-7 rounded overflow-hidden bg-bgForeground">
       <Link to={`/staff/${id}`}>

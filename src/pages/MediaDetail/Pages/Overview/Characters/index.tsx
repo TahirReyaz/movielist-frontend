@@ -6,7 +6,10 @@ import Loading from "../../../../../components/UI/Loading";
 import { getMediaMoreDetails } from "../../../../../lib/api";
 import Error from "../../../../../components/UI/Error";
 import CharacterCard from "./CharacterCard";
-import { CastMember, MediaCredits } from "../../../../../constants/types/media";
+import {
+  ICastMember,
+  IMediaCredits,
+} from "../../../../../constants/Interfaces/media";
 
 interface CharactersProps {
   mediaid: string;
@@ -16,7 +19,7 @@ interface CharactersProps {
 const Characters = ({ mediaid, mediaType }: CharactersProps) => {
   const location = useLocation();
 
-  const { data, isLoading, isError } = useQuery<MediaCredits>({
+  const { data, isLoading, isError } = useQuery<IMediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid, "credits"),
     enabled: mediaid && mediaType ? true : false,
@@ -44,7 +47,7 @@ const Characters = ({ mediaid, mediaType }: CharactersProps) => {
         {data &&
           data.characters
             ?.slice(0, 6)
-            .map((char: CastMember) => (
+            .map((char: ICastMember) => (
               <CharacterCard {...{ key: char.id, ...char }} />
             ))}
       </div>

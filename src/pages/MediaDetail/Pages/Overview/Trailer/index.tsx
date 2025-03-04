@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { VideoResult } from "../../../../../constants/types/media";
 import { getMediaTrailers } from "../../../../../lib/api";
 import VideoCard from "../../../../../components/Media/VideoCard";
 import Loading from "../../../../../components/UI/Loading";
-import { TMediaType } from "../../../../../constants/Interfaces/media";
+import {
+  TMediaType,
+  TVideoResult,
+} from "../../../../../constants/Interfaces/media";
 
 interface Props {
   mediaid: string;
@@ -18,7 +20,7 @@ const Trailer = ({ mediaid, mediaType }: Props) => {
     data: trailer,
     isLoading,
     isError,
-  } = useQuery<VideoResult>({
+  } = useQuery<TVideoResult>({
     queryKey: [mediaType, mediaid, "trailer"],
     queryFn: () => getMediaTrailers(mediaType, mediaid),
     enabled: !!mediaid,

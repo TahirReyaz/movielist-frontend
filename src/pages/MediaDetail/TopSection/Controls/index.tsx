@@ -17,10 +17,10 @@ import { findExistingEntry } from "../../../../lib/helpers";
 import { UserFav } from "../../../../constants/types/user";
 import {
   ISeason,
-  MovieDetail,
-  TvDetail,
-} from "../../../../constants/types/media";
-import { TMediaType } from "../../../../constants/Interfaces/media";
+  TMediaType,
+  TMovie,
+  TTV,
+} from "../../../../constants/Interfaces/media";
 import {
   IUserDocEntryGroup,
   TUserDocEntry,
@@ -42,7 +42,7 @@ const Controls = () => {
 
   const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
-  const { data: mediaDetails } = useQuery<MovieDetail | TvDetail | ISeason>({
+  const { data: mediaDetails } = useQuery<TMovie | TTV | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
   });
 
@@ -122,9 +122,9 @@ const Controls = () => {
                       mediaType,
                       mediaDetails: {
                         title:
-                          (mediaDetails as MovieDetail).title ??
-                          (mediaDetails as TvDetail).name,
-                        status: (mediaDetails as TvDetail).status ?? "Released",
+                          (mediaDetails as TMovie).title ??
+                          (mediaDetails as TTV).name,
+                        status: (mediaDetails as TTV).status ?? "Released",
                         poster_path: mediaDetails.poster_path ?? "",
                         backdrop_path: mediaDetails.backdrop_path,
                         id: mediaid ?? mediaDetails.id,

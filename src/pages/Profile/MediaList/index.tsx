@@ -13,12 +13,12 @@ import {
   generateFilterCountryOptions,
   generateFilterGenreOptions,
 } from "../../../lib/helpers.ts";
-import {
-  MediaDetailGenre,
-  ProductionCountry,
-} from "../../../constants/types/media.ts";
 import MetaTags from "../../../components/UI/MetaTags.tsx";
-import { TMediaType } from "../../../constants/Interfaces/media.ts";
+import {
+  TMediaDetailGenre,
+  TMediaType,
+  TProductionCountry,
+} from "../../../constants/Interfaces/media.ts";
 import { IEntry, IEntryGroup } from "../../../constants/Interfaces/entry.ts";
 
 const MediaList = () => {
@@ -66,7 +66,7 @@ const MediaList = () => {
       filtered = filtered.filter((entry: IEntry) => {
         if (entry.data?.genres) {
           return entry.data.genres.some(
-            (genre: MediaDetailGenre) => genre.id.toString() === filters.genre
+            (genre: TMediaDetailGenre) => genre.id.toString() === filters.genre
           );
         }
         return false;
@@ -78,7 +78,7 @@ const MediaList = () => {
       filtered = filtered.filter((entry: IEntry) => {
         if (entry.data?.production_countries) {
           return entry.data.production_countries.some(
-            (country: ProductionCountry) =>
+            (country: TProductionCountry) =>
               country.iso_3166_1 === filters.country
           );
         }

@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 
 import { getMediaRelations } from "../../../../../lib/api";
 import Loading from "../../../../../components/UI/Loading";
-import { MovieItemDetails } from "../../../../../constants/types/media";
 import RelationCard from "./RelationCard";
-import { TMediaType } from "../../../../../constants/Interfaces/media";
+import {
+  IRelatedMovie,
+  TMediaType,
+} from "../../../../../constants/Interfaces/media";
 
 interface Props {
   mediaid: string;
@@ -19,7 +21,7 @@ const Relations = ({ mediaid, mediaType, collectionId }: Props) => {
     data: mediaArray,
     isLoading,
     isError,
-  } = useQuery<MovieItemDetails[]>({
+  } = useQuery<IRelatedMovie[]>({
     queryKey: ["relations", mediaType, mediaid],
     queryFn: () => getMediaRelations(mediaid, collectionId),
     enabled: mediaid && collectionId ? true : false,

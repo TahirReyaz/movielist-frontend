@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import userAvatar from "../../../../../assets/userAvatar.png";
 
-import { FollowingUserStat } from "../../../../../constants/types/media";
+import { TFollowingUserStat } from "../../../../../constants/Interfaces/user";
 import { capitaliseFirst } from "../../../../../lib/helpers";
 
-const Item = ({ username, avatar, status, score }: FollowingUserStat) => {
+const Item = ({ username, avatar, status, score }: TFollowingUserStat) => {
   return (
     <Link
       to={`/user/${username}`}

@@ -6,8 +6,11 @@ import Loading from "../../../../components/UI/Loading";
 import { getMediaMoreDetails } from "../../../../lib/api";
 import Error from "../../../../components/UI/Error";
 import CharacterCard from "../Overview/Characters/CharacterCard";
-import { CastMember, MediaCredits } from "../../../../constants/types/media";
-import { TMediaType } from "../../../../constants/Interfaces/media";
+import {
+  ICastMember,
+  IMediaCredits,
+  TMediaType,
+} from "../../../../constants/Interfaces/media";
 
 const Characters = () => {
   const { pathname } = useLocation();
@@ -18,7 +21,7 @@ const Characters = () => {
     data: credits,
     isLoading,
     isError,
-  } = useQuery<MediaCredits>({
+  } = useQuery<IMediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
     queryFn: () => getMediaMoreDetails(mediaType, mediaid!, "credits"),
     enabled: mediaid && mediaType ? true : false,
@@ -35,7 +38,7 @@ const Characters = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 py-8">
       {credits?.characters && credits.characters.length > 0 ? (
-        credits?.characters?.map((crew: CastMember, index: number) => (
+        credits?.characters?.map((crew: ICastMember, index: number) => (
           <CharacterCard {...{ key: index, ...crew }} />
         ))
       ) : (

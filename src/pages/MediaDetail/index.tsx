@@ -9,12 +9,16 @@ import Tags from "./LeftSection/Tags";
 import LeftSection from "./LeftSection";
 import { useAppDispatch } from "../../hooks/redux";
 import { setDetails } from "../../store/MediaSlice";
-import { ISeason, MovieDetail, TvDetail } from "../../constants/types/media";
+import {
+  ISeason,
+  TMediaType,
+  TMovie,
+  TTV,
+} from "../../constants/Interfaces/media";
 import MetaTags from "../../components/UI/MetaTags";
 import { getSeasonDetails } from "../../lib/api";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
 import { showErrorToast } from "../../utils/toastUtils";
-import { TMediaType } from "../../constants/Interfaces/media";
 
 export type MediaDetailType = {
   id: string;
@@ -60,7 +64,7 @@ const MediaDetail = () => {
     isLoading,
     isError,
     error,
-  } = useQuery<MovieDetail | TvDetail | ISeason>({
+  } = useQuery<TMovie | TTV | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     queryFn: () =>
       isSeason
@@ -69,8 +73,8 @@ const MediaDetail = () => {
     enabled: mediaid && mediaType ? true : false,
   });
 
-  const title = (mediaDetails as MovieDetail)?.title;
-  const name = (mediaDetails as TvDetail)?.name;
+  const title = (mediaDetails as TMovie)?.title;
+  const name = (mediaDetails as TTV)?.name;
 
   if (isError) {
     showErrorToast("Error while fetching details");

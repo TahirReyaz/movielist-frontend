@@ -3,9 +3,12 @@ import {
   IUserDocEntryGroup,
   TUserDocEntry,
 } from "../constants/Interfaces/entry";
-import { TMediaType } from "../constants/Interfaces/media";
+import {
+  TMediaDetailGenre,
+  TMediaType,
+  TProductionCountry,
+} from "../constants/Interfaces/media";
 import { Option } from "../constants/types";
-import { MediaDetailGenre, ProductionCountry } from "../constants/types/media";
 import { StatType } from "../constants/types/stats";
 
 // Function to format runtime to hours and minutes
@@ -111,7 +114,7 @@ export const generateFilterCountryOptions = (
   if (entries) {
     entries.forEach((entry: IEntry) => {
       entry.data?.production_countries?.forEach(
-        (country: ProductionCountry) => {
+        (country: TProductionCountry) => {
           if (!options.some((option) => option.value === country.iso_3166_1)) {
             options.push({
               value: country.iso_3166_1,
@@ -131,8 +134,8 @@ export const generateFilterGenreOptions = (
   const options: Option[] = [];
   if (entries) {
     entries.forEach((entry: IEntry) => {
-      const genres: MediaDetailGenre[] = entry.data?.genres;
-      genres?.forEach((genre: MediaDetailGenre) => {
+      const genres: TMediaDetailGenre[] = entry.data?.genres;
+      genres?.forEach((genre: TMediaDetailGenre) => {
         if (!options.some((option) => option.value === genre.id.toString())) {
           options.push({
             value: genre.id.toString(),

@@ -5,13 +5,13 @@ import { getMediaFollowingStatus } from "../../../../../lib/api";
 import Loading from "../../../../../components/UI/Loading";
 import Error from "../../../../../components/UI/Error";
 import Item from "./Item";
-import { FollowingUserStat } from "../../../../../constants/types/media";
+import { TFollowingUserStat } from "../../../../../constants/Interfaces/user";
 
 interface Props {
   mediaid: string;
 }
 const FollowingStatus = ({ mediaid }: Props) => {
-  const { data, isLoading, isError } = useQuery<FollowingUserStat[]>({
+  const { data, isLoading, isError } = useQuery<TFollowingUserStat[]>({
     queryKey: ["media", mediaid, "followingStatus"],
     queryFn: () => getMediaFollowingStatus(mediaid),
     enabled: !!mediaid,
