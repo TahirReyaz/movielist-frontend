@@ -8,8 +8,8 @@ import {
   TMediaType,
   TProductionCountry,
 } from "../constants/Interfaces/media";
+import { TOption } from "../constants/Interfaces/misc";
 import { IStat } from "../constants/Interfaces/stats";
-import { Option } from "../constants/types";
 
 // Function to format runtime to hours and minutes
 export const formatRuntime = (runtime: any) => {
@@ -109,8 +109,8 @@ export const formatDateForInput = (dateString: string): string => {
 
 export const generateFilterCountryOptions = (
   entries: IEntry[] | undefined
-): Option[] => {
-  const options: Option[] = [];
+): TOption[] => {
+  const options: TOption[] = [];
   if (entries) {
     entries.forEach((entry: IEntry) => {
       entry.data?.production_countries?.forEach(
@@ -130,8 +130,8 @@ export const generateFilterCountryOptions = (
 
 export const generateFilterGenreOptions = (
   entries: IEntry[] | undefined
-): Option[] => {
-  const options: Option[] = [];
+): TOption[] => {
+  const options: TOption[] = [];
   if (entries) {
     entries.forEach((entry: IEntry) => {
       const genres: TMediaDetailGenre[] = entry.data?.genres;

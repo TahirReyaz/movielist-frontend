@@ -5,7 +5,6 @@ import Fuse from "fuse.js";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import MediaListGroup from "./MediaListGroup.tsx";
-import { Option } from "../../../constants/types";
 import FilterMenu from "./FilterMenu";
 import Error from "../../../components/UI/Error.tsx";
 import { getUserMediaEntries } from "../../../lib/api";
@@ -20,10 +19,11 @@ import {
   TProductionCountry,
 } from "../../../constants/Interfaces/media.ts";
 import { IEntry, IEntryGroup } from "../../../constants/Interfaces/entry.ts";
+import { TOption } from "../../../constants/Interfaces/misc.ts";
 
 const MediaList = () => {
-  const [countryOptions, setCountryOptions] = useState<Option[]>([]);
-  const [genreOptions, setGenreOptions] = useState<Option[]>([]);
+  const [countryOptions, setCountryOptions] = useState<TOption[]>([]);
+  const [genreOptions, setGenreOptions] = useState<TOption[]>([]);
   const { username } = useParams();
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");

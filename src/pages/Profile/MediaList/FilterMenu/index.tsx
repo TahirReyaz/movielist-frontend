@@ -6,7 +6,7 @@ import TextInput from "../../../../components/UI/TextInput";
 import Lists from "./Lists";
 import YearRangeFilter from "./YearFilter";
 import SortMenu from "./SortMenu";
-import { Option } from "../../../../constants/types";
+import { TOption } from "../../../../constants/Interfaces/misc";
 
 export interface FilterProps {
   filters: {
@@ -26,8 +26,8 @@ const FilterMenu = ({
   countryOptions,
   genreOptions,
 }: FilterProps & {
-  countryOptions: Option[];
-  genreOptions: Option[];
+  countryOptions: TOption[];
+  genreOptions: TOption[];
 }) => {
   const [show, setShow] = useState(false);
 
@@ -68,7 +68,7 @@ const FilterMenu = ({
 
         <Select
           {...{
-            onChange: (option: SingleValue<Option>) =>
+            onChange: (option: SingleValue<TOption>) =>
               onFilterChange("genre", option?.value ?? ""),
             options: [{ value: "", label: "None" }, ...genreOptions],
             isMulti: false,
@@ -86,7 +86,7 @@ const FilterMenu = ({
         {/* Country */}
         <Select
           {...{
-            onChange: (option: SingleValue<Option>) =>
+            onChange: (option: SingleValue<TOption>) =>
               onFilterChange("country", option?.value ?? ""),
             options: [{ value: "", label: "None" }, ...countryOptions],
             isMulti: false,

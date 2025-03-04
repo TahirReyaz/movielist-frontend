@@ -1,10 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { multiSearchResultType } from "../../constants/types";
-import ResultItem from "./ResultItem";
 import { Link } from "react-router-dom";
 
+import ResultItem from "./ResultItem";
+import { TMultiSearchResultType } from "../../constants/Interfaces/misc";
+
 interface ResultSectionProps {
-  type: multiSearchResultType;
+  type: TMultiSearchResultType;
   title: string;
   list?: any[];
   setOpen: Dispatch<SetStateAction<boolean>>;

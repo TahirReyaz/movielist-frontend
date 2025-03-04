@@ -224,3 +224,12 @@ export interface IMediaCredits {
   characters: ICastMember[];
   crew: ICrewMember[];
 }
+
+export type TBulkMediaType =
+  | "upcoming"
+  | "trending"
+  | "popular"
+  | "now_playing"
+  | "top_rated"
+  | "airing_today"
+  | "on_the_air";

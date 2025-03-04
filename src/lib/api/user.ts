@@ -1,5 +1,5 @@
 import apiClient from ".";
-import { userSettingsType } from "../../constants/types";
+import { TUserSettings } from "../../constants/Interfaces/user";
 
 export const getUserDetails = async (username: string | undefined) => {
   try {
@@ -14,10 +14,10 @@ export const getUserDetails = async (username: string | undefined) => {
 
 export const updateUserDetail = async (
   userid: string | undefined,
-  fields: Partial<userSettingsType>
+  fields: Partial<TUserSettings>
 ) => {
   try {
-    const updatedUserData: Partial<userSettingsType> = fields;
+    const updatedUserData: Partial<TUserSettings> = fields;
 
     // Filter out undefined fields
     const filteredData = Object.fromEntries(

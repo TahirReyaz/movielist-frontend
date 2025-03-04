@@ -12,3 +12,14 @@ export type TFollowingUserStat = {
   status: TStatus;
   score?: number;
 };
+
+export type TUserSettings = {
+  profileColor: string | undefined;
+  siteTheme: string | undefined;
+  about: string | undefined;
+  avatar: string | undefined;
+  banner: string | undefined;
+  timezone: string | undefined;
+  restricMessage: boolean | undefined;
+  dataCacheEnable: boolean | undefined;
+};

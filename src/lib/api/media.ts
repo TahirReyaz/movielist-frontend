@@ -1,6 +1,9 @@
-import { bulkMediaType } from "../../constants/types";
 import apiClient from ".";
-import { TMediaType, TVideoResult } from "../../constants/Interfaces/media";
+import {
+  TBulkMediaType,
+  TMediaType,
+  TVideoResult,
+} from "../../constants/Interfaces/media";
 
 export const getMediaTags = async (mediatype: string, mediaid: string) => {
   try {
@@ -120,7 +123,7 @@ export const getMediaVideos = async (
 
 export const getBulkMedia = async (
   mediatype: TMediaType,
-  bulktype: bulkMediaType,
+  bulktype: TBulkMediaType,
   page: number = 1
 ) => {
   try {

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import { getBulkMedia } from "../lib/api";
-import { bulkMediaType } from "../constants/types";
+import { TBulkMediaType } from "../constants/Interfaces/media";
 import CardList from "./UI/Media/CardList";
 import Error from "./UI/Error";
 
 export interface mediaSectionItem {
-  type: bulkMediaType;
+  type: TBulkMediaType;
   mediaType: any;
   title?: string;
   maxResults?: number;
