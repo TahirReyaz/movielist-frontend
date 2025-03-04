@@ -1,5 +1,6 @@
 import { TStatus } from "../Interfaces/entry";
 import { TMediaType } from "../Interfaces/media";
+import { IStaffDetails } from "../Interfaces/staff";
 
 type MediaDetailBase<T extends TMediaType> = {
   type: T;
@@ -78,27 +79,9 @@ export interface CollectionInMediaDetail {
   backdrop_path: string;
 }
 
-export interface PersonDetail {
-  adult: boolean;
-  also_known_as: string[];
-  biography: string;
-  birthday: string;
-  deathday: string | null;
-  gender: number;
-  homepage: string | null;
-  id: number;
-  imdb_id: string;
-  known_for_department: string;
-  name: string;
-  place_of_birth: string;
-  popularity: number;
-  profile_path: string | null;
-  external_ids?: StaffExternalLinks;
-}
-
 export interface CastMember
   extends Omit<
-    PersonDetail,
+    IStaffDetails,
     | "biography"
     | "also_known_as"
     | "birthday"
@@ -115,7 +98,7 @@ export interface CastMember
 
 export interface CrewMember
   extends Omit<
-    PersonDetail,
+    IStaffDetails,
     | "biography"
     | "also_known_as"
     | "birthday"
@@ -243,15 +226,6 @@ export type VideoResult = {
   official: boolean;
   published_at: string;
   id: string;
-};
-
-export type StaffExternalLinks = {
-  imdb_id?: string | null;
-  wikidata_id?: string | null;
-  facebook_id?: string | null;
-  instagram_id?: string | null;
-  youtube_id?: string | null;
-  twitter_id?: string | null;
 };
 
 export type ISeason = {

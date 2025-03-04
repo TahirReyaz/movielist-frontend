@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { StaffExternalLinks } from "../../constants/types/media";
+import { TStaffExternalLinks } from "../../constants/Interfaces/staff";
 
 type Props = {
   homepage?: string | null;
-} & StaffExternalLinks;
+} & TStaffExternalLinks;
 
 const ExternalLinks = ({
   homepage,

@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 import noImg from "../../assets/no_img_long.jpg";
 
@@ -14,8 +14,7 @@ import {
 } from "../../constants/tmdb";
 import TopSection from "./TopSection";
 import Credits from "./Credits";
-import { PersonDetail } from "../../constants/types/media";
-import { Helmet } from "react-helmet-async";
+import { IStaffDetails } from "../../constants/Interfaces/staff";
 import ExternalLinks from "./ExternalLinks";
 
 const Staff = () => {
@@ -27,7 +26,7 @@ const Staff = () => {
     data: staff,
     isLoading,
     isError,
-  } = useQuery<PersonDetail>({
+  } = useQuery<IStaffDetails>({
     queryKey: ["staff", staffid],
     queryFn: () => getStaffDetails(staffid!),
     enabled: !!staffid,
