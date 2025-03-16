@@ -8,19 +8,22 @@ import { IconType } from "react-icons";
 import "tippy.js/animations/shift-away.css";
 
 import { addEntry } from "../../lib/api";
-import { MediaDetailType } from "../../pages/MediaDetail";
 import { useAppSelector } from "../../hooks/redux";
 import { updateEntry } from "../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { useLoadingBar } from "./LoadingBar";
 import { TStatus } from "../../constants/Interfaces/entry";
-import { TMediaType } from "../../constants/Interfaces/media";
+import {
+  TBulkMovie,
+  TBulkTV,
+  TMediaType,
+} from "../../constants/Interfaces/media";
 
 const iconClass =
   "rounded-full bg-anilist-mirage/90 mt-4 me-2 p-2 text-2xl text-anilist-aqua_haze";
 
 interface MediaCardButtonsProps {
-  mediaDetails: MediaDetailType;
+  mediaDetails: TBulkMovie | TBulkTV;
   mediaid: string;
   mediaType: TMediaType;
   entryId?: string;
@@ -73,7 +76,9 @@ const MediaCardButtons = ({
   ) => {
     e.preventDefault();
     const title =
-      mediaType === "tv" ? mediaDetails.name ?? "" : mediaDetails.title ?? "";
+      mediaType === "tv"
+        ? (mediaDetails as TBulkTV).name
+        : (mediaDetails as TBulkMovie).title;
     try {
       loadingBar.current?.continuousStart();
       let response;

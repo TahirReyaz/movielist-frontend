@@ -20,27 +20,6 @@ import { getSeasonDetails } from "../../lib/api";
 import LoadingPage from "../../components/UI/Loading/LoadingPage";
 import { showErrorToast } from "../../utils/toastUtils";
 
-export type MediaDetailType = {
-  id: string;
-  title?: string;
-  name?: string;
-  overview: string | undefined;
-  poster_path: string;
-  backdrop_path: string;
-  status: string;
-  number_of_episodes: string | undefined;
-  first_air_date: string | undefined;
-  release_date: string | undefined;
-  runtime: string | undefined;
-  vote_average: string | undefined;
-  vote_count: string | undefined;
-  popularity: string | undefined;
-  production_companies: { id: number; name: string }[] | [];
-  genres: { id: number; name: string }[] | [];
-  original_name: string | undefined;
-  original_title: string | undefined;
-};
-
 const MediaDetail = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();

@@ -5,17 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import noImg from "../assets/no_img_long.jpg";
 
 import MediaCardButtons from "./UI/MediaCardButtons";
-import { MediaDetailType } from "../pages/MediaDetail";
 import { posterSizes, tmdbImgBaseUrl } from "../constants/tmdb";
 import { findExistingEntry } from "../lib/helpers";
 import { statusColors } from "../constants";
 import StatusDot from "./UI/StatusDot";
 import { useAppSelector } from "../hooks/redux";
-import { TMediaType } from "../constants/Interfaces/media";
+import { TBulkMovie, TBulkTV, TMediaType } from "../constants/Interfaces/media";
 import { TUserDocEntry } from "../constants/Interfaces/entry";
 
 export interface MediaItemProps {
-  mediaDetails: MediaDetailType; // Use the bulk media details type
+  mediaDetails: TBulkMovie | TBulkTV;
   innerRef?: React.Ref<HTMLDivElement>;
 }
 
@@ -28,7 +27,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
     enabled: username && username.length > 0 ? true : false,
   });
 
-  const mediaType: TMediaType = mediaDetails.first_air_date ? "tv" : "movie";
+  const mediaType: TMediaType = mediaDetails.type;
 
   // Used determine the colour of the dot and the status of existing entry
   const existingEntry: TUserDocEntry | undefined = findExistingEntry(
@@ -51,7 +50,7 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
               ? `${tmdbImgBaseUrl}/${posterSizes.md}${mediaDetails.poster_path}`
               : noImg
           }
-          alt={mediaDetails.title}
+          alt={(mediaDetails as TBulkMovie).title}
           className="rounded-md mb-4"
         />
         {isLoggedIn && mediaType === "movie" && hover && (
@@ -69,7 +68,9 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
         {existingEntry && (
           <StatusDot {...{ color: statusColors[existingEntry.status] }} />
         )}
-        {mediaType === "tv" ? mediaDetails.name : mediaDetails.title}
+        {mediaType === "tv"
+          ? (mediaDetails as TBulkTV).name
+          : (mediaDetails as TBulkMovie).title}
       </span>
     </Link>
   );

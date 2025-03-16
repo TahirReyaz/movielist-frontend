@@ -9,7 +9,12 @@ import CardList from "../../components/UI/Media/CardList";
 import Loading from "../../components/UI/Loading";
 import Error from "../../components/UI/Error";
 import { Helmet } from "react-helmet-async";
-import { TBulkMediaType, TMediaType } from "../../constants/Interfaces/media";
+import {
+  TBulkMediaType,
+  TBulkMovie,
+  TBulkTV,
+  TMediaType,
+} from "../../constants/Interfaces/media";
 
 type SearchMediaParams = {
   mediaType: TMediaType;
@@ -84,7 +89,7 @@ const BulkMedia = () => {
   }
 
   if (bulkType && bulkResults) {
-    const content = bulkResults?.pages.flat();
+    const content = bulkResults?.pages.flat() as TBulkMovie[] | TBulkTV[];
     return (
       <>
         <Helmet>

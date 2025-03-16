@@ -30,13 +30,13 @@ type TMediaDetailBase<T extends TMediaType> = {
 
 export interface IBulkMediaBase<T extends TMediaType> {
   type: T;
-  backdrop_path: string | null;
+  backdrop_path?: string;
   genre_ids: number[];
   id: string;
   original_language: string;
   overview: string;
   popularity: number;
-  poster_path: string | null;
+  poster_path?: string;
   vote_average: number;
   vote_count: number;
 }
@@ -60,14 +60,14 @@ export type TMultiSearchResultType = "movie" | "tv" | "person";
 
 export interface IMultiMediaResultBase<T extends TMultiSearchResultType> {
   adult: boolean;
-  backdrop_path: string | null;
+  backdrop_path?: string;
   genre_ids: number[];
   id: string;
   original_language: string;
   overview: string;
   media_type: T;
   popularity: number;
-  poster_path: string | null;
+  poster_path?: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
@@ -95,7 +95,7 @@ export type TMultiPersonResult = {
   popularity: number;
   gender: number;
   known_for_department: string;
-  profile_path: string | null;
+  profile_path?: string;
   known_for: (TBulkMovie | TBulkTV)[];
 };
 

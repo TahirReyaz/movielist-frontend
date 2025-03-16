@@ -1,6 +1,8 @@
 import apiClient from ".";
 import {
   TBulkMediaType,
+  TBulkMovie,
+  TBulkTV,
   TMediaType,
   TSearchMultiResponse,
   TVideoResult,
@@ -128,11 +130,14 @@ export const getBulkMedia = async (
   page: number = 1
 ) => {
   try {
-    const response = await apiClient.get(`/${mediatype}/bulk/${bulktype}`, {
-      params: {
-        page,
-      },
-    });
+    const response = await apiClient.get<TBulkMovie[] | TBulkTV[]>(
+      `/${mediatype}/bulk/${bulktype}`,
+      {
+        params: {
+          page,
+        },
+      }
+    );
 
     return response.data;
   } catch (error: any) {

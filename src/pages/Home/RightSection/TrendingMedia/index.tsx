@@ -3,7 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getBulkMedia } from "../../../../lib/api";
 import Loading from "../../../../components/UI/Loading";
-import { TMovie } from "../../../../constants/Interfaces/media";
+import {
+  TBulkMovie,
+  TBulkTV,
+  TMovie,
+} from "../../../../constants/Interfaces/media";
 import TrendingMediaCard from "../../../../components/Media/TrendingMediaCard";
 import { Link } from "react-router-dom";
 
@@ -12,7 +16,7 @@ const TrendingMedia = () => {
     data: media,
     isLoading,
     isError,
-  } = useQuery<TMovie[]>({
+  } = useQuery({
     queryKey: ["popular", "movie"],
     queryFn: () => getBulkMedia("movie", "popular"),
   });
@@ -36,7 +40,16 @@ const TrendingMedia = () => {
           media
             .slice(0, 4)
             .map((item) => (
-              <TrendingMediaCard {...{ key: item.id, ...item }} />
+              <TrendingMediaCard
+                {...{
+                  key: item.id,
+                  ...item,
+                  title:
+                    item.type === "tv"
+                      ? (item as TBulkTV).name
+                      : (item as TBulkMovie).title,
+                }}
+              />
             ))}
       </div>
     </div>
