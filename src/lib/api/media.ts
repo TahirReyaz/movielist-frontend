@@ -2,6 +2,7 @@ import apiClient from ".";
 import {
   TBulkMediaType,
   TMediaType,
+  TSearchMultiResponse,
   TVideoResult,
 } from "../../constants/Interfaces/media";
 
@@ -195,16 +196,12 @@ export const getSearchResults = async ({
 
 export const getSearchMultiResults = async (query: string) => {
   try {
-    const response = await apiClient.get(`/search/multi/${query}`);
+    const response = await apiClient.get<TSearchMultiResponse>(
+      `/search/multi/${query}`
+    );
 
     const results = response.data;
-    return {
-      results,
-      movies: results.movies,
-      tv: results.tv,
-      people: results.people,
-      users: results.users,
-    };
+    return results;
   } catch (error) {
     console.error(error);
     throw error;

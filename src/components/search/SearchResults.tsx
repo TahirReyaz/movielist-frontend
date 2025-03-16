@@ -1,15 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
-import ResultSection from "./ResultSection";
 
-type MultiSearchResults = {
-  movies?: any[];
-  tv?: any[];
-  people?: any[];
-  users?: any[];
-};
+import ResultSection from "./ResultSection";
+import { TSearchMultiResponse } from "../../constants/Interfaces/media";
 
 interface SearchResultsProps {
-  results: MultiSearchResults;
+  results: TSearchMultiResponse;
   setOpen: Dispatch<SetStateAction<boolean>>;
   query: string;
 }

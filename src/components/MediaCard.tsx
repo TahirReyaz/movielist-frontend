@@ -15,7 +15,7 @@ import { TMediaType } from "../constants/Interfaces/media";
 import { TUserDocEntry } from "../constants/Interfaces/entry";
 
 export interface MediaItemProps {
-  mediaDetails: MediaDetailType;
+  mediaDetails: MediaDetailType; // Use the bulk media details type
   innerRef?: React.Ref<HTMLDivElement>;
 }
 

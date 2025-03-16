@@ -30,3 +30,5 @@ export type TUserFav = {
   staff: string[];
   prod_companies: string[];
 };
+
+export type TMultiUserResult = any;

@@ -1,4 +1,5 @@
 import { IStaffDetails } from "./staff";
+import { TMultiUserResult } from "./user";
 
 export type TMediaType =
   | "movie"
@@ -27,6 +28,77 @@ type TMediaDetailBase<T extends TMediaType> = {
   vote_count: number;
 };
 
+export interface IBulkMediaBase<T extends TMediaType> {
+  type: T;
+  backdrop_path: string | null;
+  genre_ids: number[];
+  id: string;
+  original_language: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  vote_average: number;
+  vote_count: number;
+}
+
+export type TBulkMovie = IBulkMediaBase<"movie"> & {
+  adult: boolean;
+  video: boolean;
+  original_title: string;
+  release_date: string;
+  title: string;
+};
+
+export type TBulkTV = IBulkMediaBase<"tv"> & {
+  original_name: string;
+  first_air_date: string;
+  name: string;
+  origin_country: string[];
+};
+
+export type TMultiSearchResultType = "movie" | "tv" | "person";
+
+export interface IMultiMediaResultBase<T extends TMultiSearchResultType> {
+  adult: boolean;
+  backdrop_path: string | null;
+  genre_ids: number[];
+  id: string;
+  original_language: string;
+  overview: string;
+  media_type: T;
+  popularity: number;
+  poster_path: string | null;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+export type TMultiMovieResult = IMultiMediaResultBase<"movie"> & {
+  original_title: string;
+  release_date: string;
+  title: string;
+};
+
+export type TMultiTVResult = IMultiMediaResultBase<"tv"> & {
+  original_name: string;
+  first_air_date: string;
+  name: string;
+  origin_country: string[];
+};
+
+export type TMultiPersonResult = {
+  adult: boolean;
+  id: string;
+  name: string;
+  original_name: string;
+  media_type: string;
+  popularity: number;
+  gender: number;
+  known_for_department: string;
+  profile_path: string | null;
+  known_for: (TBulkMovie | TBulkTV)[];
+};
+
 export type TMovie = TMediaDetailBase<"movie"> & {
   belongs_to_collection: ICollectionInMedia;
   budget: number;
@@ -38,6 +110,19 @@ export type TMovie = TMediaDetailBase<"movie"> & {
   runtime: number;
   title: string;
   video: boolean;
+};
+
+export type TSearchMultiResponse = {
+  results: (
+    | TMultiMovieResult
+    | TMultiTVResult
+    | TMultiPersonResult
+    | TMultiUserResult
+  )[];
+  movies?: TMultiMovieResult[];
+  tv?: TMultiTVResult[];
+  people?: TMultiPersonResult[];
+  users?: TMultiUserResult[];
 };
 
 export type TTV = TMediaDetailBase<"tv"> & {

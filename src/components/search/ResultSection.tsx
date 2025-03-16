@@ -3,11 +3,22 @@ import { Link } from "react-router-dom";
 
 import ResultItem from "./ResultItem";
 import { TMultiSearchResultType } from "../../constants/Interfaces/misc";
+import {
+  TMultiMovieResult,
+  TMultiPersonResult,
+  TMultiTVResult,
+} from "../../constants/Interfaces/media";
+import { TMultiUserResult } from "../../constants/Interfaces/user";
 
 interface ResultSectionProps {
   type: TMultiSearchResultType;
   title: string;
-  list?: any[];
+  list?: (
+    | TMultiMovieResult
+    | TMultiTVResult
+    | TMultiPersonResult
+    | TMultiUserResult
+  )[];
   setOpen: Dispatch<SetStateAction<boolean>>;
   query?: string;
 }
