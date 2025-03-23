@@ -21,11 +21,12 @@ export const getMediaTags = async (mediatype: string, mediaid: string) => {
 export const getMediaMoreDetails = async (
   mediatype: string,
   mediaid: string,
-  detailType: string
+  detailType: string,
+  seasonNumber?: number
 ) => {
   try {
     const response = await apiClient.get(
-      `/${mediatype}/${detailType}/${mediaid}`
+      `/${mediatype}/${detailType}/${mediaid}/${seasonNumber || 999}`
     );
 
     return response.data;

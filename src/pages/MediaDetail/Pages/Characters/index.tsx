@@ -14,7 +14,18 @@ import {
 
 const Characters = () => {
   const { pathname } = useLocation();
-  const { mediaid } = useParams<{ mediaid: string }>();
+  const { mediaid: mediaidParam } = useParams<{ mediaid: string }>();
+
+  let mediaid: string | undefined,
+    seasonNumber: undefined | number,
+    isSeason = false;
+  if (mediaidParam) {
+    const idArray = mediaidParam.split("-");
+    mediaid = idArray[0];
+    seasonNumber = parseInt(idArray[1]);
+    isSeason = !isNaN(seasonNumber);
+  }
+
   const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
 
   const {
@@ -23,7 +34,8 @@ const Characters = () => {
     isError,
   } = useQuery<IMediaCredits>({
     queryKey: ["credits", mediaType, mediaid],
-    queryFn: () => getMediaMoreDetails(mediaType, mediaid!, "credits"),
+    queryFn: () =>
+      getMediaMoreDetails(mediaType, mediaid!, "credits", seasonNumber),
     enabled: mediaid && mediaType ? true : false,
   });
 
