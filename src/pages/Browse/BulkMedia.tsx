@@ -101,7 +101,9 @@ const BulkMedia = () => {
           <div className="flex justify-end my-8">
             <div className="">Layout and sorting</div>
           </div>
-          <CardList {...{ items: content, innerRef: intersectionRef }} />
+          <CardList
+            {...{ items: content, innerRef: intersectionRef, mediaType }}
+          />
           {isFetchingNextPage && <Loading title="Loading More..." />}
         </div>
       </>

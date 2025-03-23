@@ -185,7 +185,9 @@ const Browse = () => {
         )}
 
         {results?.results?.length > 0 && (
-          <CardList {...{ items: results.results }} />
+          <CardList
+            {...{ items: results.results, mediaType: mediaType ?? "movie" }}
+          />
         )}
       </main>
     </>

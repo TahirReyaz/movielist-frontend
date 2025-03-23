@@ -16,9 +16,10 @@ import { TUserDocEntry } from "../constants/Interfaces/entry";
 export interface MediaItemProps {
   mediaDetails: TBulkMovie | TBulkTV;
   innerRef?: React.Ref<HTMLDivElement>;
+  mediaType: TMediaType;
 }
 
-const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
+const MediaCard = ({ mediaDetails, innerRef, mediaType }: MediaItemProps) => {
   const { isLoggedIn, username } = useAppSelector((state) => state.auth);
   const [hover, setHover] = useState<boolean>(false);
 
@@ -26,8 +27,6 @@ const MediaCard = ({ mediaDetails, innerRef }: MediaItemProps) => {
     queryKey: ["user", username],
     enabled: username && username.length > 0 ? true : false,
   });
-
-  const mediaType: TMediaType = mediaDetails.type;
 
   // Used determine the colour of the dot and the status of existing entry
   const existingEntry: TUserDocEntry | undefined = findExistingEntry(
