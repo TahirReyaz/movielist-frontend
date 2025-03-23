@@ -81,7 +81,9 @@ const TopSection = () => {
                   mediaDetails.backdrop_path ? "-mt-28" : "mt-2"
                 } mb-4 rounded`}
               />
-              {username && seasonNumber && <Controls />}
+              {username && (mediaType === "movie" || seasonNumber) && (
+                <Controls />
+              )}
             </div>
             {/* title and overview and links */}
             <div className="col-span-12 md:col-span-9 ms-0 md:ms-4 p-0 md:p-8 flex flex-col justify-between">

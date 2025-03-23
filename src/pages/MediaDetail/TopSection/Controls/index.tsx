@@ -62,7 +62,7 @@ const Controls = () => {
   if (profile?.entries && mediaid) {
     existingEntry = findExistingEntry(
       profile.entries,
-      `${mediaid}-${seasonNumber}`,
+      seasonNumber ? `${mediaid}-${seasonNumber}` : mediaid,
       mediaType
     );
   }
