@@ -55,6 +55,7 @@ const MediaSection = ({
           {...{
             items: maxResults ? data.slice(0, maxResults) : data.slice(0, 5),
             maxResults,
+            mediaType,
           }}
         />
       )}
