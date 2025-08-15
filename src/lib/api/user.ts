@@ -69,40 +69,9 @@ export const searchUsers = async (query: string) => {
   }
 };
 
-export const unfollowUser = async (targetUsername: string) => {
-  try {
-    const response = await apiClient.delete(`/user/unfollow/${targetUsername}`);
-
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
-
-export const followUser = async (targetUsername: string) => {
-  try {
-    const response = await apiClient.patch(`/user/follow/${targetUsername}`);
-
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
-
 export const flagUserForDeletion = async (password: string) => {
   try {
     const response = await apiClient.patch(`/user/flag/delete`, { password });
-
-    return response.data;
-  } catch (error: any) {
-    const message = error.response?.data?.message;
-    throw new Error(message);
-  }
-};
-
-export const updateStats = async () => {
-  try {
-    const response = await apiClient.patch(`/stats/update`, undefined);
 
     return response.data;
   } catch (error: any) {
