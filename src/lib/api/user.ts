@@ -102,7 +102,7 @@ export const flagUserForDeletion = async (password: string) => {
 
 export const updateStats = async () => {
   try {
-    const response = await apiClient.patch(`/user/stats/update`, undefined);
+    const response = await apiClient.patch(`/stats/update`, undefined);
 
     return response.data;
   } catch (error: any) {
