@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import noImage from "../../../../../../assets/no_img_long.jpg";
 
-import { TStaffStatItem } from "../../../../../../constants/Interfaces/stats";
+import { IOtherStats } from "../../../../../../constants/Interfaces/stats";
 import { formatTimeWatched } from "../../../../../../lib/helpers";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../../../constants/tmdb";
 import Carousel from "../../GenresTags/Carousel";
@@ -14,10 +14,10 @@ const StaffCard = ({
   count,
   meanScore,
   timeWatched,
-  staffId,
+  statTypeId,
   profilePath,
   list,
-}: TStaffStatItem & { index: number }) => {
+}: IOtherStats & { index: number }) => {
   const { days, hours } = formatTimeWatched(timeWatched);
 
   return (
@@ -25,7 +25,7 @@ const StaffCard = ({
       <div className="bg-anilist-mirage p-8">
         {/* title and rank */}
         <div className="flex justify-between flex-row mb-8">
-          <Link to={`/staff/${staffId}`}>
+          <Link to={`/staff/${statTypeId}`}>
             <h2 className="text-4xl font-semibold">{title}</h2>
           </Link>
           <div className="flex justify-center items-center rounded-full bg-anilist-gray-regent w-12 h-12">

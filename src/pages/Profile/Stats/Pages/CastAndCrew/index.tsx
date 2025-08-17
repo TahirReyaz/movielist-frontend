@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
-import { useAppSelector } from "../../../../../hooks/redux";
 import SortButton from "../GenresTags/SortButton";
 import StaffCard from "./StaffCard";
-import { TStaffStatItem } from "../../../../../constants/Interfaces/stats";
+import { IOtherStats } from "../../../../../constants/Interfaces/stats";
 
-const CastAndCrew = ({ isCast }: { isCast: boolean }) => {
+const CastAndCrew = ({
+  isCast,
+  stats,
+}: {
+  isCast: boolean;
+  stats: IOtherStats[];
+}) => {
   const [sortBy, setSortBy] = useState<"count" | "timeWatched" | "meanScore">(
     "count"
-  );
-  const { mediaType } = useParams();
-  const statKey = isCast ? "cast" : "crew";
-  const stats: TStaffStatItem[] = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string][statKey]
   );
 
   const sortedStats = stats ? [...stats] : [];
