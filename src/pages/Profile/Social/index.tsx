@@ -1,14 +1,23 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import userAvatar from "../../../assets/userAvatar.png";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import SocialUser from "./SocialUser";
-import { useAppSelector } from "../../../hooks/redux";
+import { getFollowers, getFollowings } from "../../../lib/api";
+import Loading from "../../../components/UI/Loading";
+import Error from "../../../components/UI/Error";
 
 type socialUser = {
   username: string;
   avatar: string;
+};
+
+type followData = {
+  user: socialUser;
+  target: socialUser;
 };
 
 export type socialFilterType =
@@ -23,9 +32,27 @@ type socialTypeItem = {
 };
 
 const Social = () => {
-  const profile = useAppSelector((state) => state.profile);
-  const followersData = profile?.followers;
-  const followingData = profile?.following;
+  const { username } = useParams<{ username: string }>();
+
+  const {
+    data: followers,
+    isLoading: isFollowersLoading,
+    isError: isFollowersError,
+  } = useQuery({
+    queryKey: ["followers", username],
+    queryFn: () => getFollowers(username!),
+    enabled: !!username,
+  });
+
+  const {
+    data: following,
+    isLoading: isFollowingLoading,
+    isError: isFollowingError,
+  } = useQuery({
+    queryKey: ["following", username],
+    queryFn: () => getFollowings(username!),
+    enabled: !!username,
+  });
 
   const [currentSocialType, setCurrentSocialType] =
     useState<socialFilterType>("following");
@@ -60,30 +87,47 @@ const Social = () => {
         ),
         right: (
           <div className="grid grid-cols-3 md:grid-cols-9 gap-4">
-            {followersData &&
-              currentSocialType === "followers" &&
-              followersData.map((user: socialUser) => (
-                <SocialUser
-                  {...{
-                    username: user.username,
-                    img: user.avatar ?? userAvatar,
-                    key: user.username,
-                    type: currentSocialType,
-                  }}
-                />
-              ))}
-            {followingData &&
-              currentSocialType === "following" &&
-              followingData.map((user: socialUser) => (
-                <SocialUser
-                  {...{
-                    username: user.username,
-                    img: user.avatar ?? userAvatar,
-                    key: user.username,
-                    type: currentSocialType,
-                  }}
-                />
-              ))}
+            {currentSocialType === "followers" ? (
+              <>
+                {isFollowersLoading && <Loading />}
+                {isFollowersError && <Error />}
+                {followers && followers.length === 0 && (
+                  <p>This fellow ain't popular</p>
+                )}
+                {followers &&
+                  followers.map((data: followData) => (
+                    <SocialUser
+                      {...{
+                        username: data.user.username,
+                        img: data.user.avatar ?? userAvatar,
+                        key: data.user.username,
+                        type: currentSocialType,
+                      }}
+                    />
+                  ))}
+              </>
+            ) : (
+              <>
+                {isFollowingLoading && <Loading />}
+                {isFollowingError && <Error />}
+                {following && following.length === 0 && (
+                  <p>
+                    This person doesn't care about what anyone else is watching
+                  </p>
+                )}
+                {following &&
+                  following.map((data: followData) => (
+                    <SocialUser
+                      {...{
+                        username: data.target.username,
+                        img: data.target.avatar ?? userAvatar,
+                        key: data.target.username,
+                        type: currentSocialType,
+                      }}
+                    />
+                  ))}
+              </>
+            )}
           </div>
         ),
       }}
