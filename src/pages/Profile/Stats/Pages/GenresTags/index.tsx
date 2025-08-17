@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
 import StatItem from "./StatItem";
 import SortButton from "./SortButton";
-import { useAppSelector } from "../../../../../hooks/redux";
+import { IOtherStats } from "../../../../../constants/Interfaces/stats";
 
 const GenresTags = ({
   statKey,
   title,
+  stats,
 }: {
   statKey: "genres" | "tags";
   title: "Genres" | "Tags";
+  stats: IOtherStats[];
 }) => {
-  const [sortBy, setSortBy] = useState<"count" | "timeWatched">("count");
-
-  const { mediaType } = useParams<{ mediaType: string }>();
-
-  const stats = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string]?.[statKey]
+  const [sortBy, setSortBy] = useState<"count" | "timeWatched" | "meanScore">(
+    "count"
   );
 
   const sortedStats = stats ? [...stats] : [];
@@ -26,6 +23,8 @@ const GenresTags = ({
     sortedStats.sort((a, b) => b.count - a.count);
   } else if (sortBy === "timeWatched") {
     sortedStats.sort((a, b) => b.timeWatched - a.timeWatched);
+  } else if (sortBy === "meanScore") {
+    sortedStats.sort((a, b) => b.meanScore - a.meanScore);
   }
 
   return (
@@ -45,6 +44,13 @@ const GenresTags = ({
               title: "Time Watched",
               onClick: () => setSortBy("timeWatched"),
               active: sortBy === "timeWatched",
+            }}
+          />
+          <SortButton
+            {...{
+              title: "Mean Score",
+              onClick: () => setSortBy("meanScore"),
+              active: sortBy === "meanScore",
             }}
           />
         </div>

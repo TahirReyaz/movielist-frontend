@@ -58,3 +58,16 @@ export interface IOverviewStats {
   releaseYear: TDistribution[];
   watchYear: TDistribution[];
 }
+
+export interface IOtherStats {
+  user: string;
+  mediaType: TMediaType;
+  type: TOtherStatType;
+  count: number;
+  meanScore: number;
+  timeWatched: number;
+  statTypeId: string;
+  title: string;
+  profilePath: string;
+  list: TStatListItem[];
+}
