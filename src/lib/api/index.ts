@@ -24,7 +24,7 @@ import {
   searchUsers,
 } from "./user";
 import { followUser, unfollowUser } from "./follower";
-import { updateStats } from "./stat";
+import { updateStats, getOtherStats, getOverviewStats } from "./stat";
 import {
   getMediaStatusDist,
   getMediaFollowingStatus,
@@ -127,6 +127,6 @@ export {
 export { getStaffDetails, getStaffCredits, searchStaff };
 export { getUserNotifsByType, markAllUserNotifsRead };
 // Stats
-export { updateStats };
+export { updateStats, getOtherStats, getOverviewStats };
 // Followers
 export { followUser, unfollowUser };

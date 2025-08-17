@@ -1,17 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 import OverviewCardStat from "../../../../../../components/Stats/OverviewCardStat";
-import { useAppSelector } from "../../../../../../hooks/redux";
 import { TDistribution } from "../../../../../../constants/Interfaces/stats";
 import { countryNameFromISO } from "../../../../../../constants/tmdb";
 
-const Country = () => {
-  const { mediaType } = useParams();
-  let data: TDistribution[] = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string]?.overview?.countryDist
-  );
-
+const Country = ({ data }: { data: TDistribution[] }) => {
   if (data) {
     data = data.map((item: TDistribution) => ({
       ...item,
