@@ -33,3 +33,41 @@ export type TStatListItem = {
   id: number;
   mediaType: TMediaType;
 };
+
+export type TOtherStatType = "tag" | "genre" | "cast" | "crew" | "studio";
+
+export type TStatPageParams = {
+  username: string;
+  mediaType: TMediaType;
+  statType: TOtherStatType;
+};
+
+export interface IOverviewStats {
+  user: string;
+  mediaType: TMediaType;
+  episodesWatched: number;
+  count: number;
+  daysWatched: number;
+  daysPlanned: number;
+  meanScore: number;
+  score: any[];
+  epsCount: any[];
+  formatDist: TDistribution[];
+  statusDist: TDistribution[];
+  countryDist: TDistribution[];
+  releaseYear: TDistribution[];
+  watchYear: TDistribution[];
+}
+
+export interface IOtherStats {
+  user: string;
+  mediaType: TMediaType;
+  type: TOtherStatType;
+  count: number;
+  meanScore: number;
+  timeWatched: number;
+  statTypeId: string;
+  title: string;
+  profilePath: string;
+  list: TStatListItem[];
+}

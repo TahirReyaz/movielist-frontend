@@ -15,10 +15,7 @@ import {
   createNewActivity,
 } from "./activity";
 import {
-  followUser,
-  unfollowUser,
   flagUserForDeletion,
-  updateStats,
   changeUsername,
   getMods,
   getUserDetails,
@@ -26,6 +23,13 @@ import {
   toggleFav,
   searchUsers,
 } from "./user";
+import {
+  followUser,
+  unfollowUser,
+  getFollowers,
+  getFollowings,
+} from "./follower";
+import { updateStats, getOtherStats, getOverviewStats } from "./stat";
 import {
   getMediaStatusDist,
   getMediaFollowingStatus,
@@ -69,11 +73,9 @@ const apiClient = axios.create({
 export default apiClient;
 
 export { sessionLogin, login, signup, changePassword };
+// User
 export {
-  followUser,
-  unfollowUser,
   flagUserForDeletion,
-  updateStats,
   changeUsername,
   getMods,
   getUserDetails,
@@ -93,6 +95,7 @@ export {
   unlikeActivity,
   createNewActivity,
 };
+// Media
 export {
   getMediaStatusDist,
   getMediaFollowingStatus,
@@ -108,6 +111,7 @@ export {
   getGenreList,
   getSeasonDetails,
 };
+// Entry
 export {
   delUserMediaEntries,
   addEntry,
@@ -127,3 +131,7 @@ export {
 };
 export { getStaffDetails, getStaffCredits, searchStaff };
 export { getUserNotifsByType, markAllUserNotifsRead };
+// Stats
+export { updateStats, getOtherStats, getOverviewStats };
+// Followers
+export { followUser, unfollowUser, getFollowers, getFollowings };

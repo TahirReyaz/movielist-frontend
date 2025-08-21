@@ -7,30 +7,23 @@ import Button from "../../../components/UI/Button";
 import { unfollowUser } from "../../../lib/api";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { useLoadingBar } from "../../../components/UI/LoadingBar";
-import { TRefUser } from "../../../constants/Interfaces/user";
 
 const FollowButton = () => {
   const [hover, setHover] = useState<boolean>(false);
 
-  const {
-    isLoggedIn,
-    username: loggedUsername,
-    profileData,
-  } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, username: loggedUsername } = useAppSelector(
+    (state) => state.auth
+  );
 
-  const { username: profileUsername } = useAppSelector(
+  const { username: profileUsername, isFollowing } = useAppSelector(
     (state) => state.profile
   );
 
   const queryClient = useQueryClient();
   const loadingBar = useLoadingBar();
 
-  const followingThisUser = profileData?.following?.some(
-    (user: TRefUser) => user.username == profileUsername
-  );
-
-  let followButtonTitle = followingThisUser ? "Following" : "Follow";
-  if (hover && followingThisUser) {
+  let followButtonTitle = isFollowing ? "Following" : "Follow";
+  if (hover && isFollowing) {
     followButtonTitle = "Unfollow";
   }
 
@@ -39,7 +32,7 @@ const FollowButton = () => {
       let msg = "";
       loadingBar.current?.continuousStart();
 
-      if (followingThisUser) {
+      if (isFollowing) {
         await unfollowUser(profileUsername);
         msg = `You unfollowed ${profileUsername}`;
       } else {
@@ -49,9 +42,6 @@ const FollowButton = () => {
 
       loadingBar.current?.complete();
 
-      queryClient.invalidateQueries({
-        queryKey: ["user", loggedUsername],
-      });
       queryClient.invalidateQueries({
         queryKey: ["profile", profileUsername],
       });

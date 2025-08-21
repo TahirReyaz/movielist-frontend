@@ -1,20 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
-import { useAppSelector } from "../../../../../../hooks/redux";
 import { TDistribution } from "../../../../../../constants/Interfaces/stats";
 import LineChart from "../../../../../../components/Charts/LineChart";
 
-const ReleaseYear = () => {
-  const { mediaType } = useParams();
-  let data: TDistribution[] = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string]?.overview?.releaseYear
-  );
-
-  if (!data || data.length === 0) {
-    return;
-  }
-
+const ReleaseYear = ({ data }: { data: TDistribution[] }) => {
   return (
     <div className="mt-8">
       <div>

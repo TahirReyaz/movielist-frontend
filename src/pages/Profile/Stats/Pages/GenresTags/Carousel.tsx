@@ -39,18 +39,22 @@ const Carousel: React.FC<CarouselProps> = ({ list }) => {
           </div>
         ))}
       </div>
-      <button
-        onClick={prevSlide}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-anilist-mirage/80 hover:bg-anilist-mirage/100 text-anilist-gray-bermuda text-3xl p-4 rounded-full focus:outline-none"
-      >
-        <FaChevronLeft />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-anilist-mirage/80 hover:bg-anilist-mirage/100 text-anilist-gray-bermuda text-3xl p-4 rounded-full focus:outline-none"
-      >
-        <FaChevronRight />
-      </button>
+      {list.length > 4 && (
+        <>
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-anilist-mirage/80 hover:bg-anilist-mirage/100 text-anilist-gray-bermuda text-3xl p-4 rounded-full focus:outline-none"
+          >
+            <FaChevronLeft />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-anilist-mirage/80 hover:bg-anilist-mirage/100 text-anilist-gray-bermuda text-3xl p-4 rounded-full focus:outline-none"
+          >
+            <FaChevronRight />
+          </button>
+        </>
+      )}
     </div>
   );
 };

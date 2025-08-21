@@ -5,51 +5,48 @@ import { useParams } from "react-router-dom";
 import { IconType } from "react-icons";
 
 import StatItem from "./StatItem";
-import { useAppSelector } from "../../../../../../hooks/redux";
+import { IOverviewStats } from "../../../../../../constants/Interfaces/stats";
 
-const Numbers = () => {
+const Numbers = ({ data }: { data: IOverviewStats }) => {
   const { mediaType } = useParams<{ mediaType: string }>();
-  const overview = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string]?.overview
-  );
 
   const movieStats: { Icon: IconType; value: number; title: string }[] = [
     {
       Icon: RiMovie2Line,
-      value: overview?.count,
+      value: data.count,
       title: "Total Movies",
     },
-    { Icon: FaCalendar, value: overview?.daysWatched, title: "Days Watched" },
-    { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
+    { Icon: FaCalendar, value: data.daysWatched, title: "Days Watched" },
+    { Icon: FaHourglass, value: data.daysPlanned, title: "Days Planned" },
     {
       Icon: FaPercentage,
-      value: overview?.meanScore ?? 0,
+      value: data.meanScore ?? 0,
       title: "Mean Score",
     },
   ];
   const tvStats: { Icon: IconType; value: number; title: string }[] = [
     {
       Icon: RiMovie2Line,
-      value: overview?.count,
+      value: data.count,
       title: "Total Shows",
     },
     {
       Icon: FaPlay,
-      value: overview?.episodesWatched,
+      value: data.episodesWatched,
       title: "Episodes Watched",
     },
-    { Icon: FaCalendar, value: overview?.daysWatched, title: "Days Watched" },
-    { Icon: FaHourglass, value: overview?.daysPlanned, title: "Days Planned" },
+    { Icon: FaCalendar, value: data.daysWatched, title: "Days Watched" },
+    { Icon: FaHourglass, value: data.daysPlanned, title: "Days Planned" },
     {
       Icon: FaPercentage,
-      value: overview?.meanScore ?? 0,
+      value: data.meanScore ?? 0,
       title: "Mean Score",
     },
   ];
 
   const stats = mediaType == "tv" ? tvStats : movieStats;
 
-  if (!overview) {
+  if (!data) {
     return (
       <div>
         <h3 className="text-3xl font-medium">No Stats to show</h3>

@@ -43,7 +43,7 @@ const StatItem = ({
             <p className="text-xl">Count</p>
           </div>
           <div>
-            <h3 className="text-3xl font-semibold">{meanScore}</h3>
+            <h3 className="text-3xl font-semibold">{meanScore.toFixed(2)}</h3>
             <p className="text-xl">Mean Score</p>
           </div>
           <div>

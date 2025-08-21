@@ -1,20 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 import { TDistribution } from "../../../../../../constants/Interfaces/stats";
-import { useAppSelector } from "../../../../../../hooks/redux";
 import LineChart from "../../../../../../components/Charts/LineChart";
 
-const WatchYear = () => {
-  const { mediaType } = useParams();
-  let data: TDistribution[] = useAppSelector(
-    (state) => state.profile.stats?.[mediaType as string]?.overview?.watchYear
-  );
-
-  if (!data || data.length === 0) {
-    return;
-  }
-
+const WatchYear = ({ data }: { data: TDistribution[] }) => {
   return (
     <div className="mt-8">
       <div>
