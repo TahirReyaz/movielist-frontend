@@ -41,6 +41,21 @@ const EntryCard = ({
     },
   });
 
+  console.log({ progress });
+
+  const ProgressCount = () => {
+    return (
+      <>
+        <span>Ep {progress ? progress : 0}</span>
+        {mediaType == "tv" && data?.number_of_episodes && (
+          <span>/{data.number_of_episodes}</span>
+        )}
+        {mediaType == "movie" && <span>/1</span>}
+        <span className="ms-2"> +</span>
+      </>
+    );
+  };
+
   return (
     <Link
       className="rounded relative flex md:block z-9 flex-shrink-0"
@@ -57,18 +72,7 @@ const EntryCard = ({
       <div className="flex justify-between flex-col md:hidden bg-bgSecondary p-4 text-2xl">
         <p className="cursor-pointer">{title}</p>
         <p>
-          {progress && <span>Ep {progress}</span>}
-          {data?.number_of_episodes && <span>/{data.number_of_episodes}</span>}
-          {mediaType == "movie" && <span>/1</span>}
-          <span
-            onClick={(e) => {
-              entryMutation.mutate();
-              e.preventDefault();
-            }}
-            className="ms-2"
-          >
-            +
-          </span>
+          <ProgressCount />
         </p>
       </div>
       {/* Desktop details */}
@@ -80,10 +84,7 @@ const EntryCard = ({
           }}
           className="hidden md:block absolute bottom-0 z-10 bg-backdrop/70 w-full text-center p-4 text-white text-xl cursor-pointer"
         >
-          {progress && <span>Ep {progress}</span>}
-          {data?.number_of_episodes && <span>/{data.number_of_episodes}</span>}
-          {mediaType == "movie" && <span>/1</span>}
-          <span className="ms-2"> +</span>
+          <ProgressCount />
         </div>
       )}
     </Link>
