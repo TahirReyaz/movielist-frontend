@@ -15,21 +15,6 @@ export type ProfileParams = {
   username: string;
 };
 
-export type listItemType = {
-  listtype: TStatus;
-  mediaType: TMediaType;
-  id: string;
-  _id: string;
-};
-
-export type profileType = {
-  avatar: string;
-  backdrop: string;
-  _id: string;
-  followers: string[] | [];
-  following: string[] | [];
-};
-
 const Profile = () => {
   const { username } = useParams<ProfileParams>();
 
