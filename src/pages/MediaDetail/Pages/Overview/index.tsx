@@ -15,6 +15,7 @@ import {
   TMediaType,
   TMovie,
   TTV,
+  isMovieDetail,
 } from "../../../../constants/Interfaces/media";
 import FollowingStatus from "./FollowingStatus";
 import { useAppSelector } from "../../../../hooks/redux";
@@ -54,6 +55,11 @@ const Overview = () => {
     enabled: !!(isSeason && mediaid),
   });
 
+  // null/undefined when the movie isn't part of a collection
+  const collectionId = isMovieDetail(mediaDetails)
+    ? mediaDetails.belongs_to_collection?.id
+    : undefined;
+
   const otherSeasons = parentShow?.seasons.filter(
     (season) => season.season_number !== seasonNumber
   );
@@ -68,17 +74,15 @@ const Overview = () => {
           </div>
         </div>
       )}
-      {mediaType === "movie" &&
-        mediaid &&
-        (mediaDetails as TMovie)?.belongs_to_collection?.id && (
-          <Relations
-            {...{
-              mediaid,
-              collectionId: (mediaDetails as TMovie)?.belongs_to_collection?.id,
-              mediaType,
-            }}
-          />
-        )}
+      {mediaType === "movie" && mediaid && collectionId !== undefined && (
+        <Relations
+          {...{
+            mediaid,
+            collectionId,
+            mediaType,
+          }}
+        />
+      )}
       {mediaid &&
         ((mediaType === "tv" && (mediaDetails as TTV)?.seasons) ||
           otherSeasons) && (

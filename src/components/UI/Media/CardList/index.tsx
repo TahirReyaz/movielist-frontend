@@ -8,7 +8,8 @@ import {
 } from "../../../../constants/Interfaces/media";
 
 interface CardListProps {
-  items: TBulkMovie[] | TBulkTV[];
+  // a single array may mix movies and shows (e.g. search results)
+  items: (TBulkMovie | TBulkTV)[];
   innerRef?: React.Ref<HTMLDivElement>;
   maxResults?: number;
   mediaType: TMediaType;

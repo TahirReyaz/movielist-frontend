@@ -1,10 +1,10 @@
 import React from "react";
 
 import { formatRuntime } from "../../lib/helpers";
-import { TMovie, TTV } from "../../constants/Interfaces/media";
+import { ISeason, TMovie, TTV } from "../../constants/Interfaces/media";
 
 interface MediaDetailFieldProps {
-  fieldName: keyof (TMovie & TTV);
+  fieldName: keyof (TMovie & TTV & ISeason);
   value?: string | number | string[];
   values?: any;
   valkey?: string;
