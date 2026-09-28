@@ -3,7 +3,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Select from "react-select";
 
 import Modal from "../../UI/Modal";
-import { addEntry, getEntryDetails, getMediaDetail } from "../../../lib/api";
+import {
+  addEntry,
+  getEntryDetails,
+  getMediaDetail,
+  getSeasonDetails,
+} from "../../../lib/api";
 import TopSection from "./TopSection";
 import Loading from "../Loading";
 import Error from "../Error";
@@ -15,7 +20,12 @@ import { toggleFav } from "../../../lib/api";
 import { useAppSelector } from "../../../hooks/redux";
 import { useLoadingBar } from "../LoadingBar";
 import { IEntry, TStatus } from "../../../constants/Interfaces/entry";
-import { TMediaType } from "../../../constants/Interfaces/media";
+import {
+  TMediaType,
+  getMediaTitle,
+  isMediaType,
+  parseMediaId,
+} from "../../../constants/Interfaces/media";
 
 interface Props {
   open: boolean;
@@ -35,6 +45,14 @@ const Label = ({ label }: { label: string }) => {
 };
 
 const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
+  // mediaid is "550" for movies or "1399-2" for a season
+  const parsed = isMediaType(mediaType)
+    ? parseMediaId(mediaType, mediaid)
+    : undefined;
+  const baseId =
+    parsed?.kind === "movie" ? parsed.movieId : parsed?.showId ?? mediaid;
+  const seasonNumber =
+    parsed?.kind === "season" ? parsed.seasonNumber : undefined;
   const { profileData: profile, username } = useAppSelector(
     (state) => state.auth
   );
@@ -65,14 +83,20 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
     isLoading: isMediaLoading,
     isError: isMediaError,
   } = useQuery({
-    queryKey: ["media", mediaType, mediaid, null],
-    queryFn: () => getMediaDetail(mediaType, mediaid),
+    // same key as the detail page, so the cache is shared
+    queryKey: ["media", mediaType, baseId, seasonNumber ?? null],
+    queryFn: () =>
+      seasonNumber !== undefined
+        ? getSeasonDetails(mediaType, baseId, seasonNumber)
+        : getMediaDetail(mediaType, mediaid),
     enabled: !!mediaid && open,
   });
 
   const today = new Date().getUTCDate();
 
-  const fav = profile?.fav[mediaType]?.includes(mediaid);
+  const mediaTitle = getMediaTitle(media);
+
+  const fav = profile?.fav[mediaType]?.includes(baseId);
 
   let statusOptions: Option[] = [
     { value: "watching", label: "Watching" },
@@ -83,14 +107,18 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
     { value: "dropped", label: "Dropped" },
   ];
 
-  // Remove options
-  if (entry && entry.data) {
-    if (entry.data.status?.length > 0) {
-      if (entry.data.status !== "Released" || entry.data.status !== "Ended") {
-        const removeOptions: TStatus[] = ["completed", "rewatching"];
-        statusOptions.filter((opt) => !removeOptions.includes(opt.value));
-      }
-    }
+  // Can't complete something that hasn't come out yet.
+  // (For seasons, data.status is the SHOW's status, so use the air date instead.)
+  const releaseDate = entry?.data?.release_date;
+  const isUnreleased =
+    entry?.mediaType === "movie"
+      ? !!entry.data?.status && entry.data.status !== "Released"
+      : !!releaseDate && new Date(releaseDate) > new Date();
+  if (isUnreleased) {
+    const removeOptions: TStatus[] = ["completed", "rewatching"];
+    statusOptions = statusOptions.filter(
+      (opt) => !removeOptions.includes(opt.value)
+    );
   }
 
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -111,7 +139,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
           });
           loadingBar.current?.complete();
           showSuccessToast(
-            `${mediaType == "tv" ? media.name : media.title} list entry updated`
+            `${mediaTitle} list entry updated`
           );
           queryClient.invalidateQueries({
             queryKey: ["entries", username, mediaType],
@@ -129,7 +157,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
           await addEntry({
             mediaid,
             mediaType,
-            title: mediaType == "tv" ? media.name : media.title,
+            title: mediaTitle,
             poster: media.poster_path,
             backdrop: media.backdrop_path,
             status,
@@ -142,7 +170,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
           });
           loadingBar.current?.complete();
           showSuccessToast(
-            `${mediaType == "tv" ? media.name : media.title} list entry updated`
+            `${mediaTitle} list entry updated`
           );
           queryClient.invalidateQueries({
             queryKey: ["entry", id],
@@ -159,7 +187,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
   const handleFavToggle = async (toFav: boolean) => {
     try {
       loadingBar.current?.continuousStart();
-      await toggleFav(mediaid, mediaType, toFav);
+      await toggleFav(baseId, mediaType, toFav);
       loadingBar.current?.complete();
 
       showSuccessToast(
@@ -220,7 +248,7 @@ const EntryEditorModal = ({ open, setOpen, id, mediaid, mediaType }: Props) => {
           <>
             <TopSection
               {...{
-                title: media?.title,
+                title: mediaTitle,
                 fav,
                 backdrop: media?.backdrop_path,
                 poster: media?.poster_path,

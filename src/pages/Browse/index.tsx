@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
@@ -43,7 +43,8 @@ const Browse = () => {
   const loadingBar = useLoadingBar();
 
   const { data: genreOptions } = useQuery({
-    queryKey: ["genre", "list"],
+    // movie and tv genre ids differ, so the key must include mediaType
+    queryKey: ["genre", "list", mediaType],
     queryFn: () => getGenreList(mediaType ?? "movie"),
     enabled: !!mediaType && (mediaType == "movie" || mediaType == "tv"),
   });
@@ -81,50 +82,44 @@ const Browse = () => {
     },
   ];
 
+  // One page (1 TMDB request, 3 at most) per fetch; more on "Load more".
   const {
-    data: results,
+    data,
     isLoading,
     isError,
     isFetched,
-  } = useQuery({
-    queryKey: [
-      `search`,
-      debouncedQuery,
-      year,
-      season,
-      formats,
-      mediaType,
-      genres,
-    ],
-    queryFn: () =>
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["search", debouncedQuery, year, season, mediaType, genres],
+    queryFn: ({ pageParam }) =>
       getSearchResults({
         query: debouncedQuery,
         year,
         season,
-        formats,
         mediaType,
         genres,
+        page: pageParam,
       }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
     enabled:
-      ((!!debouncedQuery && debouncedQuery !== "") ||
-        (!!genres && genres !== "") ||
-        (!!year && year !== "")) &&
+      (!!debouncedQuery || !!genres || !!year || !!season) &&
       (mediaType == "movie" || mediaType == "tv"),
   });
 
-  useEffect(() => {
-    let url = `/search/${mediaType}`;
-    if (debouncedQuery && debouncedQuery.length > 0) {
-      url += `?search=${debouncedQuery}`;
-    }
-    if (year && year.length > 0) {
-      url += `?year=${year}`;
-    }
-    if (season && season.length > 0) {
-      url += `?season=${season}`;
-    }
+  const results = data
+    ? { results: data.pages.flatMap((page) => page.results) }
+    : undefined;
 
-    if (url !== `/search/${mediaType}`) navigate(url);
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (debouncedQuery) params.set("search", debouncedQuery);
+    if (year) params.set("year", year);
+    if (season) params.set("season", season);
+    const qs = params.toString();
+    if (qs) navigate(`/search/${mediaType}?${qs}`, { replace: true });
   }, [debouncedQuery, year, season]);
 
   if (mediaType) {
@@ -184,10 +179,24 @@ const Browse = () => {
           </div>
         )}
 
-        {results?.results?.length > 0 && (
-          <CardList
-            {...{ items: results.results, mediaType: mediaType ?? "movie" }}
-          />
+        {results && results.results.length > 0 && (
+          <>
+            <CardList
+              {...{ items: results.results, mediaType: mediaType ?? "movie" }}
+            />
+            {hasNextPage && (
+              <div className="flex justify-center my-12">
+                <button
+                  type="button"
+                  onClick={() => fetchNextPage()}
+                  disabled={isFetchingNextPage}
+                  className="bg-bgSecondary hover:text-actionPrimary rounded-lg px-8 py-4 text-2xl font-semibold"
+                >
+                  {isFetchingNextPage ? "Loading..." : "Load more"}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </main>
     </>

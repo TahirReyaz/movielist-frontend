@@ -11,13 +11,11 @@ import { getUserMediaEntries } from "../../../lib/api";
 import {
   generateFilterCountryOptions,
   generateFilterGenreOptions,
+  getEntryCountries,
+  getEntryReleaseYear,
 } from "../../../lib/helpers.ts";
 import MetaTags from "../../../components/UI/MetaTags.tsx";
-import {
-  TMediaDetailGenre,
-  TMediaType,
-  TProductionCountry,
-} from "../../../constants/Interfaces/media.ts";
+import { TMediaType } from "../../../constants/Interfaces/media.ts";
 import { IEntry, IEntryGroup } from "../../../constants/Interfaces/entry.ts";
 import { TOption } from "../../../constants/Interfaces/misc.ts";
 
@@ -63,42 +61,29 @@ const MediaList = () => {
 
     // Filter by genre
     if (filters.genre) {
-      filtered = filtered.filter((entry: IEntry) => {
-        if (entry.data?.genres) {
-          return entry.data.genres.some(
-            (genre: TMediaDetailGenre) => genre.id.toString() === filters.genre
-          );
-        }
-        return false;
-      });
+      filtered = filtered.filter(
+        (entry: IEntry) =>
+          entry.data?.genres?.some(
+            (genre) => String(genre.id) === filters.genre
+          ) ?? false
+      );
     }
 
     // Filter by country
     if (filters.country) {
-      filtered = filtered.filter((entry: IEntry) => {
-        if (entry.data?.production_countries) {
-          return entry.data.production_countries.some(
-            (country: TProductionCountry) =>
-              country.iso_3166_1 === filters.country
-          );
-        }
-        return false;
-      });
+      filtered = filtered.filter((entry: IEntry) =>
+        getEntryCountries(entry).some(
+          (country) => country.iso_3166_1 === filters.country
+        )
+      );
     }
 
-    // Filter by release year
-    if (filters.releaseYear) {
-      if (filters.releaseYear !== "1887") {
-        let dateField = "release_date";
-        if (mediaType == "tv") {
-          dateField = "first_air_date";
-        }
-        filtered = filtered.filter(
-          (entry: any) =>
-            new Date(entry.data[dateField]).getFullYear() ===
-            Number(filters.releaseYear)
-        );
-      }
+    // Filter by release year (movies and seasons both store data.release_date)
+    if (filters.releaseYear && filters.releaseYear !== "1887") {
+      filtered = filtered.filter(
+        (entry: IEntry) =>
+          getEntryReleaseYear(entry) === Number(filters.releaseYear)
+      );
     }
 
     // Fuzzy search by title

@@ -4,10 +4,15 @@ import MediaDetailField from "../MediaDetailField";
 import Tags from "./Tags";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "react-router-dom";
-import { TMediaType, TMovie, TTV } from "../../../constants/Interfaces/media";
+import {
+  ISeason,
+  TMediaType,
+  TMovie,
+  TTV,
+} from "../../../constants/Interfaces/media";
 
 type Field = {
-  fieldName: keyof (TMovie & TTV);
+  fieldName: keyof (TMovie & TTV & ISeason);
   label: string;
   valuesKey?: string;
 };
@@ -66,7 +71,7 @@ const LeftSection = () => {
 
   detailFields.push(...endDetailFields);
 
-  const { data: mediaDetails } = useQuery<TMovie | TTV>({
+  const { data: mediaDetails } = useQuery<TMovie | TTV | ISeason>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
     enabled: !!mediaid,
   });

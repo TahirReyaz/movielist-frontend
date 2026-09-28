@@ -6,7 +6,7 @@ import { formatTimeWatched } from "../../../../../lib/helpers";
 
 interface GenreItemProps {
   title: string;
-  statTypeId: number;
+  statTypeId: string;
   count: number;
   meanScore: number;
   list: TStatListItem[];

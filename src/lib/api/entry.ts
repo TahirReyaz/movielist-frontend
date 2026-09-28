@@ -122,7 +122,8 @@ export const delUserMediaEntries = async (
 };
 
 export const addEntry = async (body: TNewEntry) => {
-  if (body.season) {
+  // `!== undefined` so season 0 ("Specials") works too
+  if (body.season !== undefined && !Number.isNaN(body.season)) {
     body.mediaid = `${body.mediaid}-${body.season}`;
   }
   try {

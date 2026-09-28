@@ -1,4 +1,4 @@
-import { TMediaType } from "./media";
+import { EntryData, TMediaType } from "./media";
 import { TRefUser } from "./user";
 
 export interface IEntry {
@@ -16,7 +16,8 @@ export interface IEntry {
   title: string;
   poster?: string;
   backdrop?: string;
-  data?: any;
+  /** Normalised TMDB snapshot. Older entries may be missing some fields. */
+  data?: EntryData;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -3,11 +3,7 @@ import {
   IUserDocEntryGroup,
   TUserDocEntry,
 } from "../constants/Interfaces/entry";
-import {
-  TMediaDetailGenre,
-  TMediaType,
-  TProductionCountry,
-} from "../constants/Interfaces/media";
+import { EntryCountry, TMediaType } from "../constants/Interfaces/media";
 import { TOption } from "../constants/Interfaces/misc";
 import { IStat } from "../constants/Interfaces/stats";
 
@@ -107,24 +103,38 @@ export const formatDateForInput = (dateString: string): string => {
   return formattedDate;
 };
 
+/** Countries of an entry. Newer entries store production_countries; older ones only origin_country codes. */
+export const getEntryCountries = (entry: IEntry): EntryCountry[] => {
+  const data = entry.data;
+  if (!data) return [];
+  if (data.production_countries && data.production_countries.length > 0) {
+    return data.production_countries;
+  }
+  return (data.origin_country ?? []).map((code) => ({
+    iso_3166_1: code,
+    name: code,
+  }));
+};
+
+/** Release year of an entry (movie release / season air date), or null. */
+export const getEntryReleaseYear = (entry: IEntry): number | null => {
+  const date = entry.data?.release_date;
+  if (!date) return null;
+  const year = new Date(date).getFullYear();
+  return Number.isNaN(year) ? null : year;
+};
+
 export const generateFilterCountryOptions = (
   entries: IEntry[] | undefined
 ): TOption[] => {
   const options: TOption[] = [];
-  if (entries) {
-    entries.forEach((entry: IEntry) => {
-      entry.data?.production_countries?.forEach(
-        (country: TProductionCountry) => {
-          if (!options.some((option) => option.value === country.iso_3166_1)) {
-            options.push({
-              value: country.iso_3166_1,
-              label: country.name,
-            });
-          }
-        }
-      );
+  entries?.forEach((entry) => {
+    getEntryCountries(entry).forEach((country) => {
+      if (!options.some((option) => option.value === country.iso_3166_1)) {
+        options.push({ value: country.iso_3166_1, label: country.name });
+      }
     });
-  }
+  });
   return options;
 };
 
@@ -132,19 +142,14 @@ export const generateFilterGenreOptions = (
   entries: IEntry[] | undefined
 ): TOption[] => {
   const options: TOption[] = [];
-  if (entries) {
-    entries.forEach((entry: IEntry) => {
-      const genres: TMediaDetailGenre[] = entry.data?.genres;
-      genres?.forEach((genre: TMediaDetailGenre) => {
-        if (!options.some((option) => option.value === genre.id.toString())) {
-          options.push({
-            value: genre.id.toString(),
-            label: genre.name,
-          });
-        }
-      });
+  entries?.forEach((entry) => {
+    entry.data?.genres?.forEach((genre) => {
+      const value = String(genre.id);
+      if (!options.some((option) => option.value === value)) {
+        options.push({ value, label: genre.name });
+      }
     });
-  }
+  });
   return options;
 };
 
@@ -167,39 +172,41 @@ export const generateProgressScale = (input: number) => {
   return { lowerNumber, middleNumber, upperNumber };
 };
 
+/**
+ * Merge movie + tv stats of the same genre/tag.
+ * Mean score is a count-weighted average (adding the two means was wrong).
+ */
 export const combineStats = (
   movieStats: IStat[],
   tvStats: IStat[]
 ): IStat[] => {
-  const statMap: Map<number, IStat> = new Map();
+  const statMap = new Map<string, IStat & { scoreWeight: number }>();
 
   const addOrUpdateStat = (stat: IStat) => {
-    const existingStat = statMap.get(stat.statTypeId);
+    const key = String(stat.statTypeId);
+    const weight = stat.meanScore > 0 ? stat.count : 0;
+    const existing = statMap.get(key);
 
-    if (existingStat) {
-      existingStat.count += stat.count;
-      existingStat.meanScore += stat.meanScore;
-      existingStat.timeWatched += stat.timeWatched;
+    if (existing) {
+      const totalWeight = existing.scoreWeight + weight;
+      existing.meanScore = totalWeight
+        ? (existing.meanScore * existing.scoreWeight + stat.meanScore * weight) /
+          totalWeight
+        : 0;
+      existing.scoreWeight = totalWeight;
+      existing.count += stat.count;
+      existing.timeWatched += stat.timeWatched;
     } else {
-      statMap.set(stat.statTypeId, {
-        title: stat.title,
-        statTypeId: stat.statTypeId,
-        count: stat.count,
-        meanScore: stat.meanScore,
-        timeWatched: stat.timeWatched,
-        _id: stat._id,
-      });
+      statMap.set(key, { ...stat, statTypeId: key, scoreWeight: weight });
     }
   };
 
   movieStats.forEach(addOrUpdateStat);
   tvStats.forEach(addOrUpdateStat);
 
-  const stats = Array.from(statMap.values());
-
-  const sortedStats = stats.sort((a, b) => b.count - a.count);
-
-  return sortedStats;
+  return Array.from(statMap.values())
+    .map(({ scoreWeight, ...stat }) => stat)
+    .sort((a, b) => b.count - a.count);
 };
 
 export const capitaliseFirst = (s: string): string => {

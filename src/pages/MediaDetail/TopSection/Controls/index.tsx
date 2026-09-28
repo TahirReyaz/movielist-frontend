@@ -15,10 +15,10 @@ import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { useLoadingBar } from "../../../../components/UI/LoadingBar";
 import { findExistingEntry } from "../../../../lib/helpers";
 import {
-  ISeason,
-  TMediaType,
-  TMovie,
-  TTV,
+  MediaDetail,
+  getMediaTitle,
+  isMediaType,
+  parseMediaId,
 } from "../../../../constants/Interfaces/media";
 import {
   IUserDocEntryGroup,
@@ -33,16 +33,19 @@ const Controls = () => {
   const { pathname } = useLocation();
   const { mediaid: mediaidParam } = useParams<{ mediaid: string }>();
 
-  let mediaid: string | undefined, seasonNumber: undefined | number;
-  if (mediaidParam) {
-    const idArray = mediaidParam.split("-");
-    mediaid = idArray[0];
-    seasonNumber = parseInt(idArray[1]);
-  }
+  const routeType = pathname.split("/")[1];
+  const mediaType = isMediaType(routeType) ? routeType : "movie";
+  const parsed = mediaidParam ? parseMediaId(mediaType, mediaidParam) : undefined;
 
-  const mediaType: TMediaType = pathname.split("/")[1] as TMediaType;
+  // `mediaid` = movie id or show id (used for the query key / favourites)
+  const mediaid =
+    parsed?.kind === "movie" ? parsed.movieId : parsed?.showId;
+  const seasonNumber =
+    parsed?.kind === "season" ? parsed.seasonNumber : undefined;
+  // What actually goes in a list: "550" or "1399-2"
+  const entryMediaId = parsed?.mediaid;
 
-  const { data: mediaDetails } = useQuery<TMovie | TTV | ISeason>({
+  const { data: mediaDetails } = useQuery<MediaDetail>({
     queryKey: ["media", mediaType, mediaid, seasonNumber],
   });
 
@@ -62,7 +65,7 @@ const Controls = () => {
   if (profile?.entries && mediaid) {
     existingEntry = findExistingEntry(
       profile.entries,
-      seasonNumber ? `${mediaid}-${seasonNumber}` : mediaid,
+      entryMediaId ?? mediaid,
       mediaType
     );
   }
@@ -121,13 +124,14 @@ const Controls = () => {
                       tippyRef,
                       mediaType,
                       mediaDetails: {
-                        title:
-                          (mediaDetails as TMovie).title ??
-                          (mediaDetails as TTV).name,
-                        status: (mediaDetails as TTV).status ?? "Released",
+                        title: getMediaTitle(mediaDetails),
+                        status:
+                          "status" in mediaDetails
+                            ? mediaDetails.status
+                            : "Released",
                         poster_path: mediaDetails.poster_path ?? "",
                         backdrop_path: mediaDetails.backdrop_path,
-                        id: mediaid ?? mediaDetails.id,
+                        id: mediaid ?? String(mediaDetails.id),
                         seasonNumber,
                       },
                     }}
@@ -152,13 +156,14 @@ const Controls = () => {
           className={`text-2xl ${isFav ? "text-favPink" : "text-white"}`}
         />
       </div>
-      {mediaid && (
+      {entryMediaId && (
         <EntryEditorModal
           {...{
             open: showModal,
             setOpen: setShowModal,
             id: existingEntry?._id,
-            mediaid,
+            // full id, so seasons are saved as "showId-seasonNumber"
+            mediaid: entryMediaId,
             mediaType,
           }}
         />

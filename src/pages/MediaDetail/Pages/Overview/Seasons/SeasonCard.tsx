@@ -40,11 +40,11 @@ const SeasonCard: React.FC<Props> = ({ season, index, showId }) => {
               : "left-0 -translate-x-full"
           } top-0 transform z-10 h-full`}
         >
-          <DetailsCard {...{ title: name, release_date: air_date }} />
+          <DetailsCard {...{ title: name, release_date: air_date ?? undefined }} />
         </div>
       )}
       <div className="block md:hidden w-96">
-        <DetailsCard {...{ title: name, release_date: air_date }} />
+        <DetailsCard {...{ title: name, release_date: air_date ?? undefined }} />
       </div>
     </div>
   );

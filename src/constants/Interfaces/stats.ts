@@ -1,8 +1,11 @@
-import { TMediaType } from "./media";
+import { MediaType, TMediaType } from "./media";
 
+/* Mirrors movielist-backend/src/Interfaces/stats.ts */
+
+/** Row used by the genre overview / combined charts. */
 export interface IStat {
   title: string;
-  statTypeId: number;
+  statTypeId: string;
   count: number;
   meanScore: number;
   timeWatched: number;
@@ -14,9 +17,26 @@ export type TDistribution = {
   count: number;
   hoursWatched: number;
   meanScore: number;
-  _id: string;
+  _id?: string;
 };
 
+export type TNumberDistribution = {
+  num: number;
+  count: number;
+  hoursWatched: number;
+  meanScore: number;
+  _id?: string;
+};
+
+export type TStatListItem = {
+  title: string;
+  posterPath: string | null;
+  /** mediaid: "550" for movies, "1399-2" for seasons */
+  id: string;
+  mediaType: MediaType;
+};
+
+/** @deprecated use IOtherStats (cast/crew rows are IOtherStats with type "cast" | "crew") */
 export type TStaffStatItem = {
   title: string;
   staffId: number;
@@ -25,13 +45,6 @@ export type TStaffStatItem = {
   meanScore: number;
   timeWatched: number;
   list: TStatListItem[];
-};
-
-export type TStatListItem = {
-  title: string;
-  posterPath: string;
-  id: number;
-  mediaType: TMediaType;
 };
 
 export type TOtherStatType = "tag" | "genre" | "cast" | "crew" | "studio";
@@ -44,14 +57,17 @@ export type TStatPageParams = {
 
 export interface IOverviewStats {
   user: string;
-  mediaType: TMediaType;
-  episodesWatched: number;
+  mediaType: MediaType;
+  /** entries that aren't "planning" */
   count: number;
+  episodesWatched: number;
   daysWatched: number;
   daysPlanned: number;
+  /** mean of the user's own scores; 0 if nothing scored */
   meanScore: number;
-  score: any[];
-  epsCount: any[];
+  standardDeviation?: number;
+  score: TNumberDistribution[];
+  epsCount: TNumberDistribution[];
   formatDist: TDistribution[];
   statusDist: TDistribution[];
   countryDist: TDistribution[];
@@ -60,14 +76,17 @@ export interface IOverviewStats {
 }
 
 export interface IOtherStats {
+  _id?: string;
   user: string;
-  mediaType: TMediaType;
+  mediaType: MediaType;
   type: TOtherStatType;
   count: number;
   meanScore: number;
+  /** hours */
   timeWatched: number;
   statTypeId: string;
   title: string;
+  /** cast/crew only. Can be null at runtime when TMDB has no photo. */
   profilePath: string;
   list: TStatListItem[];
 }

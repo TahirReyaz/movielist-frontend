@@ -172,28 +172,38 @@ export const getSeasonDetails = async (
   }
 };
 
+export type TSearchPage = {
+  results: (TBulkMovie | TBulkTV)[];
+  page: number;
+  /** pass as `page` to load more; null = no more results */
+  nextPage: number | null;
+  totalPages: number;
+  totalResults: number;
+};
+
 export const getSearchResults = async ({
   query,
   genres,
   year,
   season,
-  formats,
   mediaType,
+  page = 1,
 }: {
   query?: string;
   genres?: string;
   year?: string;
   season?: string;
-  formats?: string;
   mediaType?: string;
+  page?: number;
 }) => {
-  const response = await apiClient.get(`/search/${mediaType}`, {
+  const response = await apiClient.get<TSearchPage>(`/search/${mediaType}`, {
     params: {
-      query,
-      genres,
-      year,
-      season,
-      formats,
+      // don't send empty filters
+      query: query || undefined,
+      genres: genres || undefined,
+      year: year || undefined,
+      season: season || undefined,
+      page,
     },
   });
 

@@ -12,7 +12,7 @@ const Stats = ({ type }: { type: TMediaType }) => {
   let totalTitle = "Total Movies",
     daysWatched = Math.round(stats?.daysWatched ?? 0);
   if (type === "tv") {
-    totalTitle = "Total Shows";
+    totalTitle = "Total Seasons";
     daysWatched = Math.round(stats?.daysWatched ?? 0);
   }
 
@@ -39,7 +39,7 @@ const Stats = ({ type }: { type: TMediaType }) => {
         <Item
           {...{
             title: "Mean Score",
-            value: 0,
+            value: stats?.meanScore ?? 0,
           }}
         />
       </div>
