@@ -3,7 +3,7 @@ import React from "react";
 import Item from "./Item";
 import { posterSizes, tmdbImgBaseUrl } from "../../../../constants/tmdb";
 import placeholderImg from "../../../../assets/no_img_long.jpg";
-import placeholderUserImg from "../../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as placeholderUserImg } from "../../../../lib/avatar";
 
 const SearchResults = ({ results, type }: { results: any[]; type: string }) => {
   return (

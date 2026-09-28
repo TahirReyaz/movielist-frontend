@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
 import { useQueryClient } from "@tanstack/react-query";
 
-import userAvatar from "../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar, handleAvatarError } from "../../../lib/avatar";
 
 import MarkdownEditor from "../../UI/Inputs/MarkdownEditor";
 import { useAppSelector } from "../../../hooks/redux";
@@ -73,6 +73,7 @@ const NewActivity = ({
                 <Link to={`/user/${username}`} className="text-2xl">
                   <img
                     src={profileData?.avatar ?? userAvatar}
+                    onError={handleAvatarError}
                     className="size-16 rounded object-cover"
                   />
                 </Link>

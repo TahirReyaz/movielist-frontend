@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import avatarPlaceholder from "../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as avatarPlaceholder, handleAvatarError } from "../../../lib/avatar";
 import { TRefUser } from "../../../constants/Interfaces/user";
 
 interface Props {
@@ -21,6 +21,7 @@ const LikedUsersTooltip = ({ users }: Props) => {
           <img
             {...{
               src: user.avatar ?? avatarPlaceholder,
+              onError: handleAvatarError,
               className: "size-16 aspect-square",
               alt: user.username,
             }}

@@ -43,7 +43,7 @@ const Avatar = () => {
         {...{
           src: profileData?.avatar,
           onUpload: (url: string) => profileMutation.mutate(url),
-          uploadPath: "user-avatar",
+          kind: "avatar",
           name: "avatar-upload",
         }}
       />

@@ -23,8 +23,16 @@ export const showSuccessToast = (
   toast.success(message, { ...defaultOptions, ...options });
 };
 
-export const showErrorToast = (message: string, options: ToastOptions = {}) => {
-  toast.error(message, { ...defaultOptions, ...options });
+export const showErrorToast = (
+  message: string | undefined,
+  options: ToastOptions = {}
+) => {
+  // never show an empty toast; errors stay longer so they can be read
+  toast.error(message?.trim() || "Something went wrong. Please try again.", {
+    ...defaultOptions,
+    autoClose: 4000,
+    ...options,
+  });
 };
 
 export const showWarningToast = (

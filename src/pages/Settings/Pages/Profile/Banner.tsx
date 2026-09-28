@@ -40,7 +40,7 @@ const Banner = () => {
         {...{
           src: profileData?.banner,
           onUpload: (url: string) => profileMutation.mutate(url),
-          uploadPath: "user-banner",
+          kind: "banner",
           name: "banner-upload",
         }}
       />

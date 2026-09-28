@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import userAvatar from "../../../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar, handleAvatarError } from "../../../../../lib/avatar";
 
 import { TFollowingUserStat } from "../../../../../constants/Interfaces/user";
 import { capitaliseFirst } from "../../../../../lib/helpers";
@@ -15,6 +15,7 @@ const Item = ({ username, avatar, status, score }: TFollowingUserStat) => {
       <img
         {...{
           src: avatar ?? userAvatar,
+          onError: handleAvatarError,
           className: "rounded size-16",
         }}
       />

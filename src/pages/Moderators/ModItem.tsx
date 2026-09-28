@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import { FaWrench } from "react-icons/fa";
 
-import userAvatarPlaceholder from "../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatarPlaceholder, handleAvatarError } from "../../lib/avatar";
 
 import { TMod } from "../../constants/Interfaces/mods";
 
@@ -22,7 +22,11 @@ const ModItem = ({ username, avatar, roles }: TMod) => {
         onMouseLeave={() => setHover(false)}
         className="relative"
       >
-        <img src={avatar ?? userAvatarPlaceholder} className="rounded-md" />
+        <img
+          src={avatar ?? userAvatarPlaceholder}
+          onError={handleAvatarError}
+          className="rounded-md"
+        />
         {hover && (
           <div className="bg-shadow/60 py-4 text-center flex items-end justify-center h-full w-full absolute top-0 left-0 rounded-md">
             <h1 className="text-xl font-medium text-white">{username}</h1>

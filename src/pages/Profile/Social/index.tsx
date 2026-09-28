@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import userAvatar from "../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar } from "../../../lib/avatar";
 
 import LowerLayout from "../../../components/UI/LowerLayout";
 import SocialUser from "./SocialUser";

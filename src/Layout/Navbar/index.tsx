@@ -7,7 +7,7 @@ import Tippy from "@tippyjs/react/headless";
 
 import "tippy.js/animations/shift-away.css";
 
-import userAvatar from "../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar, handleAvatarError } from "../../lib/avatar";
 import Logo from "../../assets/logo.png";
 
 import { FaSearch } from "react-icons/fa";
@@ -106,6 +106,7 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <img
                   src={profileData?.avatar ? profileData.avatar : userAvatar}
+                  onError={handleAvatarError}
                   alt="Avatar"
                   className="size-16 cursor-pointer rounded object-cover"
                 />

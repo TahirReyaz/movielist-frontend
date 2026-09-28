@@ -8,6 +8,7 @@ import { useLoadingBar } from "../../../components/UI/LoadingBar";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { useAppSelector } from "../../../hooks/redux";
 import { socialFilterType } from ".";
+import { handleAvatarError } from "../../../lib/avatar";
 
 const SocialUser = ({
   img,
@@ -51,7 +52,7 @@ const SocialUser = ({
       className="relative rounded"
     >
       <Link to={`/user/${username}`}>
-        <img src={img} />
+        <img src={img} onError={handleAvatarError} />
         {hover && (
           <div className="bg-shadow/60 py-4 text-center flex items-end justify-center h-full w-full absolute top-0 left-0 rounded">
             <h1 className="text-xl font-medium text-white">{username}</h1>

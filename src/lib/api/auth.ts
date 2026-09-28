@@ -1,4 +1,5 @@
 import apiClient from ".";
+import { getApiErrorMessage } from "./errors";
 
 export const signup = async (
   email: string,
@@ -13,9 +14,8 @@ export const signup = async (
     });
 
     return response.data;
-  } catch (error: any) {
-    const msg = error?.response?.data?.message;
-    throw new Error(msg);
+  } catch (error) {
+    throw new Error(getApiErrorMessage(error, "Couldn't create your account"));
   }
 };
 
@@ -23,9 +23,8 @@ export const login = async (email: string, password: string) => {
   try {
     const response = await apiClient.post(`/auth/login`, { email, password });
     return response.data;
-  } catch (error: any) {
-    const error_msg = error?.response?.data?.message;
-    throw new Error(error_msg);
+  } catch (error) {
+    throw new Error(getApiErrorMessage(error, "Couldn't log you in"));
   }
 };
 
@@ -35,9 +34,8 @@ export const sessionLogin = async (sessionToken: string) => {
       sessionToken,
     });
     return response.data;
-  } catch (error: any) {
-    const error_msg = error?.response?.data?.message;
-    throw new Error(error_msg);
+  } catch (error) {
+    throw new Error(getApiErrorMessage(error, "Your session has expired"));
   }
 };
 
@@ -52,8 +50,7 @@ export const changePassword = async (
     });
 
     return response.data;
-  } catch (error: any) {
-    const error_msg = error?.response?.data?.message;
-    throw new Error(error_msg ?? error.message);
+  } catch (error) {
+    throw new Error(getApiErrorMessage(error, "Couldn't change your password"));
   }
 };

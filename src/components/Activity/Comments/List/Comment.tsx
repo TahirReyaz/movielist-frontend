@@ -5,7 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useQueryClient } from "@tanstack/react-query";
 import Tippy from "@tippyjs/react/headless";
 
-import userAvatar from "../../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar, handleAvatarError } from "../../../../lib/avatar";
 import { IComment } from "../../../../constants/Interfaces/activity";
 import { calculateElapsedTime } from "../../../../lib/helpers";
 import { useAppSelector } from "../../../../hooks/redux";
@@ -85,6 +85,7 @@ const Comment = ({
           <Link to={`/user/${owner.username}`} className="flex items-center">
             <img
               src={owner.avatar ?? userAvatar}
+              onError={handleAvatarError}
               alt={owner.username}
               className={` mb-4 rounded size-12 object-cover`}
             />

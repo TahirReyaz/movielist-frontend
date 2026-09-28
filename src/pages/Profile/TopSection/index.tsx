@@ -1,6 +1,6 @@
 import React from "react";
 
-import userAvatar from "../../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar, handleAvatarError } from "../../../lib/avatar";
 
 import { useAppSelector } from "../../../hooks/redux.ts";
 import Links from "./Links.tsx";
@@ -34,6 +34,7 @@ const TopSection = () => {
           <div className="col-span-2">
             <img
               src={avatar ? avatar : userAvatar}
+              onError={handleAvatarError}
               alt={profileUsername}
               className={` mb-4 rounded size-40 object-cover`}
             />

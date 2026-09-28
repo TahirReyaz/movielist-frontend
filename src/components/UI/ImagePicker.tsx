@@ -1,49 +1,46 @@
 import React, { useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useSelector } from "react-redux";
-import { v4 } from "uuid";
 
-import { storage } from "../../firebase";
-import { RootState } from "../../store";
+import { uploadImage } from "../../lib/api";
+import { ACCEPTED_IMAGE_TYPES, TImageKind } from "../../lib/api/upload";
+import { showErrorToast } from "../../utils/toastUtils";
 
 interface ImagePickerProps {
   src: string | undefined;
   onUpload: (url: string) => void;
-  uploadPath: string;
+  /** which image this is: decides size/crop and where it's stored */
+  kind: TImageKind;
   name: string;
 }
 
-const ImagePicker = ({ src, onUpload, uploadPath, name }: ImagePickerProps) => {
-  const { username } = useSelector((state: RootState) => state.auth);
+const ImagePicker = ({ src, onUpload, kind, name }: ImagePickerProps) => {
+  const [uploading, setUploading] = useState(false);
 
-  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-
-    if (file && file.type.startsWith("image/")) {
-      const imageRef = ref(storage, `${uploadPath}/${username}-${v4()}`);
-      const uploadedImg = await uploadBytes(imageRef, file);
-      const uploadedImgRef = ref(storage, uploadedImg.metadata.fullPath);
-      const imgUrl = await getDownloadURL(uploadedImgRef);
-      onUpload(imgUrl);
+  const handleFile = async (file: File | undefined) => {
+    if (!file || uploading) return;
+    try {
+      setUploading(true);
+      const url = await uploadImage(file, kind);
+      onUpload(url);
+    } catch (error: any) {
+      showErrorToast(error.message);
+    } finally {
+      setUploading(false);
     }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    handleFile(e.dataTransfer.files[0]);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
-  const handleFileInputChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      const imageRef = ref(storage, `${uploadPath}/${username}-${v4()}`);
-      const uploadedImg = await uploadBytes(imageRef, file);
-      const uploadedImgRef = ref(storage, uploadedImg.metadata.fullPath);
-      const imgUrl = await getDownloadURL(uploadedImgRef);
-      onUpload(imgUrl);
-    }
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleFile(e.target.files?.[0]);
+    // allow picking the same file again
+    e.target.value = "";
   };
 
   return (
@@ -57,12 +54,15 @@ const ImagePicker = ({ src, onUpload, uploadPath, name }: ImagePickerProps) => {
         >
           <input
             type="file"
-            accept="image/png, image/jpeg"
+            accept={ACCEPTED_IMAGE_TYPES.join(", ")}
             onChange={handleFileInputChange}
             className="hidden"
             id={name}
+            disabled={uploading}
           />
-          <label htmlFor={name}>Drop image here or click to upload</label>
+          <label htmlFor={name}>
+            {uploading ? "Uploading..." : "Drop image here or click to upload"}
+          </label>
         </div>
       </div>
       {/* Preview */}

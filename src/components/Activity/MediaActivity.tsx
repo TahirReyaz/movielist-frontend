@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaCaretDown, FaComment, FaHeart } from "react-icons/fa";
 import Tippy from "@tippyjs/react/headless";
 
-import userAvatarPlaceholder from "../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatarPlaceholder, handleAvatarError } from "../../lib/avatar";
 
 import { calculateElapsedTime, findExistingEntry } from "../../lib/helpers";
 import { ActivityProps } from ".";
@@ -177,6 +177,7 @@ const MediaActivity = ({
             >
               <img
                 src={owner.avatar ?? userAvatarPlaceholder}
+                onError={handleAvatarError}
                 className="size-16 rounded object-cover"
               />
             </Link>

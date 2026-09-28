@@ -5,7 +5,7 @@ import Tippy from "@tippyjs/react/headless";
 import { useQueryClient } from "@tanstack/react-query";
 import { FaComment, FaHeart } from "react-icons/fa";
 
-import userAvatar from "../../assets/userAvatar.png";
+import { AVATAR_FALLBACK as userAvatar, handleAvatarError } from "../../lib/avatar";
 
 import { ActivityProps } from ".";
 import Comments from "./Comments";
@@ -82,6 +82,7 @@ const StatusActivity = ({
               <Link to={`/user/${owner.username}`} className="text-2xl">
                 <img
                   src={owner?.avatar ?? userAvatar}
+                  onError={handleAvatarError}
                   className="size-16 rounded object-cover"
                 />
               </Link>

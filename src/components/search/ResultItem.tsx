@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 
 import posterPlaceholder from "../../assets/posterPlaceholder.jpg";
+import { AVATAR_FALLBACK, handleAvatarError } from "../../lib/avatar";
 
 import { posterSizes, tmdbImgBaseUrl } from "../../constants/tmdb";
 import { TMultiSearchResultType } from "../../constants/Interfaces/misc";
@@ -23,7 +24,7 @@ const ResultItem = ({
   url,
   setOpen,
 }: ResultItemProps) => {
-  let image = posterPlaceholder;
+  let image = type == "user" ? AVATAR_FALLBACK : posterPlaceholder;
   if (poster) {
     if (type == "user") {
       image = poster;
@@ -54,6 +55,7 @@ const ResultItem = ({
       <img
         src={image}
         alt={title}
+        onError={type == "user" ? handleAvatarError : undefined}
         className={`rounded-md aspect-square object-cover ${
           type == "staff" ? "object-center" : "object-top"
         } w-1/12`}

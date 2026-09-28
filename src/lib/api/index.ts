@@ -64,6 +64,7 @@ import {
 } from "./comment";
 import { getStaffDetails, getStaffCredits, searchStaff } from "./staff";
 import { getUserNotifsByType, markAllUserNotifsRead } from "./notification";
+import { uploadImage } from "./upload";
 
 const apiClient = axios.create({
   baseURL: backendUrl,
@@ -135,3 +136,5 @@ export { getUserNotifsByType, markAllUserNotifsRead };
 export { updateStats, getOtherStats, getOverviewStats };
 // Followers
 export { followUser, unfollowUser, getFollowers, getFollowings };
+// Uploads
+export { uploadImage };
