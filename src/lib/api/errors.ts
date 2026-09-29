@@ -57,3 +57,20 @@ export const getApiErrorMessage = (
   }
   return fallback;
 };
+
+/** An Error that remembers the HTTP status (undefined = no response). */
+export class ApiError extends Error {
+  status?: number;
+
+  constructor(message: string, status?: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
+export const toApiError = (error: unknown, fallback?: string): ApiError =>
+  new ApiError(
+    getApiErrorMessage(error, fallback),
+    isAxiosError(error) ? error.response?.status : undefined
+  );

@@ -1,5 +1,5 @@
 import apiClient from ".";
-import { getApiErrorMessage } from "./errors";
+import { getApiErrorMessage, toApiError } from "./errors";
 
 export const signup = async (
   email: string,
@@ -35,7 +35,8 @@ export const sessionLogin = async (sessionToken: string) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(getApiErrorMessage(error, "Your session has expired"));
+    // keep the status: only a 401 means the saved token is really invalid
+    throw toApiError(error, "Your session has expired");
   }
 };
 

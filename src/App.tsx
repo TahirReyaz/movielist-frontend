@@ -1,4 +1,4 @@
-import React, { useEffect, lazy } from "react";
+import React, { useEffect, useState, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
@@ -42,32 +42,53 @@ import {
   settingsSubRoutes,
   statsSubRoutes,
 } from "./routes";
-import { useAppDispatch } from "./hooks/redux";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { sessionLogin } from "./lib/api";
+import { ApiError } from "./lib/api/errors";
+import { showErrorToast } from "./utils/toastUtils";
 import { logoutAction, saveUser } from "./store/AuthSlice";
 import { frontendUrl } from "./constants";
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const storedToken = localStorage.getItem("token");
-  const username = localStorage.getItem("username") || "";
-  const token = storedToken ?? "";
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
+  // localStorage is shared by every tab of the site, so a new tab finds the token here
+  const token = localStorage.getItem("token") ?? "";
+  const username = localStorage.getItem("username") || "";
   const isTokenPresent = token.length !== 0;
 
-  if (!isTokenPresent) {
-    dispatch(logoutAction());
-  }
+  // Re-render when another tab logs in or out (the "storage" event only fires in OTHER tabs)
+  const [, setStorageVersion] = useState(0);
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === null || event.key === "token" || event.key === "username") {
+        setStorageVersion((v) => v + 1);
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
   const {
     data: user,
-    isLoading,
+    error,
     isError,
   } = useQuery({
     queryKey: ["user", username],
     queryFn: () => sessionLogin(token),
-    enabled: token && isTokenPresent ? true : false,
+    enabled: isTokenPresent,
+    // an invalid token won't become valid by retrying; network/server errors might
+    retry: (failureCount, err) =>
+      !(err instanceof ApiError && err.status === 401) && failureCount < 2,
   });
+
+  // No token (never logged in, or logged out in another tab)
+  useEffect(() => {
+    if (!isTokenPresent) {
+      dispatch(logoutAction());
+    }
+  }, [isTokenPresent]);
 
   useEffect(() => {
     if (user) {
@@ -83,16 +104,27 @@ const App = () => {
     }
   }, [user]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (!isError) return;
+    if (error instanceof ApiError && error.status === 401) {
+      // the server says the token is invalid/expired: really log out
+      dispatch(logoutAction());
+    } else {
+      // server down, cold start, no internet...: keep the token so the next
+      // load (or refocusing this tab) can restore the session
+      showErrorToast(`Couldn't restore your session: ${error?.message}`);
+    }
+  }, [isError, error]);
+
+  // Don't render pages until the session is restored. Otherwise pages render
+  // for a moment as "logged out" (and may redirect to /login) in a new tab.
+  const restoringSession = isTokenPresent && !isLoggedIn && !isError;
+  if (restoringSession) {
     return (
       <div className="h-screen p-20 bg-anilist-mirage text-white text-center">
         <Loading title="Fetching user details..." />
       </div>
     );
-  }
-
-  if (isError) {
-    dispatch(logoutAction());
   }
 
   return (

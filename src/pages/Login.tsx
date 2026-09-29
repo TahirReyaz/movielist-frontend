@@ -51,17 +51,17 @@ const Login = () => {
         const response = await login(values.email, values.password);
 
         loadingBar.current?.complete();
+        // Save the token immediately so links opened in new tabs are logged in too
+        dispatch(
+          loginAction({
+            username: response.username,
+            token: response.token,
+            profile: response,
+            unreadNotifs: response.unreadNotifs,
+          })
+        );
         showSuccessToast(response.message);
-        setTimeout(() => {
-          dispatch(
-            loginAction({
-              username: response.username,
-              token: response.token,
-              profile: response,
-            })
-          );
-        }, 3000);
-        setTimeout(() => navigate("/"), 1000);
+        navigate("/");
       } catch (error: any) {
         loadingBar.current?.complete();
         showErrorToast(error.message);
